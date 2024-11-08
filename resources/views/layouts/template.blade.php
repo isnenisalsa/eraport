@@ -36,9 +36,9 @@
             <!-- Brand Logo -->
             <a href="{{ url('/') }}" class="brand-link"
                 style="text-align: center ; background-color: #FFFCF7;height: 62px;">
-                <img src="{{ asset('img/LogoPondok.svg') }}" alt="adminlte Logo" class="brand-image"
+                <img src="{{ asset('image/Logo.png') }}" alt="adminlte Logo" class="brand-image"
                     style=" margin-left: -2%">
-                <span class="brand-text font-weight-light" style="color: rgb(14, 13, 13); ">PONPES SIRAJUL HUDA </span>
+                <span class="brand-text font-weight-light" style="color: rgb(14, 13, 13); ">SMP IT SIRAJUL HUDA </span>
             </a>
 
             <!-- Sidebar -->

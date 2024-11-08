@@ -11,6 +11,7 @@ class GuruModel extends Authenticatable
     use HasFactory;
 
     protected $table = 'guru';
+    protected $primaryKey = "nik";
     protected $fillable = [
         'nik',
         'nama',

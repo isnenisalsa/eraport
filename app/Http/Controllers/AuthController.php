@@ -47,7 +47,7 @@ class AuthController extends Controller
     $siswa = SiswaModel::where('username', $request->username)->first();
     if ($siswa && Hash::check($request->password, $siswa->password)) {
         // Simpan data siswa ke dalam session
-        session(['siswa_id' => $siswa->id]);
+        session(['siswa_id' => $siswa->nis]);
         return redirect()->intended('siswa'); // Redirect ke halaman siswa
     } else {
         // Jika login gagal, redirect kembali dengan pesan error

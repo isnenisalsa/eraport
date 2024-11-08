@@ -44,5 +44,20 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password123'),
             'roles_id' => 2,
         ]);
+
+        GuruModel::create([
+            'nik' => '1234567890123458',
+            'nama' => 'Isna',
+            'tempat_lahir' => 'Tanah Laut',
+            'tanggal_lahir' => '2005-01-03',
+            'jenis_kelamin' => 'P',
+            'nama_ibu' => 'ppppp',
+            'agama' => 'Islam',
+            'status_perkawinan' => 'Belum',
+            'email' => 'isna@example.com',
+            'username' => 'isna',
+            'password' => Hash::make('password123'),
+            'roles_id' => 3,
+        ]);
     }
 }
