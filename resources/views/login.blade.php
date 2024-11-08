@@ -35,7 +35,7 @@
         <div class="logo">
             <img src="image/logo.png" alt="Logo" width="250px">
         </div>
-        <form class="card p-4" style="width:500px;" action="{{ route('proses_login') }}" method="POST">
+        <form class="card p-4" style="width:500px;" action="{{ url('proses_login') }}" method="POST">
             @csrf
             <div class="card-body login-card-body">
                 @error('akses')
@@ -44,6 +44,12 @@
                 @error('login_gagal')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
+                @error('access_denied')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
+            @error('error')
+            <span class="text-danger">{{ $message }}</span>
+        @enderror
                 <h2 class="mb-3 text-center">Login</h2>
                 <div class="form-group">
                     <label for="username">Username</label>

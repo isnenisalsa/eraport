@@ -18,7 +18,7 @@ class CekLogin
     {
 
         if (!Auth::check()) {
-            return redirect('/')->with('error', 'Anda harus login untuk mengakses halaman ini.');
+            return redirect('login')->with('error', 'Anda harus login untuk mengakses halaman ini.');
         }
 
         // Ambil pengguna yang terautentikasi
@@ -28,8 +28,7 @@ class CekLogin
         if ($user->roles_id == $roles) {
             return $next($request); // Izinkan akses
         }
-
         // Arahkan jika pengguna tidak memiliki peran yang diperlukan
-        return redirect('/')->withInput()->withErrors(['akses' => 'anda tidak memiliki akses']);
+        return redirect('login')->withInput()->withErrors(['akses' => 'anda tidak memiliki akses']);
     }
 }

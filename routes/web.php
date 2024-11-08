@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,16 +16,35 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-
-    if (auth()->check() && auth()->user()->level->nama == 'admin') {
-        return redirect()->route('dashboard.admin');
-    } elseif (auth()->check() && auth()->user()->level->nama == 'guru') {
-        return redirect()->route('dashboard.guru');
-    } elseif (auth()->check() && auth()->user()->level->nama == 'walas') {
-        return redirect()->route('dashboard.walas');
+    if (auth()->check()) {
+        switch (auth()->user()->level->nama) {
+            case 'admin':
+                return redirect()->route('dashboard.admin');
+            case 'guru':
+                return redirect()->route('dashboard.guru');
+            case 'walas':
+                return redirect()->route('dashboard.walas');
+        }
     }
-
     return redirect()->route('login');
 });
+
 Route::get('login', [AuthController::class, "index"])->name('login');
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
+
+Route::middleware(['auth'])->group(function () {
+    // Rute untuk Admin
+    Route::get('/dashboard/admin', [DashboardController::class, 'index'])
+        ->middleware('cek_login:1')
+        ->name('dashboard.admin');
+    
+    // Rute untuk Guru
+    Route::get('/dashboard/guru', [DashboardController::class, 'guru'])
+        ->middleware('cek_login:2')
+        ->name('dashboard.guru');
+    
+    // Rute untuk Walas
+    Route::get('/dashboard/walas', [DashboardController::class, 'walas'])
+        ->middleware('cek_login:3')
+        ->name('dashboard.walas');
+});

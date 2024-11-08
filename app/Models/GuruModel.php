@@ -29,8 +29,4 @@ class GuruModel extends Authenticatable
     {
         return $this->belongsTo(RolesModel::class, 'roles_id', 'id');
     }
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
 }

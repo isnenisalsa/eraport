@@ -15,38 +15,45 @@ class AuthController extends Controller
         return view('login');
     }
     public function proses_login(Request $request)
-    {
-        $request->validate([
-            'username' => 'required',
-            'password' => 'required'
-        ]);
-        $credential = $request->only('username', 'password');
-        if (Auth::attempt($credential)) {
-            $user = Auth::user();
-            switch ($user->roles_id) {
-                case '1':
-                    // Logic for Admin
-                    return redirect()->route('dashboard.admin'); // Return admin dashboard view
-                case '2':
-                    // Logic for Guru
-                    return redirect()->route('dashboard.guru'); // Return guru dashboard view
-                case '3':
-                    // Logic for Walas
-                    return redirect()->route('dashboard.walas'); // Return walas dashboard view
-                default:
-                    // If the role is not recognized, redirect or show an error
-                    return redirect('login')->withErrors(['access_denied' => 'Akses ditolak.']);
-            }
+{
+    $request->validate([
+        'username' => 'required',
+        'password' => 'required'
+    ]);
+
+    // Ambil input untuk autentikasi
+    $credential = $request->only('username', 'password');
+
+    // Coba login sebagai user (admin, guru, atau walas)
+    if (Auth::attempt($credential)) {
+        $user = Auth::user();
+        switch ($user->roles_id) {
+            case '1':
+                // Redirect ke dashboard admin
+                return redirect()->route('dashboard.admin');
+            case '2':
+                // Redirect ke dashboard guru
+                return redirect()->route('dashboard.guru');
+            case '3':
+                // Redirect ke dashboard walas
+                return redirect()->route('dashboard.walas');
+            default:
+                // Redirect jika role tidak dikenali
+                return redirect('login')->withErrors(['access_denied' => 'Akses ditolak.']);
         }
-        $siswa = SiswaModel::where('username', $request->username)->first();
-        if ($siswa && Hash::check($request->password, $siswa->password)) {
-            // Simpan data siswa ke dalam session
-            session(['siswa_id' => $siswa->id]);
-            return redirect()->intended('siswa');
-        } else
-            // Jika login gagal, redirect kembali dengan input dan pesan error
-            return redirect('login')->withInput()->withErrors(['login_gagal' => 'Pastikan kembali username dan password yang sudah dimasukkan']);
     }
+
+    // Jika user tidak ditemukan, cek di tabel siswa
+    $siswa = SiswaModel::where('username', $request->username)->first();
+    if ($siswa && Hash::check($request->password, $siswa->password)) {
+        // Simpan data siswa ke dalam session
+        session(['siswa_id' => $siswa->id]);
+        return redirect()->intended('siswa'); // Redirect ke halaman siswa
+    } else {
+        // Jika login gagal, redirect kembali dengan pesan error
+        return redirect('login')->withInput()->withErrors(['login_gagal' => 'Pastikan kembali username dan password yang sudah dimasukkan']);
+    }
+}
     public function logout(Request $request)
     {
         $request->session()->flush();
