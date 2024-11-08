@@ -38,14 +38,14 @@ class AuthController extends Controller
                     return redirect('login')->withErrors(['access_denied' => 'Akses ditolak.']);
             }
         }
-        //     $siswa = SiswaModel::where('username', $request->username)->first();
-        //     if ($siswa && Hash::check($request->password, $siswa->password)) {
-        //         // Simpan data siswa ke dalam session
-        //         session(['siswa_id' => $siswa->id]);
-        //         return redirect()->intended('siswa');
-        //     } else
-        //         // Jika login gagal, redirect kembali dengan input dan pesan error
-        //         return redirect('login')->withInput()->withErrors(['login_gagal' => 'Pastikan kembali username dan password yang sudah dimasukkan']);
+        $siswa = SiswaModel::where('username', $request->username)->first();
+        if ($siswa && Hash::check($request->password, $siswa->password)) {
+            // Simpan data siswa ke dalam session
+            session(['siswa_id' => $siswa->id]);
+            return redirect()->intended('siswa');
+        } else
+            // Jika login gagal, redirect kembali dengan input dan pesan error
+            return redirect('login')->withInput()->withErrors(['login_gagal' => 'Pastikan kembali username dan password yang sudah dimasukkan']);
     }
     public function logout(Request $request)
     {

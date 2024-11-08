@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\GuruModel;
 use Illuminate\Database\Seeder;
+use App\Models\User; // Pastikan untuk mengimpor model yang tepat
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +14,35 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        GuruModel::create([
+            'nik' => '1234567890123456',
+            'nama' => 'John Doe',
+            'tempat_lahir' => 'Jakarta',
+            'tanggal_lahir' => '1990-01-01',
+            'jenis_kelamin' => 'L',
+            'nama_ibu' => 'Jane Doe',
+            'agama' => 'Islam',
+            'status_perkawinan' => 'Belum Menikah',
+            'email' => 'johndoe@example.com',
+            'username' => 'johndoe',
+            'password' => Hash::make('password123'), // Pastikan untuk mengenkripsi password
+            'roles_id' => 1, // Sesuaikan dengan id role yang ada
+        ]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // Anda bisa menambahkan lebih banyak data atau menggunakan loop untuk banyak data
+        GuruModel::create([
+            'nik' => '1234567890123457',
+            'nama' => 'Jane Smith',
+            'tempat_lahir' => 'Bandung',
+            'tanggal_lahir' => '1992-02-02',
+            'jenis_kelamin' => 'P',
+            'nama_ibu' => 'Mary Smith',
+            'agama' => 'Kristen',
+            'status_perkawinan' => 'Menikah',
+            'email' => 'janesmith@example.com',
+            'username' => 'janesmith',
+            'password' => Hash::make('password123'),
+            'roles_id' => 2,
+        ]);
     }
 }

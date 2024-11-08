@@ -11,21 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('guru', function (Blueprint $table) {
-            $table->unsignedBigInteger("nik")->primary();
+        Schema::create('siswa', function (Blueprint $table) {
+            $table->unsignedBigInteger("nis")->primary();
+            $table->integer("nisn");
             $table->string("nama");
+            $table->string("jenis_kelamin");
             $table->string("tempat_lahir");
             $table->date("tanggal_lahir");
-            $table->string("jenis_kelamin");
+            $table->string("alamat");
+            $table->string("nama_ayah");
+            $table->string("pekerjaan_ayah");
             $table->string("nama_ibu");
-            $table->string("agama");
-            $table->string("status_perkawinan");
-            $table->string("email");
+            $table->string("pekerjaan_ibu");
             $table->string("username")->nullable();
             $table->string("password")->nullable();
-            $table->unsignedBigInteger("roles_id");
+            $table->unsignedBigInteger("kelas_id");
             $table->timestamps();
-            $table->foreign("roles_id")->references("id")->on("roles")->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign("kelas_id")->references('id')->on("kelas");
         });
     }
 
@@ -34,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('guru');
+        Schema::dropIfExists('siswa');
     }
 };

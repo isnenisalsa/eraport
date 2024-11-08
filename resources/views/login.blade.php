@@ -36,17 +36,27 @@
             <img src="image/logo.png" alt="Logo" width="250px">
         </div>
         <form class="card p-4" style="width:500px;" action="{{ route('proses_login') }}" method="POST">
-            <h2 class="mb-3 text-center">Login</h2>
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="Masukkan username" required>
+            @csrf
+            <div class="card-body login-card-body">
+                @error('akses')
+                    <span class="text-danger text-center">{{ $message }}</span>
+                @enderror
+                @error('login_gagal')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+                <h2 class="mb-3 text-center">Login</h2>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" placeholder="Masukkan username"
+                        name="username" required>
 
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Masukkan password" required>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Masuk</button>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Masukkan password"
+                        name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Masuk</button>
         </form>
     </div>
 
