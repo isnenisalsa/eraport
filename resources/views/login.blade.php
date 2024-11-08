@@ -12,15 +12,16 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #FFFCF7; 
+            background-color: #FFFCF7;
         }
+
         .login-container {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            
-            
+
+
         }
 
         .logo {
@@ -34,12 +35,12 @@
         <div class="logo">
             <img src="image/logo.png" alt="Logo" width="250px">
         </div>
-        <form class="card p-4" style="width:500px;">
+        <form class="card p-4" style="width:500px;" action="{{ route('proses_login') }}" method="POST">
             <h2 class="mb-3 text-center">Login</h2>
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" class="form-control" id="username" placeholder="Masukkan username" required>
-                
+
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
