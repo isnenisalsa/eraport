@@ -38,21 +38,20 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/admin', [DashboardController::class, 'index'])
         ->middleware('cek_login:1')
         ->name('dashboard.admin');
-    
+
     // Rute untuk Guru
     Route::get('/dashboard/guru', [DashboardController::class, 'guru'])
         ->middleware('cek_login:2')
         ->name('dashboard.guru');
-    
+
     // Rute untuk Walas
     Route::get('/dashboard/walas', [DashboardController::class, 'walas'])
         ->middleware('cek_login:3')
         ->name('dashboard.walas');
-
 });
 
 Route::prefix('guru')->group(function () {
-    Route::get('/', [GuruController::class, 'index']);
-    Route::get('/post', [PostController::class, 'index']);
-    Route::get('/event', [EventController::class, 'index']);
-    });
+    Route::get('/', [GuruController::class, 'index'])->middleware('cek_login:1')->name('index');
+    Route::get('/create', [GuruController::class, 'create'])->middleware('cek_login:1')->name('create');
+    Route::post('/save', [GuruController::class, 'save'])->name('save');
+});

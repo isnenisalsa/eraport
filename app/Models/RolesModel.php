@@ -10,8 +10,11 @@ class RolesModel extends Model
 {
     use HasFactory;
     protected $table = 'roles';
+    protected $fillable = [
+        'nama',
+    ];
     public function user(): BelongsTo
     {
-return $this->belongsTo(GuruModel::class);
+        return $this->belongsTo(GuruModel::class);
     }
 }
