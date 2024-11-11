@@ -3,7 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\GuruController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,9 +49,9 @@ Route::middleware(['auth'])->group(function () {
         ->name('dashboard.walas');
 
 });
-Route::get('guru', function(){ 
-    return view("admin/guru/index");
-});
-Route::get('guru/create', function(){ 
-    return view("admin/guru/create");
-});
+
+Route::prefix('guru')->group(function () {
+    Route::get('/', [GuruController::class, 'index']);
+    Route::get('/post', [PostController::class, 'index']);
+    Route::get('/event', [EventController::class, 'index']);
+    });

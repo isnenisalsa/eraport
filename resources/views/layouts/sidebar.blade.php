@@ -7,8 +7,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
                 @if (auth()->check() && auth()->user()->level->nama == 'admin')
-                    <a href="{{ url('/dashboard/admin') }}"
-                        class="nav-link ">
+                    <a href="{{ url('/dashboard/admin') }}" class="nav-link  {{ $activeMenu == 'dashboard' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt" style="color: rgb(3, 3, 3)"></i>
                         <p style="color: rgb(10, 10, 10)">
                             Dashboard
