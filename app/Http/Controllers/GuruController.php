@@ -14,8 +14,8 @@ class GuruController extends Controller
         ];
        
 
-        $activeMenu = 'guru'; //sert menu yang sudah aktif
-        $guru = GuruModel::all(); //ambil data guru untuk filter guru
+        $activeMenu = 'guru'; 
+        $guru = GuruModel::all(); 
 
         return view('admin\guru\index', ['breadcrumb' => $breadcrumb, 'guru' => $guru, 'activeMenu' => $activeMenu ]);
     }
