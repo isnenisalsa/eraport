@@ -11,7 +11,6 @@ class GuruController extends Controller
     {
         $breadcrumb = (object) [
             'title' => 'Daftar User',
-            
         ];
 
        

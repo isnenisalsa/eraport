@@ -18,7 +18,7 @@
             </li>
             <li class="nav-item">
                 @if (auth()->check() && auth()->user()->level->nama == 'admin')
-                    <a href="{{ url('guru') }}" class="nav-link ">
+                    <a href="{{ url('guru') }}" class="nav-link {{ $activeMenu == 'guru' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-chalkboard-teacher" style="color: rgb(16, 15, 15)"></i>
                         <p style="color: rgb(5, 5, 5)">
                             Guru
