@@ -12,7 +12,6 @@ class GuruController extends Controller
         $breadcrumb = (object) [
             'title' => 'Daftar User',
         ];
-
        
 
         $activeMenu = 'guru'; //sert menu yang sudah aktif
