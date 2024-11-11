@@ -47,4 +47,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/walas', [DashboardController::class, 'walas'])
         ->middleware('cek_login:3')
         ->name('dashboard.walas');
+
+});
+Route::get('guru', function(){ 
+    return view("admin/guru/index");
+});
+Route::get('guru/create', function(){ 
+    return view("admin/guru/create");
 });
