@@ -22,7 +22,6 @@
                         <i class="nav-icon fas fa-chalkboard-teacher" style="color: rgb(16, 15, 15)"></i>
                         <p style="color: rgb(5, 5, 5)">
                             Guru
-
                         </p>
                     </a>
                 @endif
