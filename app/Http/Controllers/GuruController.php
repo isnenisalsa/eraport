@@ -79,6 +79,7 @@ class GuruController extends Controller
             'jenis_kelamin' => $request->jenis_kelamin,
             'nama_ibu' => $request->nama_ibu,
             'agama' => $request->agama,
+            'alamat' => $request->alamat,
             'jabatan' => $request->jabatan,
             'status' => $request->status,
             'no_telp' => $request->no_telp,
@@ -91,4 +92,65 @@ class GuruController extends Controller
         ]);
         return redirect()->route('index');
     }
+    public function edit($nik) {
+        $breadcrumb = (object) [
+            'title' => 'Edit Guru',
+        ];
+    
+        $activeMenu = 'guru';
+        $guru = GuruModel::where('nik', $nik)->first();
+
+        
+
+        if (!$guru) {
+            return redirect()->route('guru.index')->with('error', 'Data guru tidak ditemukan.');
+        }
+    
+        return view('admin.guru.update', ['breadcrumb' => $breadcrumb, 'guru' => $guru, 'activeMenu' => $activeMenu]);
+    }
+    public function update(Request $request, $nik)
+    {
+        // Validasi input
+        $request->validate([
+            'nik' => 'required|max:16',
+            'status_perkawinan' => 'required',
+            'status' => 'required',
+            'nama' => 'required|string|max:255',
+            'jenis_kelamin' => 'required',
+            'jabatan' => 'required',
+            'pendidikan_terakhir' => 'required',
+            'no_telp' => 'required|numeric',
+            'tempat_lahir' => 'required|string|max:255',
+            'tanggal_lahir' => 'required|date',
+            'agama' => 'required',
+            'nama_ibu' => 'required|string|max:255',
+            'email' => 'required|email',
+            'alamat' => 'required|string|max:255',
+        ]);
+    
+        // Cari guru berdasarkan ID
+        $guru = GuruModel::findOrFail($nik);
+    
+        // Perbarui data guru dengan data dari form
+        $guru->update([
+            'nik' => $request->input('nik'),
+            'status_perkawinan' => $request->input('status_perkawinan'),
+            'status' => $request->input('status'),
+            'nama' => $request->input('nama'),
+            'jenis_kelamin' => $request->input('jenis_kelamin'),
+            'jabatan' => $request->input('jabatan'),
+            'pendidikan_terakhir' => $request->input('pendidikan_terakhir'),
+            'no_telp' => $request->input('no_telp'),
+            'tempat_lahir' => $request->input('tempat_lahir'),
+            'tanggal_lahir' => $request->input('tanggal_lahir'),
+            'agama' => $request->input('agama'),
+            'nama_ibu' => $request->input('nama_ibu'),
+            'email' => $request->input('email'),
+            'alamat' => $request->input('alamat'),
+        ]);
+    
+        // Redirect ke halaman yang sesuai setelah berhasil update
+        return redirect()->route('index')->with('success', 'Data guru berhasil diperbarui');
+    }
+    
 }

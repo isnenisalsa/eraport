@@ -54,4 +54,6 @@ Route::prefix('guru')->group(function () {
     Route::get('/', [GuruController::class, 'index'])->middleware('cek_login:1')->name('index');
     Route::get('/create', [GuruController::class, 'create'])->middleware('cek_login:1')->name('create');
     Route::post('/save', [GuruController::class, 'save'])->name('save');
+    Route::get('/edit/{nik}', [GuruController::class, 'edit'])->middleware('cek_login:1')->name('edit');
+    Route::put('/update/{nik}', [GuruController::class, 'update'])->middleware('cek_login:1')->name('update');
 });

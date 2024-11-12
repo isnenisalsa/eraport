@@ -55,27 +55,11 @@ class DatabaseSeeder extends Seeder
             'status_perkawinan' => 'Menikah',
             'email' => 'janesmith@example.com',
             'username' => 'janesmith',
+            'alamat' => 'bjb',
             'password' => Hash::make('password123'),
             'roles_id' => 1,
         ]);
-        GuruModel::create([
-            'nik' => '1234567890123114517',
-            'nama' => 'Jane Smith',
-            'tempat_lahir' => 'Bandung',
-            'tanggal_lahir' => '1992-02-02',
-            'jenis_kelamin' => 'P',
-            'nama_ibu' => 'Mary Smith',
-            'agama' => 'Kristen',
-            'jabatan' => 'guru',
-            'status' => 'aktif',
-            'pendidikan_terakhir' => 's1',
-            'no_telp' => '0731213141',
-            'status_perkawinan' => 'Menikah',
-            'email' => 'janesmith@example.com',
-            'username' => 'jane',
-            'password' => Hash::make('password123'),
-            'roles_id' => 2,
-        ]);
+        
         // GuruModel::create([
         //     'nik' => '1234567890123458',
         //     'nama' => 'Isna',

@@ -23,6 +23,7 @@ class GuruModel extends Authenticatable
         'jabatan',
         'status',
         'no_telp',
+        'alamat',
         'pendidikan_terakhir',
         'status_perkawinan',
         'email',

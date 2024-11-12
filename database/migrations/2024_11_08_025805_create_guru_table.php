@@ -19,11 +19,12 @@ return new class extends Migration
             $table->string("jenis_kelamin");
             $table->string("nama_ibu");
             $table->string("agama");
+            $table->string("alamat");
             $table->string("status_perkawinan");
             $table->string("jabatan");
             $table->string("status");
             $table->string("pendidikan_terakhir");
-            $table->integer("no_telp");
+            $table->string("no_telp");
             $table->string("email");
             $table->string("username")->nullable();
             $table->string("password")->nullable();
