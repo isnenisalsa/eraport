@@ -32,10 +32,10 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar  elevation-4" style="background-color: #A3CFB6">
+        <aside class="main-sidebar sidebar-dark-white elevation-4" style="background-color: #2FCC7B">
             <!-- Brand Logo -->
             <a href="{{ url('/') }}" class="brand-link"
-                style="text-align: center ; background-color: #FFFCF7;height: 62px;">
+                style="text-align: center ; background-color: #FFFCF7;height: 64px;">
                 <img src="{{ asset('image/Logo.png') }}" alt="adminlte Logo" class="brand-image"
                     style=" margin-left: -2%">
                 <span class="brand-text font-weight-light" style="color: rgb(14, 13, 13); ">SMP IT SIRAJUL HUDA </span>
@@ -103,11 +103,12 @@
                 "pageLength": 6,
                 "paging": true,
                 "lengthChange": false,
-                "searching": false,
+                "searching": true,
                 "ordering": false,
                 "info": true,
                 "autoWidth": false,
                 "responsive": true,
+                "info": false,
                 "language": {
                     "emptyTable": "Tidak ada data yang tersedia pada tabel ini",
                     "info": "Menampilkan START sampai END dari TOTAL entri",

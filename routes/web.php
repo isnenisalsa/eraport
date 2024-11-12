@@ -32,7 +32,7 @@ Route::get('/', function () {
 
 Route::get('login', [AuthController::class, "index"])->name('login');
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
-Route::get('logout', [AuthController::class, "index"])->name('logout');
+Route::get('logout', [AuthController::class, "logout"])->name('logout');
 Route::middleware(['auth'])->group(function () {
     // Rute untuk Admin
     Route::get('/dashboard/admin', [DashboardController::class, 'index'])

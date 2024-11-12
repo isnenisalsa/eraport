@@ -1,40 +1,40 @@
 @extends('layouts.template')
 @section('content')
-    <a href="{{ route('create') }}" class="btn btn-success"> + Tambah Data</a>
-    <br><br>
-    <div class="card">
-        <table class="table" id="example1">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Nama</th>
-                    <th scope="col">Jabatan</th>
-                    <th scope="col">Pendidikan Terakhir</th>
-                    <th scope="col">telepon</th>
-                    <th scope="col">status</th>
-                    <th scope="col">aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @php $no = 1; @endphp
-                @foreach ($guru as $item)
+    <div class="card mx-auto" style="width: 1200px">
+
+        <div class="card-body">
+            <a href="{{ route('create') }}" class="btn btn-success btn-sm"> + Tambah Data Guru</a>
+
+            <table class="table table-bordered table-striped text-center" id="example2">
+                <thead>
                     <tr>
-                        <td>{{ $no++ }}</td>
-                        <td>{{ $item->nama }} </td>
-                        <td>{{ $item->jabatan }}</td>
-                        <td>{{ $item->pendidikan_terakhir }}</td>
-                        <td>{{ $item->no_telp }}</td>
-                        <td>{{ $item->status }}</td>
-                        <td><a href="" class="btn btn-primary">detail</a>
-                            <a href="" class="btn btn-warning">edit</a>
-                        </td>
-
-
-
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Jabatan</th>
+                        <th>Pendidikan Terakhir</th>
+                        <th>telepon</th>
+                        <th>status</th>
+                        <th>aksi</th>
                     </tr>
-            </tbody>
-            @endforeach
-
-        </table>
+                </thead>
+                <tbody>
+                    @php $no = 1; @endphp
+                    @foreach ($guru as $item)
+                        <tr>
+                            <td>{{ $no++ }}</td>
+                            <td>{{ $item->nama }}</td>
+                            <td>{{ $item->jabatan }}</td>
+                            <td>{{ $item->pendidikan_terakhir }}</td>
+                            <td>{{ $item->no_telp }}</td>
+                            <td>{{ $item->status }}</td>
+                            <td>
+                                <a href="" class="btn btn-primary">detail</a>
+                                <a href="" class="btn btn-warning">edit</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 @endsection
