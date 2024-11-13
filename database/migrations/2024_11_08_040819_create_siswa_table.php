@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        
+
         Schema::create('siswa', function (Blueprint $table) {
             $table->id("nis");
             $table->integer("nisn");
@@ -26,9 +26,9 @@ return new class extends Migration
             $table->string("pekerjaan_ibu");
             $table->string("username")->nullable();
             $table->string("password")->nullable();
-            $table->unsignedBigInteger("kelas_id");
+            $table->string("kelas_kode");
             $table->timestamps();
-            $table->foreign("kelas_id")->references('id')->on("kelas");
+            $table->foreign("kelas_kode")->references('kode_kelas')->on("kelas");
         });
     }
 

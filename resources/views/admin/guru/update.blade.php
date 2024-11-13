@@ -124,11 +124,11 @@
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label for="status_perkawinan" class="form-label">Status Perkawinan</label>
+                            <label for="status_perkawinan" class="form-label">Status Pernikahan</label>
                             <select class="form-control" name="status_perkawinan" id="status_perkawinan">
                                 <option value="">Pilih</option>
-                                <option value="kawin" {{ old('status_perkawinan', $guru->status_perkawinan) == 'kawin' ? 'selected' : '' }}>Kawin</option>
-                                <option value="belum kawin" {{ old('status_perkawinan', $guru->status_perkawinan) == 'belum kawin' ? 'selected' : '' }}>Belum Kawin</option>
+                                <option value="Menikah" {{ old('status_perkawinan', $guru->status_perkawinan) == 'Menikah' ? 'selected' : '' }}>Menikah</option>
+                                <option value="Belum Menikah" {{ old('status_perkawinan', $guru->status_perkawinan) == 'belum Menikah' ? 'selected' : '' }}>Belum Menikah</option>
                             </select>
                             @if ($errors->has('status_perkawinan'))
                                 <div class="text-danger">{{ $errors->first('status_perkawinan') }}</div>

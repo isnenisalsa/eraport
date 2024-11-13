@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuruController;
+use App\Http\Controllers\KelasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,10 +51,16 @@ Route::middleware(['auth'])->group(function () {
         ->name('dashboard.walas');
 });
 
+//rute untuk guru
 Route::prefix('guru')->group(function () {
     Route::get('/', [GuruController::class, 'index'])->middleware('cek_login:1')->name('index');
     Route::get('/create', [GuruController::class, 'create'])->middleware('cek_login:1')->name('create');
     Route::post('/save', [GuruController::class, 'save'])->name('save');
     Route::get('/edit/{nik}', [GuruController::class, 'edit'])->middleware('cek_login:1')->name('edit');
     Route::put('/update/{nik}', [GuruController::class, 'update'])->middleware('cek_login:1')->name('update');
+});
+
+//rute untuk kelas
+Route::prefix('kelas')->group(function () {
+    Route::get('/', [KelasController::class, 'index'])->middleware('cek_login:1')->name('kelas-index');
 });

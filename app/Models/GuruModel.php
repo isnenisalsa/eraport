@@ -29,6 +29,7 @@ class GuruModel extends Authenticatable
         'email',
         'username',
         'password',
+        'alamat',
         'roles_id',
     ];
     public function level()

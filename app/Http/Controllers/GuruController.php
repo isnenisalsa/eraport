@@ -50,6 +50,7 @@ class GuruController extends Controller
             'pendidikan_terakhir' => 'required',
             'status_perkawinan' => 'required',
             'email' => 'required|email',
+            'terms' => 'required'
         ], [
             'nik.required' => 'NIK tidak boleh kosong.',
             'nik.numeric' => 'NIK harus berupa angka.',
@@ -67,6 +68,7 @@ class GuruController extends Controller
             'status_perkawinan.required' => 'Status perkawinan tidak boleh kosong.',
             'email.required' => 'Email tidak boleh kosong.',
             'email.email' => 'Format email tidak valid.',
+            'terms.required' => 'wajib di centang'
 
         ]);
         $username = strtolower(str_replace(' ', '_', $request->nama)); // Mengganti spasi dengan underscore
@@ -92,20 +94,21 @@ class GuruController extends Controller
         ]);
         return redirect()->route('index');
     }
-    public function edit($nik) {
+    public function edit($nik)
+    {
         $breadcrumb = (object) [
             'title' => 'Edit Guru',
         ];
-    
+
         $activeMenu = 'guru';
         $guru = GuruModel::where('nik', $nik)->first();
 
-        
+
 
         if (!$guru) {
             return redirect()->route('guru.index')->with('error', 'Data guru tidak ditemukan.');
         }
-    
+
         return view('admin.guru.update', ['breadcrumb' => $breadcrumb, 'guru' => $guru, 'activeMenu' => $activeMenu]);
     }
     public function update(Request $request, $nik)
@@ -127,10 +130,10 @@ class GuruController extends Controller
             'email' => 'required|email',
             'alamat' => 'required|string|max:255',
         ]);
-    
+
         // Cari guru berdasarkan ID
         $guru = GuruModel::findOrFail($nik);
-    
+
         // Perbarui data guru dengan data dari form
         $guru->update([
             'nik' => $request->input('nik'),
@@ -148,9 +151,8 @@ class GuruController extends Controller
             'email' => $request->input('email'),
             'alamat' => $request->input('alamat'),
         ]);
-    
+
         // Redirect ke halaman yang sesuai setelah berhasil update
         return redirect()->route('index')->with('success', 'Data guru berhasil diperbarui');
     }
-    
 }

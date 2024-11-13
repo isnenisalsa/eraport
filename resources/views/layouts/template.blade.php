@@ -109,6 +109,7 @@
                 "autoWidth": false,
                 "responsive": true,
                 "info": false,
+
                 "language": {
                     "emptyTable": "Tidak ada data yang tersedia pada tabel ini",
                     "info": "Menampilkan START sampai END dari TOTAL entri",
@@ -127,6 +128,13 @@
                         "next": "Selanjutnya",
                         "previous": "Sebelumnya"
                     },
+                    // "scrollX": true,
+                    // "columnDefs": [{
+                    //     className: 'dtr-control',
+                    //     orderable: false,
+                    //     data: null,
+                    //     defaultContent: ''
+                    // }]
                 },
             });
         });
