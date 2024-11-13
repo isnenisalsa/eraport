@@ -62,5 +62,6 @@ Route::prefix('guru')->group(function () {
 
 //rute untuk kelas
 Route::prefix('kelas')->group(function () {
-    Route::get('/', [KelasController::class, 'index'])->middleware('cek_login:1')->name('kelas-index');
+    Route::get('/', [KelasController::class, 'index'])->middleware('cek_login:1')->name('kelas');
+    Route::post('/save', [KelasController::class, 'save'])->name('save');
 });

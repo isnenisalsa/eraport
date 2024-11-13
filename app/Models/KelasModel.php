@@ -19,5 +19,6 @@ class KelasModel extends Model
     public function guru()
     {
         return $this->belongsTo(GuruModel::class, 'guru_nik', 'nik');
-    }
+    }  
 }
+
