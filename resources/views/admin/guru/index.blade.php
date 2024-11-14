@@ -34,7 +34,7 @@
                                         <td>{{ $item->status }}</td>
                                         <td>
                                             <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                data-target="#modalDetail{{ $item->nik }}">Detail </button>
+                                                data-target="#modalDetail{{ $item->nik }}">Detail </button>  
                                             <a href="{{ route('edit', $item->nik) }}" class="btn btn-warning">edit</a>
                                         </td>
                                     </tr>

@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\KelasController;
+use App\Http\Controllers\MapelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,3 +66,12 @@ Route::prefix('kelas')->group(function () {
     Route::get('/', [KelasController::class, 'index'])->middleware('cek_login:1')->name('kelas');
     Route::post('/save', [KelasController::class, 'save'])->name('save');
 });
+
+//rute untuk mapel
+Route::prefix('mapel')->group(function () {
+    Route::get('/', [MapelController::class, 'index'])->middleware('cek_login:1')->name('mapel');
+    Route::post('/save', [MapelController::class, 'save'])->name('save');
+    Route::get('/edit/{kode_mapel}', [MapelController::class, 'edit'])->middleware('cek_login:1')->name('edit_mapel');
+    Route::put('/update/{kode_mapel}', [MapelController::class, 'update'])->middleware('cek_login:1')->name('update_mapel');
+});
+
