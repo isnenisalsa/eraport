@@ -25,7 +25,7 @@ class GuruController extends Controller
     public function create()
     {
         $breadcrumb = (object) [
-            'title' => 'tambah data guru',
+            'title' => 'Tambah Data Guru',
         ];
 
 
@@ -37,7 +37,7 @@ class GuruController extends Controller
     public function save(Request $request)
     {
         $request->validate([
-            'nik' => 'required|numeric|digits:16',
+            'nik' => 'required|numeric|digits:16|unique:guru,nik',
             'nama' => 'required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
@@ -46,7 +46,7 @@ class GuruController extends Controller
             'agama' => 'required',
             'jabatan' => 'required',
             'status' => 'required',
-            'no_telp' => 'required',
+            'no_telp' => 'required|numeric|digits:12',
             'pendidikan_terakhir' => 'required',
             'status_perkawinan' => 'required',
             'email' => 'required|email',
@@ -55,6 +55,9 @@ class GuruController extends Controller
             'nik.required' => 'NIK tidak boleh kosong.',
             'nik.numeric' => 'NIK harus berupa angka.',
             'nik.digits' => 'NIK harus  16 angka.',
+            'nik.unique' => 'NIK harus unik.',
+            'no_telp.numeric' => 'no telp harus berupa angka.',
+            'no_telp.digits' => 'no telp harus  16 angka.',
             'nama.required' => 'Nama tidak boleh kosong.',
             'tempat_lahir.required' => 'Tempat lahir tidak boleh kosong.',
             'tanggal_lahir.required' => 'Tanggal lahir tidak boleh kosong.',
@@ -92,7 +95,8 @@ class GuruController extends Controller
             'password' => $password,
             'roles_id' => $request->roles_id,
         ]);
-        return redirect()->route('index');
+
+        return redirect()->route('guru');
     }
     public function edit($nik)
     {
@@ -153,6 +157,6 @@ class GuruController extends Controller
         ]);
 
         // Redirect ke halaman yang sesuai setelah berhasil update
-        return redirect()->route('index')->with('success', 'Data guru berhasil diperbarui');
+        return redirect()->route('guru')->with('success', 'Data guru berhasil diperbarui');
     }
 }

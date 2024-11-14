@@ -47,10 +47,10 @@
                     @endif
                 </ul>
             </li>
-            
+
             <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
-                    <i class="fas fa-solid fa-users" style="color: black"></i>
+                    <i class="fas fa-solid fa-laptop" style="color: black"></i>
                     <p style="color: black">
                         &nbsp; ADMINISTRASI
                         <i class="right fas fa-angle-left" style="color: black"></i>
