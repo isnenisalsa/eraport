@@ -11,8 +11,11 @@ class MapelModel extends Model
     protected $table = 'mapel';
     protected $primaryKey = 'kode_mapel';
 protected $keyType = 'string';
+
     protected $fillable = [
         'kode_mapel',
         'mata_pelajaran',
     ];
+    
 }
+

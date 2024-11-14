@@ -18,7 +18,7 @@ class MapelController extends Controller
 
         $activeMenu = 'mapel';
         $mapel = MapelModel::all();
-       
+
 
         return view('admin.mapel.index', ['breadcrumb' => $breadcrumb, 'mapel' => $mapel,  'activeMenu' => $activeMenu]);
     }
@@ -35,7 +35,6 @@ class MapelController extends Controller
         ]);
         return redirect()->route('mapel');
     }
-  
     public function update(Request $request, $kode_mapel)
     {
         $request->validate([

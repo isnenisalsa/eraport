@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
+use App\Http\Controllers\PembelajaranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,8 +71,15 @@ Route::prefix('kelas')->group(function () {
 //rute untuk mapel
 Route::prefix('mapel')->group(function () {
     Route::get('/', [MapelController::class, 'index'])->middleware('cek_login:1')->name('mapel');
-    Route::post('/save', [MapelController::class, 'save'])->name('save');
-    Route::get('/edit/{kode_mapel}', [MapelController::class, 'edit'])->middleware('cek_login:1')->name('edit_mapel');
-    Route::put('/update/{kode_mapel}', [MapelController::class, 'update'])->middleware('cek_login:1')->name('update_mapel');
+    Route::post('/save', [MapelController::class, 'save'])->name('save-mapel');
+    Route::get('/edit/{kode_mapel}', [MapelController::class, 'edit'])->middleware('cek_login:1')->name('edit-mapel');
+    Route::put('/update/{kode_mapel}', [MapelController::class, 'update'])->middleware('cek_login:1')->name('update-mapel');
 });
 
+//rute untuk pembelajaran
+Route::prefix('pembelajaran')->group(function () {
+    Route::get('/', [PembelajaranController::class, 'index'])->middleware('cek_login:1')->name('pembelajaran');
+    Route::post('/save', [PembelajaranController::class, 'save'])->name('save-pembelajaran');
+    Route::get('/edit/{kode_pembelajaran}', [PembelajaranController::class, 'edit'])->middleware('cek_login:1')->name('edit-pembelajaran');
+    Route::put('/update/{kode_pembelajaran}', [PembelajaranController::class, 'update'])->middleware('cek_login:1')->name('update-pembelajaran');
+});

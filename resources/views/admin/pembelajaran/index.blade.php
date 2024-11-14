@@ -16,21 +16,20 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Kode Kelas</th>
+                                    <th>Mata Pelajaran</th>
                                     <th>Nama Kelas</th>
-                                    <th>wali kelas</th>
+                                    <th>Guru Pengampu</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @php $no = 1; @endphp
-                                @foreach ($kelas as $item)
+                                @foreach ($pembelajaran as $item)
                                     <tr>
                                         <td>{{ $no++ }}</td>
-                                        <td>{{ $item->kode_kelas }}</td>
-                                   
-                   
-                                        <td>{{ $item->nama_kelas }}</td>
+                                        <td>{{ $item->id_pembelajaran }}</td>
+                                        <td>{{ $item->mapel->mata_pelajaran }}</td>
+                                        <td>{{ $item->kelas->nama_kelas }}</td>
                                         <td>{{ $item->guru->nama }}</td>
                                         <td>
                                             <button type="button" class="btn btn-warning">Edit</button>
@@ -45,6 +44,7 @@
         </div>
 
     </div>
+
     <!-- Button trigger modal -->
 
     <!-- Modal -->
@@ -54,27 +54,44 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Data Kelas</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Data Pembelajaran</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="card-body">
-                        <form action="{{ route('save') }}" method="POST">
+                        <form action="{{ route('save-pembelajaran') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label for="kode_kelas">Kode Kelas</label>
-                                <input type="text" name="kode_kelas" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="nama_kelas">Nama Kelas</label>
-                                <input type="text" name="nama_kelas" class="form-control" required>
+                                <label for="id_pembelajaran">ID Pembelajaran</label>
+                                <input type="text" name="id_pembelajaran" placeholder="Inputkan ID Pembelajaran"
+                                    class="form-control" required>
                             </div>
 
                             <div class="form-group">
-                                <label for="guru_nik">Wali Kelas</label>
-                                <select name="guru_nik" class="form-control" required>
+                                <label for="mata_pelajaran">Mata Pelajaran</label>
+                                <select name="mata_pelajaran" class="form-control" required>
+                                    <option value="">Pilih Mata Pelajaran</option>
+                                    @foreach ($mapel as $item)
+                                        <option value="{{ $item->kode_mapel }}">{{ $item->nama_m }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nama_kelas">Nama Kelas</label>
+                                <select name="nama_kelas" class="form-control" required>
+                                    <option value="">Pilih Kelas</option>
+                                    @foreach ($kelas as $item)
+                                        <option value="{{ $item->kode_kelas }}">{{ $item->nama_kelas }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nama_guru">Guru Pengampu</label>
+                                <select name="nama_guru" class="form-control" required>
                                     <option value="">Pilih Guru</option>
                                     @foreach ($guru as $item)
                                         <option value="{{ $item->nik }}">{{ $item->nama }}</option>

@@ -10,6 +10,7 @@ class KelasModel extends Model
     use HasFactory;
     protected $table = 'kelas';
     protected $primaryKey = "kode_kelas";
+    protected $keyType = 'string';
     protected $fillable = [
         'kode_kelas',
         'nama_kelas',
@@ -19,6 +20,5 @@ class KelasModel extends Model
     public function guru()
     {
         return $this->belongsTo(GuruModel::class, 'guru_nik', 'nik');
-    }  
+    }
 }
-
