@@ -10,12 +10,10 @@ class MapelModel extends Model
     use HasFactory;
     protected $table = 'mapel';
     protected $primaryKey = 'kode_mapel';
-protected $keyType = 'string';
+    protected $keyType = 'string';
 
     protected $fillable = [
         'kode_mapel',
         'mata_pelajaran',
     ];
-    
 }
-

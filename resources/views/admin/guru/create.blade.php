@@ -73,8 +73,9 @@
                         </div>
                         <div class="mb-3">
                             <label for="telepon" class="form-label">No Telepon</label>
-                            <input type="number" class="form-control" id="telepon"
-                                placeholder="Inputkan Nomor Telepon Anda" name="no_telp" value="{{ old('no_telp') }}">
+                            <input type="text" class="form-control" id="telepon"
+                                placeholder="Inputkan Nomor Telepon Anda" name="no_telp" value="{{ old('no_telp') }}"
+                                maxlength="12">
                             @if ($errors->has('no_telp'))
                                 <div class="text-danger">{{ $errors->first('no_telp') }}</div>
                             @endif

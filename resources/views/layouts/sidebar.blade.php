@@ -79,7 +79,8 @@
                 <ul class="nav nav-treeview">
                     @if (auth()->check() && auth()->user()->level->nama == 'admin')
                         <li class="nav-item">
-                            <a href="{{ url('pembelajaran') }}" class="nav-link {{ $activeMenu == 'pembelajaran' ? 'active' : '' }}">
+                            <a href="{{ url('pembelajaran') }}"
+                                class="nav-link {{ $activeMenu == 'pembelajaran' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
                                 <p style="color: black">pembelajaran</p>
                             </a>

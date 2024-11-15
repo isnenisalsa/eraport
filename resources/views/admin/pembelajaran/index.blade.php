@@ -16,6 +16,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Kode Pembelajaran</th>
                                     <th>Mata Pelajaran</th>
                                     <th>Nama Kelas</th>
                                     <th>Guru Pengampu</th>
@@ -74,7 +75,7 @@
                                 <select name="mata_pelajaran" class="form-control" required>
                                     <option value="">Pilih Mata Pelajaran</option>
                                     @foreach ($mapel as $item)
-                                        <option value="{{ $item->kode_mapel }}">{{ $item->nama_m }}</option>
+                                        <option value="{{ $item->kode_mapel }}">{{ $item->mata_pelajaran }}</option>
                                     @endforeach
                                 </select>
                             </div>

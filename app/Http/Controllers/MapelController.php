@@ -37,16 +37,21 @@ class MapelController extends Controller
     }
     public function update(Request $request, $kode_mapel)
     {
-        $request->validate([
-            'kode_mapel' => 'required',
-            'mata_pelajaran' => 'required',
-        ]);
+        $request->validate(
+            [
+              
+                'mata_pelajaran' => 'required',
+                'terms' => 'required'
+            ],
+            [
+                'terms.required' => 'tidak boleh kosong'
+            ]
+        );
         $mapel = MapelModel::findOrFail($kode_mapel);
 
         // Perbarui data guru dengan data dari form
         $mapel->update([
-            'kode_mapel' => $request->input('kode_mapel'),
-            'mata_pelajaran' => $request->input('mata_pelajaran'),
+            'mata_pelajaran' => $request->mata_pelajaran,
         ]);
 
         // Redirect ke halaman yang sesuai setelah berhasil update

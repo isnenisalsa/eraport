@@ -139,7 +139,7 @@
                                     {{ old('status_perkawinan', $guru->status_perkawinan) == 'Menikah' ? 'selected' : '' }}>
                                     Menikah</option>
                                 <option value="Belum Menikah"
-                                    {{ old('status_perkawinan', $guru->status_perkawinan) == 'belum Menikah' ? 'selected' : '' }}>
+                                    {{ old('status_perkawinan', $guru->status_perkawinan) == 'Belum Menikah' ? 'selected' : '' }}>
                                     Belum Menikah</option>
                             </select>
                             @if ($errors->has('status_perkawinan'))

@@ -7,6 +7,7 @@ use App\Http\Controllers\GuruController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\PembelajaranController;
+use App\Models\MapelModel;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,13 +67,14 @@ Route::prefix('guru')->group(function () {
 Route::prefix('kelas')->group(function () {
     Route::get('/', [KelasController::class, 'index'])->middleware('cek_login:1')->name('kelas');
     Route::post('/save', [KelasController::class, 'save'])->name('save');
+    Route::get('/edit/{kode_kelas}', [KelasController::class, 'edit'])->middleware('cek_login:1')->name('edit-kelas');
+    Route::put('/update/{kode_kelas}', [KelasController::class, 'update'])->middleware('cek_login:1')->name('update-kelas');
 });
 
 //rute untuk mapel
 Route::prefix('mapel')->group(function () {
     Route::get('/', [MapelController::class, 'index'])->middleware('cek_login:1')->name('mapel');
     Route::post('/save', [MapelController::class, 'save'])->name('save-mapel');
-    Route::get('/edit/{kode_mapel}', [MapelController::class, 'edit'])->middleware('cek_login:1')->name('edit-mapel');
     Route::put('/update/{kode_mapel}', [MapelController::class, 'update'])->middleware('cek_login:1')->name('update-mapel');
 });
 

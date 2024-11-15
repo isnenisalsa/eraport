@@ -55,6 +55,12 @@ class PembelajaranController extends Controller
             'nama_guru' => $request->nama_guru,
         ]);
 
+
+        //ubah roles menjadi guru
+        $guru = GuruModel::find($request->nama_guru);
+        $guru->roles_id = '2';
+        $guru->save();
+
         // Redirect setelah berhasil
         return redirect()->route('pembelajaran')->with('success', 'Data Pembelajaran berhasil disimpan');
     }
