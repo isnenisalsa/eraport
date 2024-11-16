@@ -13,8 +13,8 @@ class RolesModel extends Model
     protected $fillable = [
         'nama',
     ];
-    public function user(): BelongsTo
+    public function gurus()
     {
-        return $this->belongsTo(GuruModel::class);
+        return $this->belongsToMany(GuruModel::class, 'guru_roles', 'role_id', 'guru_id');
     }
 }

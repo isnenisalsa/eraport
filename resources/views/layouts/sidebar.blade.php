@@ -1,12 +1,11 @@
 <div class="sidebar">
     <!-- Sidebar user (optional) -->
-    <link rel="stylesheet" href="css/style.css">
     &nbsp;
     <!-- Sidebar Menu -->
     <nav>
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
-                @if (auth()->check() && auth()->user()->level->nama == 'admin')
+                @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
                     <a href="{{ url('/dashboard/admin') }}"
                         class="nav-link  {{ $activeMenu == 'dashboard' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt" style="color: rgb(3, 3, 3)"></i>
@@ -27,7 +26,7 @@
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
-                    @if (auth()->check() && auth()->user()->level->nama == 'admin')
+                    @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
                         <li class="nav-item">
                             <a href="{{ url('guru') }}" class="nav-link {{ $activeMenu == 'guru' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
@@ -37,7 +36,7 @@
                     @endif
                 </ul>
                 <ul class="nav nav-treeview">
-                    @if (auth()->check() && auth()->user()->level->nama == 'admin')
+                    @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
                         <li class="nav-item">
                             <a href="{{ url('Siswa') }}" class="nav-link {{ $activeMenu == 'Siswa' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
@@ -57,7 +56,7 @@
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
-                    @if (auth()->check() && auth()->user()->level->nama == 'admin')
+                    @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
                         <li class="nav-item">
                             <a href="{{ url('kelas') }}" class="nav-link {{ $activeMenu == 'kelas' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
@@ -67,7 +66,7 @@
                     @endif
                 </ul>
                 <ul class="nav nav-treeview">
-                    @if (auth()->check() && auth()->user()->level->nama == 'admin')
+                    @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
                         <li class="nav-item">
                             <a href="{{ url('mapel') }}" class="nav-link {{ $activeMenu == 'mapel' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
@@ -77,7 +76,7 @@
                     @endif
                 </ul>
                 <ul class="nav nav-treeview">
-                    @if (auth()->check() && auth()->user()->level->nama == 'admin')
+                    @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
                         <li class="nav-item">
                             <a href="{{ url('pembelajaran') }}"
                                 class="nav-link {{ $activeMenu == 'pembelajaran' ? 'active' : '' }}">
@@ -88,7 +87,9 @@
                     @endif
                 </ul>
 
+
             </li>
+        </ul>
     </nav>
     <!-- /.sidebar-menu -->
 </div>

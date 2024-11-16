@@ -12,23 +12,17 @@ class CekLogin
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response) $next
      */
-    public function handle(Request $request, Closure $next, $roles): Response
+    public function handle($request, Closure $next, ...$roles)
     {
-
-        if (!Auth::check()) {
-            return redirect('login')->with('error', 'Anda harus login untuk mengakses halaman ini.');
-        }
-
-        // Ambil pengguna yang terautentikasi
         $user = Auth::user();
+        $userRoles = $user->roles->pluck('id')->toArray();
 
-        // Periksa apakah peran pengguna sesuai dengan peran yang dibutuhkan
-        if ($user->roles_id == $roles) {
-            return $next($request); // Izinkan akses
+        if (!array_intersect($userRoles, $roles)) {
+            return response()->redirectTo('login')->with('error', 'anda belum login');
         }
-        // Arahkan jika pengguna tidak memiliki peran yang diperlukan
-        return redirect('login')->withInput()->withErrors(['akses' => 'anda tidak memiliki akses']);
+
+        return $next($request);
     }
 }

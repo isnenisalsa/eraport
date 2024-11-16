@@ -71,11 +71,13 @@
                                 <input type="text" name="mata_pelajaran" class="form-control" required>
                             </div>
                             <div class="form-check mt-3">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">Saya Yakin Sudah Mengisi Dengan
+                                <input type="checkbox" class="form-check-input" id="terms_tambah" name="terms_tambah"
+                                    onchange="toggleButton()">
+                                <label class="form-check-label" for="terms_tambah">Saya Yakin Sudah Mengisi Dengan
                                     Benar</label>
                             </div>
-                            <button type="submit" class="btn btn-success float-right">Simpan</button>
+                            <button type="submit" class=" btn btn-tambah btn-success float-right">Simpan</button>
+                            <script src="js/js.js"></script>
                         </form>
                     </div>
                 </div>

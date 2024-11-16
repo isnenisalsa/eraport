@@ -19,6 +19,7 @@
                                     <th>Kode Kelas</th>
                                     <th>Nama Kelas</th>
                                     <th>wali kelas</th>
+                                    <th>Tahun Ajaran</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -28,10 +29,9 @@
                                     <tr>
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $item->kode_kelas }}</td>
-
-
                                         <td>{{ $item->nama_kelas }}</td>
                                         <td>{{ $item->guru->nama }}</td>
+                                        <td>{{ $item->tahun_ajar->tahun_ajaran }}</td>
                                         <td>
                                             <button type="button" class="btn btn-warning btn-sm text-center"
                                                 data-toggle="modal" data-target="#modal-edit{{ $item->kode_kelas }}">
@@ -85,6 +85,15 @@
                                 </select>
                             </div>
 
+                            <div class="form-group">
+                                <label for="tahun_ajaran_id">Tahun Ajaran</label>
+                                <select name="tahun_ajaran_id" class="form-control" required>
+                                    <option value="">Pilih Tahun Ajaran</option>
+                                    @foreach ($tahun as $item)
+                                        <option value="{{ $item->id }}">{{ $item->tahun_ajaran }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
                             <div class="form-check mt-3">
                                 <input type="checkbox" class="form-check-input" id="exampleCheck1">

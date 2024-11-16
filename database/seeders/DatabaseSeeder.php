@@ -57,7 +57,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'janesmith',
             'alamat' => 'bjb',
             'password' => Hash::make('password123'),
-            'roles_id' => 1,
+   
         ]);
         
         // GuruModel::create([

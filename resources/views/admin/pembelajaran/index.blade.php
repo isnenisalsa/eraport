@@ -85,7 +85,8 @@
                                 <select name="nama_kelas" class="form-control" required>
                                     <option value="">Pilih Kelas</option>
                                     @foreach ($kelas as $item)
-                                        <option value="{{ $item->kode_kelas }}">{{ $item->nama_kelas }}</option>
+                                        <option value="{{ $item->kode_kelas }}">{{ $item->nama_kelas }} -
+                                            {{ $item->tahun_ajar->tahun_ajaran }}</option>
                                     @endforeach
                                 </select>
                             </div>

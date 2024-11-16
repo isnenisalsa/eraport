@@ -25,7 +25,7 @@ class MapelController extends Controller
     public function save(Request $request)
     {
         $request->validate([
-            'kode_mapel' => 'required', // Aturan validasi yang benar
+            'kode_mapel' => 'required|unique:mapel,kode_mapel', // Aturan validasi yang benar
             'mata_pelajaran' => 'required',
         ]);
 
@@ -39,7 +39,6 @@ class MapelController extends Controller
     {
         $request->validate(
             [
-              
                 'mata_pelajaran' => 'required',
                 'terms' => 'required'
             ],

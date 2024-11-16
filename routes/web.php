@@ -8,6 +8,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\PembelajaranController;
 use App\Models\MapelModel;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,18 +22,26 @@ use App\Models\MapelModel;
 */
 
 Route::get('/', function () {
-    if (auth()->check()) {
-        switch (auth()->user()->level->nama) {
-            case 'admin':
-                return redirect()->route('dashboard.admin');
-            case 'guru':
-                return redirect()->route('dashboard.guru');
-            case 'walas':
-                return redirect()->route('dashboard.walas');
+    // Only proceed if the user is authenticated
+    if (Auth::check()) {
+        $user = Auth::user();
+        $roleIds = $user->roles->pluck('id')->toArray();
+
+        // Redirect berdasarkan role_id
+        if (in_array(1, $roleIds)) {
+            return redirect()->route('dashboard.admin');
+        } elseif (in_array(2, $roleIds)) {
+            return redirect()->route('dashboard.guru');
+        } elseif (in_array(3, $roleIds)) {
+            return redirect()->route('dashboard.walas');
+        } else {
+            return redirect('login')->withErrors(['access_denied' => 'Akses ditolak. Role Anda tidak dikenali.']);
         }
+    } else {
+        // Redirect to login page if not authenticated
+        return redirect('login');
     }
-    return redirect()->route('login');
-});
+})->middleware('auth');
 
 Route::get('login', [AuthController::class, "index"])->name('login');
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');

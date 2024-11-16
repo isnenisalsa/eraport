@@ -32,8 +32,9 @@ class GuruModel extends Authenticatable
         'alamat',
         'roles_id',
     ];
-    public function level()
+    public function roles()
     {
-        return $this->belongsTo(RolesModel::class, 'roles_id', 'id');
+        return $this->belongsToMany(RolesModel::class, 'guru_roles', 'guru_id', 'role_id');
     }
+
 }

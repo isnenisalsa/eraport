@@ -15,8 +15,10 @@ return new class extends Migration
             $table->string('kode_kelas')->primary();
             $table->unsignedBigInteger('guru_nik');
             $table->string('nama_kelas');
+            $table->unsignedBigInteger('tahun_ajaran_id');
             $table->timestamps();
             $table->foreign('guru_nik')->references('nik')->on('guru')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('tahun_ajaran_id')->references('id')->on('tahun_ajaran')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 

@@ -56,10 +56,13 @@ class PembelajaranController extends Controller
         ]);
 
 
-        //ubah roles menjadi guru
+        // Ambil guru berdasarkan guru_nik
         $guru = GuruModel::find($request->nama_guru);
-        $guru->roles_id = '2';
-        $guru->save();
+
+        // Tambahkan role ke guru jika belum ada
+        if (!$guru->roles()->where('role_id', 2)->exists()) {
+            $guru->roles()->attach(2); // Menambahkan role dengan ID 3
+        }
 
         // Redirect setelah berhasil
         return redirect()->route('pembelajaran')->with('success', 'Data Pembelajaran berhasil disimpan');

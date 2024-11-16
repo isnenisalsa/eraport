@@ -93,7 +93,7 @@ class GuruController extends Controller
             'email' => $request->email,
             'username' => $username,
             'password' => $password,
-            'roles_id' => $request->roles_id,
+
         ]);
 
         return redirect()->route('guru');

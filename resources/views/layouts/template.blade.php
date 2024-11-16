@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -32,14 +33,15 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-white elevation-4" style="background-color: #2FCC7B">
+        <aside class="main-sidebar sidebar-light-light elevation-4" style="background-color: #2FCC7B;">
             <!-- Brand Logo -->
-            <a href="{{ url('/') }}" class="brand-link"
-                style="text-align: center ; background-color: #FFFCF7;height: 64px;">
+            <p class="brand-link" style="text-align: center ; background-color: #FFFCF7;height: 64px;">
                 <img src="{{ asset('image/Logo.png') }}" alt="adminlte Logo" class="brand-image"
                     style=" margin-left: -2%">
-                <span class="brand-text font-weight-light" style="color: rgb(14, 13, 13); ">SMP IT SIRAJUL HUDA </span>
-            </a>
+                <span class="brand-text font-weight-light" style="color: rgb(14, 13, 13); font: bold "> SMP IT SIRAJUL
+                    HUDA </span>
+            </p>
+
 
             <!-- Sidebar -->
             @include('layouts.sidebar')
@@ -61,9 +63,9 @@
         <!-- /.content-wrapper -->
         @include('layouts.footer')
         <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
+        {{-- <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
-        </aside>
+        </aside> --}}
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->

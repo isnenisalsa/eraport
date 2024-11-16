@@ -11,11 +11,12 @@
     <!-- Bootstrap CSS CDN -->
 </head>
 
+
 <body>
     <div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
         <div class="row justify-content-center">
             <div class="col-12 col-md-6 text-center mb-4">
-                <img src="image/logo.png" alt="Logo" width="250px">     
+                <img src="image/logo.png" alt="Logo" width="250px">
             </div>
             <div class="col-12 col-md-6">
                 <form class="card p-4" style="width: 600px; max-width: 500px;" action="{{ url('proses_login') }}"
