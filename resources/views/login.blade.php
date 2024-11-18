@@ -26,7 +26,7 @@
                         @error('akses')
                             <span class="text-danger text-center d-block">{{ $message }}</span>
                         @enderror
-                        @error('login_gagal')
+                        @error('login_failed')
                             <span class="text-danger d-block">{{ $message }}</span>
                         @enderror
                         @error('access_denied')

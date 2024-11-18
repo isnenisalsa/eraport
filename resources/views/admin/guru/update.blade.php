@@ -8,7 +8,7 @@
     <div class="card card-blue">
         <h5 class="card-header text-center">Edit Data Guru</h5>
 
-        <div class="card-body" style="max-height: 70vh; overflow-y: auto;">
+        <div class="card-body" style="max-height: 50vh; overflow-y: auto;">
             <form method="POST" action="{{ route('update', $guru->nik) }}">
                 @csrf
                 @method('PUT')

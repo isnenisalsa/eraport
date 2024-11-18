@@ -36,9 +36,10 @@
                     @endif
                 </ul>
                 <ul class="nav nav-treeview">
-                    @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
+                    @if (auth()->check() &&
+                            auth()->user()->roles->contains('nama', 'admin' && 'walas'))
                         <li class="nav-item">
-                            <a href="{{ url('Siswa') }}" class="nav-link {{ $activeMenu == 'Siswa' ? 'active' : '' }}">
+                            <a href="{{ url('siswa') }}" class="nav-link {{ $activeMenu == 'Siswa' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
                                 <p style="color: black">Siswa</p>
                             </a>
@@ -86,8 +87,6 @@
                         </li>
                     @endif
                 </ul>
-
-
             </li>
         </ul>
     </nav>

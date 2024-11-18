@@ -7,6 +7,7 @@ use App\Http\Controllers\GuruController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\PembelajaranController;
+use App\Http\Controllers\SiswaController;
 use App\Models\MapelModel;
 use Illuminate\Support\Facades\Auth;
 
@@ -65,32 +66,40 @@ Route::middleware(['auth'])->group(function () {
 
 //rute untuk guru
 Route::prefix('guru')->group(function () {
-    Route::get('/', [GuruController::class, 'index'])->middleware('cek_login:1')->name('guru');
-    Route::get('/create', [GuruController::class, 'create'])->middleware('cek_login:1')->name('create');
+    Route::get('/', [GuruController::class, 'index'])->name('guru');
+    Route::get('/create', [GuruController::class, 'create'])->name('create');
     Route::post('/save', [GuruController::class, 'save'])->name('save-guru');
-    Route::get('/edit/{nik}', [GuruController::class, 'edit'])->middleware('cek_login:1')->name('edit');
-    Route::put('/update/{nik}', [GuruController::class, 'update'])->middleware('cek_login:1')->name('update');
+    Route::get('/edit/{nik}', [GuruController::class, 'edit'])->name('edit');
+    Route::put('/update/{nik}', [GuruController::class, 'update'])->name('update');
 });
 
 //rute untuk kelas
 Route::prefix('kelas')->group(function () {
-    Route::get('/', [KelasController::class, 'index'])->middleware('cek_login:1')->name('kelas');
+    Route::get('/', [KelasController::class, 'index'])->name('kelas');
     Route::post('/save', [KelasController::class, 'save'])->name('save');
-    Route::get('/edit/{kode_kelas}', [KelasController::class, 'edit'])->middleware('cek_login:1')->name('edit-kelas');
-    Route::put('/update/{kode_kelas}', [KelasController::class, 'update'])->middleware('cek_login:1')->name('update-kelas');
+    Route::get('/edit/{kode_kelas}', [KelasController::class, 'edit'])->name('edit-kelas');
+    Route::put('/update/{kode_kelas}', [KelasController::class, 'update'])->name('update-kelas');
 });
 
 //rute untuk mapel
 Route::prefix('mapel')->group(function () {
-    Route::get('/', [MapelController::class, 'index'])->middleware('cek_login:1')->name('mapel');
+    Route::get('/', [MapelController::class, 'index'])->name('mapel');
     Route::post('/save', [MapelController::class, 'save'])->name('save-mapel');
-    Route::put('/update/{kode_mapel}', [MapelController::class, 'update'])->middleware('cek_login:1')->name('update-mapel');
+    Route::put('/update/{kode_mapel}', [MapelController::class, 'update'])->name('update-mapel');
 });
 
 //rute untuk pembelajaran
 Route::prefix('pembelajaran')->group(function () {
-    Route::get('/', [PembelajaranController::class, 'index'])->middleware('cek_login:1')->name('pembelajaran');
+    Route::get('/', [PembelajaranController::class, 'index'])->name('pembelajaran');
     Route::post('/save', [PembelajaranController::class, 'save'])->name('save-pembelajaran');
-    Route::get('/edit/{kode_pembelajaran}', [PembelajaranController::class, 'edit'])->middleware('cek_login:1')->name('edit-pembelajaran');
-    Route::put('/update/{kode_pembelajaran}', [PembelajaranController::class, 'update'])->middleware('cek_login:1')->name('update-pembelajaran');
+    Route::get('/edit/{kode_pembelajaran}', [PembelajaranController::class, 'edit'])->name('edit-pembelajaran');
+    Route::put('/update/{kode_pembelajaran}', [PembelajaranController::class, 'update'])->name('update-pembelajaran');
+});
+
+//rute untuk pembelajaran
+Route::prefix('siswa')->group(function () {
+    Route::get('/', [SiswaController::class, 'index'])->name('siswa');
+    Route::post('/save', [SiswaController::class, 'save'])->name('save-siswa');
+    Route::get('/edit/{nis}', [SiswaController::class, 'edit'])->name('edit-siswa');
+    Route::put('/update/{nis}', [SiswaController::class, 'update'])->name('update-siswa');
 });
