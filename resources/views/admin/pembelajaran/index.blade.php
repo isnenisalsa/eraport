@@ -48,7 +48,7 @@
 
     <!-- Button trigger modal -->
 
-    <!-- Modal -->
+    <!-- Modal Tambah Data-->
 
     <div class="modal fade" id="modal-tambah-data-kelas" tabindex="-1" aria-labelledby="modal-tambah-data-kelasLabel"
         aria-hidden="true">
@@ -112,4 +112,71 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Modal Edit Data-->
+    @foreach ($pembelajaran as $item)
+    <div class="modal fade" id="modal-edit{{ $item->id_pembelajaran }}" tabindex="-1" aria-labelledby="modal-editLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Data kelas</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body">
+                        <form action="{{ route('update-pembelajaran', $item->id_pembelajaran) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <div class="form-group">
+                                <label for="id_pembelajaran">Kode Pembelajaran</label>
+                                <input type="text" name="id_pembelajaran" class="form-control"
+                                    value="{{ $item->id_pembelajaran }}" required>
+                                    @if ($errors->has('id_pembelajaran'))
+                                    <div class="text-danger">{{ $errors->first('id_pembelajaran') }}</div>
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <label for="mata_pelajaran">Mata Pelajaran</label>
+                                <select name="mata_pelajaran" class="form-control" required>
+                                    <option value="">Pilih Mata Pelajaran</option>
+                                    @foreach ($mapel as $mapelItem)
+                                        <option value="{{ $mapelItem->kode_mapel }}"
+                                            @if ($item->mata_pelajaran == $mapelItem->kode_mapel) selected @endif>
+                                            {{ $mapelItem->mata_pelajaran }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="mata_pelajaran">Mata Pelajaran</label>
+                                <select name="mata_pelajaran" class="form-control" required>
+                                    <option value="">Pilih Mata Pelajaran</option>
+                                    @foreach ($mapel as $mapelItem)
+                                        <option value="{{ $mapelItem->kode_mapel }}"
+                                            @if ($item->mata_pelajaran == $mapelItem->kode_mapel) selected @endif>
+                                            {{ $mapelItem->mata_pelajaran }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+
+                            <div class="form-check mt-3">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Saya Yakin Sudah Mengisi Dengan
+                                    Benar</label>
+                            </div>
+                            <button type="submit" class="btn btn-success float-right">Simpan</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
+
         @endsection

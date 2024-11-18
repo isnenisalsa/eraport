@@ -45,7 +45,11 @@ class PembelajaranController extends Controller
             'mata_pelajaran' => 'required',
             'nama_kelas' => 'required',
             'nama_guru' => 'required', // Pastikan 'nama_guru' sesuai dengan kolom yang ada di tabel 'guru'
-        ]);
+        ],
+
+    
+    
+    );
 
 
         PembelajaranModel::create([

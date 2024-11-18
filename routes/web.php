@@ -91,7 +91,7 @@ Route::prefix('mapel')->group(function () {
 //rute untuk pembelajaran
 Route::prefix('pembelajaran')->group(function () {
     Route::get('/', [PembelajaranController::class, 'index'])->name('pembelajaran');
-    Route::post('/save', [PembelajaranController::class, 'save'])->name('save-pembelajaran');
+    Route::put('/save', [PembelajaranController::class, 'save'])->name('save-pembelajaran');
     Route::get('/edit/{kode_pembelajaran}', [PembelajaranController::class, 'edit'])->name('edit-pembelajaran');
     Route::put('/update/{kode_pembelajaran}', [PembelajaranController::class, 'update'])->name('update-pembelajaran');
 });
