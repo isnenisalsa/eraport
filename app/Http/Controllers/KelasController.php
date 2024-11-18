@@ -68,9 +68,9 @@ class KelasController extends Controller
             'nama_kelas' => $request->input('nama_kelas'),
             'guru_nik' => $request->input('guru_nik'),
         ]);
-        $guru = GuruModel::find($request->guru_nik);
-        $guru->roles_id = '3';
-        $guru->save();
+        // $guru = GuruModel::find($request->guru_nik);
+        // $guru->roles_id = '3';
+        // $guru->save();
         // Redirect ke halaman yang sesuai setelah berhasil update
         return redirect()->route('kelas')->with('success', 'Data Kelas berhasil diperbarui');
     }

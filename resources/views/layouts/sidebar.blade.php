@@ -19,11 +19,13 @@
 
             <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
+
                     <i class="fas fa-solid fa-users" style="color: black"></i>
                     <p style="color: black">
                         &nbsp; PENGGUNA
                         <i class="right fas fa-angle-left" style="color: black"></i>
                     </p>
+                    =
                 </a>
                 <ul class="nav nav-treeview">
                     @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
