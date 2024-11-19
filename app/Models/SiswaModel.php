@@ -13,6 +13,7 @@ class SiswaModel extends Model
     protected $keyType = 'string';
     protected $fillable = [
         'nis',
+        'nisn',
         'nama',
         'status',
         'jenis_kelamin',
