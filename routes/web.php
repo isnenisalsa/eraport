@@ -99,7 +99,7 @@ Route::prefix('pembelajaran')->group(function () {
 //rute untuk siswa
 Route::prefix('siswa')->group(function () {
     Route::get('/', [SiswaController::class, 'index'])->name('siswa');
-    Route::post('/create', [SiswaController::class, 'save'])->name('save-siswa');
+    Route::get('/create', [SiswaController::class, 'create'])->name('create');
     Route::post('/save', [SiswaController::class, 'save'])->name('save-siswa');
     Route::get('/edit/{nis}', [SiswaController::class, 'edit'])->name('edit-siswa');
     Route::put('/update/{nis}', [SiswaController::class, 'update'])->name('update-siswa');
