@@ -8,6 +8,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\PembelajaranController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\TahunajaranController;
 use App\Models\MapelModel;
 use Illuminate\Support\Facades\Auth;
 
@@ -91,15 +92,23 @@ Route::prefix('mapel')->group(function () {
 //rute untuk pembelajaran
 Route::prefix('pembelajaran')->group(function () {
     Route::get('/', [PembelajaranController::class, 'index'])->name('pembelajaran');
-    Route::put('/save', [PembelajaranController::class, 'save'])->name('save-pembelajaran');
+    Route::post('/save', [PembelajaranController::class, 'save'])->name('save-pembelajaran');
     Route::get('/edit/{kode_pembelajaran}', [PembelajaranController::class, 'edit'])->name('edit-pembelajaran');
     Route::put('/update/{kode_pembelajaran}', [PembelajaranController::class, 'update'])->name('update-pembelajaran');
 });
 
-//rute untuk pembelajaran
+//rute untuk siswa
 Route::prefix('siswa')->group(function () {
     Route::get('/', [SiswaController::class, 'index'])->name('siswa');
+    Route::post('/create', [SiswaController::class, 'save'])->name('save-siswa');
     Route::post('/save', [SiswaController::class, 'save'])->name('save-siswa');
     Route::get('/edit/{nis}', [SiswaController::class, 'edit'])->name('edit-siswa');
     Route::put('/update/{nis}', [SiswaController::class, 'update'])->name('update-siswa');
+});
+
+//rute untuk tahun ajaran
+Route::prefix('tahun_ajaran')->group(function () {
+    Route::get('/', [TahunajaranController::class, 'index'])->name('tahun_ajaran');
+    Route::post('/save', [TahunajaranController::class, 'save'])->name('save-tahun_ajaran');
+    Route::put('/update/{kode_tahun_ajaran}', [TahunajaranController::class, 'update'])->name('update-tahun_ajaran');
 });
