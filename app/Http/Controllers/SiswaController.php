@@ -22,7 +22,7 @@ class SiswaController extends Controller
                 $activeMenu = 'siswa';
                 $siswa = SiswaModel::all();
 
-                return view('walas.siswa.index', ['breadcrumb' => $breadcrumb, 'siswa' => $siswa, 'activeMenu' => $activeMenu]);
+                return view('admin.siswa.index', ['breadcrumb' => $breadcrumb, 'siswa' => $siswa, 'activeMenu' => $activeMenu]);
             } elseif (in_array(3, $roleIds)) {
                 $breadcrumb = (object) [
                     'title' => 'Daftar Siswa',

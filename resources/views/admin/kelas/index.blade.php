@@ -31,7 +31,7 @@
                                         <td>{{ $item->kode_kelas }}</td>
                                         <td>{{ $item->nama_kelas }}</td>
                                         <td>{{ $item->guru->nama }}</td>
-                                        <td>{{ $item->tahun_ajar->tahun_ajaran }}</td>
+                                        <td>{{ $item->tahun_ajarans->tahun_ajaran }}</td>
                                         <td>
                                             <button type="button" class="btn btn-warning btn-sm text-center"
                                                 data-toggle="modal" data-target="#modal-edit{{ $item->kode_kelas }}">
@@ -86,11 +86,11 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="tahun_ajaran_id">Tahun Ajaran</label>
-                                <select name="tahun_ajaran_id" class="form-control" required>
+                                <label for="kode_tahun_ajaran">Tahun Ajaran</label>
+                                <select name="kode_tahun_ajaran" class="form-control" required>
                                     <option value="">Pilih Tahun Ajaran</option>
                                     @foreach ($tahun as $item)
-                                        <option value="{{ $item->id }}">{{ $item->tahun_ajaran }}</option>
+                                        <option value="{{ $item->kode_tahun_ajaran }}">{{ $item->tahun_ajaran }}</option>
                                     @endforeach
                                 </select>
                             </div>

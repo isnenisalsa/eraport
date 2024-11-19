@@ -25,7 +25,7 @@
                         &nbsp; PENGGUNA
                         <i class="right fas fa-angle-left" style="color: black"></i>
                     </p>
-                    =
+                    
                 </a>
                 <ul class="nav nav-treeview">
                     @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
@@ -63,7 +63,7 @@
                         <li class="nav-item">
                             <a href="{{ url('kelas') }}" class="nav-link {{ $activeMenu == 'kelas' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
-                                <p style="color: black">kelas</p>
+                                <p style="color: black">Kelas</p>
                             </a>
                         </li>
                     @endif
@@ -73,7 +73,7 @@
                         <li class="nav-item">
                             <a href="{{ url('mapel') }}" class="nav-link {{ $activeMenu == 'mapel' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
-                                <p style="color: black">mapel</p>
+                                <p style="color: black">Mapel</p>
                             </a>
                         </li>
                     @endif
@@ -84,9 +84,22 @@
                             <a href="{{ url('pembelajaran') }}"
                                 class="nav-link {{ $activeMenu == 'pembelajaran' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
-                                <p style="color: black">pembelajaran</p>
+                                <p style="color: black">Pembelajaran</p>
                             </a>
                         </li>
+                        
+                    @endif
+                </ul>
+                <ul class="nav nav-treeview">
+                    @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
+                        <li class="nav-item">
+                            <a href="{{ url('tahun_ajaran') }}"
+                                class="nav-link {{ $activeMenu == 'tahun_ajaran' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon" style="color: black"></i>
+                                <p style="color: black">Tahun Ajaran</p>
+                            </a>
+                        </li>
+                        
                     @endif
                 </ul>
             </li>

@@ -9,4 +9,24 @@ class SiswaModel extends Model
 {
     use HasFactory;
     protected $table = "siswa";
+    protected $primaryKey = "nis";
+    protected $keyType = 'string';
+    protected $fillable = [
+        'nis',
+        'nama',
+        'status',
+        'jenis_kelamin',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'alamat',
+        'nama_ayah',
+        'nama_ibu',
+        'pekerjaan_ayah',
+        'pekerjaan_ibu',
+        'no_telp_ayah',
+        'no_telp_ibu',
+        'nama_wali',
+        'pekerjaan_wali',
+        'no_telp_wali',
+    ];
 }

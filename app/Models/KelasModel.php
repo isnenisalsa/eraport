@@ -15,15 +15,15 @@ class KelasModel extends Model
         'kode_kelas',
         'nama_kelas',
         'guru_nik',
-        'tahun_ajaran_id'
+        'tahun_ajaran',
     ];
 
     public function guru()
     {
         return $this->belongsTo(GuruModel::class, 'guru_nik', 'nik');
     }
-    public function tahun_ajar()
+    public function tahun_ajarans()
     {
-        return $this->belongsTo(TahunAjarModel::class, 'tahun_ajaran_id', 'id');
+        return $this->belongsTo(TahunAjarModel::class, 'tahun_ajaran', 'kode_tahun_ajaran');
     }
 }
