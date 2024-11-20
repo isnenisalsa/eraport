@@ -18,15 +18,15 @@
             </li>
 
             <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
-
-                    <i class="fas fa-solid fa-users" style="color: black"></i>
-                    <p style="color: black">
-                        &nbsp; PENGGUNA
-                        <i class="right fas fa-angle-left" style="color: black"></i>
-                    </p>
-                    
-                </a>
+                @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-solid fa-users" style="color: black"></i>
+                        <p style="color: black">
+                            &nbsp; PENGGUNA
+                            <i class="right fas fa-angle-left" style="color: black"></i>
+                        </p>
+                    </a>
+                @endif
                 <ul class="nav nav-treeview">
                     @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
                         <li class="nav-item">
@@ -51,13 +51,15 @@
             </li>
 
             <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
-                    <i class="fas fa-solid fa-laptop" style="color: black"></i>
-                    <p style="color: black">
-                        &nbsp; ADMINISTRASI
-                        <i class="right fas fa-angle-left" style="color: black"></i>
-                    </p>
-                </a>
+                @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-solid fa-laptop" style="color: black"></i>
+                        <p style="color: black">
+                            &nbsp; ADMINISTRASI
+                            <i class="right fas fa-angle-left" style="color: black"></i>
+                        </p>
+                    </a>
+                @endif
                 <ul class="nav nav-treeview">
                     @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
                         <li class="nav-item">
@@ -87,19 +89,17 @@
                                 <p style="color: black">Pembelajaran</p>
                             </a>
                         </li>
-                        
                     @endif
                 </ul>
                 <ul class="nav nav-treeview">
                     @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
                         <li class="nav-item">
                             <a href="{{ url('tahun_ajaran') }}"
-                                class="nav-link {{ $activeMenu == 'tahun_ajaran' ? 'active' : '' }}">
+                                class="nav-link {{ $activeMenu == 'Tahun Ajaran' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
                                 <p style="color: black">Tahun Ajaran</p>
                             </a>
                         </li>
-                        
                     @endif
                 </ul>
             </li>

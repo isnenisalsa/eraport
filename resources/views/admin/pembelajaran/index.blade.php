@@ -175,4 +175,6 @@
                     </form>
                 </div>
             </div>
-        @endsection
+        </div>
+    @endforeach
+@endsection

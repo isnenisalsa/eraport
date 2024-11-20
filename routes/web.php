@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuruController;
+use App\Http\Controllers\ImportExportController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\PembelajaranController;
@@ -111,4 +112,10 @@ Route::prefix('tahun_ajaran')->group(function () {
     Route::get('/', [TahunajaranController::class, 'index'])->name('tahun_ajaran');
     Route::post('/save', [TahunajaranController::class, 'save'])->name('save-tahun_ajaran');
     Route::put('/update/{kode_tahun_ajaran}', [TahunajaranController::class, 'update'])->name('update-tahun_ajaran');
+});
+
+Route::controller(ImportExportController::class)->group(function () {
+    Route::get('import_export', 'importExport');
+    Route::post('import', 'import')->name('import');
+    Route::get('export', 'export')->name('export');
 });

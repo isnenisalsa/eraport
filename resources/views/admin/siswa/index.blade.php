@@ -1,13 +1,21 @@
 @extends('layouts.template')
 @section('content')
-    <link rel="stylesheet" href="css/style.css">
-
     <div class="container">
+        @if ($errors->any())
+            <div class="alert alert-danger" role="alert">
+                @foreach ($errors->all() as $error)
+                    {{ $error }}
+                @endforeach
+            </div>
+        @endif
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
                         <a href="{{ route('create') }}" class="btn btn-success btn-sm float-left">+ Tambah Data Siswa</a>
+                        <button type="button" class="btn btn-success btn-sm float-right" data-toggle="modal"
+                            data-target="#modalImpor">Impor
+                            Excel </button>
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered table-striped text-center" id="example2">
@@ -15,13 +23,13 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Status</th>
-                                    <th>NIS</th>
-                                    <th>NISN</th>
+                                    <th>Nis</th>
+                                    <th>Nisn</th>
                                     <th>Nama</th>
                                     <th>Jenis Kelamin</th>
                                     <th>Tempat Lahir</th>
                                     <th>Tanggal Lahir</th>
-                                    <th>Aksi</th>
+                                    <th colspan="2">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,9 +46,10 @@
                                         <td>{{ $item->tanggal_lahir }}</td>
                                         <td>
                                             <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                data-target="#modalDetail{{ $item->nis }}">Detail </button>  
-                                            <a href="{{ route('edit-siswa', $item->nis) }}" class="btn btn-warning">edit</a>
+                                                data-target="#modalDetail{{ $item->nis }}">Detail </button>
                                         </td>
+                                        <td><a href="{{ route('edit-siswa', $item->nis) }}"
+                                                class="btn btn-warning">edit</a></td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -50,6 +59,8 @@
             </div>
         </div>
     </div>
+
+
     @foreach ($siswa as $item)
         <div class="modal fade" id="modalDetail{{ $item->nis }}" tabindex="-1"
             aria-labelledby="modalDetailLabel{{ $item->nis }}" aria-hidden="true">
@@ -124,7 +135,8 @@
                             <tr>
                                 <th>Pekerjaan Wali</th>
                                 <td>{{ $item->pekerjaan_wali }}</td>
-                            </tr><tr>
+                            </tr>
+                            <tr>
                                 <th>Nomor Telepon Wali</th>
                                 <td>{{ $item->no_telp_wali }}</td>
                             </tr>
@@ -137,4 +149,32 @@
             </div>
         </div>
     @endforeach
+
+
+    {{-- modal impor excel --}}
+    <div class="modal fade" id="modalImpor" tabindex="-1" aria-labelledby="modalDetaiImpor" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 800px;"> <!-- Perbesar ukuran modal -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalImporLabel">Impor</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('import') }}" method="POST" name="importform" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label for="file">File:</label>
+                            <input id="file" type="file" name="file" class="form-control">
+                        </div>
+                        <button class="btn btn-success btn-sm">Import File</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Kembali</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

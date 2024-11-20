@@ -16,7 +16,6 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Kode Tahun Ajaran </th>
                                     <th>Tahun Ajaran</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -26,8 +25,7 @@
                                 @foreach ($tahun_ajaran as $item)
                                     <tr>
                                         <td>{{ $no++ }}</td>
-                                        <td>{{ $item->kode_tahun_ajaran }}</td>
-                                        <td>{{ $item->tahun_ajaran}}</td>
+                                        <td>{{ $item->tahun_ajaran }}</td>
                                         <td>
                                             <button type="button" class="btn btn-warning btn-sm text-center"
                                                 data-toggle="modal" data-target="#modal-edit{{ $item->tahun_ajaran }}">
@@ -47,8 +45,8 @@
 
     <!-- Modal Tambah Data -->
 
-    <div class="modal fade" id="modal-tambah-data-tahun_ajaran" tabindex="-1" aria-labelledby="modal-tambah-data-tahun_ajaranLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="modal-tambah-data-tahun_ajaran" tabindex="-1"
+        aria-labelledby="modal-tambah-data-tahun_ajaranLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -62,10 +60,6 @@
                         <form action="{{ route('save-tahun_ajaran') }}" method="POST">
                             @csrf
 
-                            <div class="form-group">
-                                <label for="kode_tahun_ajaran">Kode Tahun Ajaran</label>
-                                <input type="text" name="kode_tahun_ajaran" class="form-control" required>
-                            </div>
                             <div class="form-group">
                                 <label for="tahun_ajaran">Tahun Ajaran</label>
                                 <input type="text" name="tahun_ajaran" class="form-control" required>
@@ -87,8 +81,8 @@
 
     <!-- Modal Edit Data -->
     @foreach ($tahun_ajaran as $item)
-        <div class="modal fade" id="modal-edit{{ $item->kode_tahun_ajaran }}" tabindex="-1" aria-labelledby="modal-editLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="modal-edit{{ $item->kode_tahun_ajaran }}" tabindex="-1"
+            aria-labelledby="modal-editLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">

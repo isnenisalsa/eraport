@@ -13,7 +13,7 @@ class TahunajaranController extends Controller
             'title' => 'Daftar Tahun Ajaran',
         ];
 
-        $activeMenu = 'TahunAjarModel';
+        $activeMenu = 'Tahun Ajaran';
         // Pastikan model yang benar digunakan
         $tahun_ajaran = TahunAjarModel::all();
 
@@ -28,13 +28,11 @@ class TahunajaranController extends Controller
     {
         // Validasi input data
         $request->validate([
-            'kode_tahun_ajaran' => 'required|unique:tahun_ajaran,kode_tahun_ajaran',
             'tahun_ajaran' => 'required',
         ]);
 
         // Simpan data
         TahunAjarModel::create([
-            'kode_tahun_ajaran' => $request->kode_tahun_ajaran,
             'tahun_ajaran' => $request->tahun_ajaran,
         ]);
 

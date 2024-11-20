@@ -29,5 +29,7 @@ class SiswaModel extends Model
         'nama_wali',
         'pekerjaan_wali',
         'no_telp_wali',
+        'username',
+        'password'
     ];
 }

@@ -1,7 +1,5 @@
 @extends('layouts.template')
 @section('content')
-    <link rel="stylesheet" href="css/style.css">
-
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
@@ -34,7 +32,7 @@
                                         <td>{{ $item->status }}</td>
                                         <td>
                                             <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                data-target="#modalDetail{{ $item->nik }}">Detail </button>  
+                                                data-target="#modalDetail{{ $item->nik }}">Detail </button>
                                             <a href="{{ route('edit', $item->nik) }}" class="btn btn-warning">edit</a>
                                         </td>
                                     </tr>

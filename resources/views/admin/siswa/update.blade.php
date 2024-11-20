@@ -19,7 +19,8 @@
                             <label for="status" class="form-label">Status</label>
                             <select class="form-control" name="status" id="status">
                                 <option value="">Pilih</option>
-                                <option value="aktif" {{ old('status', $siswa->status) == 'aktif' ? 'selected' : '' }}>Aktif
+                                <option value="aktif" {{ old('status', $siswa->status) == 'aktif' ? 'selected' : '' }}>
+                                    Aktif
                                 </option>
                                 <option value="tidak aktif"
                                     {{ old('status', $siswa->status) == 'tidak aktif' ? 'selected' : '' }}>Tidak Aktif
@@ -58,10 +59,13 @@
                             <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
                             <select class="form-control" name="jenis_kelamin" id="jenis_kelamin">
                                 <option value="">Pilih</option>
-                                <option value="Laki-Laki" {{ old('jenis_kelamin', $siswa->jenis_kelamin) == 'Laki-Laki' ? 'selected' : '' }}>Laki-Laki
+                                <option value="Laki-Laki"
+                                    {{ old('jenis_kelamin', $siswa->jenis_kelamin) == 'Laki-Laki' ? 'selected' : '' }}>
+                                    Laki-Laki
                                 </option>
                                 <option value="Perempuan"
-                                    {{ old('jenis_kelamin', $siswa->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>Perempuan
+                                    {{ old('jenis_kelamin', $siswa->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>
+                                    Perempuan
                                 </option>
                             </select>
                             @if ($errors->has('jenis_kelamin'))
@@ -70,8 +74,9 @@
                         </div>
                         <div class="mb-3">
                             <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
-                            <input type="text" class="form-control" id="tempat_lahir" placeholder="Inputkan tempat_lahir Anda"
-                                name="tempat_lahir" value="{{ $siswa->tempat_lahir }} ">
+                            <input type="text" class="form-control" id="tempat_lahir"
+                                placeholder="Inputkan tempat_lahir Anda" name="tempat_lahir"
+                                value="{{ $siswa->tempat_lahir }} ">
                             @if ($errors->has('tempat_lahir'))
                                 <div class="text-danger">{{ $errors->first('tempat_lahir') }}</div>
                             @endif
@@ -108,16 +113,16 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="pekerjaan_ayah" class="form-label">Pekerjaan Ayah</label>
-                            <input type="text" class="form-control" value="{{ $siswa->pekerjaan_ayah }} " id="pekerjaan_ayah"
-                                placeholder="Inputkan Pekerjaan Ayah" name="pekerjaan_ayah">
+                            <input type="text" class="form-control" value="{{ $siswa->pekerjaan_ayah }} "
+                                id="pekerjaan_ayah" placeholder="Inputkan Pekerjaan Ayah" name="pekerjaan_ayah">
                             @if ($errors->has('pekerjaan_ayah'))
                                 <div class="text-danger">{{ $errors->first('pekerjaan_ayah') }}</div>
                             @endif
                         </div>
                         <div class="mb-3">
                             <label for="no_telp_ayah" class="form-label">Nomor Telepon Ayah</label>
-                            <input type="text" class="form-control" value="{{ $siswa->no_telp_ayah }} " id="no_telp_ayah"
-                                placeholder="Inputkan Nomor Telepon Ayah" name="no_telp_ayah">
+                            <input type="text" class="form-control" value="{{ $siswa->no_telp_ayah }} "
+                                id="no_telp_ayah" placeholder="Inputkan Nomor Telepon Ayah" name="no_telp_ayah">
                             @if ($errors->has('no_telp_ayah'))
                                 <div class="text-danger">{{ $errors->first('no_telp_ayah') }}</div>
                             @endif
@@ -132,16 +137,16 @@
                         </div>
                         <div class="mb-3">
                             <label for="pekerjaan_ibu" class="form-label">Pekerjaan Ibu</label>
-                            <input type="text" class="form-control" value="{{ $siswa->pekerjaan_ibu }} " id="pekerjaan_ibu"
-                                placeholder="Inputkan Pekerjaan Ibu" name="pekerjaan_ibu">
+                            <input type="text" class="form-control" value="{{ $siswa->pekerjaan_ibu }} "
+                                id="pekerjaan_ibu" placeholder="Inputkan Pekerjaan Ibu" name="pekerjaan_ibu">
                             @if ($errors->has('pekerjaan_ibu'))
                                 <div class="text-danger">{{ $errors->first('pekerjaan_ibu') }}</div>
                             @endif
                         </div>
                         <div class="mb-3">
                             <label for="no_telp_ibu" class="form-label">Nomor Telepon Ibu</label>
-                            <input type="text" class="form-control" value="{{ $siswa->no_telp_ibu }} " id="no_telp_ibu"
-                                placeholder="Inputkan Pekerjaan Ibu" name="no_telp_ibu">
+                            <input type="text" class="form-control" value="{{ $siswa->no_telp_ibu }} "
+                                id="no_telp_ibu" placeholder="Inputkan Pekerjaan Ibu" name="no_telp_ibu">
                             @if ($errors->has('no_telp_ibu'))
                                 <div class="text-danger">{{ $errors->first('no_telp_ibu') }}</div>
                             @endif
@@ -156,31 +161,31 @@
                         </div>
                         <div class="mb-3">
                             <label for="pekerjaan_wali" class="form-label">Pekerjaan Wali</label>
-                            <input type="text" class="form-control" value="{{ $siswa->pekerjaan_wali }} " id="pekerjaan_wali"
-                                placeholder="Inputkan Pekerjaan Wali" name="pekerjaan_wali">
+                            <input type="text" class="form-control" value="{{ $siswa->pekerjaan_wali }} "
+                                id="pekerjaan_wali" placeholder="Inputkan Pekerjaan Wali" name="pekerjaan_wali">
                             @if ($errors->has('pekerjaan_wali'))
                                 <div class="text-danger">{{ $errors->first('pekerjaan_wali') }}</div>
                             @endif
                         </div>
                         <div class="mb-3">
                             <label for="no_telp_wali" class="form-label">Nomor Telepon Wali</label>
-                            <input type="text" class="form-control" value="{{ $siswa->no_telp_wali }} " id="no_telp_wali"
-                                placeholder="Inputkan Nomor Telepon Wali" name="no_telp_wali">
+                            <input type="text" class="form-control" value="{{ $siswa->no_telp_wali }} "
+                                id="no_telp_wali" placeholder="Inputkan Nomor Telepon Wali" name="no_telp_wali">
                             @if ($errors->has('no_telp_wali'))
                                 <div class="text-danger">{{ $errors->first('no_telp_wali') }}</div>
                             @endif
                         </div>
+                    </div>
                 </div>
-
                 <div class="form-check mt-3">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                     <label class="form-check-label" for="exampleCheck1">Saya Yakin Sudah Mengisi Dengan Benar</label>
                 </div>
 
+
                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
 
             </form>
-
         </div>
     </div>
 @endsection

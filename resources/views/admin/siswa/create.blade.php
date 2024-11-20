@@ -64,8 +64,9 @@
                         </div>
                         <div class="mb-3">
                             <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
-                            <input type="text" class="form-control" id="tempat_lahir" placeholder="Inputkan Tempat Lahir Anda"
-                                name="tempat_lahir" value="{{ old('tempat_lahir') }}">
+                            <input type="text" class="form-control" id="tempat_lahir"
+                                placeholder="Inputkan Tempat Lahir Anda" name="tempat_lahir"
+                                value="{{ old('tempat_lahir') }}">
                             @if ($errors->has('tempat_lahir'))
                                 <div class="text-danger">{{ $errors->first('tempat_lahir') }}</div>
                             @endif
@@ -80,21 +81,21 @@
                         </div>
                         <div class="mb-3">
                             <label for="alamat" class="form-label">Alamat</label>
-                            <input type="text" class="form-control" placeholder="Inputkan Alamat Anda" id="alamat" name="alamat"
-                                value="{{ old('alamat') }}">
+                            <input type="text" class="form-control" placeholder="Inputkan Alamat Anda" id="alamat"
+                                name="alamat" value="{{ old('alamat') }}">
                             @if ($errors->has('alamat'))
                                 <div class="text-danger">{{ $errors->first('alamat') }}</div>
                             @endif
                         </div>
                         <div class="mb-3">
                             <label for="nama_ayah" class="form-label">Nama Ayah</label>
-                            <input type="text" class="form-control" id="nama_ayah" placeholder="Inputkan Nama Ayah" name="nama_ayah"
-                                value="{{ old('nama_ayah') }}">
+                            <input type="text" class="form-control" id="nama_ayah" placeholder="Inputkan Nama Ayah"
+                                name="nama_ayah" value="{{ old('nama_ayah') }}">
                             @if ($errors->has('nama_ayah'))
                                 <div class="text-danger">{{ $errors->first('nama_ayah') }}</div>
                             @endif
                         </div>
-                        </div>
+                    </div>
 
                     <!-- Kolom Kanan -->
                     <div class="col-md-6">
@@ -118,9 +119,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="nama_ibu" class="form-label">Nama Ibu</label>
-                            <input type="text" class="form-control" id="nama_ibu"
-                                placeholder="Inputkan Nama Ibu" name="nama_ibu"
-                                value="{{ old('nama_ibu') }}">
+                            <input type="text" class="form-control" id="nama_ibu" placeholder="Inputkan Nama Ibu"
+                                name="nama_ibu" value="{{ old('nama_ibu') }}">
                             @if ($errors->has('nama_ibu'))
                                 <div class="text-danger">{{ $errors->first('nama_ibu') }}</div>
                             @endif
@@ -145,9 +145,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="nama_wali" class="form-label">Nama Wali</label>
-                            <input type="text" class="form-control" id="nama_wali"
-                                placeholder="Inputkan Nama Wali" name="nama_wali"
-                                value="{{ old('nama_wali') }}">
+                            <input type="text" class="form-control" id="nama_wali" placeholder="Inputkan Nama Wali"
+                                name="nama_wali" value="{{ old('nama_wali') }}">
                             @if ($errors->has('nama_wali'))
                                 <div class="text-danger">{{ $errors->first('nama_wali') }}</div>
                             @endif
@@ -171,6 +170,8 @@
                             @endif
                         </div>
 
+                    </div>
+                </div>
                 <div class="form-check mt-3">
                     <input type="checkbox" class="form-check-input" id="terms" name="terms">
                     <label class="form-check-label" for="terms" required>Saya Yakin Sudah Mengisi Dengan
