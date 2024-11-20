@@ -14,8 +14,61 @@
                         </p>
                     </a>
                 @endif
-
             </li>
+
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
+                        <a href="{{ url('/dashboard/walas') }}"
+                            class="nav-link  {{ $activeMenu == 'dashboard' ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-tachometer-alt" style="color: rgb(3, 3, 3)"></i>
+                            <p style="color: rgb(10, 10, 10)">
+                                Dashboard
+                            </p>
+                        </a>
+                    @endif
+                </li>
+
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
+                        <a href="{{ url('/siswa_kelas') }}"
+                            class="nav-link  {{ $activeMenu == 'Data Siswa' ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-tachometer-alt" style="color: rgb(3, 3, 3)"></i>
+                            <p style="color: rgb(10, 10, 10)">
+                                Data Siswa
+                            </p>
+                        </a>
+                    @endif
+                </li>
+
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item">
+                        @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
+                            <a href="{{ url('/siswa_kelas') }}"
+                                class="nav-link  {{ $activeMenu == 'Data Pembelajaran' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-tachometer-alt" style="color: rgb(3, 3, 3)"></i>
+                                <p style="color: rgb(10, 10, 10)">
+                                    Data Pembelajaran
+                                </p>
+                            </a>
+                        @endif
+                    </li>
+
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <li class="nav-item">
+                            @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
+                                <a href="{{ url('/siswa_kelas') }}"
+                                    class="nav-link  {{ $activeMenu == 'Cetak Rapot' ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-tachometer-alt" style="color: rgb(3, 3, 3)"></i>
+                                    <p style="color: rgb(10, 10, 10)">
+                                        Cetak Rapot
+                                    </p>
+                                </a>
+                            @endif
+                        </li>
+
+                
 
             <li class="nav-item has-treeview">
                 @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))

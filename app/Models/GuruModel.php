@@ -30,11 +30,13 @@ class GuruModel extends Authenticatable
         'username',
         'password',
         'alamat',
-        'roles_id',
+        
     ];
     public function roles()
     {
         return $this->belongsToMany(RolesModel::class, 'guru_roles', 'guru_id', 'role_id');
     }
-
+public function kelas(){
+    return $this->belongsTo(KelasModel::class,'nik','guru_nik');
+}
 }

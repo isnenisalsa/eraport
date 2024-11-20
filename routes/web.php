@@ -9,6 +9,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\PembelajaranController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\SiswaKelasController;
 use App\Http\Controllers\TahunajaranController;
 use App\Models\MapelModel;
 use Illuminate\Support\Facades\Auth;
@@ -69,7 +70,7 @@ Route::middleware(['auth'])->group(function () {
 //rute untuk guru
 Route::prefix('guru')->group(function () {
     Route::get('/', [GuruController::class, 'index'])->name('guru');
-    Route::get('/create', [GuruController::class, 'create'])->name('create');
+    Route::get('/create', [GuruController::class, 'create'])->name('create-guru');
     Route::post('/save', [GuruController::class, 'save'])->name('save-guru');
     Route::get('/edit/{nik}', [GuruController::class, 'edit'])->name('edit');
     Route::put('/update/{nik}', [GuruController::class, 'update'])->name('update');
@@ -119,3 +120,11 @@ Route::controller(ImportExportController::class)->group(function () {
     Route::post('import', 'import')->name('import');
     Route::get('export', 'export')->name('export');
 });
+
+//rute untuk siswa
+Route::prefix('siswa_kelas')->group(function () {
+    Route::get('/', [SiswaKelasController::class, 'index'])->name('siswa_kelas');
+    Route::get('/create', [SiswaKelasController::class, 'create'])->name('create');
+    Route::post('/save', [SiswaKelasController::class, 'save'])->name('save-siswa_kelas');
+});
+

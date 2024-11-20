@@ -9,7 +9,7 @@
             </div>
         @endif
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-12 ">
                 <div class="card">
                     <div class="card-header">
                         <a href="{{ route('create') }}" class="btn btn-success btn-sm float-left">+ Tambah Data Siswa</a>
@@ -29,7 +29,7 @@
                                     <th>Jenis Kelamin</th>
                                     <th>Tempat Lahir</th>
                                     <th>Tanggal Lahir</th>
-                                    <th colspan="2">Aksi</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -47,9 +47,10 @@
                                         <td>
                                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                                 data-target="#modalDetail{{ $item->nis }}">Detail </button>
+                                                <a href="{{ route('edit-siswa', $item->nis) }}"
+                                                    class="btn btn-warning">edit</a>
                                         </td>
-                                        <td><a href="{{ route('edit-siswa', $item->nis) }}"
-                                                class="btn btn-warning">edit</a></td>
+                                      
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -33,7 +33,7 @@ class KelasController extends Controller
             'kode_kelas' => 'required|string|max:10|unique:kelas,kode_kelas', // Aturan validasi yang benar
             'nama_kelas' => 'required|string|max:255',
             'guru_nik' => 'required|exists:guru,nik', // Pastikan 'guru_nik' sesuai dengan kolom yang ada di tabel 'guru'
-            'kode_tahun_ajaran' => 'required',
+            'tahun_ajaran_id' => 'required',
         ]);
 
         // Buat entri baru di tabel kelas
@@ -41,7 +41,7 @@ class KelasController extends Controller
             'kode_kelas' => $request->kode_kelas,
             'nama_kelas' => $request->nama_kelas,
             'guru_nik' => $request->guru_nik,
-            'tahun_ajaran_kode_tahun_ajaran' => $request->kode_tahun_ajaran,
+            'tahun_ajaran_id' => $request->tahun_ajaran_id,
         ]);
 
         // Ambil guru berdasarkan guru_nik

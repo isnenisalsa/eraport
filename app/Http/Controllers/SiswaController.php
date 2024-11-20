@@ -24,21 +24,11 @@ class SiswaController extends Controller
                 $siswa = SiswaModel::all();
 
                 return view('admin.siswa.index', ['breadcrumb' => $breadcrumb, 'siswa' => $siswa, 'activeMenu' => $activeMenu]);
-            } elseif (in_array(3, $roleIds)) {
-                $breadcrumb = (object) [
-                    'title' => 'Daftar Siswa',
-                ];
-                $activeMenu = 'siswa';
-                $siswa = SiswaModel::all();
-
-                return view('walas.siswa.index', ['breadcrumb' => $breadcrumb, 'siswa' => $siswa, 'activeMenu' => $activeMenu]);
+            
             } else {
                 return redirect('login')->withErrors(['access_denied' => 'Akses ditolak. Role Anda tidak dikenali.']);
             }
-        } else {
-            // Redirect to login page if not authenticated
-            return redirect('login');
-        }
+        } 
     }
 
     public function create()

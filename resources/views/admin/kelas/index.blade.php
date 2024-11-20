@@ -86,11 +86,11 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="kode_tahun_ajaran">Tahun Ajaran</label>
-                                <select name="kode_tahun_ajaran" class="form-control" required>
+                                <label for="tahun_ajaran_id">Tahun Ajaran</label>
+                                <select name="tahun_ajaran_id" class="form-control" required>
                                     <option value="">Pilih Tahun Ajaran</option>
                                     @foreach ($tahun as $item)
-                                        <option value="{{ $item->kode_tahun_ajaran }}">{{ $item->tahun_ajaran }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->tahun_ajaran }}</option>
                                     @endforeach
                                 </select>
                             </div>
