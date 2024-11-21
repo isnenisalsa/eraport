@@ -17,7 +17,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Tahun Ajaran</th>
-                                    <th>Aksi</th>
+                                    {{-- <th>Aksi</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -26,12 +26,12 @@
                                     <tr>
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $item->tahun_ajaran }}</td>
-                                        <td>
+                                        {{-- <td>
                                             <button type="button" class="btn btn-warning btn-sm text-center"
                                                 data-toggle="modal" data-target="#modal-edit{{ $item->tahun_ajaran }}">
                                                 Edit
                                             </button>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -80,7 +80,7 @@
     </div>
 
     <!-- Modal Edit Data -->
-    @foreach ($tahun_ajaran as $item)
+    {{-- @foreach ($tahun_ajaran as $item)
         <div class="modal fade" id="modal-edit{{ $item->kode_tahun_ajaran }}" tabindex="-1"
             aria-labelledby="modal-editLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -119,5 +119,5 @@
                 </div>
             </div>
         </div>
-    @endforeach
+    @endforeach --}}
 @endsection

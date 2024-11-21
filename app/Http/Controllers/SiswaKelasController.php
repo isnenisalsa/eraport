@@ -11,40 +11,51 @@ use Illuminate\Support\Facades\Auth;
 
 class SiswaKelasController extends Controller
 {
-    public function index() {
-        {
+    public function index($kode_kelas)
+    { {
 
             $breadcrumb = (object) [
                 'title' => 'Daftar Siswa',
             ];
-    
-            
+
+
             $activeMenu = 'Data Siswa';
-            $user = Auth::user();
-            $kelas = KelasModel::where('guru_nik',$user->nik)->value('kode_kelas');
-         
 
-
+            // Ambil data kelas berdasarkan kode_kelas
+            $kelas = KelasModel::where('kode_kelas', $kode_kelas)->firstOrFail();
+            $kelas = KelasModel::all();  // Memastikan data kelas berhasil diambil
             $siswa_kelas = SiswaKelasModel::with('siswa', 'kelas')
-            ->where('kelas_id', $kelas)
-            ->get(); 
-                      
-$siswa = SiswaModel::all();
-$kelas = KelasModel::all();
-            return view('walas\siswa\index', ['breadcrumb' => $breadcrumb, 'siswa_kelas' => $siswa_kelas,  'siswa' => $siswa, 'kelas' => $kelas, 'activeMenu' => $activeMenu]);
+                ->where('kelas_id', $kode_kelas)
+                ->get();
+            $kelas_id = KelasModel::where('kode_kelas', $kode_kelas)->value('kode_kelas');
+
+            // Ambil semua siswa yang BELUM terdaftar di kelas ini
+            $siswa = SiswaModel::whereNotIn('nis', $siswa_kelas->pluck('siswa_id')->toArray())
+                ->get();
+
+            return view('walas\siswa\index', [
+                'breadcrumb' => $breadcrumb,
+                'siswa_kelas' => $siswa_kelas,
+                'siswa' => $siswa,
+                'kelas' => $kelas,
+                'kelas_id' => $kelas_id,
+                'activeMenu' => $activeMenu
+            ]);
         }
     }
 
-    public function save( Request $request){
-$request->validate([
-   'siswa_id' =>  'required',
-   'kelas_id' => 'required',
-]);
+    public function save(Request $request, $kode_kelas)
+    {
+        $request->validate([
+            'siswa_id' =>  'required',
 
-SiswaKelasModel::create([
-    'siswa_id' => $request->siswa_id,
-    'kelas_id' => $request->kelas_id,
-]);
-return redirect()->route('siswa_kelas');
+        ]);
+        $kelas = KelasModel::where('kode_kelas', $kode_kelas)->value('kode_kelas');
+
+        SiswaKelasModel::create([
+            'siswa_id' => $request->siswa_id,
+            'kelas_id' => $kelas,
+        ]);
+        return redirect()->route('siswa_kelas', $kelas);
     }
 }

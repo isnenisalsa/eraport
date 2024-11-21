@@ -49,7 +49,6 @@ class DatabaseSeeder extends Seeder
             'nama_ibu' => 'Mary Smith',
             'agama' => 'Kristen',
             'jabatan' => 'guru',
-            'status' => 'aktif',
             'pendidikan_terakhir' => 's1',
             'no_telp' => '0731213141',
             'status_perkawinan' => 'Menikah',
@@ -57,9 +56,9 @@ class DatabaseSeeder extends Seeder
             'username' => 'janesmith',
             'alamat' => 'bjb',
             'password' => Hash::make('password123'),
-   
+
         ]);
-        
+
         // GuruModel::create([
         //     'nik' => '1234567890123458',
         //     'nama' => 'Isna',

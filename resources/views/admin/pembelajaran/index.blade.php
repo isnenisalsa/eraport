@@ -85,7 +85,7 @@
                                 <option value="">Pilih Kelas</option>
                                 @foreach ($kelas as $item)
                                     <option value="{{ $item->kode_kelas }}">{{ $item->nama_kelas }} -
-                                        {{ $item->tahun_ajar->tahun_ajaran }}</option>
+                                        {{ $item->tahun_ajarans->tahun_ajaran }}</option>
                                 @endforeach
                             </select>
                         </div>

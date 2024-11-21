@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string("alamat");
             $table->string("status_perkawinan");
             $table->string("jabatan");
-            $table->string("status");
+            $table->string("status")->default('Aktif');
             $table->string("pendidikan_terakhir");
             $table->string("no_telp");
             $table->string("email");

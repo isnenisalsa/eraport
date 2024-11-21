@@ -3,3 +3,18 @@ td.dtr-control::before {
     display: none;
 } */
 
+.select2-container--bootstrap4 .select2-selection {
+    border: 1px solid #080808; /* Change this to your desired border color */
+    border-radius: .25rem;
+    height: 40px; 
+    text-align: center;/* Optional: to match Bootstrap's input styling */
+}
+
+.select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
+    line-height: 2.5; /* Adjust this to vertically center the text */
+}
+
+.select2-container--bootstrap4 .select2-selection--single .select2-selection__arrow {
+    height: 100%; /* Make the arrow fill the height */
+    right: 10px; /* Adjust the position of the arrow */
+}

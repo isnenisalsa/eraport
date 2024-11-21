@@ -6,22 +6,45 @@ use App\Models\GuruModel;
 use App\Models\KelasModel;
 use App\Models\TahunAjarModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KelasController extends Controller
 {
     public function index()
     {
-        $breadcrumb = (object) [
-            'title' => 'Daftar Kelas',
-        ];
+        $user = Auth::user();
+
+        // Ambil role_id dari guru_roles
+        $roleIds = $user->roles->pluck('id')->toArray();
+
+        // Redirect berdasarkan role_id
+        if (in_array(1, $roleIds)) {
+            $breadcrumb = (object) [
+                'title' => 'Daftar Kelas',
+            ];
 
 
-        $activeMenu = 'kelas';
-        $kelas = KelasModel::with('guru', 'tahun_ajarans')->get();
-        $guru = GuruModel::all();
-        $tahun = TahunAjarModel::all();
-      
-        return view('admin.kelas.index', ['breadcrumb' => $breadcrumb, 'kelas' => $kelas, 'guru' => $guru, 'tahun' => $tahun, 'activeMenu' => $activeMenu]);
+            $activeMenu = 'kelas';
+            $kelas = KelasModel::with('guru', 'tahun_ajarans')->get();
+            $guru = GuruModel::all();
+            $tahun = TahunAjarModel::all();
+
+            return view('admin.kelas.index', ['breadcrumb' => $breadcrumb, 'kelas' => $kelas, 'guru' => $guru, 'tahun' => $tahun, 'activeMenu' => $activeMenu]);
+        } elseif (in_array(3, $roleIds)) {
+            $breadcrumb = (object) [
+                'title' => 'Daftar Kelas',
+            ];
+
+            $activeMenu = 'Data Kelas';
+            $user = Auth::user();
+            $kelas = KelasModel::where('guru_nik', $user->nik)->value('guru_nik');
+            $kelas = KelasModel::with(['guru', 'tahun_ajarans'])
+                ->withCount(['siswa']) // Menghitung jumlah siswa dan memberikan nilai default 0 jika tidak ada
+                ->where('guru_nik', $kelas)
+                ->get();
+          
+            return view('walas.kelas.index', ['breadcrumb' => $breadcrumb, 'kelas' => $kelas,  'activeMenu' => $activeMenu]);
+        }
     }
 
 

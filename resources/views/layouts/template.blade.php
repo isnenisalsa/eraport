@@ -7,89 +7,71 @@
     <title>E RAPOR</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-
     <!-- Google Font: Source Sans Pro -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- data tables -->
+    <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet"
         href="{{ asset('adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}" />
+    <script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
     @stack('css')
 </head>
 
 <body class="hold-transition sidebar-mini">
-    <!-- Site wrapper -->
     <div class="wrapper">
-
-        <!-- Navbar -->
         @include('layouts.header')
-        <!-- /.navbar -->
-
-        <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-light elevation-4" style="background-color: #2FCC7B;">
-            <!-- Brand Logo -->
-            <p class="brand-link" style="text-align: center ; background-color: #FFFCF7;height: 64px;">
+            <p class="brand-link" style="text-align: center; background-color: #FFFCF7;height: 64px;">
                 <img src="{{ asset('image/Logo.png') }}" alt="adminlte Logo" class="brand-image"
-                    style=" margin-left: -2%">
-                <span class="brand-text font-weight-light" style="color: rgb(14, 13, 13); font: bold "> SMP IT SIRAJUL
+                    style="margin-left: -2%">
+                <span class="brand-text font-weight-light" style="color: rgb(14, 13, 13); font: bold"> SMP IT SIRAJUL
                     HUDA </span>
             </p>
-
-
-            <!-- Sidebar -->
             @include('layouts.sidebar')
-            <!-- /.sidebar -->
         </aside>
 
-        <!-- Content Wrapper. Contains page content -->
         <div style="background-color: #FFFCF7" class="content-wrapper">
-            <!-- Content Header (Page header) -->
             @include('layouts.breadcrumb')
-            <!-- Main content -->
             <section class="content">
-                <!-- Default box -->
                 @yield('content')
-                <!-- /.card -->
             </section>
-            <!-- /.content -->
         </div>
-        <!-- /.content-wrapper -->
         @include('layouts.footer')
-        <!-- Control Sidebar -->
-        {{-- <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside> --}}
-        <!-- /.control-sidebar -->
     </div>
-    <!-- ./wrapper -->
+
     <!-- jQuery -->
     <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- datatables dan plugins -->
-    <script src="{{  asset('adminlte/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <!-- DataTables -->
+    <script src="{{ asset('adminlte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{  asset('adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{ asset('adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js')  }}"></script>
+    <script src="{{ asset('adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/jszip/jszip.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{asset('adminlte/plugins/pdfmake/vfs_fonts.js')  }}"></script>
+    <script src="{{ asset('adminlte/plugins/pdfmake/vfs_fonts.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{  asset('adminlte/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+    <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-    <!-- adminlte App -->
+    <!-- AdminLTE App -->
     <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
-    <!-- adminlte for demo purposes -->
+    <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('adminlte/dist/js/demo.js') }}"></script>
+    <!-- Select2 -->
+    <script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
     <script>
         $(function() {
             $("#example1").DataTable({
@@ -98,12 +80,10 @@
                 "lengthChange": false,
                 "autoWidth": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
             $('#example2').DataTable({
-
-                "pageLength": 6,
+                "pageLength": 4,
                 "paging": true,
                 "lengthChange": false,
                 "searching": true,
@@ -111,14 +91,11 @@
                 "autoWidth": false,
                 "responsive": true,
                 "info": false,
-
                 "language": {
                     "emptyTable": "Tidak ada data yang tersedia pada tabel ini",
                     "info": "Menampilkan START sampai END dari TOTAL entri",
                     "infoEmpty": "Menampilkan 0 sampai 0 dari 0 entri",
                     "infoFiltered": "(disaring dari _MAX_entri total)",
-                    "infoPostFix": "",
-                    "thousands": ",",
                     "lengthMenu": "Tampilkan MENU entri",
                     "loadingRecords": "Memuat...",
                     "processing": "Sedang memproses...",
@@ -132,6 +109,12 @@
                     },
                 },
             });
+        });
+
+        $('.select2').select2({
+            theme: 'bootstrap4',
+            dropdownParent: $('#modal-tambah-data-siswa')
+
         });
     </script>
 </body>

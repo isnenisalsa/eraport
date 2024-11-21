@@ -35,8 +35,7 @@
                                         <td>
                                             <button type="button" class="btn btn-warning btn-sm text-center"
                                                 data-toggle="modal" data-target="#modal-edit{{ $item->kode_kelas }}">
-                                                Edit
-                                            </button>
+                                                Edit </button>
                                         </td>
                                     </tr>
                                 @endforeach

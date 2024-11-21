@@ -15,60 +15,70 @@
                     </a>
                 @endif
             </li>
-
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item">
+            <li class="nav-item has-treeview">
+                @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-solid fa-school" style="color: black"></i>
+                        <p style="color: black">
+                            &nbsp; Wali Kelas
+                            <i class="right fas fa-angle-left" style="color: black"></i>
+                        </p>
+                    </a>
+                @endif
+                <ul class="nav nav-treeview">
                     @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
                         <a href="{{ url('/dashboard/walas') }}"
-                            class="nav-link  {{ $activeMenu == 'dashboard' ? 'active' : '' }}">
+                            class="nav-link  {{ $activeMenu == 'dashboard walas' ? 'active' : '' }}">
                             <i class="nav-icon fas fa-tachometer-alt" style="color: rgb(3, 3, 3)"></i>
                             <p style="color: rgb(10, 10, 10)">
                                 Dashboard
                             </p>
                         </a>
                     @endif
-                </li>
-
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item">
+                </ul>
+                <ul class="nav nav-treeview">
                     @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
-                        <a href="{{ url('/siswa_kelas') }}"
-                            class="nav-link  {{ $activeMenu == 'Data Siswa' ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-tachometer-alt" style="color: rgb(3, 3, 3)"></i>
-                            <p style="color: rgb(10, 10, 10)">
-                                Data Siswa
-                            </p>
-                        </a>
+                        <li class="nav-item">
+                            <a href="{{ url('/kelas') }}"
+                                class="nav-link  {{ $activeMenu == 'Data Kelas' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user" style="color: rgb(3, 3, 3)"></i>
+                                <p style="color: rgb(10, 10, 10)">
+                                    Data Kelas
+                                </p>
+                            </a>
+                        </li>
                     @endif
-                </li>
+                </ul>
 
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <li class="nav-item">
-                        @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
+                <ul class="nav nav-treeview">
+                    @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
+                        <li class="nav-item">
                             <a href="{{ url('/siswa_kelas') }}"
                                 class="nav-link  {{ $activeMenu == 'Data Pembelajaran' ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-tachometer-alt" style="color: rgb(3, 3, 3)"></i>
+                                <i class="nav-icon fas fa-archive" style="color: rgb(3, 3, 3)"></i>
                                 <p style="color: rgb(10, 10, 10)">
                                     Data Pembelajaran
                                 </p>
                             </a>
-                        @endif
-                    </li>
-
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item">
-                            @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
-                                <a href="{{ url('/siswa_kelas') }}"
-                                    class="nav-link  {{ $activeMenu == 'Cetak Rapot' ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-tachometer-alt" style="color: rgb(3, 3, 3)"></i>
-                                    <p style="color: rgb(10, 10, 10)">
-                                        Cetak Rapot
-                                    </p>
-                                </a>
-                            @endif
                         </li>
+                    @endif
+                </ul>
 
-                
+                <ul class="nav nav-treeview">
+                    @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
+                        <li class="nav-item">
+                            <a href="{{ url('/siswa_kelas') }}"
+                                class="nav-link  {{ $activeMenu == 'Cetak Rapot' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-laptop-code" style="color: rgb(3, 3, 3)"></i>
+                                <p style="color: rgb(10, 10, 10)">
+                                    Cetak Rapot
+                                </p>
+                            </a>
+                        </li>
+                    @endif
+                </ul>
+            </li>
+
 
             <li class="nav-item has-treeview">
                 @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
@@ -83,7 +93,8 @@
                 <ul class="nav nav-treeview">
                     @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
                         <li class="nav-item">
-                            <a href="{{ url('guru') }}" class="nav-link {{ $activeMenu == 'guru' ? 'active' : '' }}">
+                            <a href="{{ url('guru') }}"
+                                class="nav-link {{ $activeMenu == 'guru' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
                                 <p style="color: black">Guru</p>
                             </a>
@@ -94,7 +105,8 @@
                     @if (auth()->check() &&
                             auth()->user()->roles->contains('nama', 'admin' && 'walas'))
                         <li class="nav-item">
-                            <a href="{{ url('siswa') }}" class="nav-link {{ $activeMenu == 'Siswa' ? 'active' : '' }}">
+                            <a href="{{ url('siswa') }}"
+                                class="nav-link {{ $activeMenu == 'Siswa' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
                                 <p style="color: black">Siswa</p>
                             </a>
@@ -116,7 +128,19 @@
                 <ul class="nav nav-treeview">
                     @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
                         <li class="nav-item">
-                            <a href="{{ url('kelas') }}" class="nav-link {{ $activeMenu == 'kelas' ? 'active' : '' }}">
+                            <a href="{{ url('tahun_ajaran') }}"
+                                class="nav-link {{ $activeMenu == 'Tahun Ajaran' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon" style="color: black"></i>
+                                <p style="color: black">Tahun Ajaran</p>
+                            </a>
+                        </li>
+                    @endif
+                </ul>
+                <ul class="nav nav-treeview">
+                    @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
+                        <li class="nav-item">
+                            <a href="{{ url('kelas') }}"
+                                class="nav-link {{ $activeMenu == 'kelas' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
                                 <p style="color: black">Kelas</p>
                             </a>
@@ -126,7 +150,8 @@
                 <ul class="nav nav-treeview">
                     @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
                         <li class="nav-item">
-                            <a href="{{ url('mapel') }}" class="nav-link {{ $activeMenu == 'mapel' ? 'active' : '' }}">
+                            <a href="{{ url('mapel') }}"
+                                class="nav-link {{ $activeMenu == 'mapel' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
                                 <p style="color: black">Mapel</p>
                             </a>
@@ -140,17 +165,6 @@
                                 class="nav-link {{ $activeMenu == 'pembelajaran' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
                                 <p style="color: black">Pembelajaran</p>
-                            </a>
-                        </li>
-                    @endif
-                </ul>
-                <ul class="nav nav-treeview">
-                    @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
-                        <li class="nav-item">
-                            <a href="{{ url('tahun_ajaran') }}"
-                                class="nav-link {{ $activeMenu == 'Tahun Ajaran' ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon" style="color: black"></i>
-                                <p style="color: black">Tahun Ajaran</p>
                             </a>
                         </li>
                     @endif

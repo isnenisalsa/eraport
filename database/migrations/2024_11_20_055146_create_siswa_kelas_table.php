@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("siswa_id");
             $table->string("kelas_id");
-            $table->foreign("siswa_id")->references("nis")->on("siswa");
-            $table->foreign("kelas_id")->references("kode_kelas")->on("kelas");
+            $table->foreign("siswa_id")->references("nis")->on("siswa")->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign("kelas_id")->references("kode_kelas")->on("kelas")->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
