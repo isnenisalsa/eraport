@@ -46,7 +46,7 @@ class GuruController extends Controller
             'nama_ibu' => 'required',
             'agama' => 'required',
             'jabatan' => 'required',
-
+            'status' => 'required',
             'no_telp' => 'required|numeric|digits:12',
             'pendidikan_terakhir' => 'required',
             'status_perkawinan' => 'required',
@@ -87,6 +87,7 @@ class GuruController extends Controller
             'agama' => $request->agama,
             'alamat' => $request->alamat,
             'jabatan' => $request->jabatan,
+            'status' => $request->status,
             'no_telp' => $request->no_telp,
             'pendidikan_terakhir' => $request->pendidikan_terakhir,
             'status_perkawinan' => $request->status_perkawinan,

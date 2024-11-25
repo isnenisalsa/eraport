@@ -42,7 +42,6 @@ class KelasController extends Controller
                 ->withCount(['siswa']) // Menghitung jumlah siswa dan memberikan nilai default 0 jika tidak ada
                 ->where('guru_nik', $kelas)
                 ->get();
-          
             return view('walas.kelas.index', ['breadcrumb' => $breadcrumb, 'kelas' => $kelas,  'activeMenu' => $activeMenu]);
         }
     }
@@ -53,11 +52,22 @@ class KelasController extends Controller
     {
         // Validasi input
         $request->validate([
-            'kode_kelas' => 'required|string|max:10|unique:kelas,kode_kelas', // Aturan validasi yang benar
+            'kode_kelas' => 'required|string|max:10|unique:kelas,kode_kelas',
             'nama_kelas' => 'required|string|max:255',
-            'guru_nik' => 'required|exists:guru,nik', // Pastikan 'guru_nik' sesuai dengan kolom yang ada di tabel 'guru'
-            'tahun_ajaran_id' => 'required',
+            'guru_nik' => 'required|exists:guru,nik',
+            'tahun_ajaran_id' => 'required|exists:tahun_ajaran,id',
+            'terms' => 'required',
+        ], [
+            'kode_kelas.required' => 'Kode kelas wajib diisi.',
+            'kode_kelas.unique' => 'Kode kelas sudah terdaftar.',
+            'nama_kelas.required' => 'Nama kelas wajib diisi.',
+            'guru_nik.required' => 'Wali kelas wajib dipilih.',
+            'guru_nik.exists' => 'Wali kelas tidak valid.',
+            'tahun_ajaran_id.required' => 'Tahun ajaran wajib dipilih.',
+            'tahun_ajaran_id.exists' => 'Tahun ajaran tidak valid.',
+            'terms.required' => 'Wajib dicentang.'
         ]);
+        
 
         // Buat entri baru di tabel kelas
         KelasModel::create([
@@ -80,22 +90,28 @@ class KelasController extends Controller
     public function update(Request $request, $kode_kelas)
     {
         $request->validate([
-            'kode_kelas' => 'required',
-            'nama_kelas' => 'required',
-            'guru_nik' => 'required',
+            'nama_kelas' => 'required|string|max:255',
+            'guru_nik' => 'required|exists:guru,nik',
+            'tahun_ajaran_id' => 'required|exists:tahun_ajaran,id',
+            'terms' => 'required',
+        ], [
+            'nama_kelas.required' => 'Nama kelas wajib diisi.',
+            'guru_nik.required' => 'Wali kelas wajib dipilih.',
+            'guru_nik.exists' => 'Wali kelas tidak valid.',
+            'tahun_ajaran_id.required' => 'Tahun ajaran wajib dipilih.',
+            'tahun_ajaran_id.exists' => 'Tahun ajaran tidak valid.',
+            'terms.required' => 'Wajib dicentang.'
         ]);
         $kelas = KelasModel::findOrFail($kode_kelas);
 
         // Perbarui data guru dengan data dari form
         $kelas->update([
-            'kode_kelas' => $request->input('kode_kelas'),
+
             'nama_kelas' => $request->input('nama_kelas'),
             'guru_nik' => $request->input('guru_nik'),
+            'tahun_ajaran_id' => $request->tahun_ajaran_id,
         ]);
-        // $guru = GuruModel::find($request->guru_nik);
-        // $guru->roles_id = '3';
-        // $guru->save();
-        // Redirect ke halaman yang sesuai setelah berhasil update
+        
         return redirect()->route('kelas')->with('success', 'Data Kelas berhasil diperbarui');
     }
 }

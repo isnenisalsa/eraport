@@ -28,7 +28,12 @@ class TahunajaranController extends Controller
     {
         // Validasi input data
         $request->validate([
-            'tahun_ajaran' => 'required',
+            'tahun_ajaran' => 'required|unique:tahun_ajaran',
+            'terms' => 'required',
+        ], [
+            'tahun_ajaran.required' => 'Tahun Ajaran tidak boleh kosong.',
+            'tahun_ajaran.unique' => 'Tahun Ajaran tidak boleh.',
+            'terms.required' => 'Wajib dicentang.'
         ]);
 
         // Simpan data
@@ -46,11 +51,7 @@ class TahunajaranController extends Controller
         $request->validate(
             [
                 'tahun_ajaran' => 'required',
-            ],
-            [
-                'tahun_ajaran.required' => 'Tahun ajaran tidak boleh kosong.',
-            ]
-        );
+            ]);
 
         // Cari data berdasarkan kode_tahun_ajaran
         $tahun_ajaran = TahunAjarModel::findOrFail($kode_tahun_ajaran);

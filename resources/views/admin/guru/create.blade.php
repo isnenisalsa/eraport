@@ -52,6 +52,31 @@
                             @endif
                         </div>
                         <div class="mb-3">
+                            <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
+                            <select class="form-control" name="jenis_kelamin" id="jenis_kelamin">
+                                <option value="">Pilih</option>
+                                <option value="laki-laki" {{ old('status') == 'laki-laki' ? 'selected' : '' }}>laki-laki
+                                </option>
+                                <option value="perempuan" {{ old('status') == 'perempuan' ? 'selected' : '' }}>perempuan
+                                </option>
+                            </select>
+                            @if ($errors->has('jenis_kelamin'))
+                                <div class="text-danger">{{ $errors->first('jenis_kelamin') }}</div>
+                            @endif
+                        </div>
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <select class="form-control" name="status" id="status">
+                                <option value="">Pilih Status</option>
+                                <option value="aktif" {{ old('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
+                                <option value="tidak aktif" {{ old('status') == 'tidak aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                            </select>
+                            @if ($errors->has('status'))
+                                <div class="text-danger">{{ $errors->first('status') }}</div>
+                            @endif
+                        </div>
+                        
+                        <div class="mb-3">
                             <label for="pendidikan" class="form-label">Pendidikan Terakhir</label>
                             <input type="text" class="form-control" id="pendidikan"
                                 placeholder="Inputkan Pendidikan Terakhir Anda" name="pendidikan_terakhir"

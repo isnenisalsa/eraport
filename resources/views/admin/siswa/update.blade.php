@@ -6,7 +6,7 @@
 
     <br>
     <div class="card card-blue">
-        <h5 class="card-header text-center">Edit Data Guru</h5>
+        <h5 class="card-header text-center">Edit Data Siswa</h5>
 
         <div class="card-body" style="max-height: 50vh; overflow-y: auto;">
             <form method="POST" action="{{ route('update-siswa', $siswa->nis) }}">

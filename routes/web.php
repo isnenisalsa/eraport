@@ -79,7 +79,7 @@ Route::prefix('guru')->group(function () {
 //rute untuk kelas
 Route::prefix('kelas')->group(function () {
     Route::get('/', [KelasController::class, 'index'])->name('kelas');
-    Route::post('/save', [KelasController::class, 'save'])->name('save')->middleware('cek_login:1');
+    Route::post('/save', [KelasController::class, 'save'])->name('save-kelas')->middleware('cek_login:1');
     Route::get('/edit/{kode_kelas}', [KelasController::class, 'edit'])->name('edit-kelas')->middleware('cek_login:1');
     Route::put('/update/{kode_kelas}', [KelasController::class, 'update'])->name('update-kelas')->middleware('cek_login:1');
 });
@@ -105,7 +105,7 @@ Route::prefix('siswa')->group(function () {
     Route::get('/create', [SiswaController::class, 'create'])->name('create')->middleware('cek_login:1');
     Route::post('/save', [SiswaController::class, 'save'])->name('save-siswa')->middleware('cek_login:1');
     Route::get('/edit/{nis}', [SiswaController::class, 'edit'])->name('edit-siswa')->middleware('cek_login:1');
-    Route::put('/update/{nis}', [SiswaController::class, 'update'])->name('update-siswa');
+    Route::put('/update/{nis}', [SiswaController::class, 'update'])->name('update-siswa')->middleware('cek_login:1');
 });
 
 //rute untuk tahun ajaran

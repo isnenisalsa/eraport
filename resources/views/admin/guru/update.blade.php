@@ -18,7 +18,7 @@
                         <div class="mb-3">
                             <label for="nik" class="form-label">NIK</label>
                             <input type="text" class="form-control" id="nik" placeholder="Inputkan NIK Anda"
-                                name="nik" value="{{ $guru->nik }} " maxlength="16" readonly>
+                                name="nik" value="{{ $guru->nik }}" maxlength="16" readonly>
                             @if ($errors->has('nik'))
                                 <div class="text-danger">{{ $errors->first('nik') }}</div>
                             @endif
