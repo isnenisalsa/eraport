@@ -26,15 +26,13 @@
                     </a>
                 @endif
                 <ul class="nav nav-treeview">
-                    @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
+                    <li class="nav-item">
                         <a href="{{ url('/dashboard/walas') }}"
-                            class="nav-link  {{ $activeMenu == 'dashboard walas' ? 'active' : '' }}">
+                            class="nav-link {{ $activeMenu == 'dashboard walas' ? 'active' : '' }}">
                             <i class="nav-icon fas fa-tachometer-alt" style="color: rgb(3, 3, 3)"></i>
-                            <p style="color: rgb(10, 10, 10)">
-                                Dashboard
-                            </p>
+                            <p style="color: rgb(10, 10, 10)">Dashboard</p>
                         </a>
-                    @endif
+                    </li>
                 </ul>
                 <ul class="nav nav-treeview">
                     @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
@@ -53,7 +51,7 @@
                 <ul class="nav nav-treeview">
                     @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
                         <li class="nav-item">
-                            <a href="{{ url('/siswa_kelas') }}"
+                            <a href="{{ url('/kelas/siswa') }}"
                                 class="nav-link  {{ $activeMenu == 'Data Pembelajaran' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-archive" style="color: rgb(3, 3, 3)"></i>
                                 <p style="color: rgb(10, 10, 10)">
@@ -77,6 +75,34 @@
                         </li>
                     @endif
                 </ul>
+            </li>
+
+            <li class="nav-item has-treeview">
+                @if (auth()->check() && auth()->user()->roles->contains('nama', 'guru'))
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-solid fa-school" style="color: black"></i>
+                        <p style="color: black">
+                            &nbsp; Guru Mapel
+                            <i class="right fas fa-angle-left" style="color: black"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ url('/dashboard/guru') }}"
+                                class="nav-link {{ $activeMenu == 'dashboard guru' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-tachometer-alt" style="color: rgb(3, 3, 3)"></i>
+                                <p style="color: rgb(10, 10, 10)">Dashboard</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('/pembelajaran/guru') }}"
+                                class="nav-link {{ $activeMenu == 'Data Pembelajaran' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user" style="color: rgb(3, 3, 3)"></i>
+                                <p style="color: rgb(10, 10, 10)">Data Pembelajaran</p>
+                            </a>
+                        </li>
+                    </ul>
+                @endif
             </li>
 
 

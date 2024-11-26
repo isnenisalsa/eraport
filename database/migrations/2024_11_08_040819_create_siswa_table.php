@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::create('siswa', function (Blueprint $table) {
             $table->id("nis");
             $table->integer("nisn");
-            $table->string("status")->default('Aktif');
             $table->string("nama");
+            $table->string("status")->default('Aktif');
             $table->string("jenis_kelamin");
             $table->string("tempat_lahir");
             $table->date("tanggal_lahir");

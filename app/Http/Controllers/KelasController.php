@@ -67,7 +67,7 @@ class KelasController extends Controller
             'tahun_ajaran_id.exists' => 'Tahun ajaran tidak valid.',
             'terms.required' => 'Wajib dicentang.'
         ]);
-        
+
 
         // Buat entri baru di tabel kelas
         KelasModel::create([
@@ -93,17 +93,14 @@ class KelasController extends Controller
             'nama_kelas' => 'required|string|max:255',
             'guru_nik' => 'required|exists:guru,nik',
             'tahun_ajaran_id' => 'required|exists:tahun_ajaran,id',
-            'terms' => 'required',
         ], [
             'nama_kelas.required' => 'Nama kelas wajib diisi.',
             'guru_nik.required' => 'Wali kelas wajib dipilih.',
             'guru_nik.exists' => 'Wali kelas tidak valid.',
             'tahun_ajaran_id.required' => 'Tahun ajaran wajib dipilih.',
             'tahun_ajaran_id.exists' => 'Tahun ajaran tidak valid.',
-            'terms.required' => 'Wajib dicentang.'
         ]);
-        $kelas = KelasModel::findOrFail($kode_kelas);
-
+        $kelas = KelasModel::find($kode_kelas);
         // Perbarui data guru dengan data dari form
         $kelas->update([
 
@@ -111,7 +108,7 @@ class KelasController extends Controller
             'guru_nik' => $request->input('guru_nik'),
             'tahun_ajaran_id' => $request->tahun_ajaran_id,
         ]);
-        
+
         return redirect()->route('kelas')->with('success', 'Data Kelas berhasil diperbarui');
     }
 }

@@ -24,11 +24,10 @@ class SiswaController extends Controller
                 $siswa = SiswaModel::all();
 
                 return view('admin.siswa.index', ['breadcrumb' => $breadcrumb, 'siswa' => $siswa, 'activeMenu' => $activeMenu]);
-            
             } else {
                 return redirect('login')->withErrors(['access_denied' => 'Akses ditolak. Role Anda tidak dikenali.']);
             }
-        } 
+        }
     }
 
     public function create()
@@ -66,22 +65,7 @@ class SiswaController extends Controller
             'terms'=> 'required',
         ], [
             
-            'terms.required' => 'Wajib di Centang',
-            'nis.required' => 'NIS Tidak Boleh Kosong.',
-            'nis.numeric' => 'NIS Harus Berupa Angka.',
-            'nis.digits' => 'NIS harus  16 angka.',
-            'nis.unique' => 'NIS harus  Unik.',
-            'nisn.required' => 'NISN Tidak Boleh Kosong.',
-            'nisn.numeric' => 'NISN Harus Berupa Angka.',
-            'nisn.digits' => 'NISN harus  16 angka.',
-            'status.required' => 'Status Tidak Boleh Kosong.',
-            'nama.required' => 'Nama Tidak Boleh Kosong.',
-            'jenis_kelamin.required' => 'Jenis Kelamin Tidak Boleh Kosong.',
-            'tempat_lahir.required' => 'Tempat Lahir Tidak Boleh Kosong.',
-            'tanggal_lahir.required' => 'Tanggal Lahir Tidak Boleh Kosong.',
-            'alamat.required' => 'Alamat Tidak Boleh Kosong.'
-            
-            
+            'terms.required' => 'wajib di centang'
 
         ]);
         $username = strtolower(str_replace(' ', '_', $request->nama)); // Mengganti spasi dengan underscore
@@ -149,7 +133,7 @@ class SiswaController extends Controller
     'nama_wali' => 'nullable|string|max:255',
     'pekerjaan_wali' => 'nullable|string|max:255',
     'no_telp_wali' => 'nullable|string|max:15',
-    'terms' => 'required',
+    'terms' => 'nullable|boolean',
         ]);
         $siswa = SiswaModel::findOrFail($nis);
 
@@ -178,6 +162,4 @@ class SiswaController extends Controller
         // Redirect ke halaman yang sesuai setelah berhasil update
         return redirect()->route('siswa')->with('success', 'Data siswa berhasil diperbarui');
     }
-
-
 }

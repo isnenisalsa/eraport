@@ -7,10 +7,12 @@ use App\Http\Controllers\GuruController;
 use App\Http\Controllers\ImportExportController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
+use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\PembelajaranController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\SiswaKelasController;
 use App\Http\Controllers\TahunajaranController;
+use App\Http\Controllers\TujuanPembelajaranController;
 use App\Models\MapelModel;
 use Illuminate\Support\Facades\Auth;
 
@@ -92,11 +94,14 @@ Route::prefix('mapel')->group(function () {
 });
 
 //rute untuk pembelajaran
-Route::prefix('pembelajaran')->group(function () {
-    Route::get('/', [PembelajaranController::class, 'index'])->name('pembelajaran')->middleware('cek_login:1');
-    Route::post('/save', [PembelajaranController::class, 'save'])->name('save-pembelajaran')->middleware('cek_login:1');
-    Route::get('/edit/{kode_pembelajaran}', [PembelajaranController::class, 'edit'])->name('edit-pembelajaran')->middleware('cek_login:1');
-    Route::put('/update/{kode_pembelajaran}', [PembelajaranController::class, 'update'])->name('update-pembelajaran')->middleware('cek_login:1');
+Route::middleware(['auth'])->group(function () {
+    Route::prefix('pembelajaran')->group(function () {
+        Route::get('/', [PembelajaranController::class, 'index'])->name('pembelajaran')->middleware(['cek_login:1']);
+        Route::get('/guru', [PembelajaranController::class, 'indexGuru'])->middleware(['cek_login:2']);
+        Route::post('/save', [PembelajaranController::class, 'save'])->name('save-pembelajaran')->middleware('cek_login:1');
+        Route::get('/edit/{kode_pembelajaran}', [PembelajaranController::class, 'edit'])->name('edit-pembelajaran')->middleware('cek_login:1');
+        Route::put('/update/{kode_pembelajaran}', [PembelajaranController::class, 'update'])->name('update-pembelajaran')->middleware('cek_login:1');
+    });
 });
 
 //rute untuk siswa
@@ -122,7 +127,21 @@ Route::controller(ImportExportController::class)->group(function () {
 });
 
 //rute untuk siswa
-Route::prefix('siswa_kelas')->group(function () {
+Route::prefix('kelas/siswa')->group(function () {
     Route::get('/{kode_kelas}', [SiswaKelasController::class, 'index'])->name('siswa_kelas');
     Route::post('/save/{kode_kelas}', [SiswaKelasController::class, 'save'])->name('save-siswa_kelas');
+});
+
+//rute untuk tupel
+Route::prefix('tupel')->group(function () {
+    Route::get('/{id}', [TujuanPembelajaranController::class, 'index'])->name('tupel.index');
+    Route::post('/save/{id}', [TujuanPembelajaranController::class, 'save'])->name('save.tupel');
+    Route::post('/update', [TujuanPembelajaranController::class, 'update'])->name('update.tupel');
+    Route::delete('/tupel/{id}', [TujuanPembelajaranController::class, 'destroy'])->name('delete.tupel');
+});
+
+//rute untuk tupel
+Route::prefix('nilai')->group(function () {
+    Route::get('/{id}', [NilaiController::class, 'index'])->name('nilai.index');
+    Route::post('/update', [NilaiController::class, 'update'])->name('update.nilai');
 });

@@ -12,7 +12,7 @@ class DashboardController extends Controller
             'title' => 'DASHBOARD',
 
         ];
-        $activeMenu =  'dashboard';
+        $activeMenu =  'dashboard ';
         return view('dashboard.admin', ['breadcrumb' => $breadcrumb,  'activeMenu' => $activeMenu]);
     }
     public function guru()
@@ -22,7 +22,7 @@ class DashboardController extends Controller
             'title' => 'DASHBOARD',
 
         ];
-        $activeMenu =  'dashboard';
+        $activeMenu =  'dashboard guru';
         return view('dashboard.guru', ['breadcrumb' => $breadcrumb,  'activeMenu' => $activeMenu]);
     }
     public function walas()
@@ -31,7 +31,7 @@ class DashboardController extends Controller
             'title' => 'DASHBOARD',
 
         ];
-        $activeMenu =  'dashboard';
+        $activeMenu =  'dashboard walas';
         return view('dashboard.walas', ['breadcrumb' => $breadcrumb,  'activeMenu' => $activeMenu]);
     }
 }

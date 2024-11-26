@@ -8,6 +8,7 @@ use App\Models\KelasModel;
 use App\Models\GuruModel;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PembelajaranController extends Controller
 {
@@ -26,7 +27,7 @@ class PembelajaranController extends Controller
         $mapel = MapelModel::all();
         $kelas = KelasModel::all();
         $guru = GuruModel::all();
-   
+
         return view('admin.pembelajaran.index', [
             'breadcrumb' => $breadcrumb,
             'pembelajaran' => $pembelajaran,
@@ -35,6 +36,21 @@ class PembelajaranController extends Controller
             'guru' => $guru,    // Mengirim data guru ke view
             'activeMenu' => $activeMenu
         ]);
+    }
+    public function indexGuru()
+    {
+        $breadcrumb = (object) [
+            'title' => 'Daftar Pembelajaran',
+        ];
+
+        $activeMenu = 'Data Pembelajaran';
+        $user = Auth::user();
+
+        // Mengambil semua data pembelajaran dengan relasi mapel, kelas, dan guru
+        $dataPembelajaran = PembelajaranModel::where('nama_guru', $user->nik)->get();
+        // Contoh: Kirim data ke view
+
+        return view('guru.pembelajaran.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'dataPembelajaran' => $dataPembelajaran]);
     }
 
     public function save(Request $request)
@@ -45,7 +61,7 @@ class PembelajaranController extends Controller
             'mata_pelajaran' => 'required',
             'nama_kelas' => 'required',
             'nama_guru' => 'required', // Pastikan 'nama_guru' sesuai dengan kolom yang ada di tabel 'guru'
-            'terms' => 'required' 
+            'terms' => 'required'
         ], [
             'id_pembelajaran.required' => 'ID Pembelajaran tidak boleh kosong.',
             'mata_pelajaran.required' => 'Mata Pelajaran  tidak boleh kosong.',
@@ -53,7 +69,6 @@ class PembelajaranController extends Controller
             'nama_guru.required' => 'Nama Guru tidak boleh kosong.',
             'terms.required' => 'Wajib Dicentang'
         ]);
-
 
         PembelajaranModel::create([
             'id_pembelajaran' => $request->id_pembelajaran,
@@ -78,13 +93,13 @@ class PembelajaranController extends Controller
     public function update(Request $request, $id_pembelajaran)
     {
         $request->validate([
-            'id_pembelajaran' => 'required', // Aturan validasi yang benar
+            'id_pembelajaran' => 'required',
             'mata_pelajaran' => 'required',
             'nama_kelas' => 'required',
             'nama_guru' => 'required',
         ]);
         $pembelajaran = PembelajaranModel::find($id_pembelajaran);
-      
+
 
         // Perbarui data guru dengan data dari form
         $pembelajaran->update([
@@ -93,6 +108,13 @@ class PembelajaranController extends Controller
             'nama_kelas' => $request->input('nama_kelas'),
             'nama_guru' => $request->input('nama_guru'),
         ]);
+        $guru = GuruModel::find($request->nama_guru);
+
+        // Tambahkan role ke guru jika belum ada
+        if (!$guru->roles()->where('role_id', 2)->exists()) {
+            $guru->roles()->attach(2); // Menambahkan role dengan ID 3
+        }
+
         return redirect()->route('pembelajaran')->with('success', 'Data Pembelajaran berhasil diperbarui');
     }
 }

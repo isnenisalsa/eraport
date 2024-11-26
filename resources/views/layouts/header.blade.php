@@ -5,7 +5,7 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button" style="margin-top: 10%;"><i
                     class="fas fa-bars"></i></a>
         </li>
-        <p class="font-weight-bold " style="margin-top: 4%">SMP IT SIRAJUL HUDA</p>
+        <p class="font-weight-bold " style="margin-top: 6%">SMP IT SIRAJUL HUDA</p>
     </ul>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
