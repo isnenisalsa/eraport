@@ -24,16 +24,21 @@ class MapelController extends Controller
     }
     public function save(Request $request)
     {
-        $request->validate([
-            'kode_mapel' => 'required|unique:mapel,kode_mapel', // Aturan validasi yang benar
-            'mata_pelajaran' => 'required',
-            'terms' => 'required',
-        ], [
-            'kode_mapel.required' => 'Kode Mapel tidak boleh kosong.',
-            'kode_mapel.unique' => 'Kode Mapel harus unik.',
-            'mata_pelajaran.required' => 'Mata Pelajaran tidak boleh kosong.',
-            'terms.required' => 'Wajib dicentang.'
-        ]);
+        $request->validateWithBag(
+
+            'tambahBag',
+            [
+                'kode_mapel' => 'required|unique:mapel,kode_mapel', // Aturan validasi yang benar
+                'mata_pelajaran' => 'required',
+                'terms' => 'required',
+            ],
+            [
+                'kode_mapel.required' => 'Kode Mapel tidak boleh kosong.',
+                'kode_mapel.unique' => 'Kode Mapel harus unik.',
+                'mata_pelajaran.required' => 'Mata Pelajaran tidak boleh kosong.',
+                'terms.required' => 'Wajib dicentang.'
+            ]
+        );
 
         MapelModel::create([
             'kode_mapel' => $request->kode_mapel,
@@ -43,7 +48,8 @@ class MapelController extends Controller
     }
     public function update(Request $request, $kode_mapel)
     {
-        $request->validate(
+        $request->validateWithBag(
+            'editBag',
             [
                 'mata_pelajaran' => 'required',
                 'terms' => 'required'
@@ -58,7 +64,6 @@ class MapelController extends Controller
         $mapel->update([
             'mata_pelajaran' => $request->mata_pelajaran,
         ]);
-
         // Redirect ke halaman yang sesuai setelah berhasil update
         return redirect()->route('mapel')->with('success', 'Data guru berhasil diperbarui');
     }
