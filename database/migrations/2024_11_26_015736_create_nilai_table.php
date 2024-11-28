@@ -15,12 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string("pembelajaran_id");
             $table->unsignedBigInteger("siswa_id");
-            $table->decimal("nilai", 5, 2);
-            $table->decimal('uts', 5, 2);
-            $table->decimal('uas', 5, 2);
+            $table->unsignedBigInteger('tupel_id')->nullable();
+            $table->string("nilai")->default('0');
+            $table->string('uts')->default('0');
+            $table->string('uas')->default('0');
             $table->timestamps();
             $table->foreign("pembelajaran_id")->references("id_pembelajaran")->on("pembelajaran")->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign("siswa_id")->references("id")->on("siswa_kelas")->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign("tupel_id")->references("id")->on("tupel")->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 

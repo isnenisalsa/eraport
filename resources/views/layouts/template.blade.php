@@ -72,6 +72,7 @@
     <script src="{{ asset('adminlte/dist/js/demo.js') }}"></script>
     <!-- Select2 -->
     <script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('js/js.js') }}"></script>
     <script>
         $(function() {
             $("#example1").DataTable({

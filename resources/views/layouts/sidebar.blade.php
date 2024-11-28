@@ -37,7 +37,7 @@
                 <ul class="nav nav-treeview">
                     @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
                         <li class="nav-item">
-                            <a href="{{ url('/kelas') }}"
+                            <a href="{{ url('/kelas/walas') }}"
                                 class="nav-link  {{ $activeMenu == 'Data Kelas' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user" style="color: rgb(3, 3, 3)"></i>
                                 <p style="color: rgb(10, 10, 10)">
@@ -154,7 +154,7 @@
                 <ul class="nav nav-treeview">
                     @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
                         <li class="nav-item">
-                            <a href="{{ url('tahun_ajaran') }}"
+                            <a href="{{ url('tahun/ajaran') }}"
                                 class="nav-link {{ $activeMenu == 'Tahun Ajaran' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
                                 <p style="color: black">Tahun Ajaran</p>

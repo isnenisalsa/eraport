@@ -18,3 +18,11 @@ td.dtr-control::before {
     height: 100%; /* Make the arrow fill the height */
     right: 10px; /* Adjust the position of the arrow */
 }
+
+.modal-dialog-right {
+    position: fixed;
+    top: 9%;
+    right: 40%;
+    transform: translateY(10%); /* Center vertically */
+    margin: 0; /* Remove default margin */
+}
