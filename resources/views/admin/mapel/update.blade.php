@@ -21,14 +21,21 @@
                         @csrf
                         @method('PUT')
                         <div class="form-group">
-                            <label for="kode_mapel">Kode Mapel</label>
-                            <input type="text" name="kode_mapel" class="form-control" value="{{ $item->kode_mapel }}"
-                                required readonly>
+                            <label for="kode_mapel">kode Mapel</label>
+                            <input type="text" name="kode_mapel" id="kode_mapel"
+                                class="form-control @error('kode_mapel') is-invalid @enderror" value="{{ old('kode_mapel', $item->kode_mapel) }}" readonly>
+                            @error('kode_mapel')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="mata_pelajaran">Mata Pelajaran</label>
-                            <input type="text" name="mata_pelajaran" class="form-control"
-                                value="{{ $item->mata_pelajaran }}" required>
+                            <input type="text" name="mata_pelajaran" id="mata_pelajaran"
+                                class="form-control @error('mata_pelajaran') is-invalid @enderror"
+                                value="{{ old('mata_pelajaran', $item->mata_pelajaran) }}">
+                            @error('mata_pelajaran')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="form-check mt-3">
                             <input type="checkbox" class="form-check-input" id="exampleCheck1" name="terms">

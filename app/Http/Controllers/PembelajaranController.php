@@ -56,17 +56,19 @@ class PembelajaranController extends Controller
     public function save(Request $request)
     {
 
-        $request->validate([
+        $request->validateWithBag(
+            'tambahBag',
+            [
             'id_pembelajaran' => 'required', // Aturan validasi yang benar
             'mata_pelajaran' => 'required',
             'nama_kelas' => 'required',
             'nama_guru' => 'required', // Pastikan 'nama_guru' sesuai dengan kolom yang ada di tabel 'guru'
             'terms' => 'required'
         ], [
-            'id_pembelajaran.required' => 'ID Pembelajaran tidak boleh kosong.',
-            'mata_pelajaran.required' => 'Mata Pelajaran  tidak boleh kosong.',
-            'nama_kelas.required' => 'Nama Kelas tidak boleh kosong.',
-            'nama_guru.required' => 'Nama Guru tidak boleh kosong.',
+            'id_pembelajaran.required' => 'ID Pembelajaran tidak boleh kosong',
+            'mata_pelajaran.required' => 'Mata Pelajaran  tidak boleh kosong',
+            'nama_kelas.required' => 'Nama Kelas tidak boleh kosong',
+            'nama_guru.required' => 'Nama Guru tidak boleh kosong',
             'terms.required' => 'Wajib Dicentang'
         ]);
 
@@ -92,11 +94,20 @@ class PembelajaranController extends Controller
 
     public function update(Request $request, $id_pembelajaran)
     {
-        $request->validate([
+        $request->validateWithBag(
+            'editBag',
+            [
             'id_pembelajaran' => 'required',
             'mata_pelajaran' => 'required',
             'nama_kelas' => 'required',
             'nama_guru' => 'required',
+            'terms' => 'required'
+        ], [
+            'id_pembelajaran.required' => 'ID Pembelajaran tidak boleh kosong',
+            'mata_pelajaran.required' => 'Mata Pelajaran  tidak boleh kosong',
+            'nama_kelas.required' => 'Nama Kelas tidak boleh kosong',
+            'nama_guru.required' => 'Nama Guru tidak boleh kosong',
+            'terms.required' => 'Wajib Dicentang'
         ]);
         $pembelajaran = PembelajaranModel::find($id_pembelajaran);
 
@@ -107,7 +118,7 @@ class PembelajaranController extends Controller
             'mata_pelajaran' => $request->input('mata_pelajaran'),
             'nama_kelas' => $request->input('nama_kelas'),
             'nama_guru' => $request->input('nama_guru'),
-        ]);
+        ], );
         $guru = GuruModel::find($request->nama_guru);
 
         // Tambahkan role ke guru jika belum ada

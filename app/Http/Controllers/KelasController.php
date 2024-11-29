@@ -43,25 +43,26 @@ class KelasController extends Controller
 
     public function save(Request $request)
     {
-        // Validasi input
-        $request->validate([
-            'kode_kelas' => 'required|string|max:10|unique:kelas,kode_kelas',
+        $request->validateWithBag(
+
+            'tambahBag',
+        [
+            'kode_kelas' => 'required|string|max:10|unique:kelas,kode_kelas', // Validasi input
             'nama_kelas' => 'required|string|max:255',
             'guru_nik' => 'required|exists:guru,nik',
             'tahun_ajaran_id' => 'required|exists:tahun_ajaran,id',
             'terms' => 'required',
         ], [
-            'kode_kelas.required' => 'Kode kelas wajib diisi.',
-            'kode_kelas.unique' => 'Kode kelas sudah terdaftar.',
-            'nama_kelas.required' => 'Nama kelas wajib diisi.',
-            'guru_nik.required' => 'Wali kelas wajib dipilih.',
-            'guru_nik.exists' => 'Wali kelas tidak valid.',
-            'tahun_ajaran_id.required' => 'Tahun ajaran wajib dipilih.',
-            'tahun_ajaran_id.exists' => 'Tahun ajaran tidak valid.',
-            'terms.required' => 'Wajib dicentang.'
-        ]);
-
-
+            'kode_kelas.required' => 'Kode kelas wajib diisi',
+            'kode_kelas.unique' => 'Kode kelas sudah terdafta',
+            'nama_kelas.required' => 'Nama kelas wajib diisi',
+            'guru_nik.required' => 'Wali kelas wajib dipilih',
+            'guru_nik.exists' => 'Wali kelas tidak valid',
+            'tahun_ajaran_id.required' => 'Tahun ajaran wajib dipilih',
+            'tahun_ajaran_id.exists' => 'Tahun ajaran tidak valid',
+            'terms.required' => 'Wajib dicentang'
+        ]
+    );
         // Buat entri baru di tabel kelas
         KelasModel::create([
             'kode_kelas' => $request->kode_kelas,
@@ -82,16 +83,21 @@ class KelasController extends Controller
     }
     public function update(Request $request, $kode_kelas)
     {
-        $request->validate([
+        $request->validateWithBag(
+            'editBag',
+            [
             'nama_kelas' => 'required|string|max:255',
             'guru_nik' => 'required|exists:guru,nik',
             'tahun_ajaran_id' => 'required|exists:tahun_ajaran,id',
+            'terms' => 'required',
         ], [
-            'nama_kelas.required' => 'Nama kelas wajib diisi.',
-            'guru_nik.required' => 'Wali kelas wajib dipilih.',
-            'guru_nik.exists' => 'Wali kelas tidak valid.',
-            'tahun_ajaran_id.required' => 'Tahun ajaran wajib dipilih.',
-            'tahun_ajaran_id.exists' => 'Tahun ajaran tidak valid.',
+            'nama_kelas.required' => 'Nama kelas wajib diisi',
+            'guru_nik.required' => 'Wali kelas wajib dipilih',
+            'guru_nik.exists' => 'Wali kelas tidak valid',
+            'tahun_ajaran_id.required' => 'Tahun ajaran wajib dipilih',
+            'tahun_ajaran_id.exists' => 'Tahun ajaran tidak valid',
+            'terms.required' => 'Wajib dicentang'
+            
         ]);
         $kelas = KelasModel::find($kode_kelas);
         // Perbarui data guru dengan data dari form

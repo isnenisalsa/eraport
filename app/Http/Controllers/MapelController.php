@@ -33,10 +33,10 @@ class MapelController extends Controller
                 'terms' => 'required',
             ],
             [
-                'kode_mapel.required' => 'Kode Mapel tidak boleh kosong.',
-                'kode_mapel.unique' => 'Kode Mapel harus unik.',
-                'mata_pelajaran.required' => 'Mata Pelajaran tidak boleh kosong.',
-                'terms.required' => 'Wajib dicentang.'
+                'kode_mapel.required' => 'Kode Mapel tidak boleh kosong',
+                'kode_mapel.unique' => 'Kode Mapel harus unik',
+                'mata_pelajaran.required' => 'Mata Pelajaran tidak boleh kosong',
+                'terms.required' => 'Wajib dicentang'
             ]
         );
 
@@ -55,7 +55,7 @@ class MapelController extends Controller
                 'terms' => 'required'
             ],
             [
-                'terms.required' => 'tidak boleh kosong'
+                'terms.required' => 'Wajib dicentang'
             ]
         );
         $mapel = MapelModel::findOrFail($kode_mapel);

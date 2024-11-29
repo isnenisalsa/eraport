@@ -27,13 +27,15 @@ class TahunajaranController extends Controller
     public function save(Request $request)
     {
         // Validasi input data
-        $request->validate([
+        $request->validateWithBag(
+            'tambahBag',
+            [
             'tahun_ajaran' => 'required|unique:tahun_ajaran',
             'terms' => 'required',
         ], [
-            'tahun_ajaran.required' => 'Tahun Ajaran tidak boleh kosong.',
-            'tahun_ajaran.unique' => 'Tahun Ajaran tidak boleh Sama.',
-            'terms.required' => 'Wajib dicentang.'
+            'tahun_ajaran.required' => 'Tahun Ajaran tidak boleh kosong',
+            'tahun_ajaran.unique' => 'Tahun Ajaran tidak boleh Sama',
+            'terms.required' => 'Wajib dicentang'
         ]);
 
         // Simpan data
