@@ -45,18 +45,17 @@ class NilaiController extends Controller
                 'pembelajaran_id' => 'required',
                 'siswa.*.id' => 'required|exists:siswa_kelas,id',
                 'siswa.*.tupel.*.id' => 'required|exists:tupel,id',
-                'siswa.*.tupel.*.nilai' => 'numeric|between:0,100',  // Validasi angka 0 hingga 100
-                'siswa.*.uts' => 'numeric|between:0,100',  // Validasi angka 0 hingga 100
-                'siswa.*.uas' => 'numeric|between:0,100',  // Validasi angka 0 hingga 100
+                'siswa.*.tupel.*.nilai' => 'numeric|between:0,100',
+                'siswa.*.uts' => 'numeric|between:0,100',
+                'siswa.*.uas' => 'numeric|between:0,100',
+                'siswa.*.rata_rata_tupel' => 'numeric|between:0,100',  // Validate rata-rata tupel
+                'siswa.*.rata_rata_uts_uas' => 'numeric|between:0,100',  // Validate rata-rata UTS & UAS
+                'siswa.*.nilai_rapor' => 'numeric|between:0,100',  // Validate nilai rapor
             ],
             [
                 'siswa.*.tupel.*.nilai.numeric' => 'hanya boleh diisi angka',
                 'siswa.*.tupel.*.nilai.between' => 'keluar dari range nilai'
             ]
-
-
-
-
         );
 
         foreach ($request->input('siswa') as $siswaData) {
@@ -84,6 +83,20 @@ class NilaiController extends Controller
                 [
                     'uts' => $siswaData['uts'] ?? 0,
                     'uas' => $siswaData['uas'] ?? 0,
+                ]
+            );
+
+            // Save the averages (rata-rata tupel, rata-rata UTS & UAS, nilai rapor)
+            NilaiModel::updateOrCreate(
+                [
+                    'pembelajaran_id' => $request->pembelajaran_id,
+                    'siswa_id' => $siswaData['id'],
+                    'tupel_id' => null, // Save these values without tupel_id
+                ],
+                [
+                    'rata_rata_tupel' => $siswaData['rata_rata_tupel'] ?? 0,
+                    'rata_rata_uts_uas' => $siswaData['rata_rata_uts_uas'] ?? 0,
+                    'nilai_rapor' => $siswaData['nilai_rapor'] ?? 0,
                 ]
             );
         }

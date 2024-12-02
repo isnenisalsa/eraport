@@ -61,6 +61,19 @@
                         </li>
                     @endif
                 </ul>
+                <ul class="nav nav-treeview">
+                    @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
+                        <li class="nav-item">
+                            <a href="{{ url('kelas/walas/nilai') }}"
+                                class="nav-link  {{ $activeMenu == 'Data Nilai Akhir' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-archive" style="color: rgb(3, 3, 3)"></i>
+                                <p style="color: rgb(10, 10, 10)">
+                                    Data Nilai Akhir
+                                </p>
+                            </a>
+                        </li>
+                    @endif
+                </ul>
 
                 <ul class="nav nav-treeview">
                     @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
@@ -151,6 +164,17 @@
                         </p>
                     </a>
                 @endif
+                <ul class="nav nav-treeview">
+                    @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
+                        <li class="nav-item">
+                            <a href="{{ url('sekolah/') }}"
+                                class="nav-link {{ $activeMenu == 'Data Sekolah' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon" style="color: black"></i>
+                                <p style="color: black">Sekolah</p>
+                            </a>
+                        </li>
+                    @endif
+                </ul>
                 <ul class="nav nav-treeview">
                     @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
                         <li class="nav-item">

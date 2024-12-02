@@ -7,8 +7,10 @@ use App\Http\Controllers\GuruController;
 use App\Http\Controllers\ImportExportController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
+use App\Http\Controllers\NilaiAkhirController;
 use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\PembelajaranController;
+use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\SiswaKelasController;
 use App\Http\Controllers\TahunajaranController;
@@ -68,6 +70,12 @@ Route::middleware(['auth'])->group(function () {
         ->middleware('cek_login:3')
         ->name('dashboard.walas');
 });
+//rute untuk sekolah
+Route::prefix('sekolah')->group(function () {
+    Route::get('/', [SekolahController::class, 'index'])->name('sekolah.index');
+    Route::post('/save', [SekolahController::class, 'save'])->name('sekolah.save');
+});
+
 
 //rute untuk guru
 Route::prefix('guru')->group(function () {
@@ -82,6 +90,7 @@ Route::prefix('guru')->group(function () {
 Route::prefix('kelas')->group(function () {
     Route::get('/', [KelasController::class, 'index'])->name('kelas')->middleware('cek_login:1');
     Route::get('/walas', [KelasController::class, 'KelasWalas'])->name('kelas.walas');
+    Route::get('/walas/nilai', [KelasController::class, 'KelasWalasNilai'])->name('kelas.walas.nilai');
     Route::post('/save', [KelasController::class, 'save'])->name('save-kelas')->middleware('cek_login:1');
     Route::get('/edit/{kode_kelas}', [KelasController::class, 'edit'])->name('edit-kelas')->middleware('cek_login:1');
     Route::put('/update/{kode_kelas}', [KelasController::class, 'update'])->name('update-kelas')->middleware('cek_login:1');
@@ -141,8 +150,13 @@ Route::prefix('tupel')->group(function () {
     Route::delete('/tupel/{id}', [TujuanPembelajaranController::class, 'destroy'])->name('delete.tupel');
 });
 
-//rute untuk tupel
+//rute untuk nilai
 Route::prefix('nilai')->group(function () {
     Route::get('/{id}', [NilaiController::class, 'index'])->name('nilai.index');
     Route::post('/update', [NilaiController::class, 'update'])->name('update.nilai');
+});
+//rute untuk nilai akhir
+Route::prefix('walas/nilai/akhir')->group(function () {
+    Route::get('/{id}', [NilaiAkhirController::class, 'index'])->name('nilai.akhir.index');
+    Route::post('/save/{kode_kelas}', [NilaiAkhirController::class, 'save'])->name('save-siswa_nilai');
 });

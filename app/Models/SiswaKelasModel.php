@@ -23,4 +23,8 @@ class SiswaKelasModel extends Model
     {
         return $this->belongsTo(KelasModel::class, 'kelas_id', 'kode_kelas');
     }
+    public function nilai()
+    {
+        return $this->hasMany(NilaiModel::class, 'siswa_id');  // Gunakan foreign key yang benar
+    }
 }

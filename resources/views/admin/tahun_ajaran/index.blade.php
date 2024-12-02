@@ -34,5 +34,5 @@
         </div>
     </div>
     <!-- Modal Tambah Data -->
-    @include('admin.tahun_ajaran.create');
+    @include('admin.tahun_ajaran.create')
 @endsection

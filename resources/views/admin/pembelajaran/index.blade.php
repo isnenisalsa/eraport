@@ -49,8 +49,8 @@
     </div>
 
     <!-- Modal Tambah Data -->
-    @include('admin.pembelajaran.create');
+    @include('admin.pembelajaran.create')
 
     <!-- Modal Edit Data -->
-    @include('admin.pembelajaran.update');
+    @include('admin.pembelajaran.update')
 @endsection

@@ -16,6 +16,9 @@ class NilaiModel extends Model
         'nilai',
         'uts',
         'uas',
+        'rata_rata_tupel',
+        'rata_rata_uts_uas',
+        'nilai_rapor',
 
     ];
     public function siswakelas()
