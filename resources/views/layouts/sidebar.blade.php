@@ -79,7 +79,7 @@
                 <ul class="nav nav-treeview">
                     @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
                         <li class="nav-item">
-                            <a href="{{ url('/siswa_kelas') }}"
+                            <a href="{{ url('cetak/rapor/kelas/') }}"
                                 class="nav-link  {{ $activeMenu == 'Cetak Rapot' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-laptop-code" style="color: rgb(3, 3, 3)"></i>
                                 <p style="color: rgb(10, 10, 10)">

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CetakRaporController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EskulController;
 use Illuminate\Support\Facades\Route;
@@ -156,8 +157,6 @@ Route::prefix('absensi')->group(function () {
     Route::post('/update/{kelas_id}', [AbsensiController::class, 'update'])->name('update.absensi');
 });
 
-
-
 //rute untuk tupel
 Route::prefix('tupel')->group(function () {
     Route::get('/{id}', [TujuanPembelajaranController::class, 'index'])->name('tupel.index');
@@ -171,8 +170,14 @@ Route::prefix('nilai')->group(function () {
     Route::get('/{id}', [NilaiController::class, 'index'])->name('nilai.index');
     Route::post('/update', [NilaiController::class, 'update'])->name('update.nilai');
 });
+
 //rute untuk nilai akhir
 Route::prefix('walas/nilai/akhir')->group(function () {
     Route::get('/{id}', [NilaiAkhirController::class, 'index'])->name('nilai.akhir.index');
     Route::post('/save/{kode_kelas}', [NilaiAkhirController::class, 'save'])->name('save-siswa_nilai');
+});
+
+Route::prefix('cetak/rapor')->group(function () {
+    Route::get('/kelas/', [CetakRaporController::class, 'KelasRapor'])->name('rapor.kelas');
+    Route::get('/{id}', [CetakRaporController::class, 'index'])->name('cetak.rapor.index');
 });
