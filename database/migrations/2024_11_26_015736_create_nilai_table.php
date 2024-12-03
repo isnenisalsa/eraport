@@ -17,8 +17,11 @@ return new class extends Migration
             $table->unsignedBigInteger("siswa_id");
             $table->unsignedBigInteger('tupel_id')->nullable();
             $table->string("nilai")->default('0');
+            $table->string('rata_rata_tupel')->default('0');
             $table->string('uts')->default('0');
             $table->string('uas')->default('0');
+            $table->string('rata_rata_uts_uas')->default('0');
+            $table->string('nilai_rapor')->default('0');
             $table->timestamps();
             $table->foreign("pembelajaran_id")->references("id_pembelajaran")->on("pembelajaran")->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign("siswa_id")->references("id")->on("siswa_kelas")->cascadeOnDelete()->cascadeOnUpdate();

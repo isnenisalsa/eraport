@@ -3,6 +3,7 @@
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EskulController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\ImportExportController;
@@ -75,6 +76,11 @@ Route::middleware(['auth'])->group(function () {
 Route::prefix('sekolah')->group(function () {
     Route::get('/', [SekolahController::class, 'index'])->name('sekolah.index');
     Route::post('/save', [SekolahController::class, 'save'])->name('sekolah.save');
+});
+Route::prefix('eskul')->group(function () {
+    Route::get('/', [EskulController::class, 'index'])->name('eskul.index');
+    Route::post('/save', [EskulController::class, 'save'])->name('eskul.save');
+    Route::put('/update{id}', [EskulController::class, 'update'])->name('eskul.update');
 });
 
 

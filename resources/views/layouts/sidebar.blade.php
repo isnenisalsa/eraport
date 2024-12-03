@@ -220,6 +220,17 @@
                         </li>
                     @endif
                 </ul>
+                <ul class="nav nav-treeview">
+                    @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
+                        <li class="nav-item">
+                            <a href="{{ url('eskul') }}"
+                                class="nav-link {{ $activeMenu == 'Eskul' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon" style="color: black"></i>
+                                <p style="color: black">Esktrakulikuler</p>
+                            </a>
+                        </li>
+                    @endif
+                </ul>
             </li>
         </ul>
     </nav>

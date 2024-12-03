@@ -6,7 +6,7 @@
                 <div class="card">
                     <div class="card-header">
                         <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
-                            data-target="#modal-tambah-data-kelas">
+                            data-target="#modal-tambah-data-eskul">
                             + Tambah Data
                         </button>
                     </div>
@@ -15,25 +15,23 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Kode Kelas</th>
-                                    <th>Nama Kelas</th>
-                                    <th>Wali Kelas</th>
-                                    <th>Tahun Ajaran</th>
+                                    <th>Pembina Esktrakulikuler</th>
+                                    <th>Nama Esktrakulikuler</th>
+                                    <th>Tempat</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @php $no = 1; @endphp
-                                @foreach ($kelas as $item)
+                                @foreach ($eskul as $item)
                                     <tr>
                                         <td>{{ $no++ }}</td>
-                                        <td>{{ $item->kode_kelas }}</td>
-                                        <td>{{ $item->nama_kelas }}</td>
                                         <td>{{ $item->guru->nama }}</td>
-                                        <td>{{ $item->tahun_ajarans->tahun_ajaran }}</td>
+                                        <td>{{ $item->nama_eskul }}</td>
+                                        <td>{{ $item->tempat }}</td>
                                         <td>
                                             <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
-                                                data-target="#modal-edit{{ $item->kode_kelas }}">
+                                                data-target="#modal-edit{{ $item->id }}">
                                                 Edit
                                             </button>
                                         </td>
@@ -46,9 +44,8 @@
             </div>
         </div>
     </div>
-    <!-- Modal Tambah Data -->
-    @include('admin.kelas.create');
 
-    <!-- Modal Edit Data -->
-    @include('admin.kelas.update');
+
+    @include('admin.eskul.create')
+    @include('admin.eskul.update')
 @endsection

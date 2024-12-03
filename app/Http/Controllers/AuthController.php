@@ -40,8 +40,10 @@ class AuthController extends Controller
                 return redirect()->route('dashboard.guru');
             } elseif (in_array(3, $roleIds)) {
                 // Redirect ke dashboard walas
+                return redirect()->route('dashboard.admin');
+            } elseif (in_array(4, $roleIds)) {
+                // Redirect ke dashboard walas
                 return redirect()->route('dashboard.walas');
-            } else {
                 // Redirect jika role tidak dikenali
                 return redirect('login')->withErrors(['access_denied' => 'Akses ditolak.']);
             }

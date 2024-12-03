@@ -33,7 +33,7 @@
         <aside class="main-sidebar sidebar-light-light elevation-4" style="background-color: #2FCC7B;">
             <p class="brand-link" style="text-align: center; background-color: #FFFCF7;height: 68px;">
                 <img src="{{ asset('image/Logo.png') }}" alt="adminlte Logo" class="brand-image"
-                    style="margin-left: -2%">
+                    style="margin-left: 4%">
                 <span class="brand-text font-weight-light" style="color: rgb(14, 13, 13); font: bold"> SMP IT SIRAJUL
                     HUDA </span>
             </p>
