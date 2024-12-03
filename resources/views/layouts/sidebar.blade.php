@@ -25,6 +25,7 @@
                         </p>
                     </a>
                 @endif
+                
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="{{ url('/dashboard/walas') }}"
@@ -51,11 +52,11 @@
                 <ul class="nav nav-treeview">
                     @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
                         <li class="nav-item">
-                            <a href="{{ url('/kelas/siswa') }}"
-                                class="nav-link  {{ $activeMenu == 'Data Pembelajaran' ? 'active' : '' }}">
+                            <a href="{{ url('absensi/kelas/') }}"
+                                class="nav-link  {{ $activeMenu == 'Absensi Siswa' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-archive" style="color: rgb(3, 3, 3)"></i>
                                 <p style="color: rgb(10, 10, 10)">
-                                    Data Pembelajaran
+                                    Absensi Siswa
                                 </p>
                             </a>
                         </li>

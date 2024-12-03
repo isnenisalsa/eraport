@@ -16,9 +16,13 @@ class SiswaKelasModel extends Model
     ];
 
     public function siswa()
-    {
-        return $this->belongsTo(SiswaModel::class, 'siswa_id', 'nis');
-    }
+{
+    return $this->belongsTo(SiswaModel::class, 'siswa_id');
+}
+    public function absensi()
+{
+    return $this->hasOne(AbsensiModel::class, 'siswa_id');
+}
     public function kelas()
     {
         return $this->belongsTo(KelasModel::class, 'kelas_id', 'kode_kelas');

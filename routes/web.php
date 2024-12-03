@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
@@ -141,6 +142,15 @@ Route::prefix('kelas/siswa')->group(function () {
     Route::get('/{kode_kelas}', [SiswaKelasController::class, 'index'])->name('siswa_kelas');
     Route::post('/save/{kode_kelas}', [SiswaKelasController::class, 'save'])->name('save-siswa_kelas');
 });
+
+//rute untuk absensi
+Route::prefix('absensi')->group(function () {
+    Route::get('/kelas/', [AbsensiController::class, 'KelasAbsensi'])->name('absensi.kelas');
+    Route::get('/index/{kelas_id}', [AbsensiController::class, 'index'])->name('absensi.index');
+    Route::post('/update/{kelas_id}', [AbsensiController::class, 'update'])->name('update.absensi');
+});
+
+
 
 //rute untuk tupel
 Route::prefix('tupel')->group(function () {

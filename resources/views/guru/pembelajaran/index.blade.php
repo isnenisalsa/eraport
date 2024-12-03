@@ -27,7 +27,8 @@
                                         <td><a href="{{ route('tupel.index', $item->id_pembelajaran) }}"
                                                 class="btn btn-success btn-sm">Tujuan Pembelajaran</a> &nbsp;
                                             <a href="{{ route('nilai.index', $item->id_pembelajaran) }}"
-                                                class="btn btn-info btn-sm">Kelola Nilai</a>
+                                                class="btn btn-info btn-sm">Kelola Nilai</a> &nbsp;
+                                            
                                         </td>
                                     </tr>
                                 @endforeach
