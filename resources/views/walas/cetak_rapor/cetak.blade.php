@@ -25,9 +25,9 @@
                                     <td class="text-center">{{ $item->siswa->nis }}</td>
                                     <td>{{ $item->siswa->nama }}</td>
                                     <td class="text-center">
-                                        <button class="btn btn-danger btn-md me-2" title="Cover">
+                                        <a href="{{ route('walas.cover',$item->siswa->nis) }}" class="btn btn-danger btn-md me-2" title="Cover">
                                             <i class="fas fa-file-alt"></i>
-                                        </button>
+                                        </a>
                                         <button class="btn btn-success btn-md me-2" title="Biodata">
                                             <i class="fas fa-id-badge"></i>
                                         </button>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\KelasModel;
+use App\Models\SiswaModel;
 use App\Models\SiswaKelasModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,41 +25,31 @@ class CetakRaporController extends Controller
         return view('walas.cetak_rapor.index', compact('breadcrumb', 'kelas', 'activeMenu'));
     }
 
-
-    public function index($nis)
+   
+    public function index($kode_kelas)
 {
+    
+    // Breadcrumb untuk halaman
     $breadcrumb = (object) [
-        'title' => 'Rapor Kelas',
+        'title' => 'Biodata Siswa',
     ];
-    $activeMenu = 'absensi';
+
+    $activeMenu = 'cetak-rapor';
 
     // Ambil data kelas berdasarkan kode_kelas
-    $kelas = KelasModel::with(['guru'])->where('kode_kelas', $nis)->firstOrFail();
+    $kelas = KelasModel::with(['guru', 'siswa'])->where('kode_kelas', $kode_kelas)->firstOrFail();
 
-    // Ambil semua siswa yang terdaftar di kelas ini
-    $siswa = SiswaKelasModel::with('siswa')
-                        ->where('kelas_id', $nis)
-                        ->get();
-
+    // Ambil siswa yang terdaftar di kelas
+    $siswa = $kelas->siswa; // Relasi siswa harus sudah ada di KelasModel
+    // Kirim data ke view
     return view('walas.cetak_rapor.cetak', compact('breadcrumb', 'kelas', 'siswa', 'activeMenu'));
 }
 
 
-public function show($kode_kelas)
+public function cover($nis)
 {
-    $breadcrumb = (object) [
-        'title' => 'Detail Kelas',
-    ];
+    $siswa = SiswaModel::where('nis', $nis)->firstOrFail();
 
-    $kelas = KelasModel::with(['guru', 'siswa'])
-                   ->where('kode_kelas', $kode_kelas)
-                   ->firstOrFail();
-
-$siswa = $kelas->siswa; // Relasi siswa harus sudah didefinisikan di KelasModel
-
-
-    return view('cetak.detail', compact('breadcrumb', 'kelas', 'siswa'));
+    return view('walas.cetak_rapor.cover', compact('siswa'));
 }
-
-
 }

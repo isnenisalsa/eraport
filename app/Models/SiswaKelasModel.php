@@ -18,6 +18,7 @@ class SiswaKelasModel extends Model
     public function siswa()
 {
     return $this->belongsTo(SiswaModel::class, 'siswa_id');
+    
 }
     public function absensi()
 {

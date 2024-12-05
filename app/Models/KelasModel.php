@@ -42,5 +42,9 @@ class KelasModel extends Model
     public function siswa()
     {
         return $this->hasMany(SiswaKelasModel::class, 'kelas_id', 'kode_kelas');  // Menggunakan hasMany untuk relasi ke siswa
+       
+    return $this->hasMany(SiswaKelasModel::class, 'kelas_id');
+
+
     }
 }
