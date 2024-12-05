@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\EskulModel;
+use App\Models\EskulSiswaModel;
 use App\Models\GuruModel;
+use App\Models\SiswaKelasModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EskulController extends Controller
 {
@@ -93,5 +96,47 @@ class EskulController extends Controller
         $guru->roles()->attach($roleIdToDelete);
 
         return redirect()->route('eskul.index')->with('success', 'Data Kelas berhasil diperbarui');
+    }
+
+    public function DaftarEskul()
+    {
+        $breadcrumb = (object) [
+            'title' => 'Daftar Eskul',
+        ];
+
+
+        $activeMenu = 'Eskul';
+        $user = Auth::user();
+        $eskul = EskulModel::where('guru_nik', $user->nik)->get();
+        return view('pembina_eskul.siswa.index', ['breadcrumb' => $breadcrumb, 'eskul' => $eskul, 'activeMenu' => $activeMenu]);
+    }
+    public function DaftarSiswa($id)
+    {
+
+        $breadcrumb = (object) [
+            'title' => 'Daftar Eskul',
+        ];
+
+        $eskul_siswa = EskulSiswaModel::with('siswa')
+            ->where('eskul_id', $id)
+            ->get();
+        $activeMenu = 'Eskul';
+        $siswa = SiswaKelasModel::whereNotIn('id', $eskul_siswa->pluck('siswa_id'))->get();
+
+        return view('pembina_eskul.siswa.create', ['breadcrumb' => $breadcrumb, 'eskul_siswa' => $eskul_siswa, 'id' => $id, 'siswa' => $siswa, 'activeMenu' => $activeMenu]);
+    }
+
+    public function saveSiswa(Request $request, $id)
+    {
+        $request->validate([
+            'siswa_id' =>  'required|unique:eskul_siswa,eskul_id',
+
+        ]);
+        $kelas = EskulModel::where('id', $id)->value('id');
+        EskulSiswaModel::create([
+            'siswa_id' => $request->siswa_id,
+            'eskul_id' => $kelas,
+        ]);
+        return redirect()->route('eskul.siswa.pembina', $id);
     }
 }

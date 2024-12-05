@@ -78,11 +78,15 @@ Route::prefix('sekolah')->group(function () {
     Route::get('/', [SekolahController::class, 'index'])->name('sekolah.index');
     Route::post('/save', [SekolahController::class, 'save'])->name('sekolah.save');
 });
+
+//rute untuk eskul
 Route::prefix('eskul')->group(function () {
     Route::get('/', [EskulController::class, 'index'])->name('eskul.index');
+    Route::get('/daftar', [EskulController::class, 'DaftarEskul'])->name('eskul.daftar');
     Route::post('/save', [EskulController::class, 'save'])->name('eskul.save');
     Route::put('/update{id}', [EskulController::class, 'update'])->name('eskul.update');
 });
+
 
 
 //rute untuk guru
@@ -144,15 +148,19 @@ Route::controller(ImportExportController::class)->group(function () {
     Route::get('export', 'export')->name('export')->middleware('cek_login:1');
 });
 
-//rute untuk siswa
+//rute untuk siswa kelas
 Route::prefix('kelas/siswa')->group(function () {
     Route::get('/{kode_kelas}', [SiswaKelasController::class, 'index'])->name('siswa_kelas');
     Route::post('/save/{kode_kelas}', [SiswaKelasController::class, 'save'])->name('save-siswa_kelas');
 });
-
+//rute untuk siswa eskul
+Route::prefix('eskul/siswa')->group(function () {
+    Route::get('/{id}', [EskulController::class, 'DaftarSiswa'])->name('eskul.siswa.pembina');
+    Route::post('/save/{id}', [EskulController::class, 'saveSiswa'])->name('save.eskul.siswa');
+});
 //rute untuk absensi
 Route::prefix('absensi')->group(function () {
-    Route::get('/kelas/', [AbsensiController::class, 'KelasAbsensi'])->name('absensi.kelas');
+    Route::get('/kelas', [AbsensiController::class, 'KelasAbsensi'])->name('absensi.kelas');
     Route::get('/index/{kelas_id}', [AbsensiController::class, 'index'])->name('absensi.index');
     Route::post('/update/{kelas_id}', [AbsensiController::class, 'update'])->name('update.absensi');
 });
@@ -178,6 +186,6 @@ Route::prefix('walas/nilai/akhir')->group(function () {
 });
 
 Route::prefix('cetak/rapor')->group(function () {
-    Route::get('/kelas/', [CetakRaporController::class, 'KelasRapor'])->name('rapor.kelas');
+    Route::get('/kelas', [CetakRaporController::class, 'KelasRapor'])->name('rapor.kelas');
     Route::get('/{id}', [CetakRaporController::class, 'index'])->name('cetak.rapor.index');
 });

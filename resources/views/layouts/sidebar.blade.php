@@ -25,7 +25,7 @@
                         </p>
                     </a>
                 @endif
-                
+
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="{{ url('/dashboard/walas') }}"
@@ -232,7 +232,42 @@
                     @endif
                 </ul>
             </li>
+
+            <li class="nav-item has-treeview">
+                @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-solid fa-laptop" style="color: black"></i>
+                        <p style="color: black">
+                            &nbsp; Esktrakulikuler
+                            <i class="right fas fa-angle-left" style="color: black"></i>
+                        </p>
+                    </a>
+                @endif
+                <ul class="nav nav-treeview">
+                    @if (auth()->check() && auth()->user()->roles->contains('nama', 'pembina eskul'))
+                        <li class="nav-item">
+                            <a href="{{ url('eskul/daftar') }}"
+                                class="nav-link {{ $activeMenu == 'Data Siswa' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon" style="color: black"></i>
+                                <p style="color: black">Siswa</p>
+                            </a>
+                        </li>
+                    @endif
+                </ul>
+                <ul class="nav nav-treeview">
+                    @if (auth()->check() && auth()->user()->roles->contains('nama', 'pembina eskul'))
+                        <li class="nav-item">
+                            <a href="{{ url('eskul/nilai') }}"
+                                class="nav-link {{ $activeMenu == 'nilai' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon" style="color: black"></i>
+                                <p style="color: black">nilai</p>
+                            </a>
+                        </li>
+                    @endif
+                </ul>
+            </li>
         </ul>
+
     </nav>
     <!-- /.sidebar-menu -->
 </div>

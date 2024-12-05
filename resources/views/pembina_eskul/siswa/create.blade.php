@@ -23,27 +23,25 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Status</th>
                                     <th>Nis</th>
                                     <th>Nisn</th>
                                     <th>Nama</th>
-                                    <th>Jenis Kelamin</th>
-                                    <th>Tempat Lahir</th>
-                                    <th>Tanggal Lahir</th>
+                                    <th>Kelas</th>
+                                    <th>tahun ajaran</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @php $no = 1; @endphp
-                                @foreach ($siswa_kelas as $item)
+                                @foreach ($eskul_siswa as $item)
                                     <tr>
                                         <td>{{ $no++ }}</td>
-                                        <td>{{ $item->siswa->status }}</td>
-                                        <td>{{ $item->siswa->nis }}</td>
-                                        <td>{{ $item->siswa->nisn }}</td>
-                                        <td>{{ $item->siswa->nama }}</td>
-                                        <td>{{ $item->siswa->jenis_kelamin }}</td>
-                                        <td>{{ $item->siswa->tempat_lahir }}</td>
-                                        <td>{{ $item->siswa->tanggal_lahir }}</td>
+
+                                        <td>{{ $item->siswa->siswa->nis }}</td>
+                                        <td>{{ $item->siswa->siswa->nisn }}</td>
+                                        <td>{{ $item->siswa->siswa->nama }}</td>
+                                        <td>{{ $item->siswa->kelas->nama_kelas }}</td>
+                                        <td>{{ $item->siswa->kelas->tahun_ajarans->tahun_ajaran }}</td>
+
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -54,9 +52,8 @@
         </div>
 
 
-
     </div>
     <!-- Modal Tambah Data -->
-    @include('walas.siswa.create')
+    @include('pembina_eskul.siswa.modal')
 
 @endsection
