@@ -54,7 +54,7 @@
                         <li class="nav-item">
                             <a href="{{ url('absensi/kelas/') }}"
                                 class="nav-link  {{ $activeMenu == 'Absensi Siswa' ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-archive" style="color: rgb(3, 3, 3)"></i>
+                                <i class="nav-icon fas fa-calendar-check" style="color: rgb(3, 3, 3)"></i>
                                 <p style="color: rgb(10, 10, 10)">
                                     Absensi Siswa
                                 </p>
@@ -81,9 +81,9 @@
                         <li class="nav-item">
                             <a href="{{ url('cetak/rapor/kelas/') }}"
                                 class="nav-link  {{ $activeMenu == 'Cetak Rapot' ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-laptop-code" style="color: rgb(3, 3, 3)"></i>
+                                <i class="nav-icon fas fa-print" style="color: rgb(3, 3, 3)"></i>
                                 <p style="color: rgb(10, 10, 10)">
-                                    Cetak Rapot
+                                    Cetak Rapor
                                 </p>
                             </a>
                         </li>

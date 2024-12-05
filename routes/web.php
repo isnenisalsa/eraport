@@ -184,8 +184,9 @@ Route::prefix('walas/nilai/akhir')->group(function () {
     Route::get('/{id}', [NilaiAkhirController::class, 'index'])->name('nilai.akhir.index');
     Route::post('/save/{kode_kelas}', [NilaiAkhirController::class, 'save'])->name('save-siswa_nilai');
 });
-
+//rute cetak rapor
 Route::prefix('cetak/rapor')->group(function () {
     Route::get('/kelas', [CetakRaporController::class, 'KelasRapor'])->name('rapor.kelas');
     Route::get('/{id}', [CetakRaporController::class, 'index'])->name('cetak.rapor.index');
+    Route::post('/update/{kelas_id}', [CetakRaporController::class, 'update'])->name('update.cetak.rapor');
 });

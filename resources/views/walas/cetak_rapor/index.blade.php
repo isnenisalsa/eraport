@@ -18,9 +18,10 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php $no = 1; @endphp
                                 @foreach ($kelas as $item)
                                 <tr>
-                                    <td>1</td>
+                                    <td>{{ $no++ }}</td>
                                     <td>{{ $item->nama_kelas }}</td>
                                     <td>{{ $item->guru->nama }}</td>
                                     <td>{{ $item->siswa_count }}</td>

@@ -8,29 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 class CetakRaporController extends Controller
 {
-    public function index($id)
-    {
-        $breadcrumb = (object) [
-            'title' => 'Absensi Kelas',
-        ];
-        $activeMenu = 'absensi';
-
-        // Ambil data kelas berdasarkan kelas_id
-        $kelas = KelasModel::where('kode_kelas', $id)->firstOrFail();
-
-        // Ambil semua siswa yang terdaftar di kelas ini dengan nama siswa
-        $siswa = SiswaKelasModel::with('siswa') // eager load relasi siswa
-                                ->where('kelas_id', $id)
-                                ->get();
-
-        return view('walas.cetak_rapor.index', compact('breadcrumb', 'kelas', 'siswa', 'activeMenu'));
-    }
     public function kelasRapor()
     {
         $breadcrumb = (object) [
-            'title' => 'Absensi Kelas',
+            'title' => 'Rapor Kelas',
         ];
-        $activeMenu = 'absensi';
+        $activeMenu = 'Rapor';
         $user = Auth::user();
 
         $kelas = KelasModel::with(['guru', 'tahun_ajarans'])
@@ -40,4 +23,42 @@ class CetakRaporController extends Controller
 
         return view('walas.cetak_rapor.index', compact('breadcrumb', 'kelas', 'activeMenu'));
     }
+
+
+    public function index($nis)
+{
+    $breadcrumb = (object) [
+        'title' => 'Rapor Kelas',
+    ];
+    $activeMenu = 'absensi';
+
+    // Ambil data kelas berdasarkan kode_kelas
+    $kelas = KelasModel::with(['guru'])->where('kode_kelas', $nis)->firstOrFail();
+
+    // Ambil semua siswa yang terdaftar di kelas ini
+    $siswa = SiswaKelasModel::with('siswa')
+                        ->where('kelas_id', $nis)
+                        ->get();
+
+    return view('walas.cetak_rapor.cetak', compact('breadcrumb', 'kelas', 'siswa', 'activeMenu'));
+}
+
+
+public function show($kode_kelas)
+{
+    $breadcrumb = (object) [
+        'title' => 'Detail Kelas',
+    ];
+
+    $kelas = KelasModel::with(['guru', 'siswa'])
+                   ->where('kode_kelas', $kode_kelas)
+                   ->firstOrFail();
+
+$siswa = $kelas->siswa; // Relasi siswa harus sudah didefinisikan di KelasModel
+
+
+    return view('cetak.detail', compact('breadcrumb', 'kelas', 'siswa'));
+}
+
+
 }
