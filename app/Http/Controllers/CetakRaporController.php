@@ -51,7 +51,7 @@ class CetakRaporController extends Controller
     public function cover($nis)
     {
         $siswa = SiswaModel::where('nis', $nis)->firstOrFail();
-        return view('walas.cetak_rapor.biodata', compact('siswa'));
+        return view('walas.cetak_rapor.cover', compact('siswa'));
     }
     public function biodata($nis)
     {
@@ -64,6 +64,7 @@ class CetakRaporController extends Controller
         $activeMenu = 'cetak-rapor';
 
         $siswa = SiswaModel::where('nis', $nis)->firstOrFail();
+        return view('walas.cetak_rapor.biodata', compact('siswa'));
     }
     public function kelasRaporSiswa()
     {
