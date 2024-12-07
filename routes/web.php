@@ -188,4 +188,7 @@ Route::prefix('cetak/rapor')->group(function () {
     Route::get('/siswa/{id}', [CetakRaporController::class, 'KelasRaporSiswaCetak'])->middleware('siswa')->name('cetak.index.siswa');
     Route::get('/{id}', [CetakRaporController::class, 'index'])->name('cetak.rapor.index');
     Route::post('/update/{kelas_id}', [CetakRaporController::class, 'update'])->name('update.cetak.rapor');
+    Route::get('/siswa/{nis}', [CetakRaporController::class, 'cover'])->name('walas.cover');
 });
+
+
