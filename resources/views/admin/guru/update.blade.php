@@ -114,10 +114,11 @@
                             <label for="agama" class="form-label">agama</label>
                             <select class="form-control" name="agama" id="agama">
                                 <option value="">Pilih</option>
-                                <option value="islam"{{ old('agama', $guru->agama) == 'islam' ? 'selected' : '' }}>islam
+                                <option value="islam"{{ old('agama', $guru->agama) == 'islam' ? 'selected' : '' }}>Islam
                                 </option>
-                                <option value="kristen"{{ old('agama', $guru->agama) == 'kristen' ? 'selected' : '' }}>
-                                    kristen</option>
+                                <option value="kristen"{{ old('agama', $guru->agama) == 'kristen' ? 'selected' : '' }}>Kristen</option>
+                                <option value="hindu"{{ old('agama', $guru->agama) == 'hindu' ? 'selected' : '' }}>Hindu</option>
+                                <option value="budha"{{ old('agama', $guru->agama) == 'budha' ? 'selected' : '' }}>Budha</option>
                             </select>
                             @if ($errors->has('agama'))
                                 <div class="text-danger">{{ $errors->first('agama') }}</div>

@@ -78,7 +78,6 @@
 
                             <tr>
                                 <th>nis</th>
-
                                 <td>{{ $item->nis }}</td>
                             </tr>
                             <tr>
@@ -94,6 +93,14 @@
                                 <td>{{ $item->jenis_kelamin }}</td>
                             </tr>
                             <tr>
+                                <th>Agama</th>
+                                <td>{{ $item->agama}}</td>
+                            </tr>
+                            <tr>
+                                <th>Pendidikan Terakhir</th>
+                                <td>{{ $item->pendidikan_terakhir }}</td>
+                            </tr>
+                            <tr>
                                 <th>Tempat Lahir</th>
                                 <td>{{ $item->tempat_lahir }}</td>
                             </tr>
@@ -102,8 +109,32 @@
                                 <td>{{ $item->tanggal_lahir }}</td>
                             </tr>
                             <tr>
-                                <th>Alamat</th>
+                                <th>Alamat Siswa</th>
                                 <td>{{ $item->alamat }}</td>
+                            </tr>
+                            <tr>
+                                <th>Alamat Orang Tua</th>
+                                
+                            </tr>
+                            <tr>
+                                <th>Jalan</th>
+                                <td>{{ $item->jalan }}</td>
+                            </tr>
+                            <tr>
+                                <th>Kelurahan/Desa</th>
+                                <td>{{ $item->kelurahan}}</td>
+                            </tr>
+                            <tr>
+                                <th>kecamatan</th>
+                                <td>{{ $item->kecamatan}}</td>
+                            </tr>
+                            <tr>
+                                <th>Kabupaten/Kota</th>
+                                <td>{{ $item->kota}}</td>
+                            </tr>
+                            <tr>
+                                <th>Provinsi</th>
+                                <td>{{ $item->provinsi}}</td>
                             </tr>
                             <tr>
                                 <th>Nama Ayah</th>

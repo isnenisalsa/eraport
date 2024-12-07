@@ -88,7 +88,7 @@
 
         <!-- Footer -->
         <div class="footer">
-            <h2>KEMENTRIAN PENDIDIKAN DAN KEBUDAYAAN</h2>
+            <h2>KEMENTERIAN PENDIDIKAN DASAR DAN MENENGAH</h2>
             <h2>REPUBLIK INDONESIA</h2>
         </div>
     </div>

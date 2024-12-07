@@ -55,6 +55,7 @@ class AuthController extends Controller
 
         // Jika login gagal
         return redirect('login')->with(['login_failed' => 'Username atau password salah.']);
+    
     }
 
 

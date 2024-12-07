@@ -1,9 +1,5 @@
 @extends('layouts.template')
 @section('content')
-    <div class="container">
-        <a href="{{ route('siswa') }}" class="fas fa-solid fa-chevron-left fa-2x " style="margin-left: -50px"></a>
-    </div>
-
     <br>
     <div class="card card-blue">
         <h5 class="card-header text-center">Edit Data Siswa</h5>
@@ -73,6 +69,28 @@
                             @endif
                         </div>
                         <div class="mb-3">
+                            <label for="agama" class="form-label">agama</label>
+                            <select class="form-control" name="agama" id="agama">
+                                <option value="">Pilih</option>
+                                <option value="Islam"{{ old('agama', $siswa->agama) == 'Islam' ? 'selected' : '' }}>Islam
+                                </option>
+                                <option value="Kristen"{{ old('agama', $siswa->agama) == 'Kristen' ? 'selected' : '' }}>Kristen</option>
+                                <option value="Hindu"{{ old('agama', $siswa->agama) == 'Hindu' ? 'selected' : '' }}>Hindu</option>
+                                <option value="Budha"{{ old('agama', $siswa->agama) == 'Budha' ? 'selected' : '' }}>Budha</option>
+                            </select>
+                            @if ($errors->has('agama'))
+                                <div class="text-danger">{{ $errors->first('agama') }}</div>
+                            @endif
+                        </div>
+                        <div class="mb-3">
+                            <label for="pendidikan_terakhir" class="form-label">Pendidikan Terakhir</label>
+                            <input type="text" class="form-control" id="pendidikan_terakhir" placeholder="Inputkan Pendidikan Terakhir Siswa"
+                                name="pendidikan_terakhir" value="{{ $siswa->pendidikan_terakhir }} ">
+                            @if ($errors->has('pendidikan_terakhir'))
+                                <div class="text-danger">{{ $errors->first('pendidikan_terakhir') }}</div>
+                            @endif
+                        </div>
+                        <div class="mb-3">
                             <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
                             <input type="text" class="form-control" id="tempat_lahir"
                                 placeholder="Inputkan tempat_lahir Anda" name="tempat_lahir"
@@ -91,13 +109,67 @@
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label for="alamat" class="form-label">Alamat</label>
-                            <input type="text" class="form-control" id="alamat" placeholder="Inputkan alamat Anda"
-                                name="alamat" value="{{ $siswa->alamat }} ">
+                            <label for="alamat" class="form-label">Alamat Siswa</label>
+                            <input type="text" class="form-control"
+                                value="{{ old('alamat', $siswa->alamat) }}" id="alamat"
+                                placeholder="Inputkan Alamat Anda" name="alamat">
                             @if ($errors->has('alamat'))
                                 <div class="text-danger">{{ $errors->first('alamat') }}</div>
                             @endif
                         </div>
+                        <div class="mb-2">
+                            <label for="jalan" class="form-label">Alamat Orang Tua</label>
+                        </div>
+                        <div class="mb-3">
+                            <label for="jalan" class="form-label">Jalan</label>
+                            <input type="text" class="form-control" id="Jalan" placeholder="Inputkan Jalan"
+                                name="jalan" value="{{ $siswa->jalan }} ">
+                            @if ($errors->has('jalan'))
+                                <div class="text-danger">{{ $errors->first('jalan') }}</div>
+                            @endif
+                        </div>
+                        <div class="mb-3">
+                            <label for="kelurahan" class="form-label">Kelurahan/Desa</label>
+                            <input type="text" class="form-control" id="kelurahan" placeholder="Inputkan Kelurahan"
+                                name="kelurahan" value="{{ $siswa->kelurahan }} ">
+                            @if ($errors->has('kelurahan'))
+                                <div class="text-danger">{{ $errors->first('kelurahan') }}</div>
+                            @endif
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="kecamatan" class="form-label">Kecamatan</label>
+                            <input type="text" class="form-control" id="kecamatan" placeholder="Inputkan kecamatan"
+                                name="kecamatan" value="{{ $siswa->kecamatan }} ">
+                            @if ($errors->has('kecamatan'))
+                                <div class="text-danger">{{ $errors->first('kecamatan') }}</div>
+                            @endif
+                        </div>
+
+                        
+                        <div class="mb-3">
+                            <label for="kota" class="form-label">Kabupaten/Kota</label>
+                            <input type="text" class="form-control" id="kota" placeholder="Inputkan Kabupaten/Kota" 
+                                name="kota" value="{{ $siswa->kota }} ">
+                            @if ($errors->has('kota'))
+                                <div class="text-danger">{{ $errors->first('kota') }}</div>
+                            @endif
+                        </div>
+
+                        
+                        <div class="mb-3">
+                            <label for="provinsi" class="form-label">Provinsi</label>
+                            <input type="text" class="form-control" id="provinsi" placeholder="Inputkan Provinsi" 
+                                name="provinsi" value="{{ $siswa->provinsi }} ">
+                            @if ($errors->has('provinsi'))
+                                <div class="text-danger">{{ $errors->first('provinsi') }}</div>
+                            @endif
+                        </div>
+
+                    </div>
+
+                    <!-- Kolom Kanan -->
+                    <div class="col-md-6">
                         <div class="mb-3">
                             <label for="nama_ayah" class="form-label">Nama Ayah</label>
                             <input type="text" class="form-control" id="nama_ayah" placeholder="Inputkan nama_ayah Anda"
@@ -107,10 +179,6 @@
                             @endif
                         </div>
 
-                    </div>
-
-                    <!-- Kolom Kanan -->
-                    <div class="col-md-6">
                         <div class="mb-3">
                             <label for="pekerjaan_ayah" class="form-label">Pekerjaan Ayah</label>
                             <input type="text" class="form-control" value="{{ $siswa->pekerjaan_ayah }} "

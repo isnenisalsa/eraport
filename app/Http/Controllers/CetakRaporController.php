@@ -62,5 +62,44 @@ $siswa = $kelas->siswa; // Relasi siswa harus sudah didefinisikan di KelasModel
     return view('cetak.detail', compact('breadcrumb', 'kelas', 'siswa'));
 }
 
+public function biodata($nis)
+{
+    
+    // Breadcrumb untuk halaman
+    $breadcrumb = (object) [
+        'title' => 'Biodata Siswa',
+    ];
 
+    $activeMenu = 'cetak-rapor';
+
+    $siswa = SiswaModel::where('nis', $nis)->firstOrFail();
+
+    return view('walas.cetak_rapor.biodata', compact('siswa'));
+}
+public function kelasRaporSiswa()
+    {
+        $breadcrumb = (object) [
+            'title' => 'Daftar Pembelajaran',
+        ];
+
+        $activeMenu = 'Pembelajaran Siswa';
+        $user =  Auth::guard('siswa')->user();
+        $kelas = SiswaKelasModel::with('siswa', 'kelas')->where('siswa_id', $user->nis)->get();
+
+        // Mengambil semua data pembelajaran dengan relasi mapel, kelas, dan guru
+        return view('siswa.cetak_rapor.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'kelas' => $kelas]);
+    }
+    public function KelasRaporSiswaCetak($id)
+    {
+        $breadcrumb = (object) [
+            'title' => 'Cetak Rapor',
+        ];
+
+        $activeMenu = 'Pembelajaran Siswa';
+        $user =  Auth::guard('siswa')->user();
+        $kelas = SiswaKelasModel::with('siswa', 'kelas')->where('siswa_id', $user->nis)->get();
+
+        // Mengambil semua data pembelajaran dengan relasi mapel, kelas, dan guru
+        return view('siswa.cetak_rapor.cetak', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'kelas' => $kelas]);
+    }
 }
