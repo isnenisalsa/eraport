@@ -6,7 +6,8 @@ use App\Models\PembelajaranModel;
 use App\Models\MapelModel;
 use App\Models\KelasModel;
 use App\Models\GuruModel;
-
+use App\Models\SiswaKelasModel;
+use App\Models\SiswaModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -52,6 +53,7 @@ class PembelajaranController extends Controller
 
         return view('guru.pembelajaran.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'dataPembelajaran' => $dataPembelajaran]);
     }
+
 
     public function save(Request $request)
     {

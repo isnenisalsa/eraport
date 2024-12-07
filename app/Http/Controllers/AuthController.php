@@ -18,40 +18,46 @@ class AuthController extends Controller
     {
         $request->validate([
             'username' => 'required',
-            'password' => 'required'
+            'password' => 'required',
         ]);
 
-        // Ambil input untuk autentikasi
-        $credential = $request->only('username', 'password');
+        $credentials = $request->only('username', 'password');
 
-        // Coba login sebagai user
-        if (Auth::attempt($credential)) {
+        // Autentikasi sebagai pengguna dengan role-based
+        if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
-            // Ambil role_id dari guru_roles
+            // Ambil semua role user (asumsi relasi roles sudah ada)
             $roleIds = $user->roles->pluck('id')->toArray();
 
-            // Redirect berdasarkan role_id
+            // Redirect berdasarkan role
             if (in_array(1, $roleIds)) {
-                // Redirect ke dashboard admin
-                return redirect()->route('dashboard.admin');
+                return redirect()->route('dashboard');
             } elseif (in_array(2, $roleIds)) {
-                // Redirect ke dashboard guru
-                return redirect()->route('dashboard.guru');
+                return redirect()->route('dashboard');
             } elseif (in_array(3, $roleIds)) {
-                // Redirect ke dashboard walas
-                return redirect()->route('dashboard.admin');
-            } elseif (in_array(4, $roleIds)) {
-                // Redirect ke dashboard walas
-                return redirect()->route('dashboard.walas');
-                // Redirect jika role tidak dikenali
-                return redirect('login')->withErrors(['access_denied' => 'Akses ditolak.']);
+                return redirect()->route('dashboard');
             }
+
+            // Jika role tidak dikenali
+            return redirect('login')->withErrors(['access_denied' => 'Akses ditolak.']);
+        }
+
+        // Autentikasi sebagai siswa
+        $siswa = SiswaModel::where('username', $request->username)->first();
+        if ($siswa && Hash::check($request->password, $siswa->password)) {
+            // Gunakan guard 'siswa' jika middleware telah dikonfigurasi
+            Auth::guard('siswa')->login($siswa);
+
+            // Redirect ke dashboard siswa
+            return redirect()->route('dashboard.siswa');
         }
 
         // Jika login gagal
-        return redirect('login')->withErrors(['login_failed' => 'Username atau password salah.']);
+        return redirect('login')->with(['login_failed' => 'Username atau password salah.']);
     }
+
+
     public function logout(Request $request)
     {
         $request->session()->flush();

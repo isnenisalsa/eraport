@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tupel', function (Blueprint $table) {
+        Schema::create('capel', function (Blueprint $table) {
             $table->id();
             $table->string('pembelajaran_id');
-            $table->string('nama_tupel');
+            $table->string('nama_capel');
             $table->foreign('pembelajaran_id')->references('id_pembelajaran')->on('pembelajaran')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tupel');
+        Schema::dropIfExists('capel');
     }
 };

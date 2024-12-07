@@ -33,39 +33,39 @@
                 <div class="card">
                     <div class="card-header">
                         <button type="button" class="btn btn-success btn-sm float-left" data-toggle="modal"
-                            data-target="#modal-tambah-data-tupel">
+                            data-target="#modal-tambah-data-capel">
                             + Tambah Data
                         </button>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('update.tupel') }}" method="POST">
+                        <form action="{{ route('update.capel') }}" method="POST">
                             @csrf
                             <table class="table table-bordered table-striped text-center">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Tujuan Pembelajaran</th>
+                                        <th>Capaian Pembelajaran</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @php $no = 1; @endphp
-                                    @foreach ($DataTupel as $item)
+                                    @foreach ($Datacapel as $item)
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>
                                                 <input type="hidden" name="id[]" value="{{ $item->id }}">
-                                                <input type="text" name="nama_tupel[]" class="form-control"
-                                                    value="{{ $item->nama_tupel ?? old('nama_tupel.' . $loop->index) }}"
+                                                <input type="text" name="nama_capel[]" class="form-control"
+                                                    value="{{ $item->nama_capel ?? old('nama_capel.' . $loop->index) }}"
                                                     required>
-                                                @error('nama_tupel.' . $loop->index)
+                                                @error('nama_capel.' . $loop->index)
                                                     <div class="text-danger">{{ $errors }}</div>
                                                 @enderror
 
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                                    data-target="#modal-hapus-data-tupel{{ $item->id }}">
+                                                    data-target="#modal-hapus-data-capel{{ $item->id }}">
                                                     Hapus
                                                 </button>
                                             </td>
@@ -81,33 +81,33 @@
         </div>
     </div>
 
-    <!-- Modal Tambah Data Tupel -->
+    <!-- Modal Tambah Data capel -->
     @if ($errors->any())
         <script>
             $(document).ready(function() {
-                $('#modal-tambah-data-tupel').modal('show');
+                $('#modal-tambah-data-capel').modal('show');
             });
         </script>
     @endif
-    <div class="modal fade" id="modal-tambah-data-tupel" tabindex="-1" aria-labelledby="modal-tambah-data-tupelLabel"
+    <div class="modal fade" id="modal-tambah-data-capel" tabindex="-1" aria-labelledby="modal-tambah-data-capelLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"><b>TAMBAH DATA TUJUAN PEMBELAJARAN</b></h5>
+                    <h5 class="modal-title"><b>TAMBAH DATA CAPAIAN PEMBELAJARAN</b></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('save.tupel', $id) }}" method="POST">
+                    <form action="{{ route('save.capel', $id) }}" method="POST">
                         @csrf
                         <div class="form-group">
-                            <label for="nama_tupel">Tujuan Pembelajaran</label>
-                            <input type="text" name="nama_tupel" id="nama_tupel" class="form-control" required>
+                            <label for="nama_capel">Capaian Pembelajaran</label>
+                            <input type="text" name="nama_capel" id="nama_capel" class="form-control" required>
 
-                            @if ($errors->has('nama_tupel'))
-                                <span class="text-danger">{{ $errors->first('nama_tupel') }}</span>
+                            @if ($errors->has('nama_capel'))
+                                <span class="text-danger">{{ $errors->first('nama_capel') }}</span>
                             @endif
                         </div>
                         <div class="form-check mt-3">
@@ -122,10 +122,10 @@
         </div>
     </div>
 
-    @foreach ($DataTupel as $item)
-        <!-- Modal Hapus Data Tupel -->
-        <div class="modal fade" id="modal-hapus-data-tupel{{ $item->id }}" tabindex="-1"
-            aria-labelledby="modal-hapus-data-tupelLabel" aria-hidden="true">
+    @foreach ($Datacapel as $item)
+        <!-- Modal Hapus Data capel -->
+        <div class="modal fade" id="modal-hapus-data-capel{{ $item->id }}" tabindex="-1"
+            aria-labelledby="modal-hapus-data-capelLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -135,10 +135,10 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Data Tujuan Pembelajaran:</p>
-                        <p style="color: rgb(18, 192, 255)">{{ $item->nama_tupel }}</p>
+                        <p>Data Capaian Pembelajaran:</p>
+                        <p style="color: rgb(18, 192, 255)">{{ $item->nama_capel }}</p>
                         <b>
-                            <p>Seluruh data yang berkaitan dengan Tujuan Pembelajaran tersebut akan dihapus!</p>
+                            <p>Seluruh data yang berkaitan dengan Capaian Pembelajaran tersebut akan dihapus!</p>
                         </b>
                         <b>
                             <p>Apakah anda yakin data tersebut akan dihapus?</p>
@@ -146,7 +146,7 @@
                     </div>
                     <div class="modal-footer d-flex justify-content-between">
                         <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Batal</button>
-                        <form action="{{ route('delete.tupel', $item->id) }}" method="POST">
+                        <form action="{{ route('delete.capel', $item->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm">Hapus</button>

@@ -17,12 +17,21 @@ class CekLogin
     public function handle($request, Closure $next, ...$roles)
     {
         $user = Auth::user();
-        $userRoles = $user->roles->pluck('id')->toArray();
 
-        if (!array_intersect($userRoles, $roles)) {
-            return response()->redirectTo('login')->with('error', 'anda belum login');
+        // Periksa apakah user sudah login
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
+        // Ambil role user
+        $userRoles = $user->roles->pluck('id')->toArray();
+
+        // Periksa apakah ada role yang sesuai
+        if (!array_intersect($userRoles, $roles)) {
+            return redirect()->route('login')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
+        }
+
+        // Lanjutkan ke request berikutnya
         return $next($request);
     }
 }

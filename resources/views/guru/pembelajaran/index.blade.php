@@ -24,15 +24,13 @@
                                         <td>{{ $item->kelas->tahun_ajarans->tahun_ajaran }}</td>
                                         <td>{{ $item->guru->nama }}</td>
 
-                                        <td><a href="{{ route('tupel.index', $item->id_pembelajaran) }}"
-                                                class="btn btn-success btn-sm">Tujuan Pembelajaran</a> &nbsp;
+                                        <td><a href="{{ route('capel.index', $item->id_pembelajaran) }}"
+                                                class="btn btn-success btn-sm">Capaian Pembelajaran</a> &nbsp;
                                             <a href="{{ route('nilai.index', $item->id_pembelajaran) }}"
                                                 class="btn btn-info btn-sm">Kelola Nilai</a> &nbsp;
-                                            
                                         </td>
                                     </tr>
                                 @endforeach
-
                             </tbody>
                         </table>
                     </div>

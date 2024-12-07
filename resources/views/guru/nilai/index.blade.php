@@ -54,10 +54,10 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Siswa</th>
-                                        @foreach ($tupel as $item)
-                                            <th>{{ $item->nama_tupel }}</th>
+                                        @foreach ($capel as $item)
+                                            <th>{{ $item->nama_capel }}</th>
                                         @endforeach
-                                        <th>Rata-rata Tupel</th> <!-- Tambahkan kolom rata-rata Tupel -->
+                                        <th>Rata-rata capel</th> <!-- Tambahkan kolom rata-rata capel -->
                                         <th>UTS</th>
                                         <th>UAS</th>
                                         <th>Rata-rata UTS & UAS</th>
@@ -74,49 +74,49 @@
                                                     value="{{ $item->id }}">
                                             </td>
                                             @php
-                                                $totalNilai = 0; // Menyimpan total nilai tupel
-                                                $jumlahTupel = count($tupel); // Jumlah tupel
+                                                $totalNilai = 0; // Menyimpan total nilai capel
+                                                $jumlahcapel = count($capel); // Jumlah capel
                                             @endphp
-                                            @foreach ($tupel as $tupelIndex => $tupelItem)
+                                            @foreach ($capel as $capelIndex => $capelItem)
                                                 <td>
                                                     @php
                                                         $nilaiItem = $nilai->firstWhere(function ($value) use (
                                                             $item,
-                                                            $tupelItem,
+                                                            $capelItem,
                                                         ) {
                                                             return $value->siswa_id == $item->id &&
-                                                                $value->tupel_id == $tupelItem->id;
+                                                                $value->capel_id == $capelItem->id;
                                                         });
-                                                        $nilaiTupel = $nilaiItem ? $nilaiItem->nilai : 0;
-                                                        $totalNilai += $nilaiTupel; // Tambahkan nilai ke total
+                                                        $nilaicapel = $nilaiItem ? $nilaiItem->nilai : 0;
+                                                        $totalNilai += $nilaicapel; // Tambahkan nilai ke total
                                                     @endphp
                                                     <input type="text"
-                                                        name="siswa[{{ $index }}][tupel][{{ $tupelIndex }}][nilai]"
-                                                        class="form-control" value="{{ $nilaiTupel }}" readonly>
+                                                        name="siswa[{{ $index }}][capel][{{ $capelIndex }}][nilai]"
+                                                        class="form-control" value="{{ $nilaicapel }}" readonly>
                                                     <input type="hidden"
-                                                        name="siswa[{{ $index }}][tupel][{{ $tupelIndex }}][id]"
-                                                        value="{{ $tupelItem->id }}">
+                                                        name="siswa[{{ $index }}][capel][{{ $capelIndex }}][id]"
+                                                        value="{{ $capelItem->id }}">
 
-                                                    @error("siswa.{$index}.tupel.{$tupelIndex}.nilai")
+                                                    @error("siswa.{$index}.capel.{$capelIndex}.nilai")
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </td>
                                             @endforeach
                                             <td>
                                                 @php
-                                                    $rataRataTupel = $jumlahTupel > 0 ? $totalNilai / $jumlahTupel : 0;
+                                                    $rataRatacapel = $jumlahcapel > 0 ? $totalNilai / $jumlahcapel : 0;
                                                 @endphp
                                                 <input type="text" class="form-control"
-                                                    value="{{ number_format($rataRataTupel, 2) }}" readonly
+                                                    value="{{ number_format($rataRatacapel, 2) }}" readonly
                                                     style="width: 80px">
-                                                <input type="hidden" name="siswa[{{ $index }}][rata_rata_tupel]"
-                                                    value="{{ $rataRataTupel }}">
+                                                <input type="hidden" name="siswa[{{ $index }}][rata_rata_capel]"
+                                                    value="{{ $rataRatacapel }}">
                                             </td>
                                             <td>
                                                 @php
                                                     $utsItem = $nilai->firstWhere(function ($value) use ($item) {
                                                         return $value->siswa_id == $item->id &&
-                                                            $value->tupel_id == null;
+                                                            $value->capel_id == null;
                                                     });
                                                     $utsNilai = $utsItem ? $utsItem->uts : 0;
                                                 @endphp
@@ -131,7 +131,7 @@
                                                 @php
                                                     $uasItem = $nilai->firstWhere(function ($value) use ($item) {
                                                         return $value->siswa_id == $item->id &&
-                                                            $value->tupel_id == null;
+                                                            $value->capel_id == null;
                                                     });
                                                     $uasNilai = $uasItem ? $uasItem->uas : 0;
                                                 @endphp
@@ -154,7 +154,7 @@
                                             </td>
                                             <td>
                                                 @php
-                                                    $nilaiRapor = ($rataRataTupel + $rataRataUTSUAS) / 2;
+                                                    $nilaiRapor = ($rataRatacapel + $rataRataUTSUAS) / 2;
                                                 @endphp
                                                 <input type="text" class="form-control"
                                                     value="{{ number_format($nilaiRapor, 2) }}" readonly

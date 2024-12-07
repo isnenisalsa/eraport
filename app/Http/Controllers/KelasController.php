@@ -86,15 +86,12 @@ class KelasController extends Controller
             'guru_nik' => $request->guru_nik,
             'tahun_ajaran_id' => $request->tahun_ajaran_id,
         ]);
-
+        $roleIdToattach = 3;
         // Ambil guru berdasarkan guru_nik
-        $guru = GuruModel::find($request->guru_nik);
-
-        // Tambahkan role ke guru jika belum ada
-        if (!$guru->roles()->where('role_id', 3)->exists()) {
-            $guru->roles()->attach(3); // Menambahkan role dengan ID 3
+        $guruBaru = GuruModel::where('nik', $request->guru_nik)->first();
+        if ($guruBaru) {
+            $guruBaru->roles()->syncWithoutDetaching([$roleIdToattach]);
         }
-
         return redirect()->route('kelas');
     }
     public function update(Request $request, $kode_kelas)
@@ -117,23 +114,36 @@ class KelasController extends Controller
 
             ]
         );
-        $kelas = KelasModel::find($kode_kelas);
-        // Perbarui data guru dengan data dari form
-        $kelas->update([
+        $kelas = KelasModel::where('kode_kelas', $kode_kelas)->first();
 
-            'nama_kelas' => $request->input('nama_kelas'),
-            'guru_nik' => $request->input('guru_nik'),
-            'tahun_ajaran_id' => $request->tahun_ajaran_id,
-        ]);
+        if ($kelas) {
+            $guruNikLama = $kelas->guru_nik; // guru_nik lama sebelum update
 
-        $guru = GuruModel::find($request->guru_nik);
-        $roleIdToDelete = 3;
+            if ($guruNikLama) {
+                // Cari guru berdasarkan NIK lama
+                $guruLama = GuruModel::where('nik', $guruNikLama)->first();
 
-        // Hapus role jika ada
-        $guru->roles()->detach($roleIdToDelete);
+                if ($guruLama) {
+                    $roleIdToDelete = 3; // ID Role yang akan dihapus
 
-        // Tambahkan role baru
-        $guru->roles()->attach($roleIdToDelete);
+                    // Hapus role lama dari guru lama
+                    $guruLama->roles()->detach($roleIdToDelete);
+                }
+            }
+
+            // Update data kelas
+            $kelas->update([
+                'nama_kelas' => $request->nama_kelas,
+                'guru_nik' => $request->guru_nik,
+                'tahun_ajaran_id' => $request->tahun_ajaran_id,
+            ]);
+
+            // Tambahkan role baru untuk guru baru
+            $guruBaru = GuruModel::where('nik', $request->guru_nik)->first();
+            if ($guruBaru) {
+                $guruBaru->roles()->syncWithoutDetaching([$roleIdToDelete]);
+            }
+        }
 
         return redirect()->route('kelas')->with('success', 'Data Kelas berhasil diperbarui');
     }

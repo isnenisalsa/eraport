@@ -6,6 +6,7 @@ use App\Models\GuruModel;
 use App\Models\KelasModel;
 use App\Models\SiswaKelasModel;
 use App\Models\SiswaModel;
+use App\Models\TahunAjarModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,15 +24,18 @@ class SiswaKelasController extends Controller
 
         // Ambil data kelas berdasarkan kode_kelas
         $kelas = KelasModel::where('kode_kelas', $kode_kelas)->firstOrFail();
-        $kelas = KelasModel::all();  // Memastikan data kelas berhasil diambil
         $siswa_kelas = SiswaKelasModel::with('siswa', 'kelas')
             ->where('kelas_id', $kode_kelas)
             ->get();
         $kelas_id = KelasModel::where('kode_kelas', $kode_kelas)->value('kode_kelas');
+        $tahunAjaranSekarang = KelasModel::where('kode_kelas', $kode_kelas)->value('tahun_ajaran_id');
 
-        // Ambil semua siswa yang BELUM terdaftar di kelas ini
-        $siswa = SiswaModel::whereNotIn('nis', $siswa_kelas->pluck('siswa_id')->toArray())
-            ->get();
+        $siswa = SiswaModel::whereNotIn('nis', function ($query) use ($tahunAjaranSekarang) {
+            $query->select('siswa_id')
+                ->from('siswa_kelas')
+                ->join('kelas', 'kelas.kode_kelas', '=', 'siswa_kelas.kelas_id')
+                ->where('kelas.tahun_ajaran_id', $tahunAjaranSekarang); // Filter berdasarkan tahun ajaran
+        })->get();
 
         return view('walas\siswa\index', [
             'breadcrumb' => $breadcrumb,

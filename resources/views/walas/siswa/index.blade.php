@@ -23,7 +23,6 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Status</th>
                                     <th>Nis</th>
                                     <th>Nisn</th>
                                     <th>Nama</th>
@@ -37,7 +36,6 @@
                                 @foreach ($siswa_kelas as $item)
                                     <tr>
                                         <td>{{ $no++ }}</td>
-                                        <td>{{ $item->siswa->status }}</td>
                                         <td>{{ $item->siswa->nis }}</td>
                                         <td>{{ $item->siswa->nisn }}</td>
                                         <td>{{ $item->siswa->nama }}</td>
@@ -52,9 +50,6 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
     <!-- Modal Tambah Data -->
     @include('walas.siswa.create')

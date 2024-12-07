@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string("pembelajaran_id");
             $table->unsignedBigInteger("siswa_id");
-            $table->unsignedBigInteger('tupel_id')->nullable();
+            $table->unsignedBigInteger('capel_id')->nullable();
             $table->string("nilai")->default('0');
-            $table->string('rata_rata_tupel')->default('0');
+            $table->string('rata_rata_capel')->default('0');
             $table->string('uts')->default('0');
             $table->string('uas')->default('0');
             $table->string('rata_rata_uts_uas')->default('0');
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreign("pembelajaran_id")->references("id_pembelajaran")->on("pembelajaran")->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign("siswa_id")->references("id")->on("siswa_kelas")->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreign("tupel_id")->references("id")->on("tupel")->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign("capel_id")->references("id")->on("capel")->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 

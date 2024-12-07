@@ -16,6 +16,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Tahun Ajaran</th>
+                                    <th>semester</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -24,6 +25,7 @@
                                     <tr>
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $item->tahun_ajaran }}</td>
+                                        <td>{{ $item->semester }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

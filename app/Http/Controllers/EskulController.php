@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\EskulModel;
 use App\Models\EskulSiswaModel;
 use App\Models\GuruModel;
+use App\Models\KelasModel;
+use App\Models\NilaiEskulModel;
 use App\Models\SiswaKelasModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -86,57 +88,55 @@ class EskulController extends Controller
             'tempat' => $request->tempat,
         ]);
 
-        $guru = GuruModel::find($request->guru_nik);
-        $roleIdToDelete = 4;
-
-        // Hapus role jika ada
-        $guru->roles()->detach($roleIdToDelete);
-
-        // Tambahkan role baru
-        $guru->roles()->attach($roleIdToDelete);
-
         return redirect()->route('eskul.index')->with('success', 'Data Kelas berhasil diperbarui');
     }
 
-    public function DaftarEskul()
+
+    public function KelasEskul()
     {
         $breadcrumb = (object) [
-            'title' => 'Daftar Eskul',
+            'title' => 'Daftar kelas',
         ];
 
 
-        $activeMenu = 'Eskul';
+        $activeMenu = 'kelas';
         $user = Auth::user();
-        $eskul = EskulModel::where('guru_nik', $user->nik)->get();
-        return view('pembina_eskul.siswa.index', ['breadcrumb' => $breadcrumb, 'eskul' => $eskul, 'activeMenu' => $activeMenu]);
-    }
-    public function DaftarSiswa($id)
-    {
 
-        $breadcrumb = (object) [
-            'title' => 'Daftar Eskul',
-        ];
-
-        $eskul_siswa = EskulSiswaModel::with('siswa')
-            ->where('eskul_id', $id)
+        $kelas = KelasModel::with(['guru', 'tahun_ajarans'])
+            ->withCount(['siswa'])
+            ->where('guru_nik', $user->nik)
             ->get();
-        $activeMenu = 'Eskul';
-        $siswa = SiswaKelasModel::whereNotIn('id', $eskul_siswa->pluck('siswa_id'))->get();
 
-        return view('pembina_eskul.siswa.create', ['breadcrumb' => $breadcrumb, 'eskul_siswa' => $eskul_siswa, 'id' => $id, 'siswa' => $siswa, 'activeMenu' => $activeMenu]);
+        return view('walas.ekstrakulikuler.kelas', ['breadcrumb' => $breadcrumb, 'kelas' => $kelas, 'activeMenu' => $activeMenu]);
     }
-
-    public function saveSiswa(Request $request, $id)
+    public function NilaiEskul($id)
+    {
+        $breadcrumb = (object) [
+            'title' => 'Nilai Ekstrakulikuler',
+        ];
+        $activeMenu = 'nilai';
+        $siswa_kelas = SiswaKelasModel::with('siswa')->where('kelas_id', $id)->get();
+        $eskul = EskulModel::all();
+        $eskuldata = NilaiEskulModel::with('siswa', 'eskul')->whereHas('siswa', function ($query) use ($id) {
+            $query->where('kelas_id', $id);
+        })
+            ->get();;
+        return view('walas.ekstrakulikuler.nilai', ['breadcrumb' => $breadcrumb, 'id' => $id, 'eskul' => $eskul, 'eskuldata' => $eskuldata, 'siswa_kelas' => $siswa_kelas, 'activeMenu' => $activeMenu]);
+    }
+    public function SaveNilai(Request $request, $id)
     {
         $request->validate([
-            'siswa_id' =>  'required|unique:eskul_siswa,eskul_id',
+            'siswa_id' => 'required|exists:siswa_kelas,id', 
+            'eskul_id' => 'required',
+            'keterangan' => 'nullable|string|max:255',
+        ]);
 
-        ]);
-        $kelas = EskulModel::where('id', $id)->value('id');
-        EskulSiswaModel::create([
+        NilaiEskulModel::create([
             'siswa_id' => $request->siswa_id,
-            'eskul_id' => $kelas,
+            'eskul_id' => $request->eskul_id,
+            'keterangan' => $request->keterangan
         ]);
-        return redirect()->route('eskul.siswa.pembina', $id);
+
+        return redirect()->back()->with('success', 'Nilai eskul berhasil disimpan.');
     }
 }

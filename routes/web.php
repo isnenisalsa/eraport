@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CapelController;
 use App\Http\Controllers\CetakRaporController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EskulController;
@@ -59,20 +60,20 @@ Route::post('proses_login', [AuthController::class, 'proses_login'])->name('pros
 Route::get('logout', [AuthController::class, "logout"])->name('logout');
 Route::middleware(['auth'])->group(function () {
     // Rute untuk Admin
-    Route::get('/dashboard/admin', [DashboardController::class, 'index'])
-        ->middleware('cek_login:1')
-        ->name('dashboard.admin');
-
-    // Rute untuk Guru
-    Route::get('/dashboard/guru', [DashboardController::class, 'guru'])
-        ->middleware('cek_login:2')
-        ->name('dashboard.guru');
-
-    // Rute untuk Walas
-    Route::get('/dashboard/walas', [DashboardController::class, 'walas'])
-        ->middleware('cek_login:3')
-        ->name('dashboard.walas');
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->middleware('cek_login:1,2,3')
+        ->name('dashboard');
 });
+
+Route::get('/dashboard/siswa', [DashboardController::class, 'siswa'])
+    ->middleware('siswa')
+    ->name('dashboard.siswa');
+
+
+
+
+
+
 //rute untuk sekolah
 Route::prefix('sekolah')->group(function () {
     Route::get('/', [SekolahController::class, 'index'])->name('sekolah.index');
@@ -82,8 +83,11 @@ Route::prefix('sekolah')->group(function () {
 //rute untuk eskul
 Route::prefix('eskul')->group(function () {
     Route::get('/', [EskulController::class, 'index'])->name('eskul.index');
+    Route::get('/kelas', [EskulController::class, 'KelasEskul'])->name('eskul.kelas');
     Route::get('/daftar', [EskulController::class, 'DaftarEskul'])->name('eskul.daftar');
+    Route::get('/nilai/{id}', [EskulController::class, 'NilaiEskul'])->name('nilai.eskul');
     Route::post('/save', [EskulController::class, 'save'])->name('eskul.save');
+    Route::post('/save/{id}', [EskulController::class, 'SaveNilai'])->name('save.nilai.eskul');
     Route::put('/update{id}', [EskulController::class, 'update'])->name('eskul.update');
 });
 
@@ -116,14 +120,12 @@ Route::prefix('mapel')->group(function () {
 });
 
 //rute untuk pembelajaran
-Route::middleware(['auth'])->group(function () {
-    Route::prefix('pembelajaran')->group(function () {
-        Route::get('/', [PembelajaranController::class, 'index'])->name('pembelajaran')->middleware(['cek_login:1']);
-        Route::get('/guru', [PembelajaranController::class, 'indexGuru'])->middleware(['cek_login:2']);
-        Route::post('/save', [PembelajaranController::class, 'save'])->name('save-pembelajaran')->middleware('cek_login:1');
-        Route::get('/edit/{kode_pembelajaran}', [PembelajaranController::class, 'edit'])->name('edit-pembelajaran')->middleware('cek_login:1');
-        Route::put('/update/{kode_pembelajaran}', [PembelajaranController::class, 'update'])->name('update-pembelajaran')->middleware('cek_login:1');
-    });
+Route::prefix('pembelajaran')->group(function () {
+    Route::get('/', [PembelajaranController::class, 'index'])->name('pembelajaran')->middleware(['cek_login:1']);
+    Route::get('/guru', [PembelajaranController::class, 'indexGuru'])->middleware(['cek_login:2']);
+    Route::post('/save', [PembelajaranController::class, 'save'])->name('save-pembelajaran')->middleware('cek_login:1');
+    Route::get('/edit/{kode_pembelajaran}', [PembelajaranController::class, 'edit'])->name('edit-pembelajaran')->middleware('cek_login:1');
+    Route::put('/update/{kode_pembelajaran}', [PembelajaranController::class, 'update'])->name('update-pembelajaran')->middleware('cek_login:1');
 });
 
 //rute untuk siswa
@@ -153,11 +155,6 @@ Route::prefix('kelas/siswa')->group(function () {
     Route::get('/{kode_kelas}', [SiswaKelasController::class, 'index'])->name('siswa_kelas');
     Route::post('/save/{kode_kelas}', [SiswaKelasController::class, 'save'])->name('save-siswa_kelas');
 });
-//rute untuk siswa eskul
-Route::prefix('eskul/siswa')->group(function () {
-    Route::get('/{id}', [EskulController::class, 'DaftarSiswa'])->name('eskul.siswa.pembina');
-    Route::post('/save/{id}', [EskulController::class, 'saveSiswa'])->name('save.eskul.siswa');
-});
 //rute untuk absensi
 Route::prefix('absensi')->group(function () {
     Route::get('/kelas', [AbsensiController::class, 'KelasAbsensi'])->name('absensi.kelas');
@@ -166,11 +163,11 @@ Route::prefix('absensi')->group(function () {
 });
 
 //rute untuk tupel
-Route::prefix('tupel')->group(function () {
-    Route::get('/{id}', [TujuanPembelajaranController::class, 'index'])->name('tupel.index');
-    Route::post('/save/{id}', [TujuanPembelajaranController::class, 'save'])->name('save.tupel');
-    Route::post('/update', [TujuanPembelajaranController::class, 'update'])->name('update.tupel');
-    Route::delete('/tupel/{id}', [TujuanPembelajaranController::class, 'destroy'])->name('delete.tupel');
+Route::prefix('capaian')->group(function () {
+    Route::get('/{id}', [CapelController::class, 'index'])->name('capel.index');
+    Route::post('/save/{id}', [CapelController::class, 'save'])->name('save.capel');
+    Route::post('/update', [CapelController::class, 'update'])->name('update.capel');
+    Route::delete('/delete/{id}', [CapelController::class, 'destroy'])->name('delete.capel');
 });
 
 //rute untuk nilai
@@ -187,6 +184,8 @@ Route::prefix('walas/nilai/akhir')->group(function () {
 //rute cetak rapor
 Route::prefix('cetak/rapor')->group(function () {
     Route::get('/kelas', [CetakRaporController::class, 'KelasRapor'])->name('rapor.kelas');
+    Route::get('/siswa', [CetakRaporController::class, 'KelasRaporSiswa'])->middleware('siswa');
+    Route::get('/siswa/{id}', [CetakRaporController::class, 'KelasRaporSiswaCetak'])->middleware('siswa')->name('cetak.index.siswa');
     Route::get('/{id}', [CetakRaporController::class, 'index'])->name('cetak.rapor.index');
     Route::post('/update/{kelas_id}', [CetakRaporController::class, 'update'])->name('update.cetak.rapor');
 });

@@ -117,6 +117,14 @@
             dropdownParent: $('#modal-tambah-data-siswa')
 
         });
+        $('.select2').select2({
+            theme: 'bootstrap4',
+            dropdownParent: $('#modal-tambah-data-eskul'),
+            dropdownCssClass: 'select2-scrollable',
+            minimumResultsForSearch: 0,
+            placeholder: 'Cari siswa...',
+
+        });
     </script>
 </body>
 

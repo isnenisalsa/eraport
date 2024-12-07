@@ -33,15 +33,3 @@
         }, 2000);
  });
 }
-{
-    const successModal = document.getElementById('successModal');
-    if (successModal) {
-        // Show the modal
-        $(successModal).modal('show');
-
-        // Set a timeout to hide the modal after 1 second (1000 milliseconds)
-        setTimeout(() => {
-            $(successModal).modal('hide');
-        }, 1500);
-    }
-}

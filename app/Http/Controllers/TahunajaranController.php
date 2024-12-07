@@ -30,17 +30,18 @@ class TahunajaranController extends Controller
         $request->validateWithBag(
             'tambahBag',
             [
-            'tahun_ajaran' => 'required|unique:tahun_ajaran',
-            'terms' => 'required',
-        ], [
-            'tahun_ajaran.required' => 'Tahun Ajaran tidak boleh kosong',
-            'tahun_ajaran.unique' => 'Tahun Ajaran tidak boleh Sama',
-            'terms.required' => 'Wajib dicentang'
-        ]);
+                'tahun_ajaran' => 'required',
+                'semester' => 'required'
+            ],
+            [
+                'tahun_ajaran.required' => 'Tahun Ajaran tidak boleh kosong',
+            ]
+        );
 
         // Simpan data
         TahunAjarModel::create([
             'tahun_ajaran' => $request->tahun_ajaran,
+            'semester' => $request->semester
         ]);
 
         // Redirect ke halaman indeks dengan pesan sukses
@@ -53,6 +54,7 @@ class TahunajaranController extends Controller
         $request->validate(
             [
                 'tahun_ajaran' => 'required',
+                'semester' => 'required'
             ]
         );
 
@@ -62,6 +64,7 @@ class TahunajaranController extends Controller
         // Update data
         $tahun_ajaran->update([
             'tahun_ajaran' => $request->tahun_ajaran,
+            'semester' => $request->semester
         ]);
 
         // Redirect ke halaman indeks dengan pesan sukses

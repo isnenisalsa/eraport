@@ -14,7 +14,7 @@
                 <div class="card">
                     <div class="card-header">
                         <button type="button" class="btn btn-success btn-sm float-left" data-toggle="modal"
-                            data-target="#modal-tambah-data-siswa">
+                            data-target="#modal-tambah-data-eskul">
                             + Tambah Data
                         </button>
                     </div>
@@ -23,24 +23,19 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nis</th>
-                                    <th>Nisn</th>
                                     <th>Nama</th>
-                                    <th>Kelas</th>
-                                    <th>tahun ajaran</th>
+                                    <th>Ekstrakurikuler</th>
+                                    <th>keterangan</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @php $no = 1; @endphp
-                                @foreach ($eskul_siswa as $item)
+                                @foreach ($eskuldata as $item)
                                     <tr>
                                         <td>{{ $no++ }}</td>
-
-                                        <td>{{ $item->siswa->siswa->nis }}</td>
-                                        <td>{{ $item->siswa->siswa->nisn }}</td>
                                         <td>{{ $item->siswa->siswa->nama }}</td>
-                                        <td>{{ $item->siswa->kelas->nama_kelas }}</td>
-                                        <td>{{ $item->siswa->kelas->tahun_ajarans->tahun_ajaran }}</td>
+                                        <td>{{ $item->eskul->nama_eskul }}</td>
+                                        <td>{{ $item->keterangan }}</td>
 
                                     </tr>
                                 @endforeach
@@ -50,10 +45,8 @@
                 </div>
             </div>
         </div>
-
-
     </div>
     <!-- Modal Tambah Data -->
-    @include('pembina_eskul.siswa.modal')
+    @include('walas.ekstrakulikuler.create')
 
 @endsection

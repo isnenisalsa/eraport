@@ -13,25 +13,15 @@ class DashboardController extends Controller
 
         ];
         $activeMenu =  'dashboard ';
-        return view('dashboard.admin', ['breadcrumb' => $breadcrumb,  'activeMenu' => $activeMenu]);
+        return view('dashboard.index', ['breadcrumb' => $breadcrumb,  'activeMenu' => $activeMenu]);
     }
-    public function guru()
-    {
-
-        $breadcrumb = (object)[
-            'title' => 'DASHBOARD',
-
-        ];
-        $activeMenu =  'dashboard guru';
-        return view('dashboard.guru', ['breadcrumb' => $breadcrumb,  'activeMenu' => $activeMenu]);
-    }
-    public function walas()
+    public function siswa()
     {
         $breadcrumb = (object)[
             'title' => 'DASHBOARD',
 
         ];
-        $activeMenu =  'dashboard walas';
-        return view('dashboard.walas', ['breadcrumb' => $breadcrumb,  'activeMenu' => $activeMenu]);
+        $activeMenu =  'dashboard siswa';
+        return view('dashboard.siswa', ['breadcrumb' => $breadcrumb,  'activeMenu' => $activeMenu]);
     }
 }

@@ -26,9 +26,15 @@
                         @error('akses')
                             <span class="text-danger text-center d-block">{{ $message }}</span>
                         @enderror
-                        @error('login_failed')
-                            <span class="text-danger d-block">{{ $message }}</span>
-                        @enderror
+                        @if (session('login_failed'))
+                            <div class="alert alert-danger alert-dismissible fade show "
+                                style=" animation: fadeOut 3s forwards;" role="alert">
+                                <strong>{{ session('login_failed') }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
                         @error('access_denied')
                             <span class="text-danger d-block">{{ $message }}</span>
                         @enderror

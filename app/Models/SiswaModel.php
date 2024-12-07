@@ -33,10 +33,8 @@ class SiswaModel extends Authenticatable
         'username',
         'password'
     ];
-
-    public function kelas()
-{
-    return $this->belongsTo(KelasModel::class, 'kode_kelas', 'kode_kelas');
-}
-
+    public function siswa()
+    {
+        return $this->hasMany(SiswaKelasModel::class, 'siswa_id', 'nis');
+    }
 }

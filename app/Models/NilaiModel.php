@@ -12,11 +12,11 @@ class NilaiModel extends Model
     protected $fillable = [
         'pembelajaran_id',
         'siswa_id',
-        'tupel_id',
+        'capel_id',
         'nilai',
         'uts',
         'uas',
-        'rata_rata_tupel',
+        'rata_rata_capel',
         'rata_rata_uts_uas',
         'nilai_rapor',
 

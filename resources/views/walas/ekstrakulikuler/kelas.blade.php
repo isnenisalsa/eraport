@@ -18,15 +18,16 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php $no = 1; ?>
                                 @foreach ($kelas as $item)
                                     <tr>
-                                        <td>{{ $item + 1 }}</td>
+                                        <td>{{ $no++ }}</td>
                                         <td>{{ $item->nama_kelas }}</td>
                                         <td>{{ $item->guru->nama }}</td>
                                         <td>{{ $item->siswa_count }}</td>
                                         <td>{{ $item->tahun_ajarans->tahun_ajaran }}</td>
                                         <td>
-                                            <a href="{{ route('absensi.index', $item->kode_kelas) }}"
+                                            <a href="{{ route('nilai.eskul', $item->kode_kelas) }}"
                                                 class="btn btn-info">Detail</a>
                                         </td>
                                     </tr>

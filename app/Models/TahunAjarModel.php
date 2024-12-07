@@ -10,12 +10,13 @@ class TahunAjarModel extends Model
     use HasFactory;
     protected $table = 'tahun_ajaran';
 
-protected $keyType = 'string';
+    protected $keyType = 'string';
 
     protected $fillable = [
-   
-        'tahun_ajaran',
-      
-    ];
 
+        'tahun_ajaran',
+        'semester'
+
+
+    ];
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CapaianModel;
 use App\Models\KelasModel;
 use App\Models\NilaiModel;
 use App\Models\PembelajaranModel;
@@ -24,10 +25,6 @@ class NilaiAkhirController extends Controller
         if ($pembelajaranIds->isEmpty()) {
             $pembelajaranIds = collect(); // Koleksi kosong
         }
-
-        // Ambil data tupel berdasarkan pembelajaran_id
-        $tupel = TujuanPembelajaranModel::whereIn('pembelajaran_id', $pembelajaranIds)->get();
-
         // Ambil data nilai berdasarkan pembelajaran_id
         $nilai = NilaiModel::whereIn('pembelajaran_id', $pembelajaranIds)
             ->where('nilai_rapor', '!=', 0)
@@ -43,7 +40,6 @@ class NilaiAkhirController extends Controller
             'pembelajaran' => $pembelajaranIds,
             'id' => $id,
             'nilai' => $nilai,
-            'tupel' => $tupel,
             'pembelajaran' => $pembelajaran,
             'siswa_kelas' => $siswa_kelas,
             'kelas' => $kelas
