@@ -10,7 +10,7 @@ class TahunajaranController extends Controller
     public function index()
     {
         $breadcrumb = (object) [
-            'title' => 'Daftar Tahun Ajaran',
+            'title' => 'Data Tahun Ajaran',
         ];
 
         $activeMenu = 'Tahun Ajaran';

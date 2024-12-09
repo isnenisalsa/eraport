@@ -178,7 +178,7 @@
                             <a href="{{ url('eskul') }}"
                                 class="nav-link {{ $activeMenu == 'Eskul' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
-                                <p style="color: black">Esktrakurikuler</p>
+                                <p style="color: black">Ekstrakulikuler</p>
                             </a>
                         </li>
                     </ul>

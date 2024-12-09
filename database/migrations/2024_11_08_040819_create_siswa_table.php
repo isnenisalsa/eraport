@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string("nisn");
             $table->string("nama");
             $table->string("status")->default('Aktif');
-            $table->string("pedidikan_terakhir");
+            $table->string("pendidikan_terakhir");
             $table->string("jenis_kelamin");
             $table->string("agama");
             $table->string("tempat_lahir");

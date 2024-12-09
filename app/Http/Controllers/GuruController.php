@@ -40,6 +40,7 @@ class GuruController extends Controller
         $request->validate([
             'nik' => 'required|numeric|digits:16|unique:guru,nik',
             'nama' => 'required',
+            'nip' => 'required|numeric',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
             'jenis_kelamin' => 'required',
@@ -57,6 +58,8 @@ class GuruController extends Controller
             'nik.numeric' => 'NIK harus berupa angka.',
             'nik.digits' => 'NIK harus  16 angka.',
             'nik.unique' => 'NIK harus unik.',
+            'nip.required' => 'NIP tidak boleh kosong.',
+            'nip.numeric' => 'NIP harus berupa angka.',
             'no_telp.numeric' => 'no telp harus berupa angka.',
             'no_telp.digits' => 'no telp harus  16 angka.',
             'nama.required' => 'Nama tidak boleh kosong.',
@@ -79,6 +82,7 @@ class GuruController extends Controller
         $password = Hash::make($request->no_telp); // Menggunakan nomor telepon sebagai password yang di-hash
         GuruModel::create([
             'nik' => $request->nik,
+            'nip' => $request->nip,
             'nama' => $request->nama,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
@@ -121,6 +125,7 @@ class GuruController extends Controller
         // Validasi input
         $request->validate([
             'nik' => 'required|max:16',
+            'nip' => 'required|max:10',
             'status_perkawinan' => 'required',
             'status' => 'required',
             'nama' => 'required|string|max:255',
@@ -142,6 +147,7 @@ class GuruController extends Controller
         // Perbarui data guru dengan data dari form
         $guru->update([
             'nik' => $request->input('nik'),
+            'nip' => $request->input('nip'),
             'status_perkawinan' => $request->input('status_perkawinan'),
             'status' => $request->input('status'),
             'nama' => $request->input('nama'),

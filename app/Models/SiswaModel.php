@@ -45,4 +45,8 @@ class SiswaModel extends Authenticatable
     {
         return $this->hasMany(SiswaKelasModel::class, 'siswa_id', 'nis');
     }
+    public function kelas()
+    {
+        return $this->belongsTo(KelasModel::class, 'kode_kelas', 'kode_kelas');
+    }
 }

@@ -97,7 +97,7 @@
                                 <td>{{ $item->agama}}</td>
                             </tr>
                             <tr>
-                                <th>Pendidikan Terakhir</th>
+                                <th>Pendidikan Sebelumnya</th>
                                 <td>{{ $item->pendidikan_terakhir }}</td>
                             </tr>
                             <tr>

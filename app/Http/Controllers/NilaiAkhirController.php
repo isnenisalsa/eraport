@@ -30,7 +30,7 @@ class NilaiAkhirController extends Controller
             ->where('nilai_rapor', '!=', 0)
             ->get();
         $breadcrumb = (object)[
-            'title' => 'DATA PEMBELAJARAN',
+            'title' => 'DATA NILAI AKHIR',
         ];
         $activeMenu = 'pembelajaran';
 

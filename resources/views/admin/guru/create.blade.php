@@ -23,6 +23,15 @@
                         </div>
 
                         <div class="mb-3">
+                            <label for="nip" class="form-label">NIP</label>
+                            <input type="text" class="form-control" id="nip" placeholder="Inputkan NIP Anda"
+                                name="nip" value="{{ old('nip') }}" maxlength="10">
+                            @if ($errors->has('nip'))
+                                <div class="text-danger">{{ $errors->first('nip') }}</div>
+                            @endif
+                        </div>
+
+                        <div class="mb-3">
                             <label for="nama" class="form-label">Nama</label>
                             <input type="text" class="form-control" id="nama" placeholder="Inputkan Nama Anda"
                                 name="nama" value="{{ old('nama') }}">

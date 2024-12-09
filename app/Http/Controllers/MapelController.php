@@ -13,7 +13,7 @@ class MapelController extends Controller
     {
 
         $breadcrumb = (object) [
-            'title' => 'Daftar Mapel',
+            'title' => 'Data Mapel',
         ];
 
         $activeMenu = 'mapel';

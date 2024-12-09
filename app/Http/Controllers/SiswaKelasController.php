@@ -18,8 +18,6 @@ class SiswaKelasController extends Controller
         $breadcrumb = (object) [
             'title' => 'Daftar Siswa',
         ];
-
-
         $activeMenu = 'Data Siswa';
 
         // Ambil data kelas berdasarkan kode_kelas
@@ -46,6 +44,7 @@ class SiswaKelasController extends Controller
             'activeMenu' => $activeMenu
         ]);
     }
+
 
     public function save(Request $request, $kode_kelas)
     {

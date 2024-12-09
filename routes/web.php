@@ -190,4 +190,8 @@ Route::prefix('cetak/rapor')->group(function () {
     Route::post('/update/{kelas_id}', [CetakRaporController::class, 'update'])->name('update.cetak.rapor');
     Route::get('/siswa/{nis}', [CetakRaporController::class, 'cover'])->name('walas.cover');
     Route::get('/biodata/{nis}', [CetakRaporController::class, 'biodata'])->name('walas.biodata');
+    Route::get('/rapor/{nis}', [CetakRaporController::class, 'rapor'])->name('walas.rapor');   
+
 });
+
+

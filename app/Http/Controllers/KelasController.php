@@ -13,7 +13,7 @@ class KelasController extends Controller
     public function index()
     {
         $breadcrumb = (object) [
-            'title' => 'Daftar Kelas',
+            'title' => 'Data Kelas',
         ];
 
 

@@ -16,7 +16,7 @@ class PembelajaranController extends Controller
     public function index()
     {
         $breadcrumb = (object) [
-            'title' => 'Daftar Pembelajaran',
+            'title' => 'Data Pembelajaran',
         ];
 
         $activeMenu = 'pembelajaran';
@@ -41,7 +41,7 @@ class PembelajaranController extends Controller
     public function indexGuru()
     {
         $breadcrumb = (object) [
-            'title' => 'Daftar Pembelajaran',
+            'title' => 'Data Pembelajaran',
         ];
 
         $activeMenu = 'Data Pembelajaran';

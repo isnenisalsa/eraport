@@ -16,14 +16,6 @@
                     <!-- Kolom Kiri -->
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="nik" class="form-label">NIK</label>
-                            <input type="text" class="form-control" id="nik" placeholder="Inputkan NIK Anda"
-                                name="nik" value="{{ $guru->nik }}" maxlength="16" readonly>
-                            @if ($errors->has('nik'))
-                                <div class="text-danger">{{ $errors->first('nik') }}</div>
-                            @endif
-                        </div>
-                        <div class="mb-3">
                             <label for="status" class="form-label">Status</label>
                             <select class="form-control" name="status" id="status">
                                 <option value="">Pilih</option>
@@ -35,6 +27,22 @@
                             </select>
                             @if ($errors->has('status'))
                                 <div class="text-danger">{{ $errors->first('status') }}</div>
+                            @endif
+                        </div>
+                        <div class="mb-3">
+                            <label for="nik" class="form-label">NIK</label>
+                            <input type="text" class="form-control" id="nik" placeholder="Inputkan NIK Anda"
+                                name="nik" value="{{ $guru->nik }}" maxlength="16" readonly>
+                            @if ($errors->has('nik'))
+                                <div class="text-danger">{{ $errors->first('nik') }}</div>
+                            @endif
+                        </div>
+                        <div class="mb-3">
+                            <label for="nip" class="form-label">NIP</label>
+                            <input type="text" class="form-control" id="nip" placeholder="Inputkan NIP Anda"
+                                name="nip" value="{{ $guru->nip }}" maxlength="10">
+                            @if ($errors->has('nip'))
+                                <div class="text-danger">{{ $errors->first('nip') }}</div>
                             @endif
                         </div>
                         <div class="mb-3">

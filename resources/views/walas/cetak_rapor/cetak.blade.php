@@ -1,6 +1,26 @@
 @extends('layouts.template')
-
 @section('content')
+<div class="container">
+    <div class="card shadow">
+        <div class="card-body">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Kelas</th>
+                        <th scope="col">:</th>
+                        <th scope="col">{{ $kelas->nama_kelas }}</th> <!-- Langsung akses nama_kelas -->
+                    </tr>
+                    <tr>
+                        <th scope="col">Wali Kelas</th>
+                        <th scope="col">:</th>
+                        <th scope="col">{{ $kelas->guru->nama ?? 'Tidak Ditemukan' }}</th> <!-- Langsung akses nama guru -->
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
@@ -31,10 +51,8 @@
                                         <a href="{{ route('walas.biodata', $item->siswa->nis) }}" class="btn btn-warning btn-md me-2" title="Lihat Biodata">
                                             <i class="fas fa-file-alt"></i> 
                                         </a>
-                                        
-                                        <button class="btn btn-primary btn-md" title="Cetak Rapor">
-                                            <i class="fas fa-print"></i>
-                                        </button>
+                                        <a href="{{ route('walas.rapor', $item->siswa->nis) }}" class="btn btn-warning btn-md me-2" title="Lihat Rapor"><i class="fas fa-print"></i>
+                                        </a>
                                     </td>
                                     
                                     

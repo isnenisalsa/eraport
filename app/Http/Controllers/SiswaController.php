@@ -78,10 +78,12 @@ class SiswaController extends Controller
         ]);
         $username = strtolower(str_replace(' ', '_', $request->nama)); // Mengganti spasi dengan underscore
         $password = Hash::make(strtolower(str_replace(' ', '_', $request->alamat))); // Menggunakan nomor telepon sebagai password yang di-hash
+        $status = $request->status??'Aktif'; //
         SiswaModel::create([
             'nis' => $request->nis,
             'nisn' => $request->nisn,
-            'status' => $request->status,
+            'status' => $status,
+            //'status' => $request->status,
             'nama' => $request->nama,
             'pendidikan_terakhir' => $request->pendidikan_terakhir,
             'jenis_kelamin' => $request->jenis_kelamin,
@@ -103,6 +105,7 @@ class SiswaController extends Controller
             'nama_wali' => $request->nama_wali,
             'pekerjaan_wali' => $request->pekerjaan_wali,
             'no_telp_wali' => $request->no_telp_wali,
+            
 
         ]);
 

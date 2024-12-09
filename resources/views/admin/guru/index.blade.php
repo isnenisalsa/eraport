@@ -61,15 +61,17 @@
                     </div>
                     <div class="modal-body">
                         <table class="table table-bordered" style="font-size: 18px;">
-
-                            <tr>
-                                <th>NIK</th>
-
-                                <td>{{ $item->nik }}</td>
-                            </tr>
                             <tr>
                                 <th>Status</th>
                                 <td>{{ $item->status }}</td>
+                            </tr>
+                            <tr>
+                                <th>NIK</th>
+                                <td>{{ $item->nik }}</td>
+                            </tr>
+                            <tr>
+                                <th>NIP</th>
+                                <td>{{ $item->nip }}</td>
                             </tr>
                             <tr>
                                 <th>Nama</th>

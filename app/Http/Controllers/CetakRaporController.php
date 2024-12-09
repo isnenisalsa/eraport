@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\KelasModel;
 use App\Models\SiswaModel;
 use App\Models\SiswaKelasModel;
+use App\Models\SekolahModel;
+use App\Models\TahunAjarModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -50,22 +52,39 @@ class CetakRaporController extends Controller
     }
     public function cover($nis)
     {
-        $siswa = SiswaModel::where('nis', $nis)->firstOrFail();
+        $siswa = SiswaModel::where('nis', $nis)->get();
         return view('walas.cetak_rapor.cover', compact('siswa'));
     }
     public function biodata($nis)
     {
-
         // Breadcrumb untuk halaman
-        $breadcrumb = (object) [
+         // Breadcrumb untuk halaman
+         $breadcrumb = (object) [
             'title' => 'Biodata Siswa',
         ];
 
         $activeMenu = 'cetak-rapor';
 
         $siswa = SiswaModel::where('nis', $nis)->firstOrFail();
-        return view('walas.cetak_rapor.biodata', compact('siswa'));
+        
+        $sekolah = SekolahModel::all(); 
+    
+        // Mengirimkan data siswa dan sekolah ke view
+        return view('walas.cetak_rapor.biodata', compact('siswa', 'sekolah'));
     }
+
+    public function rapor($nis)
+    {
+        $siswa = SiswaModel::where('nis', $nis)->firstOrFail();
+        // Ambil data kelas berdasarkan kode_kelas dari siswa (asumsikan relasi ada)
+        $kelas = KelasModel::with('guru' )->get();
+        $sekolah = SekolahModel::firstOrFail();
+        
+
+        // Mengirim data siswa ke view
+        return view('walas.cetak_rapor.rapor', compact('siswa', 'kelas', 'sekolah'));
+    }
+    
     public function kelasRaporSiswa()
     {
         $breadcrumb = (object) [
@@ -79,17 +98,7 @@ class CetakRaporController extends Controller
         // Mengambil semua data pembelajaran dengan relasi mapel, kelas, dan guru
         return view('siswa.cetak_rapor.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'kelas' => $kelas]);
     }
-    public function KelasRaporSiswaCetak($id)
-    {
-        $breadcrumb = (object) [
-            'title' => 'Cetak Rapor',
-        ];
 
-        $activeMenu = 'Pembelajaran Siswa';
-        $user =  Auth::guard('siswa')->user();
-        $kelas = SiswaKelasModel::with('siswa', 'kelas')->where('siswa_id', $user->nis)->get();
+    
 
-        // Mengambil semua data pembelajaran dengan relasi mapel, kelas, dan guru
-        return view('siswa.cetak_rapor.cetak', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'kelas' => $kelas]);
-    }
 }

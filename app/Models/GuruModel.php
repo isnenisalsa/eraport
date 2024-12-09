@@ -14,6 +14,7 @@ class GuruModel extends Authenticatable
     protected $primaryKey = "nik";
     protected $fillable = [
         'nik',
+        'nip',
         'nama',
         'tempat_lahir',
         'tanggal_lahir',
