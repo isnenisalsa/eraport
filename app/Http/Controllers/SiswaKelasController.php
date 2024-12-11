@@ -18,6 +18,8 @@ class SiswaKelasController extends Controller
         $breadcrumb = (object) [
             'title' => 'Daftar Siswa',
         ];
+
+
         $activeMenu = 'Data Siswa';
 
         // Ambil data kelas berdasarkan kode_kelas
@@ -26,14 +28,22 @@ class SiswaKelasController extends Controller
             ->where('kelas_id', $kode_kelas)
             ->get();
         $kelas_id = KelasModel::where('kode_kelas', $kode_kelas)->value('kode_kelas');
-        $tahunAjaranSekarang = KelasModel::where('kode_kelas', $kode_kelas)->value('tahun_ajaran_id');
+        $tahunAjaranSekarang = KelasModel::where('kode_kelas', $kode_kelas)
+            ->with(['tahunAjarans' => function ($query) {
+                $query->orderBy('tahun_ajaran', 'desc'); // Urutkan berdasarkan tahun ajaran terbaru
+            }])
+            ->first()
+            ->tahunAjarans
+            ->first(); // Ambil hanya satu (yang terbaru)
 
         $siswa = SiswaModel::whereNotIn('nis', function ($query) use ($tahunAjaranSekarang) {
             $query->select('siswa_id')
                 ->from('siswa_kelas')
                 ->join('kelas', 'kelas.kode_kelas', '=', 'siswa_kelas.kelas_id')
-                ->where('kelas.tahun_ajaran_id', $tahunAjaranSekarang); // Filter berdasarkan tahun ajaran
+                ->join('kelas_tahun_ajaran', 'kelas.kode_kelas', '=', 'kelas_tahun_ajaran.kelas_kode') // Bergabung dengan tabel pivot
+                ->where('kelas_tahun_ajaran.tahun_ajaran_id', $tahunAjaranSekarang->id); // Gunakan ID dari $tahunAjaranSekarang
         })->get();
+
 
         return view('walas\siswa\index', [
             'breadcrumb' => $breadcrumb,
@@ -44,7 +54,6 @@ class SiswaKelasController extends Controller
             'activeMenu' => $activeMenu
         ]);
     }
-
 
     public function save(Request $request, $kode_kelas)
     {

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('guru', function (Blueprint $table) {
             $table->id("nik");
-            $table->string("nip");
             $table->string("nama");
+            $table->string('nip');
             $table->string("tempat_lahir");
             $table->date("tanggal_lahir");
             $table->string("jenis_kelamin");

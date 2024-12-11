@@ -18,19 +18,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $no = 1 ?> 
+                                <?php $no = 1; ?>
                                 @foreach ($kelas as $item)
-                                    <tr>
-                                        <td>{{ $no ++ }}</td>
-                                        <td>{{ $item->nama_kelas }}</td>
-                                        <td>{{ $item->guru->nama }}</td>
-                                        <td>{{ $item->siswa_count }}</td>
-                                        <td>{{ $item->tahun_ajarans->tahun_ajaran }}</td>
-                                        <td>
-                                            <a href="{{ route('absensi.index', $item->kode_kelas) }}"
-                                                class="btn btn-info">Detail</a>
-                                        </td>
-                                    </tr>
+                                    @foreach ($item->tahunAjarans as $tahunAjaran)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $item->nama_kelas }}</td>
+                                            <td>{{ $item->guru->nama }}</td>
+                                            <td>{{ $item->siswa_count }}</td>
+                                            <td>
+                                                <div>{{ $tahunAjaran->tahun_ajaran }} - Semester
+                                                    {{ $tahunAjaran->semester }}</div>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('absensi.index', ['kode_kelas' => $item->kode_kelas, 'tahun_ajaran_id' => $tahunAjaran->id]) }}"
+                                                    class="btn btn-info">Detail</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 @endforeach
                             </tbody>
                         </table>

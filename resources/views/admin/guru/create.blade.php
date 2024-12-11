@@ -1,9 +1,5 @@
 @extends('layouts.template')
 @section('content')
-    <div class="container">
-        <a href="{{ route('guru') }}" class="fas fa-solid fa-chevron-left fa-2x " style="margin-left: -50px"></a>
-    </div>
-    <br>
     <div class="card card-blue">
         <h5 class="card-header text-center">Tambah Data Guru</h5>
 
@@ -65,13 +61,14 @@
                             <select class="form-control" name="status" id="status">
                                 <option value="">Pilih Status</option>
                                 <option value="aktif" {{ old('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
-                                <option value="tidak aktif" {{ old('status') == 'tidak aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                                <option value="tidak aktif" {{ old('status') == 'tidak aktif' ? 'selected' : '' }}>Tidak
+                                    Aktif</option>
                             </select>
                             @if ($errors->has('status'))
                                 <div class="text-danger">{{ $errors->first('status') }}</div>
                             @endif
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="pendidikan" class="form-label">Pendidikan Terakhir</label>
                             <input type="text" class="form-control" id="pendidikan"

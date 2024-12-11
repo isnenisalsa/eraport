@@ -1,10 +1,5 @@
 @extends('layouts.template')
 @section('content')
-    <div class="container">
-        <a href="{{ route('guru') }}" class="fas fa-solid fa-chevron-left fa-2x " style="margin-left: -50px"></a>
-    </div>
-
-    <br>
     <div class="card card-blue">
         <h5 class="card-header text-center">Edit Data Guru</h5>
 
@@ -124,9 +119,12 @@
                                 <option value="">Pilih</option>
                                 <option value="islam"{{ old('agama', $guru->agama) == 'islam' ? 'selected' : '' }}>Islam
                                 </option>
-                                <option value="kristen"{{ old('agama', $guru->agama) == 'kristen' ? 'selected' : '' }}>Kristen</option>
-                                <option value="hindu"{{ old('agama', $guru->agama) == 'hindu' ? 'selected' : '' }}>Hindu</option>
-                                <option value="budha"{{ old('agama', $guru->agama) == 'budha' ? 'selected' : '' }}>Budha</option>
+                                <option value="kristen"{{ old('agama', $guru->agama) == 'kristen' ? 'selected' : '' }}>
+                                    Kristen</option>
+                                <option value="hindu"{{ old('agama', $guru->agama) == 'hindu' ? 'selected' : '' }}>Hindu
+                                </option>
+                                <option value="budha"{{ old('agama', $guru->agama) == 'budha' ? 'selected' : '' }}>Budha
+                                </option>
                             </select>
                             @if ($errors->has('agama'))
                                 <div class="text-danger">{{ $errors->first('agama') }}</div>

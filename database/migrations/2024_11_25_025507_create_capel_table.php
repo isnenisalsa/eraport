@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('pembelajaran_id');
             $table->string('nama_capel');
+            $table->unsignedBigInteger('tahun_ajaran_id');
+            $table->foreign('tahun_ajaran_id')->references('id')->on('tahun_ajaran')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign('pembelajaran_id')->references('id_pembelajaran')->on('pembelajaran')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });

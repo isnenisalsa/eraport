@@ -14,5 +14,14 @@ class CapaianModel extends Model
     protected $fillable = [
         'pembelajaran_id',
         'nama_capel',
+        'tahun_ajaran_id'
     ];
+    public function pembelajaran()
+    {
+        return $this->belongsTo(PembelajaranModel::class, 'pembelajaran_id', 'id_pembelajaran');
+    }
+    public function tahunAjarans()
+    {
+        return $this->belongsToMany(TahunAjarModel::class, 'kelas_tahun_ajaran', 'tahun_ajaran_id');
+    }
 }

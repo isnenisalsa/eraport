@@ -39,6 +39,7 @@ class GuruController extends Controller
         //validasi form
         $request->validate([
             'nik' => 'required|numeric|digits:16|unique:guru,nik',
+            'nip' => 'required',
             'nama' => 'required',
             'nip' => 'required|numeric',
             'tempat_lahir' => 'required',
@@ -80,9 +81,11 @@ class GuruController extends Controller
         ]);
         $username = strtolower(str_replace(' ', '_', $request->nama)); // Mengganti spasi dengan underscore
         $password = Hash::make($request->no_telp); // Menggunakan nomor telepon sebagai password yang di-hash
+        $status = $request->status ?? 'Aktif'; //
         GuruModel::create([
             'nik' => $request->nik,
             'nip' => $request->nip,
+            'status' => $status,
             'nama' => $request->nama,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,

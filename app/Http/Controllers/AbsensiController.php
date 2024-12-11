@@ -18,7 +18,7 @@ class AbsensiController extends Controller
         $activeMenu = 'Data Absensi';
         $user = Auth::user();
 
-        $kelas = KelasModel::with(['guru', 'tahun_ajarans'])
+        $kelas = KelasModel::with(['guru', 'tahunAjarans'])
             ->withCount(['siswa'])
             ->where('guru_nik', $user->nik)
             ->get();
@@ -26,57 +26,54 @@ class AbsensiController extends Controller
         return view('walas.absensi.index', compact('breadcrumb', 'kelas', 'activeMenu'));
     }
 
-    public function index($id)
-{
-    $breadcrumb = (object) [
-        'title' => 'Absensi Kelas',
-    ];
-    $activeMenu = 'absensi';
+    public function index($id, $tahun_ajaran_id)
+    {
+        $breadcrumb = (object) [
+            'title' => 'Absensi Kelas',
+        ];
+        $activeMenu = 'absensi';
 
-    // Ambil data kelas berdasarkan kelas_id
-    $kelas = KelasModel::where('kode_kelas', $id)->firstOrFail();
+        // Ambil data kelas berdasarkan kode_kelas
+        $kelas = KelasModel::where('kode_kelas', $id)->firstOrFail();
 
-    // Ambil semua siswa yang terdaftar di kelas ini dengan nama siswa
-    $siswa = SiswaKelasModel::with('siswa') // eager load relasi siswa
-                            ->where('kelas_id', $id)
-                            ->get();
+        // Ambil siswa yang memiliki data absensi pada tahun ajaran tertentu
+        $siswa = SiswaKelasModel::with(['siswa', 'absensi' => function ($query) use ($tahun_ajaran_id) {
+            $query->where('tahun_ajaran_id', $tahun_ajaran_id);
+        }])
+            ->where('kelas_id', $id)
+            ->get();
 
-    return view('walas.absensi.absensi', compact('breadcrumb', 'kelas', 'siswa', 'activeMenu'));
-}
-
-
-public function update(Request $request, $kode_kelas)
-{
-    $request->validate([
-        'siswa.*.id' => 'required|exists:siswa_kelas,id',
-        'siswa.*.sakit' => 'integer|min:0',
-        'siswa.*.izin' => 'integer|min:0',
-        'siswa.*.alfa' => 'integer|min:0',
-    ]);
-
-    foreach ($request->input('siswa') as $data) {
-        AbsensiModel::updateOrCreate(
-            [
-                'siswa_id' => $data['id'], // Pastikan 'id' sesuai dengan yang dikirimkan dari form
-                'kode_kelas' => $kode_kelas,
-            ],
-            [
-                'sakit' => $data['sakit'] ?? 0,
-                'izin' => $data['izin'] ?? 0,
-                'alfa' => $data['alfa'] ?? 0,
-            ]
-        );
+        return view('walas.absensi.absensi', compact('breadcrumb', 'kelas', 'siswa', 'activeMenu', 'tahun_ajaran_id'));
     }
 
-    return redirect()->route('absensi.index', $kode_kelas)
-                     ->with('success', 'Data absensi berhasil diperbarui.');
-}
-public function show($kode_kelas)
-{
-    $kelas = KelasModel::with('guru')->where('kode_kelas', $kode_kelas)->firstOrFail();
-
-    return view('kelas.detail', compact('kelas'));
-}
 
 
+    public function update(Request $request, $kode_kelas, $tahun_ajaran_id)
+    {
+        $request->validate([
+            'siswa.*.id' => 'required|exists:siswa_kelas,id',
+            'siswa.*.sakit' => 'integer|min:0',
+            'siswa.*.izin' => 'integer|min:0',
+            'siswa.*.alfa' => 'integer|min:0',
+
+        ]);
+
+        foreach ($request->input('siswa') as $data) {
+            AbsensiModel::updateOrCreate(
+                [
+                    'siswa_id' => $data['id'], // Pastikan 'id' sesuai dengan yang dikirimkan dari form
+                    'kode_kelas' => $kode_kelas,
+                    'tahun_ajaran_id' => $tahun_ajaran_id
+
+                ],
+                [
+                    'sakit' => $data['sakit'] ?? 0,
+                    'izin' => $data['izin'] ?? 0,
+                    'alfa' => $data['alfa'] ?? 0,
+                ]
+            );
+        }
+
+        return redirect()->back()->with('success', 'Status absensi berhasil diperbarui.');
+    }
 }

@@ -69,8 +69,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/siswa', [DashboardController::class, 'siswa'])
         ->middleware('siswa')
         ->name('dashboard.siswa');
-
-
 });
 
 Route::middleware('auth')->group(function () {
@@ -98,9 +96,9 @@ Route::prefix('eskul')->group(function () {
     Route::get('/', [EskulController::class, 'index'])->name('eskul.index');
     Route::get('/kelas', [EskulController::class, 'KelasEskul'])->name('eskul.kelas');
     Route::get('/daftar', [EskulController::class, 'DaftarEskul'])->name('eskul.daftar');
-    Route::get('/nilai/{id}', [EskulController::class, 'NilaiEskul'])->name('nilai.eskul');
+    Route::get('/nilai/{kode_kelas}/{tahun_ajaran_id}', [EskulController::class, 'NilaiEskul'])->name('nilai.eskul');
     Route::post('/save', [EskulController::class, 'save'])->name('eskul.save');
-    Route::post('/save/{id}', [EskulController::class, 'SaveNilai'])->name('save.nilai.eskul');
+    Route::post('/save/{tahun_ajaran_id}', [EskulController::class, 'SaveNilai'])->name('save.nilai.eskul');
     Route::put('/update{id}', [EskulController::class, 'update'])->name('eskul.update');
 });
 
@@ -169,28 +167,27 @@ Route::prefix('kelas/siswa')->group(function () {
 //rute untuk absensi
 Route::prefix('absensi')->group(function () {
     Route::get('/kelas', [AbsensiController::class, 'KelasAbsensi'])->name('absensi.kelas');
-    Route::get('/index/{kelas_id}', [AbsensiController::class, 'index'])->name('absensi.index');
-    Route::post('/update/{kelas_id}', [AbsensiController::class, 'update'])->name('update.absensi');
+    Route::get('/index/{kode_kelas}/{tahun_ajaran_id}', [AbsensiController::class, 'index'])->name('absensi.index');
+    Route::post('/update/{kode_kelas}/{tahun_ajaran_id}', [AbsensiController::class, 'update'])->name('update.absensi');
 });
 
 //rute untuk tupel
 Route::prefix('capaian')->group(function () {
-    Route::get('/{id}', [CapelController::class, 'index'])->name('capel.index');
-    Route::post('/save/{id}', [CapelController::class, 'save'])->name('save.capel');
+    Route::get('/{id_pembelajaran}/{tahun_ajaran_id}', [CapelController::class, 'index'])->name('capel.index');
+    Route::post('/save/{id_pembelajaran}/{tahun_ajaran_id}', [CapelController::class, 'save'])->name('save.capel');
     Route::post('/update', [CapelController::class, 'update'])->name('update.capel');
     Route::delete('/delete/{id}', [CapelController::class, 'destroy'])->name('delete.capel');
 });
 
 //rute untuk nilai
 Route::prefix('nilai')->group(function () {
-    Route::get('/{id}', [NilaiController::class, 'index'])->name('nilai.index');
+    Route::get('/{id_pembelajaran}/{tahun_ajaran_id}', [NilaiController::class, 'index'])->name('nilai.index');
     Route::post('/update', [NilaiController::class, 'update'])->name('update.nilai');
 });
 
 //rute untuk nilai akhir
 Route::prefix('walas/nilai/akhir')->group(function () {
-    Route::get('/{id}', [NilaiAkhirController::class, 'index'])->name('nilai.akhir.index');
-    Route::post('/save/{kode_kelas}', [NilaiAkhirController::class, 'save'])->name('save-siswa_nilai');
+    Route::get('/{kode_kelas}/{tahun_ajaran_id}', [NilaiAkhirController::class, 'index'])->name('nilai.akhir.index');
 });
 //rute cetak rapor
 Route::prefix('cetak/rapor')->group(function () {
@@ -201,8 +198,5 @@ Route::prefix('cetak/rapor')->group(function () {
     Route::post('/update/{kelas_id}', [CetakRaporController::class, 'update'])->name('update.cetak.rapor');
     Route::get('/siswa/{nis}', [CetakRaporController::class, 'cover'])->name('walas.cover');
     Route::get('/biodata/{nis}', [CetakRaporController::class, 'biodata'])->name('walas.biodata');
-    Route::get('/rapor/{nis}', [CetakRaporController::class, 'rapor'])->name('walas.rapor');   
-
+    Route::get('/rapor/{nis}', [CetakRaporController::class, 'rapor'])->name('walas.rapor');
 });
-
-

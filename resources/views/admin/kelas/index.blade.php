@@ -30,7 +30,7 @@
                                         <td>{{ $item->kode_kelas }}</td>
                                         <td>{{ $item->nama_kelas }}</td>
                                         <td>{{ $item->guru->nama }}</td>
-                                        <td>{{ $item->tahun_ajarans->tahun_ajaran }}</td>
+                                        <td>{{ $item->tahunAjarans->first()->tahun_ajaran }}</td>
                                         <td>
                                             <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
                                                 data-target="#modal-edit{{ $item->kode_kelas }}">
@@ -47,8 +47,8 @@
         </div>
     </div>
     <!-- Modal Tambah Data -->
-    @include('admin.kelas.create');
+    @include('admin.kelas.create')
 
     <!-- Modal Edit Data -->
-    @include('admin.kelas.update');
+    @include('admin.kelas.update')
 @endsection

@@ -12,14 +12,14 @@ use Illuminate\Support\Facades\Log;
 
 class NilaiController extends Controller
 {
-    public function index($id)
+    public function index($id, $tahun_ajaran_id)
     {
         $pembelajaran = PembelajaranModel::where('id_pembelajaran', $id)->get();
         //siswa
         $pembelejaranId = PembelajaranModel::where('id_pembelajaran', $id)->value('nama_kelas');
         $siswa = SiswaKelasModel::where('kelas_id', $pembelejaranId)->get();
         //capel
-        $capel = CapaianModel::where('pembelajaran_id', $id)->get();
+        $capel = CapaianModel::where('pembelajaran_id', $id)->where('tahun_ajaran_id', $tahun_ajaran_id)->get();
         $nilai = NilaiModel::where('pembelajaran_id', $id)->get();
         $breadcrumb = (object)[
             'title' => 'DATA PEMBELAJARAN',
@@ -31,6 +31,7 @@ class NilaiController extends Controller
             'activeMenu' => $activeMenu,
             'pembelajaran' => $pembelajaran,
             'id' => $id,
+            'tahun_ajaran_id' => $tahun_ajaran_id,
             'nilai' => $nilai,
             'siswa' => $siswa,
             'capel' => $capel
@@ -63,6 +64,7 @@ class NilaiController extends Controller
                 NilaiModel::updateOrCreate(
                     [
                         'pembelajaran_id' => $request->pembelajaran_id,
+                        'tahun_ajaran_id' => $request->tahun_ajaran_id,
                         'siswa_id' => $siswaData['id'],
                         'capel_id' => $capelItem['id'],
                     ],
@@ -76,6 +78,7 @@ class NilaiController extends Controller
             NilaiModel::updateOrCreate(
                 [
                     'pembelajaran_id' => $request->pembelajaran_id,
+                    'tahun_ajaran_id' => $request->tahun_ajaran_id,
                     'siswa_id' => $siswaData['id'],
                     'capel_id' => null, // UTS dan UAS disimpan tanpa capel_id
                 ],
@@ -89,6 +92,7 @@ class NilaiController extends Controller
             NilaiModel::updateOrCreate(
                 [
                     'pembelajaran_id' => $request->pembelajaran_id,
+                    'tahun_ajaran_id' => $request->tahun_ajaran_id,
                     'siswa_id' => $siswaData['id'],
                     'capel_id' => null, // Save these values without capel_id
                 ],

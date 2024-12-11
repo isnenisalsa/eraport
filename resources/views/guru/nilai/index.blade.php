@@ -49,6 +49,7 @@
                         <form action="{{ route('update.nilai') }}" method="POST">
                             @csrf
                             <input type="hidden" name="pembelajaran_id" value="{{ $id }}">
+                            <input type="hidden" name="tahun_ajaran_id" value="{{ $tahun_ajaran_id }}">
                             <table class="table table-bordered table-hover table-striped table-responsive">
                                 <thead>
                                     <tr>

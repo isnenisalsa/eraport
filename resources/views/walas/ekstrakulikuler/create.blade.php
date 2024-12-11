@@ -20,12 +20,12 @@
             </div>
             <div class="modal-body">
                 <div class="card-body">
-                    <form action="{{ route('save.nilai.eskul', $id) }}" method="POST">
+                    <form action="{{ route('save.nilai.eskul', $tahun_ajaran_id) }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="siswa_id">Siswa</label>
                             <select name="siswa_id" class="form-control select2"
-                                style="width: 100%; height: 50px; overflow-y: scroll" id="siswa_id" required>
+                                style="width: 100%; height: 50px; overflow-y: scroll" id="siswa_id_eskul" required>
                                 <option value="">- Pilih Siswa -</option>
                                 @foreach ($siswa_kelas as $item)
                                     <option value="{{ $item->id }}">{{ $item->siswa->nis }} -

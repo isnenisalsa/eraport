@@ -100,7 +100,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('save.capel', $id) }}" method="POST">
+                    <form
+                        action="{{ route('save.capel', ['id_pembelajaran' => $id_pembelajaran, 'tahun_ajaran_id' => $tahun_ajaran_id]) }}"
+                        method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="nama_capel">Capaian Pembelajaran</label>

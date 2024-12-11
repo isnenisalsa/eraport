@@ -18,19 +18,29 @@
                             </thead>
                             <tbody>
                                 @foreach ($dataPembelajaran as $item)
-                                    <tr>
-                                        <td>{{ $item->mapel->mata_pelajaran }}</td>
-                                        <td>{{ $item->kelas->nama_kelas }}</td>
-                                        <td>{{ $item->kelas->tahun_ajarans->tahun_ajaran }}</td>
-                                        <td>{{ $item->guru->nama }}</td>
+                                    @foreach ($item->kelas->tahunAjarans as $tahunAjaran)
+                                        <tr>
+                                            <td>{{ $item->mapel->mata_pelajaran }}</td>
+                                            <td>{{ $item->kelas->nama_kelas }}</td>
+                                            <td>
+                                                <div>{{ $tahunAjaran->tahun_ajaran }} - Semester
+                                                    {{ $tahunAjaran->semester }}</div>
+                                            </td>
+                                            <td>{{ $item->guru->nama }}</td>
+                                            <td>
 
-                                        <td><a href="{{ route('capel.index', $item->id_pembelajaran) }}"
-                                                class="btn btn-success btn-sm">Capaian Pembelajaran</a> &nbsp;
-                                            <a href="{{ route('nilai.index', $item->id_pembelajaran) }}"
-                                                class="btn btn-info btn-sm">Kelola Nilai</a> &nbsp;
-                                        </td>
-                                    </tr>
+                                                <a href="{{ route('capel.index', ['id_pembelajaran' => $item->id_pembelajaran, 'tahun_ajaran_id' => $tahunAjaran->id]) }}"
+                                                    class="btn btn-success btn-sm">
+                                                    Capaian Pembelajaran
+                                                </a> &nbsp;
+                                                <a href="{{ route('nilai.index', ['id_pembelajaran' => $item->id_pembelajaran, 'tahun_ajaran_id' => $tahunAjaran->id]) }}"
+                                                    class="btn btn-info btn-sm">Kelola Nilai</a> &nbsp;
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 @endforeach
+
+
                             </tbody>
                         </table>
                     </div>

@@ -113,10 +113,18 @@
             });
         });
 
-        $('.select2').select2({
-            theme: 'bootstrap4',
-            dropdownParent: $('#modal-tambah-data-siswa')
 
+        $(document).ready(function() {
+            $('#siswa_id').select2({
+                theme: 'bootstrap4',
+                dropdownParent: $('#modal-tambah-data-siswa')
+            });
+        });
+        $(document).ready(function() {
+            $('#siswa_id_eskul').select2({
+                theme: 'bootstrap4',
+                dropdownParent: $('#modal-tambah-data-eskul')
+            });
         });
         $('.select2').select2({
             theme: 'bootstrap4',
@@ -125,6 +133,21 @@
             minimumResultsForSearch: 0,
             placeholder: 'Cari siswa...',
 
+        });
+        $(document).ready(function() {
+            $('#tahun_ajaran_id').select2({
+                placeholder: "Pilih Tahun Ajaran",
+                allowClear: true
+            });
+        });
+
+        $(document).ready(function() {
+            $('[id^="tahun_ajaran_id_edit"]').each(function() {
+                $(this).select2({
+                    placeholder: "Pilih Tahun Ajaran",
+                    allowClear: true
+                });
+            });
         });
     </script>
 </body>

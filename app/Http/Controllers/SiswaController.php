@@ -70,20 +70,19 @@ class SiswaController extends Controller
             'pekerjaan_wali',
             'no_telp_wali',
             'alamat_wali',
-            'terms'=> 'required',
+            'terms' => 'required',
         ], [
-            
+
             'terms.required' => 'wajib di centang'
 
         ]);
         $username = strtolower(str_replace(' ', '_', $request->nama)); // Mengganti spasi dengan underscore
         $password = Hash::make(strtolower(str_replace(' ', '_', $request->alamat))); // Menggunakan nomor telepon sebagai password yang di-hash
-        $status = $request->status??'Aktif'; //
+        $status = $request->status ?? 'Aktif'; //
         SiswaModel::create([
             'nis' => $request->nis,
             'nisn' => $request->nisn,
             'status' => $status,
-            //'status' => $request->status,
             'nama' => $request->nama,
             'pendidikan_terakhir' => $request->pendidikan_terakhir,
             'jenis_kelamin' => $request->jenis_kelamin,
@@ -105,7 +104,9 @@ class SiswaController extends Controller
             'nama_wali' => $request->nama_wali,
             'pekerjaan_wali' => $request->pekerjaan_wali,
             'no_telp_wali' => $request->no_telp_wali,
-            
+            'username' => $username,
+            'password' => $password,
+
 
         ]);
 
@@ -134,32 +135,32 @@ class SiswaController extends Controller
     {
         // Validasi input
         $request->validate([
-           'nis' => 'required|numeric|digits:6',
-    'nisn' => 'required|numeric|digits:10',
-    'status' => 'required|string',
-    'nama' => 'required|string|max:255',
-    'pendidikan_terakhir' => 'required|string|max:255',
-    'jenis_kelamin' => 'required|string',
-    'agama' => 'required|string',
-    'tempat_lahir' => 'required|string|max:255',
-    'tanggal_lahir' => 'required|date',
-    'alamat' => 'required|string|max:255',
-    'jalan' => 'nullable|string|max:255',
-    'kelurahan' => 'nullable|string|max:255',
-    'kecamatan' => 'nullable|string|max:255',
-    'kota' => 'nullable|string|max:255',
-    'provinsi' => 'nullable|string|max:255',
-    'nama_ayah' => 'nullable|string|max:255',
-    'pekerjaan_ayah' => 'nullable|string|max:255',
-    'no_telp_ayah' => 'nullable|string|max:15',
-    'nama_ibu' => 'nullable|string|max:255',
-    'pekerjaan_ibu' => 'nullable|string|max:255',
-    'no_telp_ibu' => 'nullable|string|max:15',
-    'nama_wali' => 'nullable|string|max:255',
-    'pekerjaan_wali' => 'nullable|string|max:255',
-    'no_telp_wali' => 'nullable|string|max:15',
-    'alamat_wali' => 'nullable|string|max:255',
-    'terms' => 'nullable|boolean',
+            'nis' => 'required|numeric|digits:6',
+            'nisn' => 'required|numeric|digits:10',
+            'status' => 'required|string',
+            'nama' => 'required|string|max:255',
+            'pendidikan_terakhir' => 'required|string|max:255',
+            'jenis_kelamin' => 'required|string',
+            'agama' => 'required|string',
+            'tempat_lahir' => 'required|string|max:255',
+            'tanggal_lahir' => 'required|date',
+            'alamat' => 'required|string|max:255',
+            'jalan' => 'nullable|string|max:255',
+            'kelurahan' => 'nullable|string|max:255',
+            'kecamatan' => 'nullable|string|max:255',
+            'kota' => 'nullable|string|max:255',
+            'provinsi' => 'nullable|string|max:255',
+            'nama_ayah' => 'nullable|string|max:255',
+            'pekerjaan_ayah' => 'nullable|string|max:255',
+            'no_telp_ayah' => 'nullable|string|max:15',
+            'nama_ibu' => 'nullable|string|max:255',
+            'pekerjaan_ibu' => 'nullable|string|max:255',
+            'no_telp_ibu' => 'nullable|string|max:15',
+            'nama_wali' => 'nullable|string|max:255',
+            'pekerjaan_wali' => 'nullable|string|max:255',
+            'no_telp_wali' => 'nullable|string|max:15',
+            'alamat_wali' => 'nullable|string|max:255',
+            'terms' => 'nullable|boolean',
         ]);
         $siswa = SiswaModel::findOrFail($nis);
 

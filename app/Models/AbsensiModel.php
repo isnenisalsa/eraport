@@ -17,6 +17,7 @@ class AbsensiModel extends Model
         'sakit',
         'izin',
         'alfa',
+        'tahun_ajaran_id'
     ];
 
     public function siswa()

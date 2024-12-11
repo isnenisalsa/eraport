@@ -19,7 +19,7 @@ class CetakRaporController extends Controller
         ];
         $activeMenu = 'Rapor';
         $user = Auth::user();
-        $kelas = KelasModel::with(['guru', 'tahun_ajarans'])
+        $kelas = KelasModel::with(['guru', 'tahunAjarans'])
             ->withCount(['siswa'])
             ->where('guru_nik', $user->nik)
             ->get();
@@ -58,17 +58,17 @@ class CetakRaporController extends Controller
     public function biodata($nis)
     {
         // Breadcrumb untuk halaman
-         // Breadcrumb untuk halaman
-         $breadcrumb = (object) [
+        // Breadcrumb untuk halaman
+        $breadcrumb = (object) [
             'title' => 'Biodata Siswa',
         ];
 
         $activeMenu = 'cetak-rapor';
 
         $siswa = SiswaModel::where('nis', $nis)->firstOrFail();
-        
-        $sekolah = SekolahModel::all(); 
-    
+
+        $sekolah = SekolahModel::all();
+
         // Mengirimkan data siswa dan sekolah ke view
         return view('walas.cetak_rapor.biodata', compact('siswa', 'sekolah'));
     }
@@ -77,14 +77,14 @@ class CetakRaporController extends Controller
     {
         $siswa = SiswaModel::where('nis', $nis)->firstOrFail();
         // Ambil data kelas berdasarkan kode_kelas dari siswa (asumsikan relasi ada)
-        $kelas = KelasModel::with('guru' )->get();
+        $kelas = KelasModel::with('guru')->get();
         $sekolah = SekolahModel::firstOrFail();
-        
+
 
         // Mengirim data siswa ke view
         return view('walas.cetak_rapor.rapor', compact('siswa', 'kelas', 'sekolah'));
     }
-    
+
     public function kelasRaporSiswa()
     {
         $breadcrumb = (object) [
@@ -98,7 +98,4 @@ class CetakRaporController extends Controller
         // Mengambil semua data pembelajaran dengan relasi mapel, kelas, dan guru
         return view('siswa.cetak_rapor.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'kelas' => $kelas]);
     }
-
-    
-
 }

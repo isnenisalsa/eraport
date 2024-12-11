@@ -17,7 +17,6 @@ class KelasModel extends Model
         'kode_kelas',
         'nama_kelas',
         'guru_nik',
-        'tahun_ajaran_id',
     ];
 
     /**
@@ -31,10 +30,13 @@ class KelasModel extends Model
     /**
      * Relasi ke model TahunAjaran
      */
-    public function tahun_ajarans()
+    public function tahunAjarans()
     {
-        return $this->belongsTo(TahunAjarModel::class, 'tahun_ajaran_id');
+        return $this->belongsToMany(TahunAjarModel::class, 'kelas_tahun_ajaran', 'kelas_kode', 'tahun_ajaran_id');
     }
+
+
+
 
     /**
      * Relasi ke model SiswaKelas (Siswa yang terdaftar di kelas ini)
@@ -42,9 +44,7 @@ class KelasModel extends Model
     public function siswa()
     {
         return $this->hasMany(SiswaKelasModel::class, 'kelas_id', 'kode_kelas');  // Menggunakan hasMany untuk relasi ke siswa
-       
-    return $this->hasMany(SiswaKelasModel::class, 'kelas_id');
 
-
+        return $this->hasMany(SiswaKelasModel::class, 'kelas_id');
     }
 }

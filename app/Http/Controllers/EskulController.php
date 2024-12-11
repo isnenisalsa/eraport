@@ -16,7 +16,7 @@ class EskulController extends Controller
     public function index()
     {
         $breadcrumb = (object) [
-            'title' => 'Data Ekstrakulikuler',
+            'title' => 'Daftar Eskul',
         ];
 
 
@@ -102,50 +102,43 @@ class EskulController extends Controller
         $activeMenu = 'kelas';
         $user = Auth::user();
 
-        $kelas = KelasModel::with(['guru', 'tahun_ajarans'])
+        $kelas = KelasModel::with(['guru', 'tahunAjarans'])
             ->withCount(['siswa'])
             ->where('guru_nik', $user->nik)
             ->get();
 
         return view('walas.ekstrakulikuler.kelas', ['breadcrumb' => $breadcrumb, 'kelas' => $kelas, 'activeMenu' => $activeMenu]);
     }
-    public function NilaiEskul($id)
+    public function NilaiEskul($kode_kelas, $tahun_ajaran_id)
     {
+
         $breadcrumb = (object) [
             'title' => 'Nilai Ekstrakulikuler',
         ];
         $activeMenu = 'nilai';
-        
-        $siswa_kelas = SiswaKelasModel::with('siswa')->where('kelas_id', $id)->get();
-        
+        $kelas = KelasModel::where('kode_kelas', $kode_kelas)->first();
+        $siswa_kelas = SiswaKelasModel::with('siswa')->where('kelas_id', $kode_kelas)->get();
         $eskul = EskulModel::all();
-        $user = Auth::user();
-        
-    $kelas = KelasModel::with(['guru', 'tahun_ajarans'])
-    ->withCount(['siswa'])
-    ->where('guru_nik', $user->nik)
-     // Pastikan hanya kelas yang relevan
-    ->first(); // Ambil satu data
-
-        $eskuldata = NilaiEskulModel::with('siswa', 'eskul')->whereHas('siswa', function ($query) use ($id) {
-            $query->where('kelas_id', $id);
+        $eskuldata = NilaiEskulModel::with('siswa', 'eskul')->where('tahun_ajaran_id', $tahun_ajaran_id)->whereHas('siswa', function ($query) use ($kode_kelas) {
+            $query->where('kelas_id', $kode_kelas);
         })
             ->get();;
-            
-        return view('walas.ekstrakulikuler.nilai', ['breadcrumb' => $breadcrumb, 'id' => $id, 'eskul' => $eskul, 'eskuldata' => $eskuldata, 'siswa_kelas' => $siswa_kelas, 'activeMenu' => $activeMenu, 'kelas' => $kelas]);
+        return view('walas.ekstrakulikuler.nilai', ['breadcrumb' => $breadcrumb, 'kode_kelas' => $kode_kelas, 'kelas' => $kelas, 'eskul' => $eskul, 'eskuldata' => $eskuldata, 'siswa_kelas' => $siswa_kelas, 'activeMenu' => $activeMenu, 'tahun_ajaran_id' => $tahun_ajaran_id]);
     }
-    public function SaveNilai(Request $request, $id)
+    public function SaveNilai(Request $request, $tahun_ajaran_id)
     {
         $request->validate([
-            'siswa_id' => 'required|exists:siswa_kelas,id', 
+            'siswa_id' => 'required|exists:siswa_kelas,id',
             'eskul_id' => 'required',
             'keterangan' => 'nullable|string|max:255',
+
         ]);
 
         NilaiEskulModel::create([
             'siswa_id' => $request->siswa_id,
             'eskul_id' => $request->eskul_id,
-            'keterangan' => $request->keterangan
+            'keterangan' => $request->keterangan,
+            'tahun_ajaran_id' => $tahun_ajaran_id
         ]);
 
         return redirect()->back()->with('success', 'Nilai eskul berhasil disimpan.');

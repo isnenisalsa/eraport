@@ -34,7 +34,7 @@
                                         <td>{{ $item->nama_kelas }}</td>
                                         <td>{{ $item->guru->nama }}</td>
                                         <td>{{ $item->siswa_count }}</td>
-                                        <td>{{ $item->tahun_ajarans->tahun_ajaran }}</td>
+                                        <td>{{ $item->tahunAjarans->first()->tahun_ajaran }}</td>
                                         <td>
                                             <a href="{{ route('siswa_kelas', $item->kode_kelas) }}"
                                                 class="btn btn-primary">Detail</a>
@@ -49,6 +49,6 @@
             </div>
         </div>
     </div>
-   
+
 
 @endsection

@@ -8,22 +8,23 @@ use Illuminate\Http\Request;
 
 class CapelController extends Controller
 {
-    public function index($id)
+    public function index($id_pembelajaran, $tahun_ajaran_id)
     {
         $breadcrumb = (object) [
-            'title' => 'DAFTAR CAPAIAN PEMBELAJARAN',
+            'title' => 'Daftar Pembelajaran',
         ];
 
         $activeMenu = 'Data Pembelajaran';
-        // Ambil pengguna dengan ID 1 (atau ID yang Anda inginkan)
-        $capel = CapaianModel::find($id);
-        $Datacapel = CapaianModel::where('pembelajaran_id', $id)->get();
-        // Ganti 1 dengan ID pengguna yang ingin Anda tampilkan
-        $data = PembelajaranModel::where('id_pembelajaran', $id)->get();
-        // Jika pengguna tidak ditemukan, $user akan bernilai null
-        return view('guru.capel.index', ['breadcrumb' => $breadcrumb, 'capel' => $capel, 'data' => $data, 'Datacapel' => $Datacapel, 'id' => $id, 'activeMenu' => $activeMenu]);
+        $Datacapel = CapaianModel::where('pembelajaran_id', $id_pembelajaran)->where('tahun_ajaran_id', $tahun_ajaran_id)->get();
+
+        $data = PembelajaranModel::with(['kelas', 'mapel', 'guru'])
+            ->where('id_pembelajaran', $id_pembelajaran)
+            ->first();
+
+        return view('guru.capel.index', compact('Datacapel', 'data', 'tahun_ajaran_id', 'activeMenu', 'breadcrumb', 'id_pembelajaran'));
     }
-    public function save(Request $request, $id)
+
+    public function save(Request $request, $id_pembelajaran, $tahun_ajaran_id)
     {
         $request->validate(
             [
@@ -35,10 +36,14 @@ class CapelController extends Controller
             ]
         );
         CapaianModel::create([
-            'pembelajaran_id' => $id,
+            'pembelajaran_id' => $id_pembelajaran,
+            'tahun_ajaran_id' => $tahun_ajaran_id,
             'nama_capel' => $request->nama_capel,
         ]);
-        return redirect()->route('capel.index', ['id' => $id])->with('success', 'Data berhasil disimpan');
+        return redirect()->route('capel.index', [
+            'id_pembelajaran' => $id_pembelajaran,
+            'tahun_ajaran_id' => $tahun_ajaran_id
+        ])->with('success', 'Data berhasil disimpan');
     }
     public function update(Request $request)
     {
