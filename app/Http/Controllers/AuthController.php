@@ -29,7 +29,6 @@ class AuthController extends Controller
 
             // Ambil semua role user (asumsi relasi roles sudah ada)
             $roleIds = $user->roles->pluck('id')->toArray();
-
             // Redirect berdasarkan role
             if (in_array(1, $roleIds)) {
                 return redirect()->route('dashboard');
@@ -55,7 +54,6 @@ class AuthController extends Controller
 
         // Jika login gagal
         return redirect('login')->with(['login_failed' => 'Username atau password salah.']);
-    
     }
 
 

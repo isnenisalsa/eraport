@@ -9,11 +9,11 @@ class GuruRole extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['guru_id', 'role_id'];
+    protected $fillable = ['guru_nik', 'role_id'];
 
     public function guru()
     {
-        return $this->belongsTo(GuruModel::class, 'guru_id', 'nik');
+        return $this->belongsTo(GuruModel::class, 'guru_nik', 'nik');
     }
 
     public function role()

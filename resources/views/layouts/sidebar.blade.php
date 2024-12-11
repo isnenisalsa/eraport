@@ -25,7 +25,7 @@
             @endif
             @if (Auth::guard('siswa')->check())
                 <li class="nav-item">
-                    <a href="{{ url('cetak/rapor/siswa') }}"
+                    <a href="{{ url('cetak/rapor/siswa/cetak/') }}"
                         class="nav-link {{ $activeMenu == 'Pembelajaran Siswa' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-satellite" style="color: rgb(3, 3, 3)"></i>
                         <p style="color: rgb(10, 10, 10)">Data Pembelajaran</p>
@@ -76,7 +76,6 @@
                                 <p style="color: rgb(10, 10, 10)">Cetak Rapor</p>
                             </a>
                         </li>
-                        
                     </ul>
                 </li>
             @endif

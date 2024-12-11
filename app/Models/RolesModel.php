@@ -15,6 +15,6 @@ class RolesModel extends Model
     ];
     public function gurus()
     {
-        return $this->belongsToMany(GuruModel::class, 'guru_roles', 'role_id', 'guru_id');
+        return $this->belongsToMany(GuruModel::class, 'guru_roles', 'role_id', 'guru_nik');
     }
 }

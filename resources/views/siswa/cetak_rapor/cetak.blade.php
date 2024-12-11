@@ -52,11 +52,14 @@
                                             <td>{{ $item->siswa->nama }}</td>
                                             <td>{{ $item->siswa->jenis_kelamin }}</td>
                                             <td>
-                                                <button class="btn btn-danger btn-md me-2" title="Cover">
-                                                    <i class="fas fa-file-alt"> Cover</i>
-                                                </button>
-                                                <button class="btn btn-success btn-md me-2" title="Biodata">
-                                                    <i class="fas fa-id-badge"> Biodata</i>
+                                                <a href="{{ route('walas.cover', $item->siswa->nis) }}"
+                                                    class="btn btn-danger btn-md me-2" title="Cover">
+                                                    <i class="fas fa-file-alt"></i>
+                                                </a>
+                                                <a href="{{ route('walas.biodata', $item->siswa->nis) }}"
+                                                    class="btn btn-warning btn-md me-2" title="Lihat Biodata">
+                                                    <i class="fas fa-file-alt"></i>
+                                                </a>
                                                 </button>
                                                 <button class="btn btn-primary btn-md" title="Cetak Rapor">
                                                     <i class="fas fa-print"> Rapor</i>

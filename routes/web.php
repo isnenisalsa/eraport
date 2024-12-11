@@ -42,11 +42,11 @@ Route::get('/', function () {
 
         // Redirect berdasarkan role_id
         if (in_array(1, $roleIds)) {
-            return redirect()->route('dashboard.admin');
+            return redirect()->route('dashboard');
         } elseif (in_array(2, $roleIds)) {
-            return redirect()->route('dashboard.guru');
+            return redirect()->route('dashboard');
         } elseif (in_array(3, $roleIds)) {
-            return redirect()->route('dashboard.walas');
+            return redirect()->route('dashboard');
         } else {
             return redirect('login')->withErrors(['access_denied' => 'Akses ditolak. Role Anda tidak dikenali.']);
         }
@@ -196,7 +196,7 @@ Route::prefix('walas/nilai/akhir')->group(function () {
 Route::prefix('cetak/rapor')->group(function () {
     Route::get('/kelas', [CetakRaporController::class, 'KelasRapor'])->name('rapor.kelas');
     Route::get('/siswa', [CetakRaporController::class, 'KelasRaporSiswa'])->middleware('siswa');
-    Route::get('/{id}', [CetakRaporController::class, 'KelasRaporSiswaCetak'])->middleware('siswa')->name('cetak.index.siswa');
+    Route::get('/siswa/cetak/{id}', [CetakRaporController::class, 'KelasRaporSiswaCetak'])->middleware('siswa')->name('cetak.index.siswa');
     Route::get('/{id}', [CetakRaporController::class, 'index'])->name('cetak.rapor.index');
     Route::post('/update/{kelas_id}', [CetakRaporController::class, 'update'])->name('update.cetak.rapor');
     Route::get('/siswa/{nis}', [CetakRaporController::class, 'cover'])->name('walas.cover');

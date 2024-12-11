@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
         // Anda bisa menambahkan lebih banyak data atau menggunakan loop untuk banyak data
         GuruModel::create([
             'nik' => '1234567890123457',
+            'nip' => '12345671',
             'nama' => 'Jane Smith',
             'tempat_lahir' => 'Bandung',
             'tanggal_lahir' => '1992-02-02',

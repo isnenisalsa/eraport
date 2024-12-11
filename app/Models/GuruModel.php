@@ -32,16 +32,19 @@ class GuruModel extends Authenticatable
         'username',
         'password',
         'alamat',
-        
+
     ];
     public function roles()
     {
-        return $this->belongsToMany(RolesModel::class, 'guru_roles', 'guru_id', 'role_id');
+        return $this->belongsToMany(RolesModel::class, 'guru_roles', 'guru_nik', 'role_id');
     }
-public function kelas(){
-    return $this->belongsTo(KelasModel::class,'nik','guru_nik');
-}
-public function profil(){
-    return $this->belongsTo(ProfileController::class,'nik','guru_nik');
-}
+    public function kelas()
+    {
+        return $this->belongsTo(KelasModel::class, 'nik', 'guru_nik');
+    }
+
+    public function profil()
+    {
+        return $this->belongsTo(ProfileController::class, 'nik', 'guru_nik');
+    }
 }

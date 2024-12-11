@@ -15,9 +15,9 @@ class CreateGuruRolesTable extends Migration
     {
         Schema::create('guru_roles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('guru_id');
+            $table->unsignedBigInteger('guru_nik');
             $table->unsignedBigInteger('role_id');
-            $table->foreign('guru_id')->references('nik')->on('guru')->onDelete('cascade')->cascadeOnUpdate();
+            $table->foreign('guru_nik')->references('nik')->on('guru')->onDelete('cascade')->cascadeOnUpdate();
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade')->cascadeOnUpdate();
             $table->timestamps();
         });
