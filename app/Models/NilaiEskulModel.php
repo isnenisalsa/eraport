@@ -12,7 +12,8 @@ class NilaiEskulModel extends Model
     protected $fillable = [
         'siswa_id',
         'eskul_id',
-        'keterangan'
+        'keterangan',
+        'tahun_ajaran_id'
     ];
     public function siswa()
     {

@@ -50,14 +50,6 @@ class EskulController extends Controller
             'guru_nik' => $request->guru_nik,
             'tempat' => $request->tempat,
         ]);
-
-        // Ambil guru berdasarkan guru_nik
-        $guru = GuruModel::find($request->guru_nik);
-        $roleIdToattach = 4;
-
-        // Tambahkan role baru
-        $guru->roles()->attach($roleIdToattach);
-
         return redirect()->route('eskul.index')->with('success', 'data berhasil ditambah');
     }
     public function update(Request $request, $id)

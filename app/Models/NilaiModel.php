@@ -26,4 +26,8 @@ class NilaiModel extends Model
     {
         return $this->belongsTo(SiswaKelasModel::class, 'siswa_id');
     }
+    public function capel()
+    {
+        return $this->belongsTo(CapaianModel::class, 'capel_id', 'id');
+    }
 }

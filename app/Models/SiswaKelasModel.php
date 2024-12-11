@@ -16,21 +16,23 @@ class SiswaKelasModel extends Model
     ];
 
     public function siswa()
-{
-    return $this->belongsTo(SiswaModel::class, 'siswa_id');
-    
-}
+    {
+        return $this->belongsTo(SiswaModel::class, 'siswa_id');
+    }
     public function absensi()
-{
-    return $this->hasOne(AbsensiModel::class, 'siswa_id');
-}
+    {
+        return $this->hasOne(AbsensiModel::class, 'siswa_id');
+    }
     public function kelas()
     {
         return $this->belongsTo(KelasModel::class, 'kelas_id', 'kode_kelas');
     }
     public function nilai()
     {
-        return $this->hasMany(NilaiModel::class, 'siswa_id');  // Gunakan foreign key yang benar
+        return $this->hasMany(NilaiModel::class, 'siswa_id');
     }
-    
+    public function nilaieskul()
+    {
+        return $this->hasMany(NilaiEskulModel::class, 'siswa_id');
+    }
 }

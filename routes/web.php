@@ -194,9 +194,9 @@ Route::prefix('cetak/rapor')->group(function () {
     Route::get('/kelas', [CetakRaporController::class, 'KelasRapor'])->name('rapor.kelas');
     Route::get('/siswa', [CetakRaporController::class, 'KelasRaporSiswa'])->middleware('siswa');
     Route::get('/siswa/cetak/{id}', [CetakRaporController::class, 'KelasRaporSiswaCetak'])->middleware('siswa')->name('cetak.index.siswa');
-    Route::get('/{id}', [CetakRaporController::class, 'index'])->name('cetak.rapor.index');
+    Route::get('/{kode_kelas}/{tahun_ajaran_id}', [CetakRaporController::class, 'index'])->name('cetak.rapor.index');
     Route::post('/update/{kelas_id}', [CetakRaporController::class, 'update'])->name('update.cetak.rapor');
     Route::get('/siswa/{nis}', [CetakRaporController::class, 'cover'])->name('walas.cover');
     Route::get('/biodata/{nis}', [CetakRaporController::class, 'biodata'])->name('walas.biodata');
-    Route::get('/rapor/{nis}', [CetakRaporController::class, 'rapor'])->name('walas.rapor');
+    Route::get('/rapor/{kode_kelas}/{nis}/{tahun_ajaran_id}', [CetakRaporController::class, 'rapor'])->name('walas.rapor');
 });

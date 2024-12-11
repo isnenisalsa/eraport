@@ -42,7 +42,10 @@ class GuruModel extends Authenticatable
     {
         return $this->belongsTo(KelasModel::class, 'nik', 'guru_nik');
     }
-
+    public function pembelajaran()
+    {
+        return $this->belongsTo(PembelajaranModel::class, 'nik', 'nama_guru');
+    }
     public function profil()
     {
         return $this->belongsTo(ProfileController::class, 'nik', 'guru_nik');

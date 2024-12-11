@@ -42,7 +42,7 @@ class MapelController extends Controller
             'kode_mapel' => $request->kode_mapel,
             'mata_pelajaran' => $request->mata_pelajaran,
         ]);
-        return redirect()->route('mapel');
+        return redirect()->route('mapel')->with('success', 'Data guru berhasil diperbarui');
     }
     public function update(Request $request, $kode_mapel)
     {

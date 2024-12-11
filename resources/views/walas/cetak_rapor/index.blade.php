@@ -32,7 +32,7 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <a href="{{ route('cetak.rapor.index', $item->kode_kelas) }}"
+                                                <a href="{{ route('cetak.rapor.index', ['kode_kelas' => $item->kode_kelas, 'tahun_ajaran_id' => $tahunAjaran->id]) }}"
                                                     class="btn btn-info">Detail</a>
                                             </td>
                                         </tr>
