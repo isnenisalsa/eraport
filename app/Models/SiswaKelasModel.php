@@ -32,4 +32,5 @@ class SiswaKelasModel extends Model
     {
         return $this->hasMany(NilaiModel::class, 'siswa_id');  // Gunakan foreign key yang benar
     }
+    
 }

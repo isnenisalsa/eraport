@@ -13,10 +13,13 @@
             <a class="nav-link fas fa-user fa-2x" href="#" id="navbarDropdown2" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             </a>
+            
             <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{ route('logout') }}">logout</a>
+                <a class="dropdown-item" href="{{ route('profile.show')}}">Profile</a>
+                <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
             </div>
+       
         </li>
     </ul>
 

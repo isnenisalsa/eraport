@@ -30,13 +30,11 @@ class MapelController extends Controller
             [
                 'kode_mapel' => 'required|unique:mapel,kode_mapel', // Aturan validasi yang benar
                 'mata_pelajaran' => 'required',
-                'terms' => 'required',
             ],
             [
                 'kode_mapel.required' => 'Kode Mapel tidak boleh kosong',
                 'kode_mapel.unique' => 'Kode Mapel harus unik',
                 'mata_pelajaran.required' => 'Mata Pelajaran tidak boleh kosong',
-                'terms.required' => 'Wajib dicentang'
             ]
         );
 

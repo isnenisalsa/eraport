@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -39,5 +40,8 @@ class GuruModel extends Authenticatable
     }
 public function kelas(){
     return $this->belongsTo(KelasModel::class,'nik','guru_nik');
+}
+public function profil(){
+    return $this->belongsTo(ProfileController::class,'nik','guru_nik');
 }
 }

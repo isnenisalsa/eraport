@@ -35,6 +35,7 @@ class TahunajaranController extends Controller
             ],
             [
                 'tahun_ajaran.required' => 'Tahun Ajaran tidak boleh kosong',
+                'semester.required' => 'Semester tidak boleh kosong',
             ]
         );
 

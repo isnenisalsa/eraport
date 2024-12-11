@@ -64,15 +64,13 @@ class PembelajaranController extends Controller
                 'id_pembelajaran' => 'required', // Aturan validasi yang benar
                 'mata_pelajaran' => 'required',
                 'nama_kelas' => 'required',
-                'nama_guru' => 'required', // Pastikan 'nama_guru' sesuai dengan kolom yang ada di tabel 'guru'
-                'terms' => 'required'
+                'nama_guru' => 'required' // Pastikan 'nama_guru' sesuai dengan kolom yang ada di tabel 'guru'
             ],
             [
                 'id_pembelajaran.required' => 'ID Pembelajaran tidak boleh kosong',
                 'mata_pelajaran.required' => 'Mata Pelajaran  tidak boleh kosong',
                 'nama_kelas.required' => 'Nama Kelas tidak boleh kosong',
-                'nama_guru.required' => 'Nama Guru tidak boleh kosong',
-                'terms.required' => 'Wajib Dicentang'
+                'nama_guru.required' => 'Nama Guru tidak boleh kosong'
             ]
         );
 
@@ -104,15 +102,13 @@ class PembelajaranController extends Controller
                 'id_pembelajaran' => 'required',
                 'mata_pelajaran' => 'required',
                 'nama_kelas' => 'required',
-                'nama_guru' => 'required',
-                'terms' => 'required'
+                'nama_guru' => 'required'
             ],
             [
                 'id_pembelajaran.required' => 'ID Pembelajaran tidak boleh kosong',
                 'mata_pelajaran.required' => 'Mata Pelajaran  tidak boleh kosong',
                 'nama_kelas.required' => 'Nama Kelas tidak boleh kosong',
-                'nama_guru.required' => 'Nama Guru tidak boleh kosong',
-                'terms.required' => 'Wajib Dicentang'
+                'nama_guru.required' => 'Nama Guru tidak boleh kosong'
             ]
         );
         $pembelajaran = PembelajaranModel::find($id_pembelajaran);

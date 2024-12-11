@@ -25,10 +25,10 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="semester" class="form-label">Tahun Ajaran</label>
+                            <label for="semester" class="form-label">Semester</label>
                             <input type="text"
                                 class="form-control @error('semester', 'tambahBag') is-invalid @enderror" id="semester"
-                                placeholder="Inputkan Tahun Ajaran Anda" name="semester" value="{{ old('semester') }}">
+                                placeholder="Inputkan Semester Anda" name="semester" value="{{ old('semester') }}">
                             @error('semester', 'tambahBag')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror

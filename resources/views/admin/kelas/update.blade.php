@@ -73,15 +73,7 @@
                         @enderror
                     </div>
 
-                    <!-- Checkbox Terms -->
-                    <div class="form-check mt-3">
-                        <input type="checkbox" class="form-check-input @error('terms', 'editBag') is-invalid @enderror"
-                            id="terms{{ $item->kode_kelas }}" name="terms">
-                        <label class="form-check-label" for="terms{{ $item->kode_kelas }}">Saya yakin sudah mengisi dengan benar</label>
-                        @error('terms', 'editBag')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
+                    
 
                     <button type="submit" class="btn btn-success float-right">Simpan</button>
                 </form>

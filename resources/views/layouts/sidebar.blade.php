@@ -13,7 +13,7 @@
                     </a>
                 </li>
             @endif
-
+            
             @if (Auth::guard('siswa')->check())
                 <li class="nav-item">
                     <a href="{{ url('/dashboard/siswa') }}"
@@ -76,6 +76,7 @@
                                 <p style="color: rgb(10, 10, 10)">Cetak Rapor</p>
                             </a>
                         </li>
+                        
                     </ul>
                 </li>
             @endif
@@ -185,8 +186,6 @@
                 @endif
             </li>
 
-
-
             <!-- Menu Ekstrakurikuler -->
             @if (auth()->check() && auth()->user()->roles->contains('nama', 'pembina eskul'))
                 <li class="nav-item has-treeview">
@@ -213,8 +212,15 @@
                     </ul>
                 </li>
             @endif
-
+            @if (auth()->check() &&
+                    auth()->user()->roles->pluck('nama')->intersect(['admin', 'guru', 'walas'])->isNotEmpty())
+                <li class="nav-item">
+                    <a href="{{ route('profile.show') }}" class="nav-link {{ $activeMenu == 'dashboard' ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-user" style="color: rgb(3, 3, 3)"></i>
+                        <p style="color: rgb(10, 10, 10)">Profile</p>
+                    </a>
+                </li>
+            @endif
         </ul>
     </nav>
-    <!-- /.sidebar-menu -->
 </div>

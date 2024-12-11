@@ -75,15 +75,7 @@
                         @enderror
                     </div>
 
-                    <div class="form-check mt-3">
-                        <input type="checkbox" class="form-check-input @error('terms') is-invalid @enderror"
-                            name="terms" id="terms">
-                        <label class="form-check-label" for="terms">Saya Yakin Sudah Mengisi Dengan Benar</label>
-                        <br>
-                        @if ($errors->tambahBag->has('terms'))
-                            <small class="text-danger">{{ $errors->tambahBag->first('terms') }}</small>
-                        @endif
-                    </div>
+                    
                     <button type="submit" class="btn btn-success float-right">Simpan</button>
             </form>
             <br><br>

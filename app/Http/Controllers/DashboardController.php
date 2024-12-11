@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\KelasModel;
+use App\Models\SiswaKelasModel;
+use App\Models\SiswaModel;
 
 class DashboardController extends Controller
 {
     public function index()
-    {
-        $breadcrumb = (object)[
-            'title' => 'DASHBOARD',
+{
+    $breadcrumb = (object)[
+        'title' => 'DASHBOARD',
+    ];
+    $activeMenu = 'dashboard';
 
-        ];
-        $activeMenu =  'dashboard ';
-        return view('dashboard.index', ['breadcrumb' => $breadcrumb,  'activeMenu' => $activeMenu]);
-    }
-    public function siswa()
-    {
-        $breadcrumb = (object)[
-            'title' => 'DASHBOARD',
+    $kelas = KelasModel::all(); // Ambil semua kelas untuk ditampilkan
 
-        ];
-        $activeMenu =  'dashboard siswa';
-        return view('dashboard.siswa', ['breadcrumb' => $breadcrumb,  'activeMenu' => $activeMenu]);
-    }
+    return view('dashboard.index', [
+        'breadcrumb' => $breadcrumb,
+        'activeMenu' => $activeMenu,
+        'kelas' => $kelas,
+    ]);
+}
+
 }

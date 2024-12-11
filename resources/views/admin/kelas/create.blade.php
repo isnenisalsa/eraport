@@ -67,16 +67,6 @@
                         @enderror
                     </div>
 
-                    <!-- Checkbox Terms -->
-                    <div class="form-check mt-3">
-                        <input type="checkbox" name="terms" id="terms"
-                            class="form-check-input @error('terms', 'tambahBag') is-invalid @enderror">
-                        <label for="terms" class="form-check-label">Saya yakin sudah mengisi dengan benar</label>
-                        <br>
-                        @error('terms', 'tambahBag')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
 
                     <button type="submit" class="btn btn-success float-right">Simpan</button>
                 </form>

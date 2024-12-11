@@ -66,7 +66,7 @@ class KelasController extends Controller
                 'nama_kelas' => 'required|string|max:255',
                 'guru_nik' => 'required|exists:guru,nik',
                 'tahun_ajaran_id' => 'required|exists:tahun_ajaran,id',
-                'terms' => 'required',
+                
             ],
             [
                 'kode_kelas.required' => 'Kode kelas wajib diisi',
@@ -75,8 +75,8 @@ class KelasController extends Controller
                 'guru_nik.required' => 'Wali kelas wajib dipilih',
                 'guru_nik.exists' => 'Wali kelas tidak valid',
                 'tahun_ajaran_id.required' => 'Tahun ajaran wajib dipilih',
-                'tahun_ajaran_id.exists' => 'Tahun ajaran tidak valid',
-                'terms.required' => 'Wajib dicentang'
+                'tahun_ajaran_id.exists' => 'Tahun ajaran tidak valid'
+                
             ]
         );
         // Buat entri baru di tabel kelas
@@ -102,15 +102,15 @@ class KelasController extends Controller
                 'nama_kelas' => 'required|string|max:255',
                 'guru_nik' => 'required|exists:guru,nik',
                 'tahun_ajaran_id' => 'required|exists:tahun_ajaran,id',
-                'terms' => 'required',
+                
             ],
             [
                 'nama_kelas.required' => 'Nama kelas wajib diisi',
                 'guru_nik.required' => 'Wali kelas wajib dipilih',
                 'guru_nik.exists' => 'Wali kelas tidak valid',
                 'tahun_ajaran_id.required' => 'Tahun ajaran wajib dipilih',
-                'tahun_ajaran_id.exists' => 'Tahun ajaran tidak valid',
-                'terms.required' => 'Wajib dicentang'
+                'tahun_ajaran_id.exists' => 'Tahun ajaran tidak valid'
+                
 
             ]
         );

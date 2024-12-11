@@ -18,6 +18,7 @@ use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\SiswaKelasController;
 use App\Http\Controllers\TahunajaranController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TujuanPembelajaranController;
 use App\Models\MapelModel;
 use Illuminate\Support\Facades\Auth;
@@ -59,16 +60,28 @@ Route::get('login', [AuthController::class, "index"])->name('login');
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
 Route::get('logout', [AuthController::class, "logout"])->name('logout');
 Route::middleware(['auth'])->group(function () {
-    // Rute untuk Admin
+    // Rute Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->middleware('cek_login:1,2,3')
         ->name('dashboard');
+
+    // Rute Siswa
+    Route::get('/dashboard/siswa', [DashboardController::class, 'siswa'])
+        ->middleware('siswa')
+        ->name('dashboard.siswa');
+
+
 });
 
-Route::get('/dashboard/siswa', [DashboardController::class, 'siswa'])
-    ->middleware('siswa')
-    ->name('dashboard.siswa');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/account', [ProfileController::class, 'updateAccount'])->name('profile.account');
+});
 
+//Route::get('/dashbord/cetak/rapor/{id}', [DashboardController::class, 'Kelasrapor'])->name('cetak.rapor.index');
+
+//});
 
 
 
@@ -90,8 +103,6 @@ Route::prefix('eskul')->group(function () {
     Route::post('/save/{id}', [EskulController::class, 'SaveNilai'])->name('save.nilai.eskul');
     Route::put('/update{id}', [EskulController::class, 'update'])->name('eskul.update');
 });
-
-
 
 //rute untuk guru
 Route::prefix('guru')->group(function () {
@@ -122,7 +133,7 @@ Route::prefix('mapel')->group(function () {
 //rute untuk pembelajaran
 Route::prefix('pembelajaran')->group(function () {
     Route::get('/', [PembelajaranController::class, 'index'])->name('pembelajaran')->middleware(['cek_login:1']);
-    Route::get('/guru', [PembelajaranController::class, 'indexGuru'])->middleware(['cek_login:2']);
+    Route::get('/guru', [PembelajaranController::class, 'indexGuru'])->name('pembelajaran.guru')->middleware(['cek_login:2']);
     Route::post('/save', [PembelajaranController::class, 'save'])->name('save-pembelajaran')->middleware('cek_login:1');
     Route::get('/edit/{kode_pembelajaran}', [PembelajaranController::class, 'edit'])->name('edit-pembelajaran')->middleware('cek_login:1');
     Route::put('/update/{kode_pembelajaran}', [PembelajaranController::class, 'update'])->name('update-pembelajaran')->middleware('cek_login:1');

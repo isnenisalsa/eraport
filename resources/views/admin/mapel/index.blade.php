@@ -43,7 +43,7 @@
         </div>
     </div>
     <!-- Modal Tambah Data -->
-    @include('admin.mapel.create');
+    @include('admin.mapel.create')
     <!-- Modal Edit Data -->
-    @include('admin.mapel.update');
+    @include('admin.mapel.update')
 @endsection
