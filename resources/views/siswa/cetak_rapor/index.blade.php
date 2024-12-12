@@ -19,16 +19,21 @@
                             <tbody>
                                 <?php $no = 1; ?>
                                 @foreach ($kelas as $item)
-                                    <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>{{ $item->kelas->nama_kelas }}</td>
-                                        <td>{{ $item->kelas->guru->nama }}</td>
-                                        <td>{{ $item->kelas->tahun_ajarans->tahun_ajaran }}</td>
-                                        <td>
-                                            <a href="{{ route('cetak.index.siswa', $item->siswa_id) }}"
-                                                class="btn btn-info">Detail</a>
-                                        </td>
-                                    </tr>
+                                    @foreach ($item->kelas->tahunAjarans as $tahunAjaran)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $item->kelas->nama_kelas }}</td>
+                                            <td>{{ $item->kelas->guru->nama }}</td>
+                                            <td>
+                                                <div>{{ $tahunAjaran->tahun_ajaran }} - Semester
+                                                    {{ $tahunAjaran->semester }}</div>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('cetak.index.siswa', ['kode_kelas' => $item->kelas_id, 'nis' => $item->siswa_id, 'tahun_ajaran_id' => $tahunAjaran->id]) }}"
+                                                    class="btn btn-info">Detail</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 @endforeach
                             </tbody>
                         </table>

@@ -180,4 +180,18 @@ class CetakRaporController extends Controller
         // Mengambil semua data pembelajaran dengan relasi mapel, kelas, dan guru
         return view('siswa.cetak_rapor.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'kelas' => $kelas]);
     }
+    public function KelasRaporSiswaCetak($kode_kelas, $nis, $tahun_ajaran_id)
+    {
+
+        $breadcrumb = (object) [
+            'title' => 'Cetak Rapor',
+        ];
+
+        $activeMenu = 'Pembelajaran Siswa';
+        $user =  Auth::guard('siswa')->user();
+        $kelas = SiswaKelasModel::with('siswa', 'kelas')->where('siswa_id', $user->nis)->get();
+
+        // Mengambil semua data pembelajaran dengan relasi mapel, kelas, dan guru
+        return view('siswa.cetak_rapor.cetak', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'kelas' => $kelas, 'kode_kelas' => $kode_kelas, 'nis' => $nis, 'tahun_ajaran_id' => $tahun_ajaran_id]);
+    }
 }

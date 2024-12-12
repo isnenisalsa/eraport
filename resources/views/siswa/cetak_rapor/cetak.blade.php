@@ -20,7 +20,7 @@
                             <tr>
                                 <th scope="col">Tahun Ajaran</th>
                                 <th scope="col">:</th>
-                                <th scope="col">{{ $kelas->first()->kelas->tahun_ajarans->tahun_ajaran }}</th>
+                                <th scope="col">{{ $kelas->first()->kelas->tahunAjarans->first()->tahun_ajaran }}</th>
                             </tr>
                         </thead>
                     </table>
@@ -60,10 +60,10 @@
                                                     class="btn btn-warning btn-md me-2" title="Lihat Biodata">
                                                     <i class="fas fa-file-alt"></i>
                                                 </a>
-                                                </button>
-                                                <button class="btn btn-primary btn-md" title="Cetak Rapor">
-                                                    <i class="fas fa-print"> Rapor</i>
-                                                </button>
+                                                <a href="{{ route('walas.rapor', ['kode_kelas' => $kode_kelas, 'nis' => $nis, 'tahun_ajaran_id' => $tahun_ajaran_id]) }}"
+                                                    class="btn btn-warning btn-md me-2" title="Lihat Rapor"><i
+                                                        class="fas fa-print"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach
