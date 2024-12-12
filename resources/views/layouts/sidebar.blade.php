@@ -1,7 +1,8 @@
 <div class="sidebar">
     <!-- Sidebar Menu -->
-    <nav> <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-       
+    <nav>
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
 
             <!-- Dashboard Admin -->
             @if (auth()->check() &&

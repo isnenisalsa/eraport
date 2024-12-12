@@ -59,30 +59,22 @@ Route::get('/', function () {
 Route::get('login', [AuthController::class, "index"])->name('login');
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
 Route::get('logout', [AuthController::class, "logout"])->name('logout');
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth',])->group(function () {
     // Rute Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->middleware('cek_login:1,2,3')
         ->name('dashboard');
 });
-Route::get('/dashboard/siswa', [DashboardController::class, 'siswa'])
-    ->middleware('siswa')
-    ->name('dashboard.siswa');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
-    //Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
-    Route::post('/profile/account', [ProfileController::class, 'updateAccount'])->name('profile.account');
-    Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
-
+Route::middleware(['siswa',])->group(function () {
+    Route::get('/dashboard/siswa', [DashboardController::class, 'siswa'])
+        ->middleware('siswa')
+        ->name('dashboard.siswa');
 });
 
-//Route::get('/dashbord/cetak/rapor/{id}', [DashboardController::class, 'Kelasrapor'])->name('cetak.rapor.index');
-
-//});
-
-
-
+Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+//Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+Route::post('/profile/account', [ProfileController::class, 'updateAccount'])->name('profile.account');
+Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
 
 
 //rute untuk sekolah
@@ -189,6 +181,7 @@ Route::prefix('nilai')->group(function () {
 Route::prefix('walas/nilai/akhir')->group(function () {
     Route::get('/{kode_kelas}/{tahun_ajaran_id}', [NilaiAkhirController::class, 'index'])->name('nilai.akhir.index');
 });
+
 //rute cetak rapor
 Route::prefix('cetak/rapor')->group(function () {
     Route::get('/kelas', [CetakRaporController::class, 'KelasRapor'])->name('rapor.kelas');

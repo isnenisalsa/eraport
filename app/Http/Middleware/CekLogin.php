@@ -20,7 +20,7 @@ class CekLogin
 
         // Periksa apakah user sudah login
         if (!$user) {
-            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+            return   abort(403, 'Anda Tidak Memiliki Akses.');
         }
 
         // Ambil role user
@@ -28,7 +28,7 @@ class CekLogin
 
         // Periksa apakah ada role yang sesuai
         if (!array_intersect($userRoles, $roles)) {
-            return redirect()->route('login')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
+            return   abort(403, 'Role anda tidak sesuai.');
         }
 
         // Lanjutkan ke request berikutnya
