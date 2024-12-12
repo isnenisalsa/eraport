@@ -1,7 +1,7 @@
 <div class="sidebar">
     <!-- Sidebar Menu -->
-    <nav>
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+    <nav> <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+       
 
             <!-- Dashboard Admin -->
             @if (auth()->check() &&
@@ -25,7 +25,7 @@
             @endif
             @if (Auth::guard('siswa')->check())
                 <li class="nav-item">
-                    <a href="{{ url('cetak/rapor/siswa/') }}"
+                    <a href="{{ url('cetak/rapor/siswa') }}"
                         class="nav-link {{ $activeMenu == 'Pembelajaran Siswa' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-satellite" style="color: rgb(3, 3, 3)"></i>
                         <p style="color: rgb(10, 10, 10)">Data Pembelajaran</p>
@@ -34,58 +34,50 @@
             @endif
             <!-- Menu Wali Kelas -->
             @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
-                @php
-                    // Cek apakah guru tersebut mengampu kelas (misalnya dengan cek kelas yang dia ampu)
-                    $guru = auth()->user();
-                    $mengampuKelas = $guru->kelas()->exists(); // Sesuaikan relasi dengan model yang sesuai, misal kelas yang dia ampu
-                @endphp
-
-                @if ($mengampuKelas)
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-solid fa-school" style="color: black"></i>
-                            <p style="color: black">&nbsp; Wali Kelas <i class="right fas fa-angle-left"
-                                    style="color: black"></i></p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ url('/kelas/walas') }}"
-                                    class="nav-link {{ $activeMenu == 'Data Kelas' ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-user" style="color: rgb(3, 3, 3)"></i>
-                                    <p style="color: rgb(10, 10, 10)">Data Kelas</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ url('absensi/kelas/') }}"
-                                    class="nav-link {{ $activeMenu == 'Absensi Siswa' ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-calendar-check" style="color: rgb(3, 3, 3)"></i>
-                                    <p style="color: rgb(10, 10, 10)">Absensi Siswa</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ url('eskul/kelas') }}"
-                                    class="nav-link {{ $activeMenu == 'Absensi Siswa' ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-calendar-check" style="color: rgb(3, 3, 3)"></i>
-                                    <p style="color: rgb(10, 10, 10)"> Data Ekstrakurikuler</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ url('kelas/walas/nilai') }}"
-                                    class="nav-link {{ $activeMenu == 'Data Nilai Akhir' ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-archive" style="color: rgb(3, 3, 3)"></i>
-                                    <p style="color: rgb(10, 10, 10)">Data Nilai Akhir</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ url('cetak/rapor/kelas/') }}"
-                                    class="nav-link {{ $activeMenu == 'Cetak Rapot' ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-print" style="color: rgb(3, 3, 3)"></i>
-                                    <p style="color: rgb(10, 10, 10)">Cetak Rapor</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                @endif
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-solid fa-school" style="color: black"></i>
+                        <p style="color: black">&nbsp; Wali Kelas <i class="right fas fa-angle-left"
+                                style="color: black"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ url('/kelas/walas') }}"
+                                class="nav-link {{ $activeMenu == 'Data Kelas' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user" style="color: rgb(3, 3, 3)"></i>
+                                <p style="color: rgb(10, 10, 10)">Data Kelas</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('absensi/kelas/') }}"
+                                class="nav-link {{ $activeMenu == 'Absensi Siswa' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-calendar-check" style="color: rgb(3, 3, 3)"></i>
+                                <p style="color: rgb(10, 10, 10)">Absensi Siswa</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('eskul/kelas') }}"
+                                class="nav-link {{ $activeMenu == 'Absensi Siswa' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-calendar-check" style="color: rgb(3, 3, 3)"></i>
+                                <p style="color: rgb(10, 10, 10)"> Data Ekstrakurikuler</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('kelas/walas/nilai') }}"
+                                class="nav-link {{ $activeMenu == 'Data Nilai Akhir' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-archive" style="color: rgb(3, 3, 3)"></i>
+                                <p style="color: rgb(10, 10, 10)">Data Nilai Akhir</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('cetak/rapor/kelas/') }}"
+                                class="nav-link {{ $activeMenu == 'Cetak Rapot' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-print" style="color: rgb(3, 3, 3)"></i>
+                                <p style="color: rgb(10, 10, 10)">Cetak Rapor</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             @endif
 
             <!-- Menu Guru Mapel -->

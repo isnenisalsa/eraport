@@ -17,3 +17,96 @@
 .sidebar-light-light .nav-sidebar>.nav-item>.nav-link.active {
     background-color: #1e1d1d23;
 }
+/* Gradient Colors */
+/* Gradient Colors (Simple) */
+.space-big-counter-pink {
+    background: linear-gradient(to bottom, #ffe5e9, #fdc8ce); /* Pink muda ke pink utama */
+    color: #fff;
+}
+
+.space-big-counter-merah {
+    background: linear-gradient(to bottom, #e06666, #cc3333); /* Merah muda ke merah utama */
+    color: #fff;
+}
+
+.space-big-counter-brown {
+    background: linear-gradient(to bottom, #cc9966, #993300); /* Cokelat muda ke cokelat utama */
+    color: #fff;
+}
+
+.space-big-counter-orange {
+    background: linear-gradient(to bottom, #ff9966, #ff6600); /* Oranye muda ke oranye utama */
+    color: #fff;
+}
+
+.space-big-counter-hijau-toska {
+    background: linear-gradient(to bottom, #009999, #006666); /* Toska muda ke toska utama */
+    color: #fff;
+}
+
+.space-big-counter-biru-tua {
+    background: linear-gradient(to bottom, #3333cc, #000099); /* Biru terang ke biru utama */
+    color: #fff;
+}
+
+.space-big-counter-ungu-muda {
+    background: linear-gradient(to bottom, #e6b3ff, #cc66ff); /* Ungu terang ke ungu utama */
+    color: #fff;
+}
+
+.space-big-counter-hijau-lumut {
+    background: linear-gradient(to bottom, #999966, #666633); /* Hijau terang ke hijau utama */
+    color: #fff;
+}
+
+.space-big-counter-pink-tua {
+    background: linear-gradient(to bottom, #cc6699, #990066); /* Pink terang ke pink utama */
+    color: #fff;
+}
+
+
+.pace-big-counter-pink {
+    background-color: #fdc8ce; /* Ganti dengan warna kuning yang diinginkan */
+    color: #fff; /* Atur warna teks */
+    
+}
+.pace-big-counter-merah {
+    background-color: #cc3333; /* Ganti dengan warna kuning yang diinginkan */
+    color: #fff; /* Atur warna teks */
+    
+}
+.pace-big-counter-brown {
+    background-color: #993300; /* Ganti dengan warna kuning yang diinginkan */
+    color: #fff; /* Atur warna teks */
+    
+}
+.pace-big-counter-orange {
+    background-color: #ff6600; /* Ganti dengan warna kuning yang diinginkan */
+    color: #fff; /* Atur warna teks */
+    
+}
+.pace-big-counter-hijau-toska {
+    background-color: #006666; /* Ganti dengan warna kuning yang diinginkan */
+    color: #fff; /* Atur warna teks */
+    
+}
+.pace-big-counter-biru-tua {
+    background-color: #000099; /* Ganti dengan warna kuning yang diinginkan */
+    color: #fff; /* Atur warna teks */
+    
+}
+.pace-big-counter-ungu-muda {
+    background-color: #cc66ff; /* Ganti dengan warna kuning yang diinginkan */
+    color: #fff; /* Atur warna teks */
+    
+}
+.pace-big-counter-hijau-lumut {
+    background-color: #666633; /* Ganti dengan warna kuning yang diinginkan */
+    color: #fff; /* Atur warna teks */
+    
+}
+.pace-big-counter-pink-tua {
+    background-color: #990066; /* Ganti dengan warna kuning yang diinginkan */
+    color: #fff; /* Atur warna teks */
+    
+}

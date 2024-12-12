@@ -71,8 +71,10 @@ Route::get('/dashboard/siswa', [DashboardController::class, 'siswa'])
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
-    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    //Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('/profile/account', [ProfileController::class, 'updateAccount'])->name('profile.account');
+    Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
+
 });
 
 //Route::get('/dashbord/cetak/rapor/{id}', [DashboardController::class, 'Kelasrapor'])->name('cetak.rapor.index');

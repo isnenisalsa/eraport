@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class GuruModel extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $table = 'guru';
     protected $primaryKey = "nik";
@@ -31,9 +31,17 @@ class GuruModel extends Authenticatable
         'email',
         'username',
         'password',
-        'alamat',
-
     ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
     public function roles()
     {
         return $this->belongsToMany(RolesModel::class, 'guru_roles', 'guru_nik', 'role_id');
@@ -46,8 +54,9 @@ class GuruModel extends Authenticatable
     {
         return $this->belongsTo(PembelajaranModel::class, 'nik', 'nama_guru');
     }
-    public function profil()
+
+    public function setPasswordAttribute($value)
     {
-        return $this->belongsTo(ProfileController::class, 'nik', 'guru_nik');
+        $this->attributes['password'] = bcrypt($value);
     }
 }
