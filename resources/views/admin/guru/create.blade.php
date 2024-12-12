@@ -39,9 +39,9 @@
                             <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
                             <select class="form-control" name="jenis_kelamin" id="jenis_kelamin">
                                 <option value="">Pilih</option>
-                                <option value="laki-laki" {{ old('status') == 'laki-laki' ? 'selected' : '' }}>laki-laki
+                                <option value="Laki-Laki" {{ old('status') == 'laki-laki' ? 'selected' : '' }}>Laki-Laki
                                 </option>
-                                <option value="perempuan" {{ old('status') == 'perempuan' ? 'selected' : '' }}>perempuan
+                                <option value="Perempuan" {{ old('status') == 'perempuan' ? 'selected' : '' }}>Perempuan
                                 </option>
                             </select>
                             @if ($errors->has('jenis_kelamin'))
@@ -54,18 +54,6 @@
                                 name="jabatan" value="{{ old('jabatan') }}">
                             @if ($errors->has('jabatan'))
                                 <div class="text-danger">{{ $errors->first('jabatan') }}</div>
-                            @endif
-                        </div>
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Status</label>
-                            <select class="form-control" name="status" id="status">
-                                <option value="">Pilih Status</option>
-                                <option value="aktif" {{ old('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
-                                <option value="tidak aktif" {{ old('status') == 'tidak aktif' ? 'selected' : '' }}>Tidak
-                                    Aktif</option>
-                            </select>
-                            @if ($errors->has('status'))
-                                <div class="text-danger">{{ $errors->first('status') }}</div>
                             @endif
                         </div>
 
@@ -82,7 +70,7 @@
                             <label for="telepon" class="form-label">No Telepon</label>
                             <input type="text" class="form-control" id="telepon"
                                 placeholder="Inputkan Nomor Telepon Anda" name="no_telp" value="{{ old('no_telp') }}"
-                                maxlength="12">
+                                maxlength="13">
                             @if ($errors->has('no_telp'))
                                 <div class="text-danger">{{ $errors->first('no_telp') }}</div>
                             @endif
@@ -113,15 +101,15 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="agama" class="form-label">agama</label>
+                            <label for="agama" class="form-label">Agama</label>
                             <select class="form-control" name="agama" id="agama">
                                 <option value="">Pilih</option>
-                                <option value="islam" {{ old('agama') == 'islam' ? 'selected' : '' }}>Islam</option>
-                                <option value="kristen" {{ old('agama') == 'kristen' ? 'selected' : '' }}>Kristen
+                                <option value="Islam" {{ old('agama') == 'islam' ? 'selected' : '' }}>Islam</option>
+                                <option value="Kristen" {{ old('agama') == 'kristen' ? 'selected' : '' }}>Kristen
                                 </option>
-                                <option value="hindu" {{ old('agama') == 'hindu' ? 'selected' : '' }}>Hindu
+                                <option value="Hindu" {{ old('agama') == 'hindu' ? 'selected' : '' }}>Hindu
                                 </option>
-                                <option value="budha" {{ old('agama') == 'budha' ? 'selected' : '' }}>Budha
+                                <option value="Budha" {{ old('agama') == 'budha' ? 'selected' : '' }}>Budha
                                 </option>
                             </select>
                             @if ($errors->has('agama'))
@@ -137,7 +125,7 @@
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label for="status_perkawinan" class="form-label">status perkawinan</label>
+                            <label for="status_perkawinan" class="form-label">Status Perkawinan</label>
                             <select class="form-control" name="status_perkawinan" id="status_perkawinan">
                                 <option value="">Pilih</option>
                                 <option value="Menikah" {{ old('status_perkawinan') == 'Menikah' ? 'selected' : '' }}>

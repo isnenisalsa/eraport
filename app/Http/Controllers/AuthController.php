@@ -26,7 +26,6 @@ class AuthController extends Controller
         // Autentikasi sebagai pengguna dengan role-based
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-
             // Ambil semua role user (asumsi relasi roles sudah ada)
             $roleIds = $user->roles->pluck('id')->toArray();
             // Redirect berdasarkan role
@@ -43,14 +42,14 @@ class AuthController extends Controller
         }
 
         // Autentikasi sebagai siswa
-        $siswa = SiswaModel::where('username', $request->username)->first();
-        if ($siswa && Hash::check($request->password, $siswa->password)) {
-            // Gunakan guard 'siswa' jika middleware telah dikonfigurasi
-            Auth::guard('siswa')->login($siswa);
+        // $siswa = SiswaModel::where('username', $request->username)->first();
+        // if ($siswa && Hash::check($request->password, $siswa->password)) {
+        //     // Gunakan guard 'siswa' jika middleware telah dikonfigurasi
+        //     Auth::guard('siswa')->login($siswa);
 
-            // Redirect ke dashboard siswa
-            return redirect()->route('dashboard.siswa');
-        }
+        //     // Redirect ke dashboard siswa
+        //     return redirect()->route('dashboard.siswa');
+        // }
 
         // Jika login gagal
         return redirect('login')->with(['login_failed' => 'Username atau password salah.']);

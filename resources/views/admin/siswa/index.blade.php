@@ -22,13 +22,13 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Status</th>
-                                    <th>Nis</th>
-                                    <th>Nisn</th>
+                                    <th>NIS</th>
+                                    <th>NISN</th>
                                     <th>Nama</th>
                                     <th>Jenis Kelamin</th>
                                     <th>Tempat Lahir</th>
                                     <th>Tanggal Lahir</th>
+                                    <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -37,13 +37,13 @@
                                 @foreach ($siswa as $item)
                                     <tr>
                                         <td>{{ $no++ }}</td>
-                                        <td>{{ $item->status }}</td>
                                         <td>{{ $item->nis }}</td>
                                         <td>{{ $item->nisn }}</td>
                                         <td>{{ $item->nama }}</td>
                                         <td>{{ $item->jenis_kelamin }}</td>
                                         <td>{{ $item->tempat_lahir }}</td>
                                         <td>{{ $item->tanggal_lahir }}</td>
+                                        <td>{{ $item->status }}</td>
                                         <td>
                                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                                 data-target="#modalDetail{{ $item->nis }}">Detail </button>
@@ -77,11 +77,11 @@
                         <table class="table table-bordered" style="font-size: 18px;">
 
                             <tr>
-                                <th>nis</th>
+                                <th>NIS</th>
                                 <td>{{ $item->nis }}</td>
                             </tr>
                             <tr>
-                                <th>nisn</th>
+                                <th>NISN</th>
                                 <td>{{ $item->nisn }}</td>
                             </tr>
                             <tr>
@@ -125,7 +125,7 @@
                                 <td>{{ $item->kelurahan}}</td>
                             </tr>
                             <tr>
-                                <th>kecamatan</th>
+                                <th>Kecamatan</th>
                                 <td>{{ $item->kecamatan}}</td>
                             </tr>
                             <tr>

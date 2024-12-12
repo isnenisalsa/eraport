@@ -52,20 +52,26 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label for="nama" class="form-label">Nama </label>
-                                            <input type="text" id="nama" name="nama" class="form-control" value="{{ old('nama', $user->nama) }}" required>
+                                            <input type="text" id="nama" name="nama" class="form-control"
+                                                value="{{ old('nama', $user->nama) }}" required>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
                                             <select class="form-control" name="jenis_kelamin" id="jenis_kelamin" required>
-                                                <option value="laki-laki" {{ old('jenis_kelamin', $user->jenis_kelamin) == 'laki-laki' ? 'selected' : '' }}>Laki-laki</option>
-                                                <option value="perempuan" {{ old('jenis_kelamin', $user->jenis_kelamin) == 'perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                                <option value="laki-laki"
+                                                    {{ old('jenis_kelamin', $user->jenis_kelamin) == 'Laki-laki' ? 'selected' : '' }}>
+                                                    Laki-laki</option>
+                                                <option value="perempuan"
+                                                    {{ old('jenis_kelamin', $user->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>
+                                                    Perempuan</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label for="nip" class="form-label">NIP</label>
-                                            <input type="text" id="nip" name="nip" class="form-control" value="{{ old('nip', $user->nip) }}">
+                                            <input type="text" id="nip" name="nip" class="form-control"
+                                                value="{{ old('nip', $user->nip) }}">
                                         </div>
                                         <div class="col-md-6">
                                             <label for="alamat" class="form-label">Alamat</label>
@@ -93,7 +99,7 @@
                                                 value="{{ $user->email }}">
                                         </div>
                                     </div>
-                                    
+
                                     <div class="row mt-3">
                                         <div class="col-md-6">
                                             <label for="password" class="form-label">Password</label>

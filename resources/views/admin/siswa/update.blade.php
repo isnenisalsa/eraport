@@ -15,10 +15,10 @@
                             <label for="status" class="form-label">Status</label>
                             <select class="form-control" name="status" id="status">
                                 <option value="">Pilih</option>
-                                <option value="aktif" {{ old('status', $siswa->status) == 'aktif' ? 'selected' : '' }}>
+                                <option value="Aktif" {{ old('status', $siswa->status) == 'aktif' ? 'selected' : '' }}>
                                     Aktif
                                 </option>
-                                <option value="tidak aktif"
+                                <option value="Tidak Aktif"
                                     {{ old('status', $siswa->status) == 'tidak aktif' ? 'selected' : '' }}>Tidak Aktif
                                 </option>
                             </select>
@@ -69,7 +69,7 @@
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label for="agama" class="form-label">agama</label>
+                            <label for="agama" class="form-label">Agama</label>
                             <select class="form-control" name="agama" id="agama">
                                 <option value="">Pilih</option>
                                 <option value="Islam"{{ old('agama', $siswa->agama) == 'Islam' ? 'selected' : '' }}>Islam
@@ -190,7 +190,7 @@
                         <div class="mb-3">
                             <label for="no_telp_ayah" class="form-label">Nomor Telepon Ayah</label>
                             <input type="text" class="form-control" value="{{ $siswa->no_telp_ayah }} "
-                                id="no_telp_ayah" placeholder="Inputkan Nomor Telepon Ayah" name="no_telp_ayah">
+                                id="no_telp_ayah" placeholder="Inputkan Nomor Telepon Ayah" name="no_telp_ayah" maxlength="13">
                             @if ($errors->has('no_telp_ayah'))
                                 <div class="text-danger">{{ $errors->first('no_telp_ayah') }}</div>
                             @endif
@@ -214,7 +214,7 @@
                         <div class="mb-3">
                             <label for="no_telp_ibu" class="form-label">Nomor Telepon Ibu</label>
                             <input type="text" class="form-control" value="{{ $siswa->no_telp_ibu }} "
-                                id="no_telp_ibu" placeholder="Inputkan Pekerjaan Ibu" name="no_telp_ibu">
+                                id="no_telp_ibu" placeholder="Inputkan Pekerjaan Ibu" name="no_telp_ibu" maxlength="13">
                             @if ($errors->has('no_telp_ibu'))
                                 <div class="text-danger">{{ $errors->first('no_telp_ibu') }}</div>
                             @endif
@@ -238,7 +238,7 @@
                         <div class="mb-3">
                             <label for="no_telp_wali" class="form-label">Nomor Telepon Wali</label>
                             <input type="text" class="form-control" value="{{ $siswa->no_telp_wali }} "
-                                id="no_telp_wali" placeholder="Inputkan Nomor Telepon Wali" name="no_telp_wali">
+                                id="no_telp_wali" placeholder="Inputkan Nomor Telepon Wali" name="no_telp_wali" maxlength="13">
                             @if ($errors->has('no_telp_wali'))
                                 <div class="text-danger">{{ $errors->first('no_telp_wali') }}</div>
                             @endif

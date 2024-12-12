@@ -14,9 +14,9 @@
                             <label for="status" class="form-label">Status</label>
                             <select class="form-control" name="status" id="status">
                                 <option value="">Pilih</option>
-                                <option value="aktif" {{ old('status', $guru->status) == 'aktif' ? 'selected' : '' }}>Aktif
+                                <option value="Aktif" {{ old('status', $guru->status) == 'aktif' ? 'selected' : '' }}>Aktif
                                 </option>
-                                <option value="tidak aktif"
+                                <option value="Tidak Aktif"
                                     {{ old('status', $guru->status) == 'tidak aktif' ? 'selected' : '' }}>Tidak Aktif
                                 </option>
                             </select>
@@ -35,7 +35,7 @@
                         <div class="mb-3">
                             <label for="nip" class="form-label">NIP</label>
                             <input type="text" class="form-control" id="nip" placeholder="Inputkan NIP Anda"
-                                name="nip" value="{{ $guru->nip }}" maxlength="10">
+                                name="nip" value="{{ $guru->nip }}" maxlength="10" readonly>
                             @if ($errors->has('nip'))
                                 <div class="text-danger">{{ $errors->first('nip') }}</div>
                             @endif
@@ -83,7 +83,7 @@
                         <div class="mb-3">
                             <label for="telepon" class="form-label">No Telepon</label>
                             <input type="text" class="form-control" value="{{ $guru->no_telp }} " id="telepon"
-                                placeholder="Inputkan Nomor Telepon Anda" name="no_telp">
+                                placeholder="Inputkan Nomor Telepon Anda" name="no_telp" maxlength="13">
                             @if ($errors->has('no_telp'))
                                 <div class="text-danger">{{ $errors->first('no_telp') }}</div>
                             @endif
@@ -114,16 +114,16 @@
 
 
                         <div class="mb-3">
-                            <label for="agama" class="form-label">agama</label>
+                            <label for="agama" class="form-label">Agama</label>
                             <select class="form-control" name="agama" id="agama">
                                 <option value="">Pilih</option>
-                                <option value="islam"{{ old('agama', $guru->agama) == 'islam' ? 'selected' : '' }}>Islam
+                                <option value="Islam"{{ old('agama', $guru->agama) == 'islam' ? 'selected' : '' }}>Islam
                                 </option>
-                                <option value="kristen"{{ old('agama', $guru->agama) == 'kristen' ? 'selected' : '' }}>
+                                <option value="Kristen"{{ old('agama', $guru->agama) == 'kristen' ? 'selected' : '' }}>
                                     Kristen</option>
-                                <option value="hindu"{{ old('agama', $guru->agama) == 'hindu' ? 'selected' : '' }}>Hindu
+                                <option value="Hindu"{{ old('agama', $guru->agama) == 'hindu' ? 'selected' : '' }}>Hindu
                                 </option>
-                                <option value="budha"{{ old('agama', $guru->agama) == 'budha' ? 'selected' : '' }}>Budha
+                                <option value="Budha"{{ old('agama', $guru->agama) == 'budha' ? 'selected' : '' }}>Budha
                                 </option>
                             </select>
                             @if ($errors->has('agama'))

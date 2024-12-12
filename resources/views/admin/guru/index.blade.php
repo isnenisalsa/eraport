@@ -15,9 +15,9 @@
                                     <th>Nama</th>
                                     <th>Jabatan</th>
                                     <th>Pendidikan Terakhir</th>
-                                    <th>telepon</th>
-                                    <th>status</th>
-                                    <th>aksi</th>
+                                    <th>Telepon</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>

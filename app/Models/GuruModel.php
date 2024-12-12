@@ -55,8 +55,5 @@ class GuruModel extends Authenticatable
         return $this->belongsTo(PembelajaranModel::class, 'nik', 'nama_guru');
     }
 
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
+  
 }

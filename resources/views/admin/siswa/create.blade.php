@@ -148,7 +148,7 @@
                         <div class="mb-3">
                             <label for="no_telp_ayah" class="form-label">Nomor Telepon Ayah</label>
                             <input type="text" class="form-control" id="no_telp_ayah"
-                                placeholder="Inputkan Nomor Telepon Ayah" name="no_telp_ayah"
+                                placeholder="Inputkan Nomor Telepon Ayah" name="no_telp_ayah" maxlength="13"
                                 value="{{ old('no_telp_ayah') }}">
                             @if ($errors->has('no_telp_ayah'))
                                 <div class="text-danger">{{ $errors->first('no_telp_ayah') }}</div>
@@ -174,7 +174,7 @@
                         <div class="mb-3">
                             <label for="no_telp_ibu" class="form-label">Nomor Telepon Ibu</label>
                             <input type="text" class="form-control" id="no_telp_ibu"
-                                placeholder="Inputkan Nomor Telepon Ibu" name="no_telp_ibu"
+                                placeholder="Inputkan Nomor Telepon Ibu" name="no_telp_ibu" maxlength="13"
                                 value="{{ old('no_telp_ibu') }}">
                             @if ($errors->has('no_telp_ibu'))
                                 <div class="text-danger">{{ $errors->first('no_telp_ibu') }}</div>
@@ -200,7 +200,7 @@
                         <div class="mb-3">
                             <label for="no_telp_wali" class="form-label">Nomor Telepon Wali</label>
                             <input type="text" class="form-control" id="no_telp_wali"
-                                placeholder="Inputkan Nomor Telepon Wali" name="no_telp_wali"
+                                placeholder="Inputkan Nomor Telepon Wali" name="no_telp_wali" maxlength="13"
                                 value="{{ old('no_telp_wali') }}">
                             @if ($errors->has('no_telp_wali'))
                                 <div class="text-danger">{{ $errors->first('no_telp_wali') }}</div>
