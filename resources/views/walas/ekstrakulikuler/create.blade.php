@@ -35,7 +35,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="eskul_id">ekstrakulikuler</label>
+                            <label for="eskul_id">Ekstrakulikuler</label>
                             <select name="eskul_id" class="form-control"
                                 style="width: 100%; height: 50px; overflow-y: scroll" id="eskul_id" required>
                                 <option value="">- Pilih ekstrakulikuler -</option>
@@ -47,9 +47,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="keterangan" class="form-label">keterangan</label>
+                            <label for="keterangan" class="form-label">Keterangan</label>
                             <input type="text" class="form-control" id="keterangan"
-                                placeholder="Inputkan keterangan Anda" name="keterangan"
+                                placeholder="Inputkan Keterangan Anda" name="keterangan"
                                 value="{{ old('keterangan') }}">
                             @if ($errors->has('keterangan'))
                                 <div class="text-danger">{{ $errors->first('keterangan') }}</div>

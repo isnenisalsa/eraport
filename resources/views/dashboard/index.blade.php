@@ -114,11 +114,12 @@
 
             <!-- Guru & Walas -->
             <!-- Kartu Data Kelas -->
+            @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
             <div class="col-md-3 mb-2">
                 <div class="card text-white pace-big-counter-hijau-lumut h-auto">
                     <!-- Gunakan h-auto untuk tinggi otomatis -->
                     <div class="card-body p-2"> <!-- Mengurangi padding dengan p-2 -->
-                        <p class="h5">{{ $dataEskulCount }}</p>
+                        <p class="h5">{{  $pembelajaran_walas }}</p>
                         <h5>Data Kelas</h5>
                     </div>
                     <a href="{{ route('kelas.walas') }}" class="card-footer space-big-counter-hijau-lumut text-center p-2">
@@ -126,6 +127,7 @@
                     </a>
                 </div>
             </div>
+            @endif
 
             <!-- Kartu Data Pembelajaran -->
             @if (auth()->check() && auth()->user()->roles->contains('nama', 'guru'))
@@ -133,7 +135,7 @@
                     <div class="card text-white pace-big-counter-pink-tua h-auto">
                         <!-- Gunakan h-auto untuk tinggi otomatis -->
                         <div class="card-body p-2"> <!-- Mengurangi padding dengan p-2 -->
-                            <p class="h5">{{ $dataPembelajaranCount }}</p>
+                            <p class="h5">{{ $pembelajaran_guru }}</p>
                             <h5>Data Pembelajaran</h5>
                         </div>
                         <a href="{{ route('pembelajaran.guru') }}"

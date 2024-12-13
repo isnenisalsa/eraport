@@ -32,7 +32,7 @@ class NilaiAkhirController extends Controller
         $breadcrumb = (object)[
             'title' => 'DATA NILAI AKHIR',
         ];
-        $activeMenu = 'pembelajaran';
+        $activeMenu = 'Data Nilai Akhir';
 
         return view('walas.nilaiakhir.nilai', [
             'breadcrumb' => $breadcrumb,

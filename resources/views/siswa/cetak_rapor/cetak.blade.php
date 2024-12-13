@@ -13,7 +13,7 @@
                                 <th scope="col">{{ $kelas->first()->kelas->nama_kelas }}</th>
                             </tr>
                             <tr>
-                                <th scope="col">Guru Pengampu</th>
+                                <th scope="col">Wali Kelas</th>
                                 <th scope="col">:</th>
                                 <th scope="col">{{ $kelas->first()->kelas->guru->nama }}</th>
                             </tr>
@@ -37,7 +37,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>NIS \ NISN</th>
+                                        <th>NIS / NISN</th>
                                         <th>Nama</th>
                                         <th>Jenis Kelamin</th>
                                         <th>Aksi</th>
@@ -48,7 +48,7 @@
                                     @foreach ($kelas as $item)
                                         <tr>
                                             <td>{{ $no++ }}</td>
-                                            <td>{{ $item->siswa->nis }} \ {{ $item->siswa->nisn }}</td>
+                                            <td>{{ $item->siswa->nis }} / {{ $item->siswa->nisn }}</td>
                                             <td>{{ $item->siswa->nama }}</td>
                                             <td>{{ $item->siswa->jenis_kelamin }}</td>
                                             <td>
@@ -57,11 +57,11 @@
                                                     <i class="fas fa-file-alt"></i>
                                                 </a>
                                                 <a href="{{ route('walas.biodata', $item->siswa->nis) }}"
-                                                    class="btn btn-warning btn-md me-2" title="Lihat Biodata">
-                                                    <i class="fas fa-file-alt"></i>
+                                                    class="btn btn-primary btn-md me-2" title="Lihat Biodata">
+                                                    <i class="fas fa-user"></i>
                                                 </a>
                                                 <a href="{{ route('walas.rapor', ['kode_kelas' => $kode_kelas, 'nis' => $nis, 'tahun_ajaran_id' => $tahun_ajaran_id]) }}"
-                                                    class="btn btn-warning btn-md me-2" title="Lihat Rapor"><i
+                                                    class="btn btn-success btn-md me-2" title="Lihat Rapor"><i
                                                         class="fas fa-print"></i>
                                                 </a>
                                             </td>

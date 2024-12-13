@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\KelasModel;
+use App\Models\PembelajaranModel;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\SiswaKelasModel;
 use App\Models\SiswaModel;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -23,6 +25,12 @@ class DashboardController extends Controller
         'title' => 'DASHBOARD',
     ];
     $activeMenu = 'dashboard';
+    $user = Auth::user();
+   
+    $pembelajaran_guru = PembelajaranModel::where('nama_guru',$user->nik)->get()->count();
+
+    $pembelajaran_walas = KelasModel::where('guru_nik', $user->nik)->get()->count();
+    //dd($pembelajaran_walas);
     // Ambil jumlah data siswa
     $dataSiswaCount = DB::table('siswa')->count(); // Sesuaikan dengan nama tabel 'siswa'
     $dataGuruCount = DB::table('guru')->count();
@@ -46,8 +54,9 @@ class DashboardController extends Controller
         'dataMapelCount' => $dataMapelCount,
         'dataPembelajaranCount' => $dataPembelajaranCount,
         'dataEskulCount' => $dataEskulCount,
-        'dataKelasWalasCount' => $dataKelasWalasCount,
-        'dataPembelajaranWalasCount' => $dataPembelajaranCount,
+        //'dataKelasWalasCount' => $dataKelasWalasCount,
+        'pembelajaran_guru' => $pembelajaran_guru,
+        'pembelajaran_walas' => $pembelajaran_walas,
     ]);
 }
 

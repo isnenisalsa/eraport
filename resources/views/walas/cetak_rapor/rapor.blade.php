@@ -70,7 +70,10 @@
                 margin: 0;
                 padding: 0;
             }
-
+            #custom-date {
+        border: none;
+        background: none;
+    }
             .rapor-container {
                 margin: 0;
                 padding: 0;
@@ -293,43 +296,88 @@
         </table>
 
         <!-- Bagian Tanda Tangan -->
-        <div style="margin-top: 40px; text-align: center; display: flex; flex-direction: column; align-items: center;">
-            <!-- Baris Orang Tua dan Wali Kelas -->
-            <div style="width: 100%; display: flex; justify-content: space-around; margin-bottom: 40px;">
-                <div style="text-align: center;">
-                    Orang Tua,
-                    <br><br><br><br>
-                    <span>____________________</span>
-                </div>
-                <div style="text-align: center; margin-top: 50px;">
-                    <!-- Tanggal tanda tangan -->
-                    23 Desember 2023
-                    <br>Wali Kelas,
-                    <br><br><br><br>
-                    <br>{{ $kelas->first()->guru->nama }} <!-- Tampilkan NIK Wali Kelas -->
-                    <br>
-                    NIP. <span>{{ $kelas->first()->guru->nip }}</span>
-
-                </div>
-            </div>
-            <!-- Baris Kepala Sekolah -->
-            <div style="text-align: center; margin-top: 40px;">
-                23 Desember 2023
-                <br>Kepala Sekolah,
-                <br><br><br><br>
-                <span>{{ $sekolah->nama_kepsek }}</span>
-                <br>
-                NIP. <span>{{ $sekolah->nip_kepsek }}</span>
-            </div>
+        <!-- Bagian Tanda Tangan -->
+<!-- Bagian Tanda Tangan -->
+<div style="margin-top: 40px; text-align: center;">
+    <!-- Baris Orang Tua dan Wali Kelas -->
+    <div style="width: 100%; display: flex; justify-content: space-around; align-items: flex-start; margin-bottom: 40px;">
+        <!-- Tanda tangan Orang Tua -->
+        <div style="text-align: center;">
+            <br>
+            Orang Tua,
+            <br><br><br><br><br>
+            <span>____________________</span>
         </div>
 
-
-
-        <!-- Tombol untuk Print -->
-        <button class="no-print" onclick="window.print()" style="margin-top: 20px;">Cetak Rapor</button>
-        <!-- Tambahkan tombol di dalam <body> -->
-
+        <!-- Tanda tangan Wali Kelas -->
+        <div style="text-align: center;">
+            <!-- Tanggal tanda tangan -->
+            <label for="formatted-date"></label>
+            <span id="formatted-date"></span>
+            <br>Wali Kelas
+            <br><br><br><br>
+            <span>{{ $kelas->first()->guru->nama }}</span> <!-- Tampilkan nama Wali Kelas -->
+            <br>
+            NIP. <span>{{ $kelas->first()->guru->nip }}</span>
+        </div>
     </div>
+
+    <!-- Baris Kepala Sekolah -->
+    <div style="text-align: center; margin-top: 40px;">
+        <br>Mengetahui,
+        <br>Kepala Sekolah
+        <br><br><br><br>
+        <span>{{ $sekolah->nama_kepsek }}</span>
+        <br>
+        NIP. <span>{{ $sekolah->nip_kepsek }}</span>
+    </div>
+</div>
+
+<!-- Input untuk memilih tanggal (Hanya muncul di layar, tidak saat print) -->
+<div style="text-align: center; margin-top: 20px;" class="no-print">
+    <label for="custom-date">Pilih Tanggal:</label>
+    <input type="date" id="custom-date" name="custom-date" value="">
+</div>
+
+<!-- Tombol untuk Print -->
+<button class="no-print" onclick="window.print()" style="margin-top: 20px;">Cetak Rapor</button>
+
+<script>
+    // Array bulan dalam bahasa Indonesia
+    const monthsOfYear = [
+        "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+        "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+    ];
+
+    const customDateInput = document.getElementById("custom-date");
+
+    // Atur default tanggal ke hari ini
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+    const day = String(currentDate.getDate()).padStart(2, "0");
+    customDateInput.value = `${year}-${month}-${day}`;
+
+    // Menambahkan event listener untuk mencetak tanggal yang dipilih
+    customDateInput.addEventListener("change", () => {
+        const selectedDate = new Date(customDateInput.value);
+        const formattedDate = `${selectedDate.getDate()} ${monthsOfYear[selectedDate.getMonth()]} ${selectedDate.getFullYear()}`;
+        document.getElementById("formatted-date").textContent = formattedDate;
+    });
+
+    // Update teks awal dengan format baru
+    const formattedDate = `${day} ${monthsOfYear[currentDate.getMonth()]} ${year}`;
+    document.getElementById("formatted-date").textContent = formattedDate;
+</script>
+
+<!-- CSS untuk menyembunyikan elemen saat print -->
+<style>
+    @media print {
+        .no-print {
+            display: none;
+        }
+    }
+</style>
 
 
 </body>

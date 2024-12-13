@@ -43,8 +43,8 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nis</th>
-                                    <th>Nisn</th>
+                                    <th>NIS</th>
+                                    <th>NISN</th>
                                     <th>Nama</th>
                                     <th>Jenis Kelamin</th>
                                     <th>Tempat Lahir</th>

@@ -11,7 +11,7 @@ class CapelController extends Controller
     public function index($id_pembelajaran, $tahun_ajaran_id)
     {
         $breadcrumb = (object) [
-            'title' => 'Daftar Pembelajaran',
+            'title' => 'KELOLA CAPAIAN PEMBELAJARAN',
         ];
 
         $activeMenu = 'Data Pembelajaran';

@@ -44,7 +44,7 @@
                                     <th>No</th>
                                     <th>Nama</th>
                                     <th>Ekstrakurikuler</th>
-                                    <th>keterangan</th>
+                                    <th>Keterangan</th>
                                 </tr>
                             </thead>
                             <tbody>

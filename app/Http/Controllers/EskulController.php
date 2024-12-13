@@ -20,7 +20,7 @@ class EskulController extends Controller
         ];
 
 
-        $activeMenu = 'Eskul';
+        $activeMenu = 'Ekstrakurikuler';
         $eskul = EskulModel::all();
         $guru = GuruModel::all();
         return view('admin.eskul.index', ['breadcrumb' => $breadcrumb, 'eskul' => $eskul, 'guru' => $guru, 'activeMenu' => $activeMenu]);
@@ -87,11 +87,11 @@ class EskulController extends Controller
     public function KelasEskul()
     {
         $breadcrumb = (object) [
-            'title' => 'Daftar kelas',
+            'title' => 'Daftar Kelas',
         ];
 
 
-        $activeMenu = 'kelas';
+        $activeMenu = 'Ekstrakurikuler';
         $user = Auth::user();
 
         $kelas = KelasModel::with(['guru', 'tahunAjarans'])
@@ -105,9 +105,9 @@ class EskulController extends Controller
     {
 
         $breadcrumb = (object) [
-            'title' => 'Nilai Ekstrakulikuler',
+            'title' => 'Nilai Ekstrakurikuler',
         ];
-        $activeMenu = 'nilai';
+        $activeMenu = 'Ekstrakurikuler';
         $kelas = KelasModel::where('kode_kelas', $kode_kelas)->first();
         $siswa_kelas = SiswaKelasModel::with('siswa')->where('kelas_id', $kode_kelas)->get();
         $eskul = EskulModel::all();

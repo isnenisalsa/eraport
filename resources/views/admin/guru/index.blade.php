@@ -15,7 +15,7 @@
                                     <th>Nama</th>
                                     <th>Jabatan</th>
                                     <th>Pendidikan Terakhir</th>
-                                    <th>Telepon</th>
+                                    <th>No Telepon</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>

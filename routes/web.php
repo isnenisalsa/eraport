@@ -73,8 +73,8 @@ Route::middleware(['siswa',])->group(function () {
 
 Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
 //Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
-Route::post('/profile/account', [ProfileController::class, 'updateAccount'])->name('profile.account');
-Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
+Route::post('/profile/{nip}/account', [ProfileController::class, 'updateAccount'])->name('profile.account');
+Route::post('/profile/{nip}/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
 
 
 //rute untuk sekolah
@@ -106,7 +106,7 @@ Route::prefix('guru')->group(function () {
 //rute untuk kelas
 Route::prefix('kelas')->group(function () {
     Route::get('/', [KelasController::class, 'index'])->name('kelas')->middleware('cek_login:1');
-    Route::get('/walas', [KelasController::class, 'KelasWalas'])->name('kelas.walas');
+    Route::get('/walas', [KelasController::class, 'KelasWalas'])->name('kelas.walas')->middleware('cek_login:3');
     Route::get('/walas/nilai', [KelasController::class, 'KelasWalasNilai'])->name('kelas.walas.nilai');
     Route::post('/save', [KelasController::class, 'save'])->name('save-kelas')->middleware('cek_login:1');
     Route::get('/edit/{kode_kelas}', [KelasController::class, 'edit'])->name('edit-kelas')->middleware('cek_login:1');

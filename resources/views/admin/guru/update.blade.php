@@ -14,11 +14,8 @@
                             <label for="status" class="form-label">Status</label>
                             <select class="form-control" name="status" id="status">
                                 <option value="">Pilih</option>
-                                <option value="Aktif" {{ old('status', $guru->status) == 'aktif' ? 'selected' : '' }}>Aktif
-                                </option>
-                                <option value="Tidak Aktif"
-                                    {{ old('status', $guru->status) == 'tidak aktif' ? 'selected' : '' }}>Tidak Aktif
-                                </option>
+                                <option value="Aktif" {{ old('status', $guru->status) == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                                <option value="Tidak Aktif" {{ old('status', $guru->status) == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
                             </select>
                             @if ($errors->has('status'))
                                 <div class="text-danger">{{ $errors->first('status') }}</div>
@@ -52,12 +49,8 @@
                             <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
                             <select class="form-control" name="jenis_kelamin" id="jenis_kelamin">
                                 <option value="">Pilih</option>
-                                <option
-                                    value="laki-laki"{{ old('jenis_kelamin', $guru->jenis_kelamin) == 'laki-laki' ? 'selected' : '' }}>
-                                    laki-laki</option>
-                                <option
-                                    value="perempuan"{{ old('jenis_kelamin', $guru->jenis_kelamin) == 'perempuan' ? 'selected' : '' }}>
-                                    perempuan</option>
+                                <option value="Laki-Laki" {{ old('jenis_kelamin', $guru->jenis_kelamin) == 'Laki-Laki' ? 'selected' : '' }}>Laki-Laki</option>
+                                <option value="Perempuan" {{ old('jenis_kelamin', $guru->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                             </select>
                             @if ($errors->has('jenis_kelamin'))
                                 <div class="text-danger">{{ $errors->first('jenis_kelamin') }}</div>
@@ -88,8 +81,6 @@
                                 <div class="text-danger">{{ $errors->first('no_telp') }}</div>
                             @endif
                         </div>
-
-
                     </div>
 
                     <!-- Kolom Kanan -->
@@ -111,21 +102,15 @@
                                 <div class="text-danger">{{ $errors->first('tanggal_lahir') }}</div>
                             @endif
                         </div>
-
-
                         <div class="mb-3">
                             <label for="agama" class="form-label">Agama</label>
                             <select class="form-control" name="agama" id="agama">
                                 <option value="">Pilih</option>
-                                <option value="Islam"{{ old('agama', $guru->agama) == 'islam' ? 'selected' : '' }}>Islam
-                                </option>
-                                <option value="Kristen"{{ old('agama', $guru->agama) == 'kristen' ? 'selected' : '' }}>
-                                    Kristen</option>
-                                <option value="Hindu"{{ old('agama', $guru->agama) == 'hindu' ? 'selected' : '' }}>Hindu
-                                </option>
-                                <option value="Budha"{{ old('agama', $guru->agama) == 'budha' ? 'selected' : '' }}>Budha
-                                </option>
-                            </select>
+                                <option value="Islam" {{ old('agama', $guru->agama) == 'Islam' ? 'selected' : '' }}>Islam</option>
+                                <option value="Kristen" {{ old('agama', $guru->agama) == 'Kristen' ? 'selected' : '' }}>Kristen</option>
+                                <option value="Hindu" {{ old('agama', $guru->agama) == 'Hindu' ? 'selected' : '' }}>Hindu</option>
+                                <option value="Budha" {{ old('agama', $guru->agama) == 'Budha' ? 'selected' : '' }}>Budha</option>
+                            </select>    
                             @if ($errors->has('agama'))
                                 <div class="text-danger">{{ $errors->first('agama') }}</div>
                             @endif

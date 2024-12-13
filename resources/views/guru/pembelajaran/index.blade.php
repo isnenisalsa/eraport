@@ -13,7 +13,7 @@
                                     <th>Kelas</th>
                                     <th>Tahun Ajaran</th>
                                     <th>Guru Pengampu</th>
-                                    <th>aksi</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>

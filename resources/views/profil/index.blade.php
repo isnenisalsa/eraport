@@ -7,12 +7,12 @@
                 <div class="card">
                     <div class="card-header">Profile Guru</div>
                     <div class="card-body text-center">
-                        <img src="https://via.placeholder.com/150" alt="User Photo" class="rounded-circle mb-3" width="100">
+                        <i class="mb-3 fas fa-user-circle fa-5x" width="100"></i>
                         <div class="mt-2">
                             <h4 class="card-text text-center fw-bold">{{ $user->nama }}</h4>
                             <p class="card-text text-center fw-bold">Jabatan: {{ $user->jabatan }}</p>
                         </div>
-                        <form action="/update-username" method="POST">
+                        <form action="{{ route('profile.update', $user->nik) }}" method="POST">
                             @csrf
                             <ul class="list-group text-start mt-3">
                                 <li class="list-group-item">
@@ -35,19 +35,26 @@
                     <div class="card-header bg-light border-bottom">
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#profile" data-toggle="tab">Profile</a>
+                                <a class="nav-link {{ request('tab') == null || request('tab') == 'profile' ? 'active' : '' }}" 
+                                   href="{{ route('profile.show', ['tab' => 'profile']) }}">
+                                   Edit Profil
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#edit-akun" data-toggle="tab">Edit Akun</a>
+                                <a class="nav-link {{ request('tab') == 'edit-akun' ? 'active' : '' }}" 
+                                   href="{{ route('profile.show', ['tab' => 'edit-akun']) }}">
+                                   Edit Akun
+                                </a>
                             </li>
                         </ul>
+                        
                     </div>
                     <div class="card-body">
                         <div class="tab-content">
                             <!-- Tab Edit Profil -->
-                            <div class="tab-pane fade show active" id="profile">
+                            <div class="tab-pane fade {{ request('tab') == null || request('tab') == 'profile' ? 'show active' : '' }}" id="profile">
                                 <h5 class="text-center mb-4">Form Edit Profil</h5>
-                                <form action="{{ route('profile.update') }}" method="POST">
+                                <form action="{{ route('profile.update', $user->nik) }}" method="POST">
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-6">
@@ -83,32 +90,45 @@
                             </div>
 
                             <!-- Tab Edit Akun -->
-                            <div class="tab-pane fade" id="edit-akun">
-                                <h5 class="text-center mb-4">Form Edit Akun</h5>
-                                <form action="{{ route('profile.account') }}" method="POST">
-                                    @csrf
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="username" class="form-label">Username </label>
-                                            <input type="text" id="username" name="username" class="form-control"
-                                                value="{{ $user->username }}">
+                            <div class="tab-content">
+                                <div class="tab-pane fade {{ request('tab') == null || request('tab') == 'edit-profil' ? 'show active' : '' }}" id="edit-profil">
+                                    <!-- Form Edit Profil -->
+                                </div>
+                            
+                                <div class="tab-pane fade {{ request('tab') == 'edit-akun' ? 'show active' : '' }}" id="edit-akun">
+                                    <h5 class="text-center mb-4">Form Edit Akun</h5>
+                                    <form action="{{ route('profile.account', $user->nik) }}" method="POST">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="username" class="form-label">Username</label>
+                                                <input type="text" id="username" name="username" class="form-control" value="{{ $user->username }}">
+                                                @if ($errors->has('username'))
+                                                <div class="text-danger">{{ $errors->first('username') }}</div>
+                                            @endif
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="email" class="form-label">Email</label>
+                                                <input type="email" id="email" name="email" class="form-control" value="{{ $user->email }}">
+                                                @if ($errors->has('email'))
+                                                <div class="text-danger">{{ $errors->first('email') }}</div>
+                                            @endif
+                                            </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label for="email" class="form-label">Email</label>
-                                            <input type="email" id="email" name="email" class="form-control"
-                                                value="{{ $user->email }}">
+                                        <div class="row mt-3">
+                                            <div class="col-md-6">
+                                                <label for="password" class="form-label">Password</label>
+                                                <input type="password" id="password" name="password" class="form-control">
+                                                @if ($errors->has('password'))
+                                                <div class="text-danger">{{ $errors->first('password') }}</div>
+                                            @endif
+                                            </div>
                                         </div>
-                                    </div>
-
-                                    <div class="row mt-3">
-                                        <div class="col-md-6">
-                                            <label for="password" class="form-label">Password</label>
-                                            <input type="password" id="password" name="password" class="form-control">
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="btn btn-success w-100 mt-3">Simpan Akun</button>
-                                </form>
+                                        <button type="submit" class="btn btn-success w-100 mt-3">Simpan Akun</button>
+                                    </form>
+                                </div>
                             </div>
+                            
                         </div>
                     </div>
                 </div>

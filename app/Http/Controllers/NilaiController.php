@@ -22,9 +22,9 @@ class NilaiController extends Controller
         $capel = CapaianModel::where('pembelajaran_id', $id)->where('tahun_ajaran_id', $tahun_ajaran_id)->get();
         $nilai = NilaiModel::where('pembelajaran_id', $id)->get();
         $breadcrumb = (object)[
-            'title' => 'DATA PEMBELAJARAN',
+            'title' => 'KELOLA NILAI',
         ];
-        $activeMenu =  'pembelajaran';
+        $activeMenu =  'Data Pembelajaran';
 
         return view('guru.nilai.index', [
             'breadcrumb' => $breadcrumb,

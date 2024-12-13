@@ -19,7 +19,7 @@ class CetakRaporController extends Controller
         $breadcrumb = (object) [
             'title' => 'Rapor Kelas',
         ];
-        $activeMenu = 'Rapor';
+        $activeMenu = 'Cetak Rapor';
         $user = Auth::user();
         $kelas = KelasModel::with(['guru', 'tahunAjarans'])
             ->withCount(['siswa'])
@@ -33,7 +33,7 @@ class CetakRaporController extends Controller
             'title' => 'Rapor Kelas',
         ];
 
-        $activeMenu = 'absensi';
+        $activeMenu = 'Cetak Rapor';
         // Ambil data kelas berdasarkan kode_kelas
         $kelas = KelasModel::with(['guru'])->where('kode_kelas', $kode_kelas)->firstOrFail();
         // Ambil semua siswa yang terdaftar di kelas ini
@@ -66,7 +66,7 @@ class CetakRaporController extends Controller
             'title' => 'Biodata Siswa',
         ];
 
-        $activeMenu = 'cetak-rapor';
+        $activeMenu = 'cetak Rapor';
 
         $siswa = SiswaModel::where('nis', $nis)->firstOrFail();
 
@@ -118,11 +118,6 @@ class CetakRaporController extends Controller
                 $query->where('tahun_ajaran_id', $tahun_ajaran_id); // Filter berdasarkan tahun_ajaran_id
             }, 'nilaieskul.eskul']) // Memuat relasi eskul melalui nilaieskul
             ->get();
-
-
-
-
-
 
         // Ambil nilai yang memiliki capel_id, jika tidak ada tampilkan '-'
         $nilai = SiswaKelasModel::where('siswa_id', $nis)
