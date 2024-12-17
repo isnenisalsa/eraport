@@ -76,9 +76,9 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="nip" class="form-label">NIP</label>
-                                            <input type="text" id="nip" name="nip" class="form-control"
-                                                value="{{ old('nip', $user->nip) }}">
+                                            <label for="no_telp" class="form-label">No Telepon</label>
+                                            <input type="text" id="no_telp" name="no_telp" class="form-control"
+                                                value="{{ old('no_telp', $user->no_telp) }}">
                                         </div>
                                         <div class="col-md-6">
                                             <label for="alamat" class="form-label">Alamat</label>

@@ -227,15 +227,24 @@
                     </ul>
                 </li>
             @endif
-            @if (auth()->check() &&
-                    auth()->user()->roles->pluck('nama')->intersect(['admin', 'guru', 'walas'])->isNotEmpty())
-                <li class="nav-item">
-                    <a href="{{ route('profile.show') }}"
-                        class="nav-link {{ $activeMenu == 'profile' ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-user" style="color: rgb(3, 3, 3)"></i>
-                        <p style="color: rgb(10, 10, 10)">Profile</p>
-                    </a>
-                </li>
+            @if (auth()->check() && auth()->user()->roles->pluck('nama')->intersect(['admin', 'guru', 'walas'])->isNotEmpty())
+            <li class="nav-item">
+                <a href="{{ route('profile.show') }}"
+                    class="nav-link {{ $activeMenu == 'profile' ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-user" style="color: rgb(3, 3, 3)"></i>
+                    <p style="color: rgb(10, 10, 10)">Profile</p>
+                </a>
+            </li>
+            @endif
+
+            @if (Auth::guard('siswa')->check())
+            <li class="nav-item">
+                <a href="{{ route('profile.show.siswa') }}"
+                    class="nav-link {{ $activeMenu == 'profile' ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-user" style="color: rgb(3, 3, 3)"></i>
+                    <p style="color: rgb(10, 10, 10)">Profile</p>
+                </a>
+            </li>
             @endif
         </ul>
     </nav>

@@ -6,6 +6,9 @@
                 <div class="card">
                     <div class="card-header">
                         <a href="{{ route('create-guru') }}" class="btn btn-success btn-sm float-left">+ Tambah Data Guru</a>
+                        <button type="button" class="btn btn-success btn-sm float-right" data-toggle="modal"
+                            data-target="#modalImpor">Impor
+                            Excel </button>
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered table-striped text-center" id="example2">
@@ -130,4 +133,30 @@
             </div>
         </div>
     @endforeach
+    {{-- modal impor excel --}}
+    <div class="modal fade" id="modalImpor" tabindex="-1" aria-labelledby="modalDetaiImpor" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 800px;"> <!-- Perbesar ukuran modal -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalImporLabel">Impor</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('import.guru') }}" method="POST" name="importform" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label for="file">File:</label>
+                            <input id="file" type="file" name="file" class="form-control">
+                        </div>
+                        <button class="btn btn-success btn-sm">Import File</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Kembali</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

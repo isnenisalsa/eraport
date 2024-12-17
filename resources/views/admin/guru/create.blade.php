@@ -39,9 +39,9 @@
                             <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
                             <select class="form-control" name="jenis_kelamin" id="jenis_kelamin">
                                 <option value="">Pilih</option>
-                                <option value="Laki-Laki" {{ old('status') == 'laki-laki' ? 'selected' : '' }}>Laki-Laki
+                                <option value="Laki-Laki" {{ old('jenis_kelamin') == 'Laki-Laki' ? 'selected' : '' }}>Laki-Laki
                                 </option>
-                                <option value="Perempuan" {{ old('status') == 'perempuan' ? 'selected' : '' }}>Perempuan
+                                <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan
                                 </option>
                             </select>
                             @if ($errors->has('jenis_kelamin'))
@@ -104,12 +104,12 @@
                             <label for="agama" class="form-label">Agama</label>
                             <select class="form-control" name="agama" id="agama">
                                 <option value="">Pilih</option>
-                                <option value="Islam" {{ old('agama') == 'islam' ? 'selected' : '' }}>Islam</option>
-                                <option value="Kristen" {{ old('agama') == 'kristen' ? 'selected' : '' }}>Kristen
+                                <option value="Islam" {{ old('agama') == 'Islam' ? 'selected' : '' }}>Islam</option>
+                                <option value="Kristen" {{ old('agama') == 'Kristen' ? 'selected' : '' }}>Kristen
                                 </option>
-                                <option value="Hindu" {{ old('agama') == 'hindu' ? 'selected' : '' }}>Hindu
+                                <option value="Hindu" {{ old('agama') == 'Hindu' ? 'selected' : '' }}>Hindu
                                 </option>
-                                <option value="Budha" {{ old('agama') == 'budha' ? 'selected' : '' }}>Budha
+                                <option value="Budha" {{ old('agama') == 'Budha' ? 'selected' : '' }}>Budha
                                 </option>
                             </select>
                             @if ($errors->has('agama'))

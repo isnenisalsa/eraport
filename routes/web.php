@@ -71,11 +71,16 @@ Route::middleware(['siswa',])->group(function () {
         ->name('dashboard.siswa');
 });
 
-Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
-//Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+});
+Route::get('/profile/siswa', [ProfileController::class, 'showSiswa'])->name('profile.show.siswa');
 Route::post('/profile/{nip}/account', [ProfileController::class, 'updateAccount'])->name('profile.account');
 Route::post('/profile/{nip}/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
+Route::post('/profile/{nis}/update/siswa', [ProfileController::class, 'updateProfileSiswa'])->name('profile.update.siswa');
+Route::post('/profile/{nis}/account/siswa', [ProfileController::class, 'updateAccountSiswa'])->name('profile.account.siswa');
 
+//});
 
 //rute untuk sekolah
 Route::prefix('sekolah')->group(function () {
@@ -148,6 +153,7 @@ Route::prefix('tahun/ajaran')->group(function () {
 Route::controller(ImportExportController::class)->group(function () {
     Route::get('import_export', 'importExport')->middleware('cek_login:1');
     Route::post('import', 'import')->name('import')->middleware('cek_login:1');
+    Route::post('import/guru', 'importGuru')->name('import.guru');
     Route::get('export', 'export')->name('export')->middleware('cek_login:1');
 });
 

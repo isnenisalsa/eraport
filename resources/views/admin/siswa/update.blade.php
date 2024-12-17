@@ -15,11 +15,11 @@
                             <label for="status" class="form-label">Status</label>
                             <select class="form-control" name="status" id="status">
                                 <option value="">Pilih</option>
-                                <option value="Aktif" {{ old('status', $siswa->status) == 'aktif' ? 'selected' : '' }}>
+                                <option value="Aktif" {{ old('status', $siswa->status) == 'Aktif' ? 'selected' : '' }}>
                                     Aktif
                                 </option>
                                 <option value="Tidak Aktif"
-                                    {{ old('status', $siswa->status) == 'tidak aktif' ? 'selected' : '' }}>Tidak Aktif
+                                    {{ old('status', $siswa->status) == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif
                                 </option>
                             </select>
                             @if ($errors->has('status'))

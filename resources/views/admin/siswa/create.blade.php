@@ -12,7 +12,7 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="nis" class="form-label">NIS</label>
-                            <input type="text" class="form-control" id="nis" placeholder="Inputkan NIS Anda"
+                            <input type="text" class="form-control" id="nis" placeholder="Inputkan NIS"
                                 name="nis" value="{{ old('nis') }}" maxlength="6">
                             @if ($errors->has('nis'))
                                 <div class="text-danger">{{ $errors->first('nis') }}</div>
@@ -20,7 +20,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="nisn" class="form-label">NISN</label>
-                            <input type="text" class="form-control" id="nisn" placeholder="Inputkan NISN Anda"
+                            <input type="text" class="form-control" id="nisn" placeholder="Inputkan NISN"
                                 name="nisn" value="{{ old('nisn') }}" maxlength="10">
                             @if ($errors->has('nisn'))
                                 <div class="text-danger">{{ $errors->first('nisn') }}</div>
@@ -28,7 +28,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="nama" class="form-label">Nama</label>
-                            <input type="text" class="form-control" id="nama" placeholder="Inputkan Nama Anda"
+                            <input type="text" class="form-control" id="nama" placeholder="Inputkan Nama"
                                 name="nama" value="{{ old('nama') }}">
                             @if ($errors->has('nama'))
                                 <div class="text-danger">{{ $errors->first('nama') }}</div>
@@ -64,8 +64,8 @@
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label for="pendidikan_terakhir" class="form-label">Pendidikan Terakhir</label>
-                            <input type="text" class="form-control" id="pendidikan_terakhir" placeholder="Inputkan Pendidikan Terakhir Siswa"
+                            <label for="pendidikan_terakhir" class="form-label">Pendidikan Sebelumnya</label>
+                            <input type="text" class="form-control" id="pendidikan_terakhir" placeholder="Inputkan Pendidikan Sebelumnya"
                                 name="pendidikan_terakhir" value="{{ old('pendidikan_terakhir') }}">
                             @if ($errors->has('pendidikan_terakhir'))
                                 <div class="text-danger">{{ $errors->first('pendidikan_terakhir') }}</div>
