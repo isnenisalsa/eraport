@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,10 +26,10 @@
 
         /* Styling tabel biodata */
         table {
-            width: 100%;
+            width: 700px;
+            /* Tetapkan lebar tetap */
             border-collapse: collapse;
             margin: 0 auto;
-            max-width: 700px;
             font-size: 14px;
         }
 
@@ -38,31 +39,38 @@
 
         /* Styling untuk tanda tangan dan foto di bawah */
         .footer-container {
-            display: flex;
-            justify-content: right; /* Menyusun elemen secara horizontal di tengah */
-            align-items: flex-start; /* Menyusun elemen ke atas */
+
+            /* Ganti flex dengan block */
             margin-top: 40px;
             width: 100%;
+            position: absolute;
+
+            margin-left: 300px;
+            /* Tambahkan margin kiri untuk menggeser ke kanan */
         }
 
         .footer-container .photo-frame {
-            width: 90px; /* Lebar frame foto */
-            height: 120px; /* Tinggi frame foto */
+            width: 90px;
+            height: 120px;
             border: 1px solid #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: inline-block;
+            /* Ganti flex dengan inline-block */
             text-align: center;
             font-size: 12px;
             color: #666;
-            margin-right: 72px; /* Memberikan jarak antara foto dan tanda tangan */
+            margin-right: 72px;
+            vertical-align: top;
+            /* Menyusun elemen ke atas */
         }
 
         .footer-container .signature {
-            text-align: left; /* Menyusun teks tanda tangan ke tengah */
+            margin-top: 10px;
+            display: inline-block;
+            /* Ganti flex dengan inline-block */
+            text-align: left;
             font-size: 14px;
             width: 250px;
-            position: relative; /* Menjaga elemen berada di tempat yang relatif */
+            position: relative;
         }
 
         .signature .date-input {
@@ -82,19 +90,6 @@
             margin: 0;
         }
 
-        /* Frame Foto (3x4) */
-        .photo-frame {
-            width: 90px; /* Lebar frame */
-            height: 120px; /* Tinggi frame */
-            border: 1px solid #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            font-size: 12px;
-            color: #666;
-        }
-
         /* Styling container untuk biodata */
         .biodata-container {
             margin-bottom: 40px;
@@ -106,7 +101,8 @@
         }
     </style>
 </head>
-<body onload="window.print();">
+
+<body>
 
     <!-- Header -->
     <div class="header">
@@ -126,7 +122,8 @@
             </tr>
             <tr>
                 <td>Tempat, Tanggal Lahir</td>
-                <td>: {{ $siswa->tempat_lahir }}, {{ \Carbon\Carbon::parse($siswa->tanggal_lahir)->format('d F Y') }}</td>
+                <td>: {{ $siswa->tempat_lahir }}, {{ \Carbon\Carbon::parse($siswa->tanggal_lahir)->format('d F Y') }}
+                </td>
             </tr>
             <tr>
                 <td>Jenis Kelamin</td>
@@ -217,9 +214,24 @@
         <!-- Tanda Tangan Kepala Sekolah -->
         <div class="signature">
             <p><span>Pelaihari, </span>
-                <span id="formatted-date"></span>
+                <span>
+                    <?php
+                    // Mendapatkan tanggal saat ini
+                    $daysOfWeek = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+                    $monthsOfYear = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                    
+                    // Mendapatkan tanggal saat ini
+                    $currentDate = new DateTime();
+                    $dayOfWeek = $daysOfWeek[$currentDate->format('w')];
+                    $day = $currentDate->format('d');
+                    $month = $monthsOfYear[$currentDate->format('m') - 1];
+                    $year = $currentDate->format('Y');
+                    
+                    // Format tanggal
+                    echo $day . ' ' . $month . ' ' . $year;
+                    ?>
+                </span>
             </p>
-
             <p><span>Kepala Sekolah</span></p><br><br><br>
             <p class="name underline">{{ $sekolah->first()->nama_kepsek }}</p>
             <p class="">{{ $sekolah->first()->nip_kepsek }}</p>
@@ -227,29 +239,23 @@
     </div>
 
     <script>
-        // Array hari dalam bahasa Indonesia
-        const daysOfWeek = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
-        // Array bulan dalam bahasa Indonesia
-        const monthsOfYear = [
-            "Januari", "Februari", "Maret", "April", "Mei", "Juni", 
-            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
-        ];
+        // Menunggu beberapa detik sebelum mencetak atau mendownload halaman
+        setTimeout(function() {
 
-        // Mendapatkan tanggal saat ini
-        const currentDate = new Date();
+            const monthsOfYear = [
+                "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+                "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+            ];
 
-        // Mendapatkan hari, tanggal, bulan, dan tahun
-        const dayOfWeek = daysOfWeek[currentDate.getDay()];
-        const day = currentDate.getDate();
-        const month = monthsOfYear[currentDate.getMonth()];
-        const year = currentDate.getFullYear();
+            const day = currentDate.getDate();
+            const month = monthsOfYear[currentDate.getMonth()];
+            const year = currentDate.getFullYear();
 
-        // Format tanggal: Hari, Tanggal Bulan Tahun (contoh: Senin, 12 Desember 2024)
-        const formattedDate = `${dayOfWeek}, ${day} ${month} ${year}`;
-
-        // Menampilkan tanggal pada elemen dengan id "formatted-date"
-        document.getElementById('formatted-date').textContent = formattedDate;
+            const formattedDate = ` ${day} ${month} ${year}`;
+            document.getElementById('formatted-date').textContent = formattedDate;
+        }, 100); // Menunggu 100ms sebelum mengeksekusi
     </script>
 
 </body>
+
 </html>

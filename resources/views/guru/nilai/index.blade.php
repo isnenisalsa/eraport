@@ -155,11 +155,12 @@
                                             </td>
                                             <td>
                                                 @php
+                                                    // Menghitung nilai rapor dengan pembulatan
                                                     $nilaiRapor = ($rataRatacapel + $rataRataUTSUAS) / 2;
+                                                    $nilaiRapor = round($nilaiRapor); // Dibulatkan ke angka terdekat
                                                 @endphp
-                                                <input type="text" class="form-control"
-                                                    value="{{ number_format($nilaiRapor, 2) }}" readonly
-                                                    style="width: 80px">
+                                                <input type="text" class="form-control" value="{{ $nilaiRapor }}"
+                                                    readonly style="width: 80px">
                                                 <input type="hidden" name="siswa[{{ $index }}][nilai_rapor]"
                                                     value="{{ $nilaiRapor }}">
                                             </td>

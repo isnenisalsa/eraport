@@ -35,8 +35,10 @@
             @endif
             <!-- Menu Wali Kelas -->
             @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
-                <li class="nav-item has-treeview bg-gray-900 {{ in_array($activeMenu, ['Data Kelas', 'Absensi Siswa', 'Ekstrakurikuler', 'Data Nilai Akhir', 'Cetak Rapor']) ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ in_array($activeMenu, ['Data Pembelajaran', 'Absensi Siswa', 'Ekstrakurikuler', 'Data Nilai Akhir', 'Cetak Rapor']) ? 'active' : '' }}">
+                <li
+                    class="nav-item has-treeview bg-gray-900 {{ in_array($activeMenu, ['Data Kelas', 'Absensi Siswa', 'Ekstrakurikuler', 'Data Nilai Akhir', 'Cetak Rapor']) ? 'menu-open' : '' }}">
+                    <a href="#"
+                        class="nav-link {{ in_array($activeMenu, ['Absensi Siswa', 'Ekstrakurikuler', 'Data Nilai Akhir', 'Cetak Rapor']) ? 'active' : '' }}">
                         <i class="fas fa-solid fa-school" style="color: black"></i>
                         <p style="color: black">&nbsp; Wali Kelas <i class="right fas fa-angle-left"
                                 style="color: black"></i></p>
@@ -89,8 +91,10 @@
                     $gurumapel = $guru->pembelajaran()->exists(); // Sesuaikan relasi dengan model yang sesuai, misal kelas yang dia ampu
                 @endphp
                 @if ($gurumapel)
-                    <li class="nav-item has-treeview bg-gray-900 {{ in_array($activeMenu, ['Data Pembelajaran']) ? 'menu-open' : '' }}">
-                        <a href="#" class="nav-link {{ in_array($activeMenu, ['Data Pembelajaran']) ? 'active' : '' }}">
+                    <li
+                        class="nav-item has-treeview bg-gray-900 {{ in_array($activeMenu, ['Data Pembelajaran']) ? 'menu-open' : '' }}">
+                        <a href="#"
+                            class="nav-link {{ in_array($activeMenu, ['Data Pembelajaran']) ? 'active' : '' }}">
                             <i class="fas fa-solid fa-school" style="color: black"></i>
                             <p style="color: black">&nbsp; Guru Mapel <i class="right fas fa-angle-left"
                                     style="color: black"></i></p>
@@ -110,7 +114,8 @@
 
             <!-- Menu Admin -->
             @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
-                <li class="nav-item has-treeview bg-gray-900 {{ in_array($activeMenu, ['guru', 'siswa']) ? 'menu-open' : '' }}">
+                <li
+                    class="nav-item has-treeview bg-gray-900 {{ in_array($activeMenu, ['guru', 'siswa']) ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ in_array($activeMenu, ['guru', 'siswa']) ? 'active' : '' }}">
                         <i class="fas fa-solid fa-users" style="color: black"></i>
                         <p style="color: black">&nbsp; Pengguna <i class="right fas fa-angle-left"
@@ -134,8 +139,6 @@
                     </ul>
                 </li>
             @endif
-
-
 
 
 

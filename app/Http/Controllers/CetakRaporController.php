@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\CapaianModel;
 use App\Models\KelasModel;
 use App\Models\PembelajaranModel;
@@ -42,25 +43,23 @@ class CetakRaporController extends Controller
             ->get();
         return view('walas.cetak_rapor.cetak', compact('breadcrumb', 'kelas', 'siswa', 'kode_kelas', 'activeMenu', 'tahun_ajaran_id'));
     }
-    // public function show($kode_kelas)
-    // {
-    //     $breadcrumb = (object) [
-    //         'title' => 'Detail Kelas',
-    //     ];
-    //     $kelas = KelasModel::with(['guru', 'siswa'])
-    //         ->where('kode_kelas', $kode_kelas)
-    //         ->firstOrFail();
-    //     $siswa = $kelas->siswa; // Relasi siswa harus sudah didefinisikan di KelasModel
-    //     return view('cetak.detail', compact('breadcrumb', 'kelas', 'siswa'));
-    // }
+
     public function cover($nis)
     {
-        $siswa = SiswaModel::where('nis', $nis)->get();
-        return view('walas.cetak_rapor.cover', compact('siswa'));
+        // Ambil data siswa berdasarkan NIS
+        $siswa = SiswaModel::where('nis', $nis)->first();
+        // Render view menjadi PDF
+        $pdf = Pdf::loadView('walas.cetak_rapor.cover', compact('siswa'));
+
+        // Tampilkan PDF di browser
+        return $pdf->stream($nis . '_' . $siswa->nama . '_' . 'cover' . '.pdf');
+
+        // Jika ingin langsung download:
+        // return $pdf->download('cover_rapor_' . $nis . '.pdf');
     }
+
     public function biodata($nis)
     {
-        // Breadcrumb untuk halaman
         // Breadcrumb untuk halaman
         $breadcrumb = (object) [
             'title' => 'Biodata Siswa',
@@ -68,17 +67,21 @@ class CetakRaporController extends Controller
 
         $activeMenu = 'cetak Rapor';
 
-        $siswa = SiswaModel::where('nis', $nis)->firstOrFail();
+        $siswa = SiswaModel::where('nis', $nis)->first();
 
         $sekolah = SekolahModel::all();
 
-        // Mengirimkan data siswa dan sekolah ke view
-        return view('walas.cetak_rapor.biodata', compact('siswa', 'sekolah'));
+        // Membuat view untuk PDF
+        $pdf = PDF::loadView('walas.cetak_rapor.biodata', compact('siswa', 'sekolah'));
+
+        // Mengirimkan PDF untuk diunduh atau ditampilkan
+        return $pdf->download($nis . '_' . $siswa->nama . '_' . 'biodata' . '.pdf'); // Untuk mengunduh
+        // return $pdf->stream('biodata_siswa.pdf'); // Untuk menampilkan
     }
 
     public function rapor($kode_kelas, $nis, $tahun_ajaran_id)
     {
-        $siswa = SiswaModel::where('nis', $nis)->firstOrFail();
+        $siswa = SiswaModel::where('nis', $nis)->first();
         $kelas = KelasModel::with('guru')->get();
         $sekolah = SekolahModel::firstOrFail();
 
@@ -93,7 +96,7 @@ class CetakRaporController extends Controller
             ->first();
 
         if (!$siswa_absen) {
-            $siswa_absen = (object) ['absensi' => '-']; // Tampilkan '-' jika tidak ada absensi
+            $siswa_absen = (object) ['absensi' => '-'];
         }
 
         // Ambil data pembelajaran
@@ -102,24 +105,24 @@ class CetakRaporController extends Controller
         $siswa_nilai = SiswaKelasModel::where('siswa_id', $nis)
             ->whereHas('nilai', function ($query) use ($tahun_ajaran_id) {
                 $query->where('tahun_ajaran_id', $tahun_ajaran_id)
-                    ->where('nilai_rapor', '>', 0); // Lebih besar dari 0
+                    ->where('nilai_rapor', '>', 0);
             })
             ->with(['nilai' => function ($query) use ($tahun_ajaran_id) {
                 $query->where('tahun_ajaran_id', $tahun_ajaran_id)
-                    ->where('nilai_rapor', '>', 0); // Lebih besar dari 0
+                    ->where('nilai_rapor', '>', 0);
             }])
             ->first();
 
         if (!$siswa_nilai) {
-            $siswa_nilai = (object) ['nilai' => collect()]; // Mengganti dengan koleksi kosong jika tidak ada nilai
+            $siswa_nilai = (object) ['nilai' => collect()];
         }
+
         $siswa_eskul = SiswaKelasModel::where('siswa_id', $nis)
             ->with(['nilaieskul' => function ($query) use ($tahun_ajaran_id) {
-                $query->where('tahun_ajaran_id', $tahun_ajaran_id); // Filter berdasarkan tahun_ajaran_id
-            }, 'nilaieskul.eskul']) // Memuat relasi eskul melalui nilaieskul
+                $query->where('tahun_ajaran_id', $tahun_ajaran_id);
+            }, 'nilaieskul.eskul'])
             ->get();
 
-        // Ambil nilai yang memiliki capel_id, jika tidak ada tampilkan '-'
         $nilai = SiswaKelasModel::where('siswa_id', $nis)
             ->whereHas('nilai', function ($query) use ($tahun_ajaran_id) {
                 $query->where('tahun_ajaran_id', $tahun_ajaran_id)
@@ -147,8 +150,8 @@ class CetakRaporController extends Controller
                 ];
             });
 
-        // Kirim data ke view
-        return view('walas.cetak_rapor.rapor', [
+        // Render tampilan menjadi PDF
+        $pdf = Pdf::loadView('walas.cetak_rapor.rapor', [
             'siswa' => $siswa,
             'kelas' => $kelas,
             'sekolah' => $sekolah,
@@ -159,7 +162,12 @@ class CetakRaporController extends Controller
             'tahun_ajaran_id' => $tahun_ajaran_id,
             'siswa_eskul' => $siswa_eskul
         ]);
+
+
+        // Unduh PDF
+        return $pdf->download($nis  . '_' . $siswa->nama . '_rapor' . '.pdf');
     }
+
 
 
     public function kelasRaporSiswa()
