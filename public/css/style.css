@@ -1,4 +1,7 @@
-
+.select2-container--open .select2-dropdown--below {
+    height: 400px;
+    overflow-y: scroll;
+}
 .select2-container--bootstrap4 .select2-selection {
     border: 1px solid #080808; /* Change this to your desired border color */
     border-radius: .25rem;
@@ -111,7 +114,3 @@
     color: #fff; /* Atur warna teks */
     
 } 
-.select2-container--open .select2-dropdown--below {
-    height: 400px;
-    overflow-y: scroll;
-}
