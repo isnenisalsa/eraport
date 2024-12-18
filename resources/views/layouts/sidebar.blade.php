@@ -27,18 +27,18 @@
             @if (Auth::guard('siswa')->check())
                 <li class="nav-item">
                     <a href="{{ url('cetak/rapor/siswa') }}"
-                        class="nav-link {{ $activeMenu == 'Pembelajaran Siswa' ? 'active' : '' }}">
+                        class="nav-link {{ $activeMenu == 'Kelas Siswa' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-satellite" style="color: rgb(3, 3, 3)"></i>
-                        <p style="color: rgb(10, 10, 10)">Data Pembelajaran</p>
+                        <p style="color: rgb(10, 10, 10)">Data Kelas</p>
                     </a>
                 </li>
             @endif
             <!-- Menu Wali Kelas -->
             @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
                 <li
-                    class="nav-item has-treeview bg-gray-900 {{ in_array($activeMenu, ['Data Kelas', 'Absensi Siswa', 'Ekstrakurikuler', 'Data Nilai Akhir', 'Cetak Rapor']) ? 'menu-open' : '' }}">
+                    class="nav-item has-treeview bg-gray-900 {{ in_array($activeMenu, ['Data Kelas', 'Data Absensi', 'Ekstrakurikuler', 'Data Nilai Akhir', 'Cetak Rapor']) ? 'menu-open' : '' }}">
                     <a href="#"
-                        class="nav-link {{ in_array($activeMenu, ['Absensi Siswa', 'Ekstrakurikuler', 'Data Nilai Akhir', 'Cetak Rapor']) ? 'active' : '' }}">
+                        class="nav-link {{ in_array($activeMenu, ['Data Siswa', 'Ekstrakurikuler', 'Data Nilai Akhir', 'Cetak Rapor']) ? 'active' : '' }}">
                         <i class="fas fa-solid fa-school" style="color: black"></i>
                         <p style="color: black">&nbsp; Wali Kelas <i class="right fas fa-angle-left"
                                 style="color: black"></i></p>
@@ -53,7 +53,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('absensi/kelas/') }}"
-                                class="nav-link {{ $activeMenu == 'Absensi Siswa' ? 'active' : '' }}">
+                                class="nav-link {{ $activeMenu == 'Data Absensi' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-calendar-check" style="color: rgb(3, 3, 3)"></i>
                                 <p style="color: rgb(10, 10, 10)">Absensi Siswa</p>
                             </a>
@@ -227,24 +227,25 @@
                     </ul>
                 </li>
             @endif
-            @if (auth()->check() && auth()->user()->roles->pluck('nama')->intersect(['admin', 'guru', 'walas'])->isNotEmpty())
-            <li class="nav-item">
-                <a href="{{ route('profile.show') }}"
-                    class="nav-link {{ $activeMenu == 'profile' ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-user" style="color: rgb(3, 3, 3)"></i>
-                    <p style="color: rgb(10, 10, 10)">Profile</p>
-                </a>
-            </li>
+            @if (auth()->check() &&
+                    auth()->user()->roles->pluck('nama')->intersect(['admin', 'guru', 'walas'])->isNotEmpty())
+                <li class="nav-item">
+                    <a href="{{ route('profile.show') }}"
+                        class="nav-link {{ $activeMenu == 'profile' ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-user" style="color: rgb(3, 3, 3)"></i>
+                        <p style="color: rgb(10, 10, 10)">Profile</p>
+                    </a>
+                </li>
             @endif
 
             @if (Auth::guard('siswa')->check())
-            <li class="nav-item">
-                <a href="{{ route('profile.show.siswa') }}"
-                    class="nav-link {{ $activeMenu == 'profile' ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-user" style="color: rgb(3, 3, 3)"></i>
-                    <p style="color: rgb(10, 10, 10)">Profile</p>
-                </a>
-            </li>
+                <li class="nav-item">
+                    <a href="{{ route('profile.show.siswa') }}"
+                        class="nav-link {{ $activeMenu == 'profile' ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-user" style="color: rgb(3, 3, 3)"></i>
+                        <p style="color: rgb(10, 10, 10)">Profile</p>
+                    </a>
+                </li>
             @endif
         </ul>
     </nav>

@@ -18,6 +18,7 @@
     background-color: #1e1d1d23;
 }
 /* Gradient Colors */
+/* 
 /* Gradient Colors (Simple) */
 .space-big-counter-pink {
     background: linear-gradient(to bottom, #ffe5e9, #fdc8ce); /* Pink muda ke pink utama */
@@ -109,4 +110,8 @@
     background-color: #990066; /* Ganti dengan warna kuning yang diinginkan */
     color: #fff; /* Atur warna teks */
     
+} 
+.select2-container--open .select2-dropdown--below {
+    height: 400px;
+    overflow-y: scroll;
 }

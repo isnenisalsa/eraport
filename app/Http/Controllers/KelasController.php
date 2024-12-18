@@ -55,8 +55,19 @@ class KelasController extends Controller
             ->withCount(['siswa']) // Menghitung jumlah siswa dan memberikan nilai default 0 jika tidak ada
             ->where('guru_nik', $kelas)
             ->get();
+        // Ambil tahun ajaran unik
+        $tahunAjaran = TahunAjarModel::distinct('tahun_ajaran')->pluck('tahun_ajaran');
 
-        return view('walas.nilaiakhir.index', ['breadcrumb' => $breadcrumb, 'kelas' => $kelas,  'activeMenu' => $activeMenu]);
+        // Tentukan tahun ajaran terbaru
+        $tahunAjaranTerbaru = $tahunAjaran->first();
+
+        // Ambil daftar semester dari model TahunAjarModel, urutkan secara descending
+        $semester = TahunAjarModel::distinct('semester')->orderByDesc('semester')->pluck('semester');
+
+        // Tentukan semester terbaru
+        $semesterTerbaru = $semester->first(); // Default semester terbaru
+        // For debugging purposes, to check the retrieved semester
+        return view('walas.nilaiakhir.index', ['breadcrumb' => $breadcrumb, 'kelas' => $kelas,  'tahunAjaran' => $tahunAjaran, 'tahunAjaranTerbaru' => $tahunAjaranTerbaru, 'semester' => $semester, 'semesterTerbaru' => $semesterTerbaru, 'activeMenu' => $activeMenu]);
     }
 
 

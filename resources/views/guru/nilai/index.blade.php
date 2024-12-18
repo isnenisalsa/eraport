@@ -38,6 +38,8 @@
                 <div class="card">
                     <div class="card-header">
                         <button class="btn btn-warning btn-sm" id="btn-edit-nilai" type="button">Edit Nilai</button>
+                        <a href="{{ route('capel.index', ['id_pembelajaran' => $id, 'tahun_ajaran_id' => $tahun_ajaran_id]) }}"
+                            class="btn btn-success btn-sm float-right">Kelola Capaian</a> &nbsp;
                     </div>
                     <div id="edit-message" class="alert alert-info" style="display: none;">
                         Anda sudah bisa mengedit

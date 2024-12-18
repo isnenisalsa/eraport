@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AbsensiModel;
 use App\Models\KelasModel;
 use App\Models\SiswaKelasModel;
+use App\Models\TahunAjarModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,18 +14,39 @@ class AbsensiController extends Controller
     public function KelasAbsensi()
     {
         $breadcrumb = (object) [
-            'title' => 'Daftar Absensi',
+            'title' => 'Daftar Kelas',
         ];
         $activeMenu = 'Data Absensi';
         $user = Auth::user();
 
+        // Ambil data kelas dengan relasi
         $kelas = KelasModel::with(['guru', 'tahunAjarans'])
             ->withCount(['siswa'])
             ->where('guru_nik', $user->nik)
             ->get();
 
-        return view('walas.absensi.index', compact('breadcrumb', 'kelas', 'activeMenu'));
+        $tahunAjaran = TahunAjarModel::distinct('tahun_ajaran')->pluck('tahun_ajaran');
+
+        // Tentukan tahun ajaran terbaru
+        $tahunAjaranTerbaru = $tahunAjaran->first();
+
+        // Ambil daftar semester dari model TahunAjarModel, urutkan secara descending
+        $semester = TahunAjarModel::distinct('semester')->orderByDesc('semester')->pluck('semester');
+
+        // Tentukan semester terbaru
+        $semesterTerbaru = $semester->first(); // Default semester terbaru
+
+        return view('walas.absensi.index', compact(
+            'breadcrumb',
+            'kelas',
+            'tahunAjaranTerbaru',
+            'activeMenu',
+            'tahunAjaran',
+            'semester',
+            'semesterTerbaru'
+        ));
     }
+
 
     public function index($id, $tahun_ajaran_id)
     {

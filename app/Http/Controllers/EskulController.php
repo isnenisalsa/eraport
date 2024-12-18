@@ -8,6 +8,7 @@ use App\Models\GuruModel;
 use App\Models\KelasModel;
 use App\Models\NilaiEskulModel;
 use App\Models\SiswaKelasModel;
+use App\Models\TahunAjarModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -98,8 +99,20 @@ class EskulController extends Controller
             ->withCount(['siswa'])
             ->where('guru_nik', $user->nik)
             ->get();
+        // Ambil tahun ajaran unik
+        $tahunAjaran = TahunAjarModel::distinct('tahun_ajaran')->pluck('tahun_ajaran');
 
-        return view('walas.ekstrakulikuler.kelas', ['breadcrumb' => $breadcrumb, 'kelas' => $kelas, 'activeMenu' => $activeMenu]);
+        // Tentukan tahun ajaran terbaru
+        $tahunAjaranTerbaru = $tahunAjaran->first();
+
+        // Ambil daftar semester dari model TahunAjarModel, urutkan secara descending
+        $semester = TahunAjarModel::distinct('semester')->orderByDesc('semester')->pluck('semester');
+
+        // Tentukan semester terbaru
+        $semesterTerbaru = $semester->first(); // Default semester terbaru
+
+
+        return view('walas.ekstrakulikuler.kelas', ['breadcrumb' => $breadcrumb, 'tahunAjaran' => $tahunAjaran, 'tahunAjaranTerbaru' => $tahunAjaranTerbaru, 'semester' => $semester, 'semesterTerbaru' => $semesterTerbaru, 'kelas' => $kelas, 'activeMenu' => $activeMenu]);
     }
     public function NilaiEskul($kode_kelas, $tahun_ajaran_id)
     {

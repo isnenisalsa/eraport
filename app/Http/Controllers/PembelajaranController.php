@@ -8,8 +8,10 @@ use App\Models\KelasModel;
 use App\Models\GuruModel;
 use App\Models\SiswaKelasModel;
 use App\Models\SiswaModel;
+use App\Models\TahunAjarModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class PembelajaranController extends Controller
 {
@@ -50,8 +52,18 @@ class PembelajaranController extends Controller
         // Mengambil semua data pembelajaran dengan relasi mapel, kelas, dan guru
         $dataPembelajaran = PembelajaranModel::where('nama_guru', $user->nik)->get();
         // Contoh: Kirim data ke view
+        $tahunAjaran = TahunAjarModel::distinct('tahun_ajaran')->pluck('tahun_ajaran');
 
-        return view('guru.pembelajaran.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'dataPembelajaran' => $dataPembelajaran]);
+        // Tentukan tahun ajaran terbaru
+        $tahunAjaranTerbaru = $tahunAjaran->first();
+
+        // Ambil daftar semester dari model TahunAjarModel, urutkan secara descending
+        $semester = TahunAjarModel::distinct('semester')->orderByDesc('semester')->pluck('semester');
+
+        // Tentukan semester terbaru
+        $semesterTerbaru = $semester->first(); // Default semester terbaru
+
+        return view('guru.pembelajaran.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'dataPembelajaran' => $dataPembelajaran, 'tahunAjaran' => $tahunAjaran, 'tahunAjaranTerbaru' => $tahunAjaranTerbaru, 'semester' => $semester, 'semesterTerbaru' => $semesterTerbaru,]);
     }
 
 
@@ -62,13 +74,19 @@ class PembelajaranController extends Controller
             'tambahBag',
             [
                 'id_pembelajaran' => 'required', // Aturan validasi yang benar
-                'mata_pelajaran' => 'required',
+                'mata_pelajaran' => [
+                    'required',
+                    Rule::unique('pembelajaran')->where(function ($query) use ($request) {
+                        return $query->where('nama_kelas', $request->nama_kelas);
+                    }),
+                ],
                 'nama_kelas' => 'required',
                 'nama_guru' => 'required' // Pastikan 'nama_guru' sesuai dengan kolom yang ada di tabel 'guru'
             ],
             [
                 'id_pembelajaran.required' => 'ID Pembelajaran tidak boleh kosong',
-                'mata_pelajaran.required' => 'Mata Pelajaran  tidak boleh kosong',
+                'mata_pelajaran.required' => 'Mata Pelajaran tidak boleh kosong',
+                'mata_pelajaran.unique' => 'Mata Pelajaran sudah ada di kelas ini',
                 'nama_kelas.required' => 'Nama Kelas tidak boleh kosong',
                 'nama_guru.required' => 'Nama Guru tidak boleh kosong'
             ]

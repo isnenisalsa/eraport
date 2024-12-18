@@ -18,7 +18,7 @@ class CetakRaporController extends Controller
     public function kelasRapor()
     {
         $breadcrumb = (object) [
-            'title' => 'Rapor Kelas',
+            'title' => 'Daftar Kelas',
         ];
         $activeMenu = 'Cetak Rapor';
         $user = Auth::user();
@@ -26,7 +26,20 @@ class CetakRaporController extends Controller
             ->withCount(['siswa'])
             ->where('guru_nik', $user->nik)
             ->get();
-        return view('walas.cetak_rapor.index', compact('breadcrumb', 'kelas', 'activeMenu'));
+        // Ambil tahun ajaran unik
+        $tahunAjaran = TahunAjarModel::distinct('tahun_ajaran')->pluck('tahun_ajaran');
+
+        // Tentukan tahun ajaran terbaru
+        $tahunAjaranTerbaru = $tahunAjaran->first();
+
+        // Ambil daftar semester dari model TahunAjarModel, urutkan secara descending
+        $semester = TahunAjarModel::distinct('semester')->orderByDesc('semester')->pluck('semester');
+
+        // Tentukan semester terbaru
+        $semesterTerbaru = $semester->first(); // Default semester terbaru
+
+
+        return view('walas.cetak_rapor.index', compact('breadcrumb', 'kelas', 'activeMenu', 'tahunAjaran', 'tahunAjaranTerbaru', 'semester', 'semesterTerbaru'));
     }
     public function index($kode_kelas, $tahun_ajaran_id)
     {
@@ -173,15 +186,25 @@ class CetakRaporController extends Controller
     public function kelasRaporSiswa()
     {
         $breadcrumb = (object) [
-            'title' => 'Daftar Pembelajaran',
+            'title' => 'Daftar Kelas',
         ];
 
-        $activeMenu = 'Pembelajaran Siswa';
+        $activeMenu = 'Kelas Siswa';
         $user =  Auth::guard('siswa')->user();
         $kelas = SiswaKelasModel::with('siswa', 'kelas')->where('siswa_id', $user->nis)->get();
+        // Ambil tahun ajaran unik
+        $tahunAjaran = TahunAjarModel::distinct('tahun_ajaran')->pluck('tahun_ajaran');
 
+        // Tentukan tahun ajaran terbaru
+        $tahunAjaranTerbaru = $tahunAjaran->first();
+
+        // Ambil daftar semester dari model TahunAjarModel, urutkan secara descending
+        $semester = TahunAjarModel::distinct('semester')->orderByDesc('semester')->pluck('semester');
+
+        // Tentukan semester terbaru
+        $semesterTerbaru = $semester->first(); // Default semester terbaru
         // Mengambil semua data pembelajaran dengan relasi mapel, kelas, dan guru
-        return view('siswa.cetak_rapor.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'kelas' => $kelas]);
+        return view('siswa.cetak_rapor.index', ['breadcrumb' => $breadcrumb,  'activeMenu' => $activeMenu, 'kelas' => $kelas, 'tahunAjaran' => $tahunAjaran, 'tahunAjaranTerbaru' => $tahunAjaranTerbaru, 'semester' => $semester, 'semesterTerbaru' => $semesterTerbaru,]);
     }
     public function KelasRaporSiswaCetak($kode_kelas, $nis, $tahun_ajaran_id)
     {

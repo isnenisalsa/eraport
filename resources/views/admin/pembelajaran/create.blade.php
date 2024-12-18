@@ -1,4 +1,5 @@
-<div class="modal fade" id="modal-tambah-data-pembelajaran" tabindex="-1" aria-labelledby="modal-tambah-data-pembelajaranLabel" aria-hidden="true">
+<div class="modal fade" id="modal-tambah-data-pembelajaran" tabindex="-1"
+    aria-labelledby="modal-tambah-data-pembelajaranLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -12,10 +13,10 @@
                 <div class="modal-body">
                     <!-- ID Pembelajaran -->
                     <div class="form-group">
-                        <label for="id_pembelajaran">ID Pembelajaran</label>
+                        <label for="id_pembelajaran">Kode Pembelajaran</label>
                         <input type="text" name="id_pembelajaran" id="id_pembelajaran"
                             class="form-control @error('id_pembelajaran', 'tambahBag') is-invalid @enderror"
-                            value="{{ old('id_pembelajaran') }}" placeholder="Inputkan ID Pembelajaran">
+                            value="{{ old('id_pembelajaran') }}" placeholder="Inputkan Kode Pembelajaran">
                         @error('id_pembelajaran', 'tambahBag')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -75,13 +76,13 @@
                         @enderror
                     </div>
 
-                    
+
                     <button type="submit" class="btn btn-success float-right">Simpan</button>
             </form>
             <br><br>
         </div>
-        </div>
     </div>
+</div>
 </div>
 @if ($errors->tambahBag->any())
     <script>
@@ -90,4 +91,3 @@
         });
     </script>
 @endif
-

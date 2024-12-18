@@ -1,7 +1,7 @@
 @extends('layouts.template')
 
 @section('content')
-    <div class="container ">
+    <div class="container">
         <div class="card shadow">
             <div class="card-body">
                 <table class="table table-sm">
@@ -32,10 +32,19 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
+                        <button class="btn btn-warning btn-sm ml-1" id="btn-edit-capel" type="button">Edit Capaian</button>
                         <button type="button" class="btn btn-success btn-sm float-left" data-toggle="modal"
                             data-target="#modal-tambah-data-capel">
                             + Tambah Data
                         </button>
+                        <a href="{{ route('nilai.index', ['id_pembelajaran' => $id_pembelajaran, 'tahun_ajaran_id' => $tahun_ajaran_id]) }}"
+                            class="btn btn-info btn-sm float-right">Kelola Nilai</a> &nbsp;
+                    </div>
+                    <div id="edit-message" class="alert alert-info" style="display: none;">
+                        Anda sudah bisa mengedit
+                    </div>
+                    <div id="edit-error-message" class="alert alert-danger" style="display: none;">
+                        Anda tidak bisa mengedit
                     </div>
                     <div class="card-body">
                         <form action="{{ route('update.capel') }}" method="POST">
@@ -55,13 +64,10 @@
                                             <td>{{ $no++ }}</td>
                                             <td>
                                                 <input type="hidden" name="id[]" value="{{ $item->id }}">
-                                                <input type="text" name="nama_capel[]" class="form-control"
-                                                    value="{{ $item->nama_capel ?? old('nama_capel.' . $loop->index) }}"
-                                                    required>
+                                                <textarea name="nama_capel[]" class="form-control capel-textarea" rows="3" required readonly>{{ $item->nama_capel ?? old('nama_capel.' . $loop->index) }}</textarea>
                                                 @error('nama_capel.' . $loop->index)
-                                                    <div class="text-danger">{{ $errors }}</div>
+                                                    <div class="text-danger">{{ $message }}</div>
                                                 @enderror
-
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
@@ -106,16 +112,11 @@
                         @csrf
                         <div class="form-group">
                             <label for="nama_capel">Capaian Pembelajaran</label>
-                            <input type="text" name="nama_capel" id="nama_capel" class="form-control" required>
+                            <textarea name="nama_capel" id="nama_capel" class="form-control" rows="3" required></textarea>
 
                             @if ($errors->has('nama_capel'))
                                 <span class="text-danger">{{ $errors->first('nama_capel') }}</span>
                             @endif
-                        </div>
-                        <div class="form-check mt-3">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
-                            <label class="form-check-label" for="exampleCheck1">Saya Yakin Sudah Mengisi Dengan
-                                Benar</label>
                         </div>
                         <button type="submit" class="btn btn-success float-right">Simpan</button>
                     </form>
