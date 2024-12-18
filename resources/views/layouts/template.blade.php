@@ -600,6 +600,38 @@
                 });
             });
         });
+
+
+
+        $(document).ready(function() {
+            var table = $('#tabel_siswa').DataTable({
+                "pageLength": 4,
+                "paging": true,
+                "lengthChange": false,
+                "searching": true,
+                "ordering": false,
+                "autoWidth": false,
+                "responsive": true,
+                "info": false,
+                "language": {
+                    "emptyTable": "Tidak ada data yang tersedia pada tabel ini",
+                    "info": "Menampilkan START sampai END dari TOTAL entri",
+                    "infoEmpty": "Menampilkan 0 sampai 0 dari 0 entri",
+                    "infoFiltered": "(disaring dari _MAX_entri total)",
+                    "lengthMenu": "Tampilkan MENU entri",
+                    "loadingRecords": "Memuat...",
+                    "processing": "Sedang memproses...",
+                    "search": "Cari:",
+                    "zeroRecords": "Tidak ditemukan data yang cocok",
+                    "paginate": {
+                        "first": "Pertama",
+                        "last": "Terakhir",
+                        "next": "Selanjutnya",
+                        "previous": "Sebelumnya"
+                    },
+                },
+            });
+        });
     </script>
 </body>
 

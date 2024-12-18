@@ -1,5 +1,6 @@
 .select2-container--open .select2-dropdown--below {
-    height: 400px;
+    height: auto;
+    max-height: 200px;
     overflow-y: scroll;
 }
 .select2-container--bootstrap4 .select2-selection {

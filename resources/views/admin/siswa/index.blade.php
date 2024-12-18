@@ -18,7 +18,7 @@
                             Excel </button>
                     </div>
                     <div class="card-body">
-                        <table class="table table-bordered table-striped text-center" id="example2">
+                        <table class="table table-bordered table-striped text-center" id="tabel_siswa">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -47,10 +47,10 @@
                                         <td>
                                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                                 data-target="#modalDetail{{ $item->nis }}">Detail </button>
-                                                <a href="{{ route('edit-siswa', $item->nis) }}"
-                                                    class="btn btn-warning">edit</a>
+                                            <a href="{{ route('edit-siswa', $item->nis) }}"
+                                                class="btn btn-warning">edit</a>
                                         </td>
-                                      
+
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -94,7 +94,7 @@
                             </tr>
                             <tr>
                                 <th>Agama</th>
-                                <td>{{ $item->agama}}</td>
+                                <td>{{ $item->agama }}</td>
                             </tr>
                             <tr>
                                 <th>Pendidikan Sebelumnya</th>
@@ -114,7 +114,7 @@
                             </tr>
                             <tr>
                                 <th>Alamat Orang Tua</th>
-                                
+
                             </tr>
                             <tr>
                                 <th>Jalan</th>
@@ -122,19 +122,19 @@
                             </tr>
                             <tr>
                                 <th>Kelurahan/Desa</th>
-                                <td>{{ $item->kelurahan}}</td>
+                                <td>{{ $item->kelurahan }}</td>
                             </tr>
                             <tr>
                                 <th>Kecamatan</th>
-                                <td>{{ $item->kecamatan}}</td>
+                                <td>{{ $item->kecamatan }}</td>
                             </tr>
                             <tr>
                                 <th>Kabupaten/Kota</th>
-                                <td>{{ $item->kota}}</td>
+                                <td>{{ $item->kota }}</td>
                             </tr>
                             <tr>
                                 <th>Provinsi</th>
-                                <td>{{ $item->provinsi}}</td>
+                                <td>{{ $item->provinsi }}</td>
                             </tr>
                             <tr>
                                 <th>Nama Ayah</th>

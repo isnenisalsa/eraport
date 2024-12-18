@@ -2,7 +2,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col">
                 <div class="card">
                     <div class="card-header">
                         <a href="{{ route('create-guru') }}" class="btn btn-success btn-sm float-left">+ Tambah Data Guru</a>
@@ -16,7 +16,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
-                                    <th>Jabatan</th>
+                                    <th style="width: 80px">Jabatan</th>
                                     <th>Pendidikan Terakhir</th>
                                     <th>No Telepon</th>
                                     <th>Status</th>
@@ -144,7 +144,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('import.guru') }}" method="POST" name="importform" enctype="multipart/form-data">
+                    <form action="{{ route('import.guru') }}" method="POST" name="importform"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="file">File:</label>
