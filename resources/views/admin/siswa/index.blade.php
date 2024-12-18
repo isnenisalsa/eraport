@@ -172,6 +172,10 @@
                                 <th>Nomor Telepon Wali</th>
                                 <td>{{ $item->no_telp_wali }}</td>
                             </tr>
+                            <tr>
+                                <th>Alamat Wali</th>
+                                <td>{{ $item->alamat_wali }}</td>
+                            </tr>
                         </table>
                     </div>
                     <div class="modal-footer">

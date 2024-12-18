@@ -14,9 +14,18 @@
 
 <body>
     <div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+        @if (session('success'))
+        <div class="alert alert-danger alert-dismissible fade show position-absolute"
+            style="top: 60px; right: 650px; z-index: 9999; animation: fadeOut 3s forwards;" role="alert">
+            <strong>{{ session('success') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
         <div class="row justify-content-center">
-            <div class="col-12 col-md-6 text-center mb-4">
-                <img src="image/logo.png" alt="Logo" width="250px">
+            <div class="col-10 col-md-6 text-center mb-4">
+                <img src="image/logo.png" alt="Logo" width="250px" style="margin-top: 50px">
             </div>
             <div class="col-12 col-md-6">
                 <form class="card p-4" style="width: 600px; max-width: 500px;" action="{{ url('proses_login') }}"
@@ -41,6 +50,7 @@
                         @error('error')
                             <span class="text-danger d-block">{{ $message }}</span>
                         @enderror
+                       
                         <h2 class="mb-3 text-center">Login</h2>
                         <div class="form-group">
                             <label for="username">Username</label>

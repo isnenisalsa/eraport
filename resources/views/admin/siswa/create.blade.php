@@ -38,9 +38,9 @@
                             <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
                             <select class="form-control" name="jenis_kelamin" id="jenis_kelamin">
                                 <option value="">Pilih</option>
-                                <option value="Laki-Laki" {{ old('status') == 'laki-laki' ? 'selected' : '' }}>Laki-laki
+                                <option value="Laki-Laki" {{ old('jenis_kelamin') == 'Laki-Laki' ? 'selected' : '' }}>Laki-laki
                                 </option>
-                                <option value="Perempuan" {{ old('status') == 'perempuan' ? 'selected' : '' }}>Perempuan
+                                <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan
                                 </option>
                             </select>
                             @if ($errors->has('jenis_kelamin'))
@@ -74,7 +74,7 @@
                         <div class="mb-3">
                             <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
                             <input type="text" class="form-control" id="tempat_lahir"
-                                placeholder="Inputkan Tempat Lahir Anda" name="tempat_lahir"
+                                placeholder="Inputkan Tempat Lahir" name="tempat_lahir"
                                 value="{{ old('tempat_lahir') }}">
                             @if ($errors->has('tempat_lahir'))
                                 <div class="text-danger">{{ $errors->first('tempat_lahir') }}</div>
@@ -90,7 +90,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="alamat" class="form-label">Alamat Siswa</label>
-                            <input type="text" class="form-control" placeholder="Inputkan Alamat Anda" id="alamat"
+                            <input type="text" class="form-control" placeholder="Inputkan Alamat Siswa" id="alamat"
                                 name="alamat" value="{{ old('alamat') }}">
                             @if ($errors->has('alamat'))
                                 <div class="text-danger">{{ $errors->first('alamat') }}</div>

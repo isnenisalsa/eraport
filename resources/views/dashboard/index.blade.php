@@ -31,21 +31,7 @@
                     </div>
                 </div>
             @endif
-            <!-- Kartu Data Tahun Pelajaran -->
-            @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
-                <div class="col-md-3 mb-2">
-                    <div class="card text-white pace-big-counter-orange h-auto">
-                        <!-- Gunakan h-auto untuk tinggi otomatis -->
-                        <div class="card-body p-2"> <!-- Mengurangi padding dengan p-2 -->
-                            <p class="h5">{{ $dataTahunAjaranCount }}</p>
-                            <h5>Data Tahun Pelajaran</h5>
-                        </div>
-                        <a href="{{ route('tahun_ajaran') }}" class="card-footer space-big-counter-orange text-center p-2">
-                            Lihat detail <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-            @endif
+           
 
             <!-- Kartu Data Kelas -->
             @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
@@ -62,98 +48,52 @@
                 </div>
             @endif
 
-            <!-- Kartu Data Kelas -->
-            @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
-                <div class="col-md-3 mb-2">
-                    <div class="card text-white bg-navy h-auto"> <!-- Gunakan h-auto untuk tinggi otomatis -->
-                        <div class="card-body p-2"> <!-- Mengurangi padding dengan p-2 -->
-                            <p class="h5">{{ $dataMapelCount }}</p>
-                            <h5>Data Mapel</h5>
-                        </div>
-                        <a href="{{ route('mapel') }}" class="card-footer bg-gradient-navy text-center p-2">
-                            Lihat detail <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-            @endif
 
-            <!-- Kartu Data Pembelajaran -->
-            @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
-                <div class="col-md-3 mb-2">
-                    <div class="card text-white pace-big-counter-biru-tua h-auto">
-                        <!-- Gunakan h-auto untuk tinggi otomatis -->
-                        <div class="card-body p-2"> <!-- Mengurangi padding dengan p-2 -->
-                            <p class="h5">{{ $dataPembelajaranCount }}</p>
-                            <h5>Data Pembelajaran</h5>
-                        </div>
-                        <a href="{{ route('pembelajaran') }}"
-                            class="card-footer space-big-counter-biru-tua text-center p-2">
-                            Lihat detail <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-            @endif
-            <!-- Kartu Data Ekstrakulikuler -->
-            @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
-                <div class="col-md-3 mb-2">
-                    <div class="card text-white pace-big-counter-hijau-toska  h-auto">
-                        <!-- Gunakan h-auto untuk tinggi otomatis -->
-                        <div class="card-body p-2"> <!-- Mengurangi padding dengan p-2 -->
-                            <p class="h5">{{ $dataEskulCount }}</p>
-                            <h5>Data Ekstrakulikuler</h5>
-                        </div>
-                        <a href="{{ route('eskul.index') }}"
-                            class="card-footer space-big-counter-hijau-toska text-center p-2">
-                            Lihat detail <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-            @endif
-
-
-
-            <!-- Guru & Walas -->
+            <!-- Walas -->
             <!-- Kartu Data Kelas -->
             @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
             <div class="col-md-3 mb-2">
-                <div class="card text-white pace-big-counter-hijau-lumut h-auto">
+                <div class="card text-white bg-lightblue h-auto">
                     <!-- Gunakan h-auto untuk tinggi otomatis -->
                     <div class="card-body p-2"> <!-- Mengurangi padding dengan p-2 -->
                         <p class="h5">{{  $pembelajaran_walas }}</p>
                         <h5>Data Kelas</h5>
                     </div>
-                    <a href="{{ route('kelas.walas') }}" class="card-footer space-big-counter-hijau-lumut text-center p-2">
+                    <a href="{{ route('kelas.walas') }}" class="card-footer bg-gradient-lightblue text-center p-2">
                         Lihat detail <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
             @endif
 
+            
             <!-- Kartu Data Pembelajaran -->
             @if (auth()->check() && auth()->user()->roles->contains('nama', 'guru'))
                 <div class="col-md-3 mb-2">
-                    <div class="card text-white pace-big-counter-pink-tua h-auto">
+                    <div class="card text-white bg-success h-auto">
                         <!-- Gunakan h-auto untuk tinggi otomatis -->
                         <div class="card-body p-2"> <!-- Mengurangi padding dengan p-2 -->
                             <p class="h5">{{ $pembelajaran_guru }}</p>
                             <h5>Data Pembelajaran</h5>
                         </div>
                         <a href="{{ route('pembelajaran.guru') }}"
-                            class="card-footer space-big-counter-pink-tua text-center p-2">
+                            class="card-footer bg-gradient-success text-center p-2">
                             Lihat detail <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
             @endif
+
+
             <!-- Kartu Profil -->
             <div class="col-md-3 mb-2">
-                <div class="card text-white pace-big-counter-merah h-auto" style="min-height: 120px;">
+                <div class="card text-white big-counter-ungu h-auto" style="min-height: 120px;">
                     <!-- Atur min-height -->
                     <div class="card-body p-2 d-flex align-items-center justify-content-between">
                         <!-- Flexbox untuk jarak penuh -->
                         <h5 class="mb-0">Data Profile</h5> <!-- Teks di kiri -->
                     </div>
-                    <a href="{{ route('profile.show') }}" class="card-footer space-big-counter-merah text-center p-2">
+                    <a href="{{ route('profile.show') }}" class="card-footer gradiens-big-counter-ungu text-center p-2">
                         Lihat detail <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>

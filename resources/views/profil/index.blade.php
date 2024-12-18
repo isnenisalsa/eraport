@@ -65,10 +65,10 @@
                                         <div class="col-md-6 mb-3">
                                             <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
                                             <select class="form-control" name="jenis_kelamin" id="jenis_kelamin" required>
-                                                <option value="laki-laki"
-                                                    {{ old('jenis_kelamin', $user->jenis_kelamin) == 'Laki-laki' ? 'selected' : '' }}>
-                                                    Laki-laki</option>
-                                                <option value="perempuan"
+                                                <option value="Laki-Laki"
+                                                    {{ old('jenis_kelamin', $user->jenis_kelamin) == 'Laki-Laki' ? 'selected' : '' }}>
+                                                    Laki-Laki</option>
+                                                <option value="Perempuan"
                                                     {{ old('jenis_kelamin', $user->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>
                                                     Perempuan</option>
                                             </select>
@@ -78,7 +78,7 @@
                                         <div class="col-md-6">
                                             <label for="no_telp" class="form-label">No Telepon</label>
                                             <input type="text" id="no_telp" name="no_telp" class="form-control"
-                                                value="{{ old('no_telp', $user->no_telp) }}">
+                                                value="{{ old('no_telp', $user->no_telp) }}" maxlength="13">
                                         </div>
                                         <div class="col-md-6">
                                             <label for="alamat" class="form-label">Alamat</label>

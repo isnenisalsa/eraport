@@ -17,10 +17,11 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('profile.show') }}">Profile</a>
-                <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
+                <a class="dropdown-item" data-toggle="modal" data-target="#modal-logout">Logout</a>
             </div>
        
         </li>
     </ul>
 
 </nav>
+@include('logout')

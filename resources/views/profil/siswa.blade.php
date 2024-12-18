@@ -62,10 +62,10 @@
                                         <div class="col-md-6 mb-3">
                                             <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
                                             <select class="form-control" name="jenis_kelamin" id="jenis_kelamin" required>
-                                                <option value="laki-laki"
-                                                    {{ old('jenis_kelamin', $user->jenis_kelamin) == 'Laki-laki' ? 'selected' : '' }}>
-                                                    Laki-laki</option>
-                                                <option value="perempuan"
+                                                <option value="Laki-Laki"
+                                                    {{ old('jenis_kelamin', $user->jenis_kelamin) == 'Laki-Laki' ? 'selected' : '' }}>
+                                                    Laki-Laki</option>
+                                                <option value="Perempuan"
                                                     {{ old('jenis_kelamin', $user->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>
                                                     Perempuan</option>
                                             </select>

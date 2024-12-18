@@ -16,7 +16,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Tahun Ajaran</th>
-                                    <th>semester</th>
+                                    <th>Semester</th>
                                 </tr>
                             </thead>
                             <tbody>

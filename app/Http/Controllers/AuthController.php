@@ -57,18 +57,20 @@ class AuthController extends Controller
 
 
     public function logout(Request $request)
-    {
-        $request->session()->flush();
-        Auth::logout();
-        return Redirect('login');
-    }
-    public function logout_siswa(Request $request)
-    {
-        // Hapus data siswa dari session
-        session()->forget('id');
-        // Logout pengguna (jika diperlukan)
-        Auth::logout();
-        // Redirect ke halaman login
-        return redirect('login');
-    }
+{
+    $request->session()->flush(); // Membersihkan semua session
+    Auth::logout(); // Logout pengguna
+    return redirect('login')->with('success', 'Berhasil logout'); // Pesan notifikasi
+}
+
+public function logout_siswa(Request $request)
+{
+    // Hapus data siswa dari session
+    session()->forget('id');
+    // Logout pengguna (jika diperlukan)
+    Auth::logout();
+    // Redirect ke halaman login dengan pesan sukses
+    return redirect('login')->with('success', 'Berhasil logout');
+}
+
 }

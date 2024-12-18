@@ -52,10 +52,17 @@ public function showSiswa(Request $request)
         
         // Validasi input
         $request->validate([
-            'no_telp' => 'required',
+            'no_telp' => 'required|numeric|digits_between:12,13',
             'nama' => 'required|string|max:255',
             'jenis_kelamin' => 'required',
             'alamat' => 'required|string|max:255',
+        ], [
+            'no_telp.numeric' => 'no telp harus berupa angka.',
+            'no_telp.min' => 'no telp harus  12 angka.',
+            'no_telp.max' => 'no telp harus  13 angka.',
+            'nama.required' => 'Nama tidak boleh kosong',
+            'jenis_kelamin.required' => 'Jenis kelamin tidak boleh kosong',
+            'alamat.required' => 'Alamat tidak boleh kosong'
         ]);
     
         // Cari guru berdasarkan NIP
@@ -113,6 +120,9 @@ public function showSiswa(Request $request)
         'nama' => 'required|string|max:255',
         'jenis_kelamin' => 'required',
         'alamat' => 'required|string|max:255',
+    ], [
+        'nama.required' => 'Nama tidak boleh kosong.',
+        'alamat.required' => 'Alamat tidak boleh kosong.',
     ]);
 
     // Cari siswa berdasarkan NIS

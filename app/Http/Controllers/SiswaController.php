@@ -55,24 +55,37 @@ class SiswaController extends Controller
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
             'alamat' => 'required',
-            'jalan',
-            'kelurahan',
-            'kecamatan',
-            'kota',
-            'provinsi',
-            'nama_ayah',
-            'pekerjaan_ayah',
-            'no_telp_ayah',
-            'nama_ibu',
-            'pekerjaan_ibu',
-            'no_telp_ibu',
-            'nama_wali',
-            'pekerjaan_wali',
-            'no_telp_wali',
-            'alamat_wali',
+            'jalan' => 'nullable',
+            'kelurahan'=> 'nullable',
+            'kecamatan' => 'nullable',
+            'kota' => 'nullable',
+            'provinsi'=> 'nullable',
+            'nama_ayah' => 'nullable',
+            'pekerjaan_ayah' => 'nullable',
+            'no_telp_ayah' => 'nullable',
+            'nama_ibu' => 'nullable',
+            'pekerjaan_ibu' => 'nullable',
+            'no_telp_ibu' => 'nullable',
+            'nama_wali' => 'nullable',
+            'pekerjaan_wali' => 'nullable',
+            'no_telp_wali' => 'nullable',
+            'alamat_wali' => 'nullable',
             'terms' => 'required',
         ], [
-
+            'nis.required' => 'NIS tidak boleh kosong',
+            'nis.numeric' => 'NIS harus berupa angka',
+            'nis.digits' => 'NIS harus berisi 6 angka',
+            'nis.unique' => 'NIS tidak boleh sama',
+            'nisn.digits' => 'NISN harus berisi 10 angka',
+            'nisn.required' => 'NISN tidak boleh kosong',
+            'nisn.numeric' => 'NISN harus berupa angka',
+            'nama.required' => 'Nama tidak boleh kosong',
+            'pendidikan_terakhir.required' => 'Pendidikan sebelumnya tidak boleh kosong',
+            'jenis_kelamin.required' => 'Jenis kelamin tidak boleh kosong',
+            'agama.required' => 'Agama tidak boleh kosong',
+            'tempat_lahir.required' => 'Tempat Lahir tidak boleh kosong',
+            'tanggal_lahir.required' => 'Tanggal Lahir tidak boleh kosong',
+            'alamat.required' => 'Alamat tidak boleh kosong',
             'terms.required' => 'wajib di centang'
 
         ]);
@@ -104,13 +117,14 @@ class SiswaController extends Controller
             'nama_wali' => $request->nama_wali,
             'pekerjaan_wali' => $request->pekerjaan_wali,
             'no_telp_wali' => $request->no_telp_wali,
+            'alamat_wali' => $request->alamat_wali,
             'username' => $username,
             'password' => $password,
 
 
         ]);
 
-        return redirect()->route('siswa');
+        return redirect()->route('siswa')->with('success', 'Data siswa berhasil disimpan');
     }
 
     public function edit($nis)
@@ -161,6 +175,22 @@ class SiswaController extends Controller
             'no_telp_wali' => 'nullable|string|max:15',
             'alamat_wali' => 'nullable|string|max:255',
             'terms' => 'nullable|boolean',
+        ], [
+            'nis.required' => 'NIS tidak boleh kosong',
+            'nis.numeric' => 'NIS harus berupa angka',
+            'nis.digits' => 'NIS harus berisi 6 angka',
+            'nis.unique' => 'NIS tidak boleh sama',
+            'nisn.digits' => 'NISN harus berisi 10 angka',
+            'nisn.required' => 'NISN tidak boleh kosong',
+            'nisn.numeric' => 'NISN harus berupa angka',
+            'nama.required' => 'Nama tidak boleh kosong',
+            'pendidikan_terakhir.required' => 'Pendidikan sebelumnya tidak boleh kosong',
+            'jenis_kelamin.required' => 'Jenis kelamin tidak boleh kosong',
+            'agama.required' => 'Agama tidak boleh kosong',
+            'tempat_lahir.required' => 'Tempat Lahir tidak boleh kosong',
+            'tanggal_lahir.required' => 'Tanggal Lahir tidak boleh kosong',
+            'alamat.required' => 'Alamat tidak boleh kosong',
+            'terms.required' => 'wajib di centang'
         ]);
         $siswa = SiswaModel::findOrFail($nis);
 
@@ -190,6 +220,7 @@ class SiswaController extends Controller
             'nama_wali' => $request->input('nama_wali'),
             'pekerjaan_wali' => $request->input('pekerjaan_wali'),
             'no_telp_wali' => $request->input('no_telp_wali'),
+            'alamat_wali' => $request->input('alamat_wali'),
             'terms' => $request->input('terms'),
         ]);
 
