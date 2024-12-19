@@ -30,7 +30,7 @@
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
         @include('layouts.header')
-        <aside class="main-sidebar sidebar-light-light elevation-4" style="background-color: #2FCC7B;">
+        <aside class="main-sidebar sidebar-light-light elevation-4" style="background-color: #22ff77;">
             <p class="brand-link" style="text-align: center; background-color: #FFFCF7;height: 68px;">
                 <img src="{{ asset('image/Logo.png') }}" alt="adminlte Logo" class="brand-image"
                     style="margin-left: 4%">
