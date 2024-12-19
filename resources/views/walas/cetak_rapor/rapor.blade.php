@@ -234,7 +234,7 @@
                 @endforeach
             </tbody>
         </table>
-        <table style="width: 50%; margin-bottom: 20px;">
+        <table style="width: 50%; margin-bottom: 20px; margin-top: 100px">
             <thead>
                 <tr>
                     <th colspan="2" style="text-align: center">Ketidakhadiran</th>

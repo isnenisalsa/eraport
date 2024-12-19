@@ -126,14 +126,14 @@
                             <a href="{{ url('guru') }}"
                                 class="nav-link {{ $activeMenu == 'guru' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
-                                <p style="color: black">Guru</p>
+                                <p style="color: black">Data Guru</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('siswa') }}"
                                 class="nav-link {{ $activeMenu == 'siswa' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
-                                <p style="color: black">Siswa</p>
+                                <p style="color: black">Data Siswa</p>
                             </a>
                         </li>
                     </ul>
@@ -159,42 +159,42 @@
                             <a href="{{ url('sekolah/') }}"
                                 class="nav-link {{ $activeMenu == 'Data Sekolah' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
-                                <p style="color: black">Sekolah</p>
+                                <p style="color: black">Data Sekolah</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('tahun/ajaran') }}"
                                 class="nav-link {{ $activeMenu == 'Tahun Ajaran' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
-                                <p style="color: black">Tahun Ajaran</p>
+                                <p style="color: black">Data Tahun Ajaran</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('kelas') }}"
                                 class="nav-link {{ $activeMenu == 'kelas' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
-                                <p style="color: black">Kelas</p>
+                                <p style="color: black">Data Kelas</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('mapel') }}"
                                 class="nav-link {{ $activeMenu == 'mapel' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
-                                <p style="color: black">Mapel</p>
+                                <p style="color: black">Data Mapel</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('pembelajaran') }}"
                                 class="nav-link {{ $activeMenu == 'pembelajaran' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
-                                <p style="color: black">Pembelajaran</p>
+                                <p style="color: black">Data Pembelajaran</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('eskul') }}"
                                 class="nav-link {{ $activeMenu == 'Eskul' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
-                                <p style="color: black">Ekstrakulikuler</p>
+                                <p style="color: black">Data Ekstrakulikuler</p>
                             </a>
                         </li>
                     </ul>

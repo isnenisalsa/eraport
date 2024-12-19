@@ -30,11 +30,11 @@ class AuthController extends Controller
             $roleIds = $user->roles->pluck('id')->toArray();
             // Redirect berdasarkan role
             if (in_array(1, $roleIds)) {
-                return redirect()->route('dashboard');
+                return redirect()->route('dashboard')->with('success', 'Anda Berhasil Login');
             } elseif (in_array(2, $roleIds)) {
-                return redirect()->route('dashboard');
+                return redirect()->route('dashboard')->with('success', 'Anda Berhasil Login');
             } elseif (in_array(3, $roleIds)) {
-                return redirect()->route('dashboard');
+                return redirect()->route('dashboard')->with('success', 'Anda Berhasil Login');
             }
 
             // Jika role tidak dikenali
@@ -48,7 +48,7 @@ class AuthController extends Controller
             Auth::guard('siswa')->login($siswa);
 
             // Redirect ke dashboard siswa
-            return redirect()->route('dashboard.siswa');
+            return redirect()->route('dashboard.siswa')->with('success', 'Anda Berhasil Login');
         }
 
         // Jika login gagal
@@ -57,20 +57,19 @@ class AuthController extends Controller
 
 
     public function logout(Request $request)
-{
-    $request->session()->flush(); // Membersihkan semua session
-    Auth::logout(); // Logout pengguna
-    return redirect('login')->with('success', 'Berhasil logout'); // Pesan notifikasi
-}
+    {
+        $request->session()->flush(); // Membersihkan semua session
+        Auth::logout(); // Logout pengguna
+        return redirect('login')->with('success', 'Berhasil logout'); // Pesan notifikasi
+    }
 
-public function logout_siswa(Request $request)
-{
-    // Hapus data siswa dari session
-    session()->forget('id');
-    // Logout pengguna (jika diperlukan)
-    Auth::logout();
-    // Redirect ke halaman login dengan pesan sukses
-    return redirect('login')->with('success', 'Berhasil logout');
-}
-
+    public function logout_siswa(Request $request)
+    {
+        // Hapus data siswa dari session
+        session()->forget('id');
+        // Logout pengguna (jika diperlukan)
+        Auth::logout();
+        // Redirect ke halaman login dengan pesan sukses
+        return redirect('login')->with('success', 'Berhasil logout');
+    }
 }

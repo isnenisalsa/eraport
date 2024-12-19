@@ -53,7 +53,7 @@ class AbsensiController extends Controller
         $breadcrumb = (object) [
             'title' => 'Absensi Kelas',
         ];
-        $activeMenu = 'absensi';
+        $activeMenu = 'Data Absensi';
 
         // Ambil data kelas berdasarkan kode_kelas
         $kelas = KelasModel::where('kode_kelas', $id)->firstOrFail();

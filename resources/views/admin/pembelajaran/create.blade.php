@@ -26,7 +26,8 @@
                     <div class="form-group">
                         <label for="mata_pelajaran">Mata Pelajaran</label>
                         <select name="mata_pelajaran"
-                            class="form-control @error('mata_pelajaran', 'tambahBag') is-invalid @enderror">
+                            class="form-control @error('mata_pelajaran', 'tambahBag') is-invalid @enderror"
+                            id="mata_pelajaran">
                             <option value="">Pilih Mata Pelajaran</option>
                             @foreach ($mapel as $item)
                                 <option value="{{ $item->kode_mapel }}"
@@ -44,7 +45,7 @@
                     <div class="form-group">
                         <label for="nama_kelas">Nama Kelas</label>
                         <select name="nama_kelas"
-                            class="form-control @error('nama_kelas', 'tambahBag') is-invalid @enderror">
+                            class="form-control @error('nama_kelas', 'tambahBag') is-invalid @enderror" id="nama_kelas">
                             <option value="">Pilih Kelas</option>
                             @foreach ($kelas as $kelasitem)
                                 <option value="{{ $kelasitem->kode_kelas }}"
@@ -62,7 +63,7 @@
                     <div class="form-group">
                         <label for="nama_guru">Guru Pengampu</label>
                         <select name="nama_guru"
-                            class="form-control @error('nama_guru', 'tambahBag') is-invalid @enderror">
+                            class="form-control @error('nama_guru', 'tambahBag') is-invalid @enderror" id="nama_guru">
                             <option value="">Pilih Guru Pengampu</option>
                             @foreach ($guru as $item)
                                 <option value="{{ $item->nik }}"
@@ -84,6 +85,26 @@
     </div>
 </div>
 </div>
+<script>
+    document.getElementById('modal-tambah-data-pembelajaran').addEventListener('hidden.bs.modal', function() {
+        // Reset input field values
+        this.querySelectorAll('input, select').forEach(element => {
+            if (element.tagName === 'SELECT') {
+                element.selectedIndex = 0; // Reset dropdown
+            } else {
+                element.value = ''; // Reset text input
+            }
+            element.classList.remove('is-invalid'); // Remove validation classes
+        });
+
+        // Reset error messages
+        this.querySelectorAll('.text-danger').forEach(error => error.textContent = '');
+
+        // Optionally, move focus back to the button that triggered the modal
+        const triggerButton = document.querySelector('[data-bs-target="#modal-tambah-data-pembelajaran"]');
+        if (triggerButton) triggerButton.focus();
+    });
+</script>
 @if ($errors->tambahBag->any())
     <script>
         $(document).ready(function() {

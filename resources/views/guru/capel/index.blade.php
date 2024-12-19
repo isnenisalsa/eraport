@@ -9,17 +9,17 @@
                         <tr>
                             <th scope="col">Mata Pelajaran</th>
                             <th scope="col">:</th>
-                            <th scope="col">{{ $data->first()->mapel->mata_pelajaran }}</th>
+                            <th scope="col">{{ $data->mapel->mata_pelajaran }}</th>
                         </tr>
                         <tr>
                             <th scope="col">Kelas</th>
                             <th scope="col">:</th>
-                            <th scope="col">{{ $data->first()->kelas->nama_kelas }}</th>
+                            <th scope="col">{{ $data->kelas->nama_kelas }}</th>
                         </tr>
                         <tr>
                             <th scope="col">Guru Pengampu</th>
                             <th scope="col">:</th>
-                            <th scope="col">{{ $data->first()->guru->nama }}</th>
+                            <th scope="col">{{ $data->guru->nama }}</th>
                         </tr>
                     </thead>
                 </table>

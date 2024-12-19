@@ -73,7 +73,7 @@ class PembelajaranController extends Controller
         $request->validateWithBag(
             'tambahBag',
             [
-                'id_pembelajaran' => 'required', // Aturan validasi yang benar
+                'id_pembelajaran' => 'required|unique:pembelajaran,id_pembelajaran', // Aturan validasi yang benar
                 'mata_pelajaran' => [
                     'required',
                     Rule::unique('pembelajaran')->where(function ($query) use ($request) {
@@ -84,7 +84,8 @@ class PembelajaranController extends Controller
                 'nama_guru' => 'required' // Pastikan 'nama_guru' sesuai dengan kolom yang ada di tabel 'guru'
             ],
             [
-                'id_pembelajaran.required' => 'ID Pembelajaran tidak boleh kosong',
+                'id_pembelajaran.required' => 'Kode Pembelajaran tidak boleh kosong',
+                'id_pembelajaran.unique' => 'Kode Pembelajaran tidak boleh sama',
                 'mata_pelajaran.required' => 'Mata Pelajaran tidak boleh kosong',
                 'mata_pelajaran.unique' => 'Mata Pelajaran sudah ada di kelas ini',
                 'nama_kelas.required' => 'Nama Kelas tidak boleh kosong',
@@ -99,13 +100,11 @@ class PembelajaranController extends Controller
             'nama_guru' => $request->nama_guru,
         ]);
 
-
+        $roleIdToattach = 2;
         // Ambil guru berdasarkan guru_nik
-        $guru = GuruModel::find($request->nama_guru);
-
-        // Tambahkan role ke guru jika belum ada
-        if (!$guru->roles()->where('role_id', 2)->exists()) {
-            $guru->roles()->attach(2); // Menambahkan role dengan ID 3
+        $guruBaru = GuruModel::where('nik', $request->guru_nik)->first();
+        if ($guruBaru) {
+            $guruBaru->roles()->syncWithoutDetaching([$roleIdToattach]);
         }
 
         // Redirect setelah berhasil
@@ -141,13 +140,12 @@ class PembelajaranController extends Controller
         ],);
         $guru = GuruModel::find($request->nama_guru);
 
-        $roleIdToDelete = 2;
-
-        // Hapus role jika ada
-        $guru->roles()->detach($roleIdToDelete);
-
-        // Tambahkan role baru
-        $guru->roles()->attach($roleIdToDelete);
+        $roleIdToattach = 2;
+        // Ambil guru berdasarkan guru_nik
+        $guruBaru = GuruModel::where('nik', $request->guru_nik)->first();
+        if ($guruBaru) {
+            $guruBaru->roles()->syncWithoutDetaching([$roleIdToattach]);
+        }
 
         return redirect()->route('pembelajaran')->with('success', 'Data Pembelajaran berhasil diperbarui');
     }
