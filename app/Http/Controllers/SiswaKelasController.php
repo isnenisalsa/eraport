@@ -58,15 +58,20 @@ class SiswaKelasController extends Controller
     public function save(Request $request, $kode_kelas)
     {
         $request->validate([
-            'siswa_id' =>  'required',
-
+            'siswa_id' => 'required|array',
+            'siswa_id.*' => 'exists:siswa,nis',
         ]);
         $kelas = KelasModel::where('kode_kelas', $kode_kelas)->value('kode_kelas');
 
-        SiswaKelasModel::create([
-            'siswa_id' => $request->siswa_id,
-            'kelas_id' => $kelas,
-        ]);
-        return redirect()->route('siswa_kelas', $kelas);
+        foreach ($request->siswa_id as $siswa_id) {
+            SiswaKelasModel::create([
+                'siswa_id' => (int) $siswa_id, // Konversi ke INT jika diperlukan
+                'kelas_id' => $kelas,
+            ]);
+        }
+        
+        
+        return redirect()->route('siswa_kelas', $kelas)->with('success', 'Data siswa berhasil ditambahkan ke kelas.');
+
     }
 }

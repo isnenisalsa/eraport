@@ -54,6 +54,7 @@ class SiswaController extends Controller
             'agama' => 'required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
+            'email' => 'required',
             'alamat' => 'required',
             'jalan' => 'nullable',
             'kelurahan'=> 'nullable',
@@ -85,6 +86,7 @@ class SiswaController extends Controller
             'agama.required' => 'Agama tidak boleh kosong',
             'tempat_lahir.required' => 'Tempat Lahir tidak boleh kosong',
             'tanggal_lahir.required' => 'Tanggal Lahir tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',
             'alamat.required' => 'Alamat tidak boleh kosong',
             'terms.required' => 'wajib di centang'
 
@@ -118,6 +120,7 @@ class SiswaController extends Controller
             'pekerjaan_wali' => $request->pekerjaan_wali,
             'no_telp_wali' => $request->no_telp_wali,
             'alamat_wali' => $request->alamat_wali,
+            'email' => $request->email,
             'username' => $username,
             'password' => $password,
 
@@ -156,6 +159,7 @@ class SiswaController extends Controller
             'pendidikan_terakhir' => 'required|string|max:255',
             'jenis_kelamin' => 'required|string',
             'agama' => 'required|string',
+            'email' => 'required|string',
             'tempat_lahir' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required|string|max:255',
@@ -190,6 +194,7 @@ class SiswaController extends Controller
             'tempat_lahir.required' => 'Tempat Lahir tidak boleh kosong',
             'tanggal_lahir.required' => 'Tanggal Lahir tidak boleh kosong',
             'alamat.required' => 'Alamat tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',
             'terms.required' => 'wajib di centang'
         ]);
         $siswa = SiswaModel::findOrFail($nis);
@@ -200,6 +205,7 @@ class SiswaController extends Controller
             'nisn' => $request->input('nisn'),
             'status' => $request->input('status'),
             'nama' => $request->input('nama'),
+            'email' => $request->input('email'),
             'pendidikan_terakhir' => $request->input('pendidikan_terakhir'),
             'jenis_kelamin' => $request->input('jenis_kelamin'),
             'agama' => $request->input('agama'),

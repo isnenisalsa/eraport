@@ -54,14 +54,12 @@ public function showSiswa(Request $request)
         $request->validate([
             'no_telp' => 'required|numeric|digits_between:12,13',
             'nama' => 'required|string|max:255',
-            'jenis_kelamin' => 'required',
             'alamat' => 'required|string|max:255',
         ], [
             'no_telp.numeric' => 'no telp harus berupa angka.',
             'no_telp.min' => 'no telp harus  12 angka.',
             'no_telp.max' => 'no telp harus  13 angka.',
             'nama.required' => 'Nama tidak boleh kosong',
-            'jenis_kelamin.required' => 'Jenis kelamin tidak boleh kosong',
             'alamat.required' => 'Alamat tidak boleh kosong'
         ]);
     
@@ -72,7 +70,6 @@ public function showSiswa(Request $request)
         $profile->update([
             'no_telp' => $request->no_telp,
             'nama' => $request->nama,
-            'jenis_kelamin' => $request->jenis_kelamin,
             'alamat' => $request->alamat,
         ]);
         // Redirect dengan pesan sukses
@@ -118,7 +115,6 @@ public function showSiswa(Request $request)
     // Validasi input
     $request->validate([
         'nama' => 'required|string|max:255',
-        'jenis_kelamin' => 'required',
         'alamat' => 'required|string|max:255',
     ], [
         'nama.required' => 'Nama tidak boleh kosong.',
@@ -131,7 +127,6 @@ public function showSiswa(Request $request)
     // Perbarui data
     $profileSiswa->update([
         'nama' => $request->nama,
-        'jenis_kelamin' => $request->jenis_kelamin,
         'alamat' => $request->alamat,
     ]);
 

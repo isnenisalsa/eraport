@@ -18,6 +18,9 @@
                                     <label for="username" class="fw-bold">Username:</label>
                                     <input type="text" name="username" id="username" class="form-control mt-2"
                                         value="{{ $user->username }}" required>
+                                        <label for="email" class="fw-bold">Email:</label>
+                                    <input type="text" name="email" id="email" class="form-control mt-2"
+                                        value="{{ $user->email }}" required>
                                 </li>
                             </ul>
                         </form>
@@ -57,22 +60,9 @@
                                         <div class="col-md-6">
                                             <label for="nama" class="form-label">Nama </label>
                                             <input type="text" id="nama" name="nama" class="form-control"
-                                                value="{{ old('nama', $user->nama) }}" required>
+                                                value="{{ old('nama', $user->nama) }}" required readonly>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
-                                            <select class="form-control" name="jenis_kelamin" id="jenis_kelamin" required>
-                                                <option value="Laki-Laki"
-                                                    {{ old('jenis_kelamin', $user->jenis_kelamin) == 'Laki-Laki' ? 'selected' : '' }}>
-                                                    Laki-Laki</option>
-                                                <option value="Perempuan"
-                                                    {{ old('jenis_kelamin', $user->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>
-                                                    Perempuan</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
                                             <label for="alamat" class="form-label">Alamat</label>
                                             <textarea id="alamat" name="alamat" class="form-control" rows="2">{{ old('alamat', $user->alamat) }}</textarea>
                                         </div>
@@ -101,19 +91,51 @@
                                                 <label for="username" class="form-label">Username</label>
                                                 <input type="text" id="username" name="username" class="form-control" value="{{ $user->username }}">
                                                 @if ($errors->has('username'))
-                                                <div class="text-danger">{{ $errors->first('username') }}</div>
-                                            @endif
+                                                    <div class="text-danger">{{ $errors->first('username') }}</div>
+                                                @endif
                                             </div>
+                                            <div class="col-md-6">
+                                                <label for="email" class="form-label">Email</label>
+                                                <input type="email" id="email" name="email" class="form-control" value="{{ $user->email }}">
+                                                @if ($errors->has('email'))
+                                                    <div class="text-danger">{{ $errors->first('email') }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
                                         
-                                            <div class="col-md-6 mb-3">
-                                                <label for="password" class="form-label">Password</label>
+                                        <div class="row mt-3">
+                                            <div class="col-md-6">
+                                                <label for="password" class="form-label">Password Baru</label>
                                                 <input type="password" id="password" name="password" class="form-control">
                                                 @if ($errors->has('password'))
-                                                <div class="text-danger">{{ $errors->first('password') }}</div>
-                                            @endif
+                                                    <div class="text-danger">{{ $errors->first('password') }}</div>
+                                                @endif
                                             </div>
+                                            <div class="col-md-6">
+                                                <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
+                                                <input type="password" id="password_confirmation" name="password_confirmation" class="form-control">
+                                                @if ($errors->has('password_confirmation'))
+                                                    <div class="text-danger">{{ $errors->first('password_confirmation') }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function () {
+                                                const passwordInput = document.getElementById('password');
+                                                const passwordConfirmationInput = document.getElementById('password_confirmation');
                                         
-                                    </div>
+                                                passwordConfirmationInput.addEventListener('input', function () {
+                                                    const password = passwordInput.value;
+                                                    const confirmation = passwordConfirmationInput.value;
+                                        
+                                                    if (password !== confirmation) {
+                                                        passwordConfirmationInput.setCustomValidity('Password Baru dan Konfirmasi Password Tidak Cocok.');
+                                                    } else {
+                                                        passwordConfirmationInput.setCustomValidity('');
+                                                    }
+                                                });
+                                            });
+                                        </script>
                                         <button type="submit" class="btn btn-success w-100 mt-3">Simpan Akun</button>
                                     </form>
                                 </div>

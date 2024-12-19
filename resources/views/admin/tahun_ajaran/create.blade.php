@@ -26,9 +26,13 @@
                         </div>
                         <div class="form-group">
                             <label for="semester" class="form-label">Semester</label>
-                            <input type="text"
-                                class="form-control @error('semester', 'tambahBag') is-invalid @enderror" id="semester"
-                                placeholder="Inputkan Semester Anda" name="semester" value="{{ old('semester') }}">
+                            <select class="form-control" name="semester" id="semester">
+                                <option value="">Pilih</option>
+                                <option value="Ganjil" {{ old('semester') == 'Ganjil' ? 'selected' : '' }}>Ganjil
+                                </option>
+                                <option value="Genap" {{ old('semester') == 'Genap' ? 'selected' : '' }}>Genap
+                                </option>
+                            </select>
                             @error('semester', 'tambahBag')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror

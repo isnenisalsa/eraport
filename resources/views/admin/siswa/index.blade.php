@@ -176,6 +176,10 @@
                                 <th>Alamat Wali</th>
                                 <td>{{ $item->alamat_wali }}</td>
                             </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{ $item->email }}</td>
+                            </tr>
                         </table>
                     </div>
                     <div class="modal-footer">

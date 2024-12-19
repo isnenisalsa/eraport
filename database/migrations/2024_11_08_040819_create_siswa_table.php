@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("nama");
             $table->string("status")->default('Aktif');
             $table->string("pendidikan_terakhir");
+            $table->email("email");
             $table->string("jenis_kelamin");
             $table->string("agama");
             $table->string("tempat_lahir");

@@ -38,6 +38,7 @@ class SiswaModel extends Authenticatable
         'pekerjaan_wali',
         'no_telp_wali',
         'alamat_wali',
+        'email',
         'username',
         'password'
     ];

@@ -131,15 +131,15 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <img src="{{ public_path('image/logo1.png') }}" alt="Logo Kemdikbud">
+            <img src="{{ public_path('image/logo.png') }}" alt="Logo Kemdikbud">
         </div>
 
         <!-- Title Sekolah -->
-        <div class="sekolah">
+        <div class="sekolah" style="size: 100px">
             <h1>R A P O R</h1>
             <h2>PESERTA DIDIK</h2>
             <h3>SEKOLAH MENENGAH PERTAMA</h3>
-            <h3>(SMP)</h3>
+            <h3>ISLAM TERPADU SIRAJUL HUDA</h3>
         </div>
 
         <!-- Informasi Peserta Didik -->
@@ -148,7 +148,7 @@
                 <strong class="h4">Nama Peserta Didik:</strong>
                 <div class="border-box">{{ $siswa->first()->nama }}</div>
 
-                <strong class="h4" style="margin-top: 100px">NIS / NISN:</strong>
+                <strong class="h4" style="margin-top: 100px ">NIS / NISN:</strong>
                 <div class="border-box">{{ $siswa->first()->nis }} / {{ $siswa->first()->nisn }}</div>
             </div>
         </div>

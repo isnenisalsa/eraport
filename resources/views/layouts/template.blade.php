@@ -30,7 +30,7 @@
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
         @include('layouts.header')
-        <aside class="main-sidebar sidebar-light-light elevation-4" style="background-color: #22ff77;">
+        <aside class="main-sidebar sidebar-light-light elevation-4" style="background-color: #25D366;">
             <p class="brand-link" style="text-align: center; background-color: #FFFCF7;height: 68px;">
                 <img src="{{ asset('image/Logo.png') }}" alt="adminlte Logo" class="brand-image"
                     style="margin-left: 4%">
@@ -116,8 +116,15 @@
 
         $(document).ready(function() {
             $('#siswa_id').select2({
-                theme: 'bootstrap4',
-                dropdownParent: $('#modal-tambah-data-siswa')
+                placeholder: 'Pilih siswa...',
+                allowClear: true,
+                closeOnSelect: false,
+                width: '100%',
+                language: {
+                    noResults: function() {
+                        return "Tidak ada hasil ditemukan";
+                    }
+                }
             });
         });
         $(document).ready(function() {

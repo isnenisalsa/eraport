@@ -14,9 +14,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="siswa_id">Daftar Siswa</label>
-                            <select name="siswa_id" class="form-control select2" style="width: 100%; height: 120px"
-                                id="siswa_id" required>
-                                <option value="">- Pilih Siswa -</option>
+                            <select name="siswa_id[]" class="form-control" id="siswa_id" multiple>
                                 @foreach ($siswa as $item)
                                     <option value="{{ $item->nis }}">{{ $item->nis }} - {{ $item->nama }}
                                     </option>

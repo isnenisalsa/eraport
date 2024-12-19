@@ -251,6 +251,14 @@
                                 <div class="text-danger">{{ $errors->first('alamat_wali') }}</div>
                             @endif
                         </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" class="form-control" value="{{ $siswa->email }} "
+                                id="email" placeholder="Inputkan Email" name="email" >
+                            @if ($errors->has('email'))
+                                <div class="text-danger">{{ $errors->first('email') }}</div>
+                            @endif
+                        </div>
                     </div>
                 </div>
                 <div class="form-check mt-3">

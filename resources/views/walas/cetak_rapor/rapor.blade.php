@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -268,7 +267,7 @@
                     <td style="width: 50%; text-align: center; vertical-align: bottom; border: none;">
                         <br>
                         Orang Tua,
-                        <br><br><br><br><br>
+                        <br><br><br><br><br><br>
                         <span>____________________</span>
                     </td>
 
@@ -277,7 +276,7 @@
                         <!-- Tanggal tanda tangan -->
                         <span>{{ \Carbon\Carbon::now()->isoFormat('D MMMM Y') }}</span>
                         <br>Wali Kelas
-                        <br><br><br><br>
+                        <br><br><br><br><br>
                         <span>{{ $kelas->first()->guru->nama }}</span> <!-- Tampilkan nama Wali Kelas -->
                         <br>
                         NIP. <span>{{ $kelas->first()->guru->nip }}</span>
@@ -292,7 +291,7 @@
         <div style="text-align: center; margin-top: 40px;">
             <br>Mengetahui,
             <br>Kepala Sekolah
-            <br><br><br><br>
+            <br><br><br><br><br>
             <span>{{ $sekolah->nama_kepsek }}</span>
             <br>
             NIP. <span>{{ $sekolah->nip_kepsek }}</span>
