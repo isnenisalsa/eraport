@@ -195,6 +195,6 @@ Route::prefix('cetak/rapor')->group(function () {
     Route::get('/siswa/cetak/{kode_kelas}/{nis}/{tahun_ajaran_id}', [CetakRaporController::class, 'KelasRaporSiswaCetak'])->middleware('siswa')->name('cetak.index.siswa');
     Route::get('/{kode_kelas}/{tahun_ajaran_id}', [CetakRaporController::class, 'index'])->name('cetak.rapor.index');
     Route::get('/siswa/{nis}/cover', [CetakRaporController::class, 'cover'])->name('walas.cover');
-    Route::get('/siswa/{nis}/biodata', [CetakRaporController::class, 'biodata'])->name('walas.biodata');
+    Route::get('/siswa/{nis}/{tahun_ajaran_id}/biodata', [CetakRaporController::class, 'biodata'])->name('walas.biodata');
     Route::get('/rapor/{kode_kelas}/{nis}/{tahun_ajaran_id}', [CetakRaporController::class, 'rapor'])->name('walas.rapor');
 });

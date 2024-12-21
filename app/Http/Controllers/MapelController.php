@@ -25,25 +25,37 @@ class MapelController extends Controller
     public function save(Request $request)
     {
         $request->validateWithBag(
-
             'tambahBag',
             [
-                'kode_mapel' => 'required|unique:mapel,kode_mapel', // Aturan validasi yang benar
                 'mata_pelajaran' => 'required',
             ],
             [
-                'kode_mapel.required' => 'Kode Mapel tidak boleh kosong',
-                'kode_mapel.unique' => 'Kode Mapel harus unik',
                 'mata_pelajaran.required' => 'Mata Pelajaran tidak boleh kosong',
             ]
         );
 
+        // Generate kode_mapel otomatis
+        $lastMapel = MapelModel::latest('kode_mapel')->first();
+        if ($lastMapel) {
+            // Ambil angka terakhir dari kode_mapel dan tambahkan 1
+            $lastNumber = (int) substr($lastMapel->kode_mapel, 2);
+            $newNumber = $lastNumber + 1;
+        } else {
+            $newNumber = 1;
+        }
+
+        // Format kode_mapel baru
+        $kodeMapel = 'MP' . str_pad($newNumber, 3, '0', STR_PAD_LEFT);
+
+        // Simpan data ke tabel mapel
         MapelModel::create([
-            'kode_mapel' => $request->kode_mapel,
+            'kode_mapel' => $kodeMapel,
             'mata_pelajaran' => $request->mata_pelajaran,
         ]);
-        return redirect()->route('mapel')->with('success', 'Data guru berhasil diperbarui');
+
+        return redirect()->route('mapel')->with('success', 'Data mata pelajaran berhasil disimpan.');
     }
+
     public function update(Request $request, $kode_mapel)
     {
         $request->validateWithBag(

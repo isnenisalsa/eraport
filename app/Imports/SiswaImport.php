@@ -13,11 +13,10 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithSkipDuplicates;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
-class SiswaImport implements ToModel, WithValidation, WithHeadingRow, SkipsOnFailure, SkipsEmptyRows
+class SiswaImport implements ToModel, WithValidation, WithHeadingRow, SkipsEmptyRows
 {
-    use Importable, SkipsFailures;
+    use Importable;
     public function model(array $row)
-
     {
 
         $username = strtolower(str_replace(' ', '_', $row['nama']));
@@ -26,6 +25,7 @@ class SiswaImport implements ToModel, WithValidation, WithHeadingRow, SkipsOnFai
 
             'nis' => $row['nis'],
             'nisn' => $row['nisn'],
+            'email' => $row['email'],
             'nama' => $row['nama'],
             'status' => $row['status'] ?? 'Aktif',
             'jenis_kelamin' => $row['jenis_kelamin'],

@@ -39,7 +39,7 @@
                     <div class="card-header">
                         <button class="btn btn-warning btn-sm" id="btn-edit-nilai" type="button">Edit Nilai</button>
                         <a href="{{ route('capel.index', ['id_pembelajaran' => $id, 'tahun_ajaran_id' => $tahun_ajaran_id]) }}"
-                            class="btn btn-success btn-sm float-right">Kelola Capaian</a> &nbsp;
+                            class="btn btn-success btn-sm float-right">Kelola Tujuan Pembelajaran</a> &nbsp;
                     </div>
                     <div id="edit-message" class="alert alert-info" style="display: none;">
                         Anda sudah bisa mengedit
@@ -54,13 +54,13 @@
                             <input type="hidden" name="tahun_ajaran_id" value="{{ $tahun_ajaran_id }}">
                             <table class="table table-bordered table-hover table-striped table-responsive">
                                 <thead>
-                                    <tr>
+                                    <tr class="text-center">
                                         <th>No</th>
                                         <th>Nama Siswa</th>
                                         @foreach ($capel as $item)
                                             <th>{{ $item->nama_capel }}</th>
                                         @endforeach
-                                        <th>Rata-rata capel</th> <!-- Tambahkan kolom rata-rata capel -->
+                                        <th>Rata-rata Tujuan</th> <!-- Tambahkan kolom rata-rata capel -->
                                         <th>UTS</th>
                                         <th>UAS</th>
                                         <th>Rata-rata UTS & UAS</th>
@@ -69,7 +69,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($siswa as $index => $item)
-                                        <tr>
+                                        <tr class="text-center">
                                             <td>{{ $index + 1 }}</td>
                                             <td>
                                                 {{ $item->siswa->nama }}

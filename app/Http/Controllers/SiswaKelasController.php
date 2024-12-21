@@ -42,7 +42,7 @@ class SiswaKelasController extends Controller
                 ->join('kelas', 'kelas.kode_kelas', '=', 'siswa_kelas.kelas_id')
                 ->join('kelas_tahun_ajaran', 'kelas.kode_kelas', '=', 'kelas_tahun_ajaran.kelas_kode') // Bergabung dengan tabel pivot
                 ->where('kelas_tahun_ajaran.tahun_ajaran_id', $tahunAjaranSekarang->id); // Gunakan ID dari $tahunAjaranSekarang
-        })->get();
+        })->where('status', 'Aktif')->get();
 
 
         return view('walas\siswa\index', [
@@ -69,9 +69,8 @@ class SiswaKelasController extends Controller
                 'kelas_id' => $kelas,
             ]);
         }
-        
-        
-        return redirect()->route('siswa_kelas', $kelas)->with('success', 'Data siswa berhasil ditambahkan ke kelas.');
 
+
+        return redirect()->route('siswa_kelas', $kelas)->with('success', 'Data siswa berhasil ditambahkan ke kelas.');
     }
 }

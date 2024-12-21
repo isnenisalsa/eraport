@@ -139,17 +139,16 @@
             <h1>R A P O R</h1>
             <h2>PESERTA DIDIK</h2>
             <h3>SEKOLAH MENENGAH PERTAMA</h3>
-            <h3>ISLAM TERPADU SIRAJUL HUDA</h3>
+            <h3>(IT SIRAJUL HUDA)</h3>
         </div>
 
         <!-- Informasi Peserta Didik -->
         <div class="data-wrapper">
             <div>
                 <strong class="h4">Nama Peserta Didik:</strong>
-                <div class="border-box">{{ $siswa->first()->nama }}</div>
-
+                <div class="border-box">{{ $siswa->nama }}</div>
                 <strong class="h4" style="margin-top: 100px ">NIS / NISN:</strong>
-                <div class="border-box">{{ $siswa->first()->nis }} / {{ $siswa->first()->nisn }}</div>
+                <div class="border-box">{{ $siswa->nis }} / {{ $siswa->nisn }}</div>
             </div>
         </div>
 

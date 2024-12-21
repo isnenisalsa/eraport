@@ -28,7 +28,7 @@
                 <h5 class="text-center">Nilai Rapor Siswa</h5>
                 <table class="table table-striped table-bordered mt-3">
                     <thead>
-                        <tr>
+                        <tr class="text-center">
                             <th>No</th>
                             <th>Nama Siswa</th>
                             @foreach ($pembelajaran as $item)
@@ -39,7 +39,7 @@
                     <tbody>
                         @php $no = 1; @endphp
                         @foreach ($siswa_kelas as $item)
-                            <tr>
+                            <tr class="text-center">
                                 <td>{{ $no++ }}</td>
                                 <td>{{ $item->siswa->nama }}</td>
                                 @foreach ($pembelajaran as $pelajaran)

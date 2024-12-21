@@ -28,16 +28,12 @@ class CetakRaporController extends Controller
             ->get();
         // Ambil tahun ajaran unik
         $tahunAjaran = TahunAjarModel::distinct('tahun_ajaran')->pluck('tahun_ajaran');
-
-        // Tentukan tahun ajaran terbaru
-        $tahunAjaranTerbaru = $tahunAjaran->first();
-
+        // Urutkan secara menurun dan ambil tahun ajaran terbaru
+        $tahunAjaranTerbaru = $tahunAjaran->sortDesc()->first();
         // Ambil daftar semester dari model TahunAjarModel, urutkan secara descending
-        $semester = TahunAjarModel::distinct('semester')->orderByDesc('semester')->pluck('semester');
-
+        $semester = TahunAjarModel::where('tahun_ajaran', $tahunAjaranTerbaru)->distinct('semester')->orderByDesc('semester')->pluck('semester');
         // Tentukan semester terbaru
-        $semesterTerbaru = $semester->first(); // Default semester terbaru
-
+        $semesterTerbaru = $semester->sortDesc()->first();
 
         return view('walas.cetak_rapor.index', compact('breadcrumb', 'kelas', 'activeMenu', 'tahunAjaran', 'tahunAjaranTerbaru', 'semester', 'semesterTerbaru'));
     }
@@ -71,7 +67,7 @@ class CetakRaporController extends Controller
         // return $pdf->download('cover_rapor_' . $nis . '.pdf');
     }
 
-    public function biodata($nis)
+    public function biodata($nis, $tahun_ajaran_id)
     {
         // Breadcrumb untuk halaman
         $breadcrumb = (object) [
@@ -81,11 +77,11 @@ class CetakRaporController extends Controller
         $activeMenu = 'cetak Rapor';
 
         $siswa = SiswaModel::where('nis', $nis)->first();
-
+        $semester = TahunAjarModel::where('id', $tahun_ajaran_id)->first();
         $sekolah = SekolahModel::all();
 
         // Membuat view untuk PDF
-        $pdf = PDF::loadView('walas.cetak_rapor.biodata', compact('siswa', 'sekolah'));
+        $pdf = PDF::loadView('walas.cetak_rapor.biodata', compact('siswa', 'sekolah', 'semester'));
 
         // Mengirimkan PDF untuk diunduh atau ditampilkan
         return $pdf->download($nis . '_' . $siswa->nama . '_' . 'biodata' . '.pdf'); // Untuk mengunduh
@@ -97,7 +93,7 @@ class CetakRaporController extends Controller
         $siswa = SiswaModel::where('nis', $nis)->first();
         $kelas = KelasModel::with('guru')->get();
         $sekolah = SekolahModel::firstOrFail();
-
+        $semester = TahunAjarModel::where('id', $tahun_ajaran_id)->first();
         // Ambil data absensi siswa, jika tidak ada tampilkan '-'
         $siswa_absen = SiswaKelasModel::where('siswa_id', $nis)
             ->whereHas('absensi', function ($query) use ($tahun_ajaran_id) {
@@ -130,7 +126,7 @@ class CetakRaporController extends Controller
             $siswa_nilai = (object) ['nilai' => collect()];
         }
 
-        $siswa_eskul = SiswaKelasModel::where('siswa_id', $nis)
+        $siswa_eskul = SiswaKelasModel::where('siswa_id', $nis)->where('kelas_id', $kode_kelas)
             ->with(['nilaieskul' => function ($query) use ($tahun_ajaran_id) {
                 $query->where('tahun_ajaran_id', $tahun_ajaran_id);
             }, 'nilaieskul.eskul'])
@@ -173,11 +169,10 @@ class CetakRaporController extends Controller
             'pembelajaran' => $pembelajaran,
             'nilai' => $nilai,
             'tahun_ajaran_id' => $tahun_ajaran_id,
-            'siswa_eskul' => $siswa_eskul
+            'siswa_eskul' => $siswa_eskul,
+            'semester' => $semester
         ]);
-
-
-        // Unduh PDF
+        // // Unduh PDF
         return $pdf->download($nis  . '_' . $siswa->nama . '_rapor' . '.pdf');
     }
 

@@ -21,7 +21,7 @@ class EskulController extends Controller
         ];
 
 
-        $activeMenu = 'Ekstrakurikuler';
+        $activeMenu = 'Ekstrakurikuler Admin';
         $eskul = EskulModel::all();
         $guru = GuruModel::all();
         return view('admin.eskul.index', ['breadcrumb' => $breadcrumb, 'eskul' => $eskul, 'guru' => $guru, 'activeMenu' => $activeMenu]);
@@ -99,17 +99,13 @@ class EskulController extends Controller
             ->withCount(['siswa'])
             ->where('guru_nik', $user->nik)
             ->get();
-        // Ambil tahun ajaran unik
         $tahunAjaran = TahunAjarModel::distinct('tahun_ajaran')->pluck('tahun_ajaran');
-
-        // Tentukan tahun ajaran terbaru
-        $tahunAjaranTerbaru = $tahunAjaran->first();
-
+        // Urutkan secara menurun dan ambil tahun ajaran terbaru
+        $tahunAjaranTerbaru = $tahunAjaran->sortDesc()->first();
         // Ambil daftar semester dari model TahunAjarModel, urutkan secara descending
-        $semester = TahunAjarModel::distinct('semester')->orderByDesc('semester')->pluck('semester');
-
+        $semester = TahunAjarModel::where('tahun_ajaran', $tahunAjaranTerbaru)->distinct('semester')->orderByDesc('semester')->pluck('semester');
         // Tentukan semester terbaru
-        $semesterTerbaru = $semester->first(); // Default semester terbaru
+        $semesterTerbaru = $semester->sortDesc()->first();
 
 
         return view('walas.ekstrakulikuler.kelas', ['breadcrumb' => $breadcrumb, 'tahunAjaran' => $tahunAjaran, 'tahunAjaranTerbaru' => $tahunAjaranTerbaru, 'semester' => $semester, 'semesterTerbaru' => $semesterTerbaru, 'kelas' => $kelas, 'activeMenu' => $activeMenu]);

@@ -53,16 +53,18 @@
                                             <td>{{ $item->siswa->jenis_kelamin }}</td>
                                             <td>
                                                 <a href="{{ route('walas.cover', $item->siswa->nis) }}"
-                                                    class="btn btn-danger btn-md me-2" title="Cover">
-                                                    <i class="fas fa-file-alt"></i>
+                                                    class="btn btn-danger btn-md me-2" title="Download Cover"
+                                                    style="margin-bottom: 5px">
+                                                    <i class="fas fa-file-alt"> Cover</i>
                                                 </a>
-                                                <a href="{{ route('walas.biodata', $item->siswa->nis) }}"
-                                                    class="btn btn-primary btn-md me-2" title="Lihat Biodata">
-                                                    <i class="fas fa-user"></i>
+                                                <a href="{{ route('walas.biodata', ['nis' => $item->siswa->nis, 'tahun_ajaran_id' => $tahun_ajaran_id]) }}"
+                                                    class="btn btn-primary btn-md me-2" title="Download Biodata"
+                                                    style="margin-bottom: 5px">
+                                                    <i class="fas fa-file-alt"> Biodata</i>
                                                 </a>
                                                 <a href="{{ route('walas.rapor', ['kode_kelas' => $kode_kelas, 'nis' => $nis, 'tahun_ajaran_id' => $tahun_ajaran_id]) }}"
-                                                    class="btn btn-success btn-md me-2" title="Lihat Rapor"><i
-                                                        class="fas fa-print"></i>
+                                                    class="btn btn-success btn-md me-2" title="Download Rapor"
+                                                    style="margin-bottom: 5px"><i class="fas fa-print"> Rapor</i>
                                                 </a>
                                             </td>
                                         </tr>

@@ -36,27 +36,29 @@
                                     <th>No</th>
                                     <th>NIS</th>
                                     <th>Nama Siswa</th>
-                                    <th style="width: 23%;">Aksi</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($siswa as $item)
-                                    <tr>
+                                    <tr class="text-center">
                                         <td class="text-center">{{ $loop->iteration }}</td>
                                         <td class="text-center">{{ $item->siswa->nis }}</td>
                                         <td>{{ $item->siswa->nama }}</td>
                                         <td class="text-center">
                                             <a href="{{ route('walas.cover', $item->siswa->nis) }}"
-                                                class="btn btn-danger btn-md me-2" title="Cover">
-                                                <i class="fas fa-file-alt"></i>
+                                                class="btn btn-danger btn-md me-2" title="Cover"
+                                                style="margin-bottom: 5px">
+                                                <i class="fas fa-file-alt"> Cover</i>
                                             </a>
-                                            <a href="{{ route('walas.biodata', $item->siswa->nis) }}"
-                                                class="btn btn-warning btn-md me-2" title="Lihat Biodata">
-                                                <i class="fas fa-file-alt"></i>
+                                            <a href="{{ route('walas.biodata', ['nis' => $item->siswa->nis, 'tahun_ajaran_id' => $tahun_ajaran_id]) }}"
+                                                class="btn btn-primary btn-md me-2" title="Lihat Biodata"
+                                                style="margin-bottom: 5px">
+                                                <i class="fas fa-file-alt"> Biodata</i>
                                             </a>
                                             <a href="{{ route('walas.rapor', ['kode_kelas' => $kode_kelas, 'nis' => $item->siswa->nis, 'tahun_ajaran_id' => $tahun_ajaran_id]) }}"
-                                                class="btn btn-warning btn-md me-2" title="Lihat Rapor"><i
-                                                    class="fas fa-print"></i>
+                                                class="btn btn-success btn-md me-2" title="Lihat Rapor"
+                                                style="margin-bottom: 5px"><i class="fas fa-print"> Rapor</i>
                                             </a>
                                         </td>
 

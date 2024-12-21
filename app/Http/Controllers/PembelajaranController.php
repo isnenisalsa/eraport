@@ -53,15 +53,12 @@ class PembelajaranController extends Controller
         $dataPembelajaran = PembelajaranModel::where('nama_guru', $user->nik)->get();
         // Contoh: Kirim data ke view
         $tahunAjaran = TahunAjarModel::distinct('tahun_ajaran')->pluck('tahun_ajaran');
-
-        // Tentukan tahun ajaran terbaru
-        $tahunAjaranTerbaru = $tahunAjaran->first();
-
+        // Urutkan secara menurun dan ambil tahun ajaran terbaru
+        $tahunAjaranTerbaru = $tahunAjaran->sortDesc()->first();
         // Ambil daftar semester dari model TahunAjarModel, urutkan secara descending
-        $semester = TahunAjarModel::distinct('semester')->orderByDesc('semester')->pluck('semester');
-
+        $semester = TahunAjarModel::where('tahun_ajaran', $tahunAjaranTerbaru)->distinct('semester')->orderByDesc('semester')->pluck('semester');
         // Tentukan semester terbaru
-        $semesterTerbaru = $semester->first(); // Default semester terbaru
+        $semesterTerbaru = $semester->sortDesc()->first();
 
         return view('guru.pembelajaran.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'dataPembelajaran' => $dataPembelajaran, 'tahunAjaran' => $tahunAjaran, 'tahunAjaranTerbaru' => $tahunAjaranTerbaru, 'semester' => $semester, 'semesterTerbaru' => $semesterTerbaru,]);
     }
@@ -69,11 +66,9 @@ class PembelajaranController extends Controller
 
     public function save(Request $request)
     {
-
         $request->validateWithBag(
             'tambahBag',
             [
-                'id_pembelajaran' => 'required|unique:pembelajaran,id_pembelajaran', // Aturan validasi yang benar
                 'mata_pelajaran' => [
                     'required',
                     Rule::unique('pembelajaran')->where(function ($query) use ($request) {
@@ -81,11 +76,9 @@ class PembelajaranController extends Controller
                     }),
                 ],
                 'nama_kelas' => 'required',
-                'nama_guru' => 'required' // Pastikan 'nama_guru' sesuai dengan kolom yang ada di tabel 'guru'
+                'nama_guru' => 'required'
             ],
             [
-                'id_pembelajaran.required' => 'Kode Pembelajaran tidak boleh kosong',
-                'id_pembelajaran.unique' => 'Kode Pembelajaran tidak boleh sama',
                 'mata_pelajaran.required' => 'Mata Pelajaran tidak boleh kosong',
                 'mata_pelajaran.unique' => 'Mata Pelajaran sudah ada di kelas ini',
                 'nama_kelas.required' => 'Nama Kelas tidak boleh kosong',
@@ -93,23 +86,38 @@ class PembelajaranController extends Controller
             ]
         );
 
+        // Generate id_pembelajaran otomatis
+        $lastPembelajaran = PembelajaranModel::latest('id_pembelajaran')->first();
+        if ($lastPembelajaran) {
+            // Ambil angka terakhir dari id_pembelajaran dan tambahkan 1
+            $lastNumber = (int) substr($lastPembelajaran->id_pembelajaran, 1);
+            $newNumber = $lastNumber + 1;
+        } else {
+            $newNumber = 1;
+        }
+
+        // Format id_pembelajaran baru
+        $idPembelajaran = 'P' . str_pad($newNumber, 3, '0', STR_PAD_LEFT);
+
+        // Simpan data ke tabel pembelajaran
         PembelajaranModel::create([
-            'id_pembelajaran' => $request->id_pembelajaran,
+            'id_pembelajaran' => $idPembelajaran,
             'mata_pelajaran' => $request->mata_pelajaran,
             'nama_kelas' => $request->nama_kelas,
             'nama_guru' => $request->nama_guru,
         ]);
 
-        $roleIdToattach = 2;
-        // Ambil guru berdasarkan guru_nik
-        $guruBaru = GuruModel::where('nik', $request->guru_nik)->first();
+        // Tambahkan role ke guru jika diperlukan
+        $roleIdToAttach = 2;
+        $guruBaru = GuruModel::where('nik', $request->nama_guru)->first();
         if ($guruBaru) {
-            $guruBaru->roles()->syncWithoutDetaching([$roleIdToattach]);
+            $guruBaru->roles()->syncWithoutDetaching([$roleIdToAttach]);
         }
 
         // Redirect setelah berhasil
-        return redirect()->route('pembelajaran')->with('success', 'Data Pembelajaran berhasil disimpan');
+        return redirect()->route('pembelajaran')->with('success', 'Data Pembelajaran berhasil disimpan.');
     }
+
 
     public function update(Request $request, $id_pembelajaran)
     {
@@ -138,11 +146,9 @@ class PembelajaranController extends Controller
             'nama_kelas' => $request->input('nama_kelas'),
             'nama_guru' => $request->input('nama_guru'),
         ],);
-        $guru = GuruModel::find($request->nama_guru);
-
         $roleIdToattach = 2;
         // Ambil guru berdasarkan guru_nik
-        $guruBaru = GuruModel::where('nik', $request->guru_nik)->first();
+        $guruBaru = GuruModel::where('nik', $request->nama_guru)->first();
         if ($guruBaru) {
             $guruBaru->roles()->syncWithoutDetaching([$roleIdToattach]);
         }

@@ -32,7 +32,7 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
-                        <button class="btn btn-warning btn-sm ml-1" id="btn-edit-capel" type="button">Edit Capaian</button>
+                        <button class="btn btn-warning btn-sm ml-1" id="btn-edit-capel" type="button">Edit Tujuan</button>
                         <button type="button" class="btn btn-success btn-sm float-left" data-toggle="modal"
                             data-target="#modal-tambah-data-capel">
                             + Tambah Data
@@ -53,7 +53,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Capaian Pembelajaran</th>
+                                        <th>Tujuan Pembelajaran</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -100,7 +100,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"><b>TAMBAH DATA CAPAIAN PEMBELAJARAN</b></h5>
+                    <h5 class="modal-title"><b>TAMBAH DATA TUJUAN PEMBELAJARAN</b></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -111,7 +111,7 @@
                         method="POST">
                         @csrf
                         <div class="form-group">
-                            <label for="nama_capel">Capaian Pembelajaran</label>
+                            <label for="nama_capel">Tujuan Pembelajaran</label>
                             <textarea name="nama_capel" id="nama_capel" class="form-control" rows="3" required></textarea>
 
                             @if ($errors->has('nama_capel'))
@@ -138,10 +138,10 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Data Capaian Pembelajaran:</p>
+                        <p>Data Tujuan Pembelajaran:</p>
                         <p style="color: rgb(18, 192, 255)">{{ $item->nama_capel }}</p>
                         <b>
-                            <p>Seluruh data yang berkaitan dengan Capaian Pembelajaran tersebut akan dihapus!</p>
+                            <p>Seluruh data yang berkaitan dengan Tujuan Pembelajaran tersebut akan dihapus!</p>
                         </b>
                         <b>
                             <p>Apakah anda yakin data tersebut akan dihapus?</p>

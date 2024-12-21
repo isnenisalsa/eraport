@@ -67,7 +67,7 @@
 
                                                 <a href="{{ route('capel.index', ['id_pembelajaran' => $item->id_pembelajaran, 'tahun_ajaran_id' => $tahunAjaran->id]) }}"
                                                     class="btn btn-success btn-sm">
-                                                    Capaian Pembelajaran
+                                                    Tujuan Pembelajaran
                                                 </a> &nbsp;
                                                 <a href="{{ route('nilai.index', ['id_pembelajaran' => $item->id_pembelajaran, 'tahun_ajaran_id' => $tahunAjaran->id]) }}"
                                                     class="btn btn-info btn-sm">Kelola Nilai</a> &nbsp;

@@ -22,7 +22,7 @@ class KelasController extends Controller
         foreach ($kelas as $item) {
             $item->selectedTahunAjaran = $item->tahunAjarans->pluck('id')->toArray();
         }
-        $guru = GuruModel::all();
+        $guru = GuruModel::where('status', 'Aktif')->get();
         $tahun = TahunAjarModel::all();
 
         return view('admin.kelas.index', ['breadcrumb' => $breadcrumb, 'kelas' => $kelas, 'guru' => $guru, 'tahun' => $tahun, 'activeMenu' => $activeMenu]);
@@ -55,14 +55,13 @@ class KelasController extends Controller
             ->withCount(['siswa']) // Menghitung jumlah siswa dan memberikan nilai default 0 jika tidak ada
             ->where('guru_nik', $kelas)
             ->get();
-        // Ambil tahun ajaran unik
         $tahunAjaran = TahunAjarModel::distinct('tahun_ajaran')->pluck('tahun_ajaran');
-
-        // Tentukan tahun ajaran terbaru
-        $tahunAjaranTerbaru = $tahunAjaran->first();
-
+        // Urutkan secara menurun dan ambil tahun ajaran terbaru
+        $tahunAjaranTerbaru = $tahunAjaran->sortDesc()->first();
         // Ambil daftar semester dari model TahunAjarModel, urutkan secara descending
-        $semester = TahunAjarModel::distinct('semester')->orderByDesc('semester')->pluck('semester');
+        $semester = TahunAjarModel::where('tahun_ajaran', $tahunAjaranTerbaru)->distinct('semester')->orderByDesc('semester')->pluck('semester');
+        // Tentukan semester terbaru
+        $semesterTerbaru = $semester->sortDesc()->first();
 
         // Tentukan semester terbaru
         $semesterTerbaru = $semester->first(); // Default semester terbaru
@@ -75,14 +74,11 @@ class KelasController extends Controller
     {
         // Validasi input
         $request->validateWithBag('tambahBag', [
-            'kode_kelas' => 'required|string|max:10|unique:kelas,kode_kelas',
             'nama_kelas' => 'required|string|max:255',
             'guru_nik' => 'required|exists:guru,nik',
             'tahun_ajaran_id' => 'required|array',
             'tahun_ajaran_id.*' => 'exists:tahun_ajaran,id',
         ], [
-            'kode_kelas.required' => 'Kode kelas wajib diisi.',
-            'kode_kelas.unique' => 'Kode kelas sudah terdaftar.',
             'nama_kelas.required' => 'Nama kelas wajib diisi.',
             'guru_nik.required' => 'Wali kelas wajib dipilih.',
             'guru_nik.exists' => 'Wali kelas tidak valid.',
@@ -90,9 +86,22 @@ class KelasController extends Controller
             'tahun_ajaran_id.*.exists' => 'Tahun ajaran tidak valid.',
         ]);
 
+        // Generate kode_kelas otomatis
+        $lastKelas = KelasModel::latest('kode_kelas')->first();
+        if ($lastKelas) {
+            // Ambil angka terakhir dari kode kelas dan tambahkan 1
+            $lastNumber = (int) substr($lastKelas->kode_kelas, 1);
+            $newNumber = $lastNumber + 1;
+        } else {
+            $newNumber = 1;
+        }
+
+        // Format kode kelas baru
+        $kodeKelas = 'K' . str_pad($newNumber, 3, '0', STR_PAD_LEFT);
+
         // Buat entri baru di tabel kelas
         $kelas = KelasModel::create([
-            'kode_kelas' => $request->kode_kelas,
+            'kode_kelas' => $kodeKelas,
             'nama_kelas' => $request->nama_kelas,
             'guru_nik' => $request->guru_nik,
         ]);
@@ -101,22 +110,25 @@ class KelasController extends Controller
         $tahunAjaranData = [];
         foreach ($request->tahun_ajaran_id as $tahunAjaranId) {
             $tahunAjaranData[] = [
-                'kelas_kode' => $request->kode_kelas,
+                'kelas_kode' => $kodeKelas,
                 'tahun_ajaran_id' => $tahunAjaranId,
             ];
         }
 
         // Simpan data ke tabel pivot
         $kelas->tahunAjarans()->attach($tahunAjaranData);
-        // Redirect ke halaman kelas dengan pesan sukses
-        $roleIdToattach = 3;
-        // Ambil guru berdasarkan guru_nik
+
+        // Tambahkan role ke guru
+        $roleIdToAttach = 3;
         $guruBaru = GuruModel::where('nik', $request->guru_nik)->first();
         if ($guruBaru) {
-            $guruBaru->roles()->syncWithoutDetaching([$roleIdToattach]);
+            $guruBaru->roles()->syncWithoutDetaching([$roleIdToAttach]);
         }
+
+        // Redirect ke halaman kelas dengan pesan sukses
         return redirect()->route('kelas')->with('success', 'Data kelas berhasil disimpan.');
     }
+
 
 
 

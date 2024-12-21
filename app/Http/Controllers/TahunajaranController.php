@@ -31,18 +31,23 @@ class TahunajaranController extends Controller
             'tambahBag',
             [
                 'tahun_ajaran' => 'required',
-                'semester' => 'required'
+                'semester' => 'required',
+                'tanggal_biodata' => 'required',
+                'tanggal_pembagian_rapor' => 'required'
             ],
             [
                 'tahun_ajaran.required' => 'Tahun Ajaran tidak boleh kosong',
                 'semester.required' => 'Semester tidak boleh kosong',
+                'tanggal_biodata.required' => 'Tanggal Cover Biodata tidak boleh kosong',
             ]
         );
 
         // Simpan data
         TahunAjarModel::create([
             'tahun_ajaran' => $request->tahun_ajaran,
-            'semester' => $request->semester
+            'semester' => $request->semester,
+            'tanggal_biodata' => $request->tanggal_biodata,
+            'tanggal_pembagian_rapor' => $request->tanggal_pembagian_rapor,
         ]);
 
         // Redirect ke halaman indeks dengan pesan sukses

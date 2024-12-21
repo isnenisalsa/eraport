@@ -12,16 +12,7 @@
                 <form action="{{ route('save-mapel') }}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="kode_mapel">Kode Mapel</label>
-                        <input type="text" name="kode_mapel" id="kode_mapel"
-                            class="form-control @error('kode_mapel') is-invalid @enderror"
-                            value="{{ old('kode_mapel') }}">
-                        @if ($errors->tambahBag->has('kode_mapel'))
-                            <small class="text-danger">{{ $errors->tambahBag->first('kode_mapel') }}</small>
-                        @endif
-                    </div>
-                    <div class="form-group">
-                        <label for="mata_pelajaran">Mata Pelajaran</label>
+                        <label for="mata_pelajaran">Mata Pelajaran :</label>
                         <input type="text" name="mata_pelajaran" id="mata_pelajaran"
                             class="form-control @error('mata_pelajaran') is-invalid @enderror"
                             value="{{ old('mata_pelajaran') }}">

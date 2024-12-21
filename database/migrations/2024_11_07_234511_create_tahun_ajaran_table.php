@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('tahun_ajaran');
             $table->string('semester');
+            $table->date('tanggal_biodata');
+            $table->date('tanggal_pembagian_rapor');
             $table->timestamps();
         });
     }

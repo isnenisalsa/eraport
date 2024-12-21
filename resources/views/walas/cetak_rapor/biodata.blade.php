@@ -214,48 +214,13 @@
         <!-- Tanda Tangan Kepala Sekolah -->
         <div class="signature">
             <p><span>Pelaihari, </span>
-                <span>
-                    <?php
-                    // Mendapatkan tanggal saat ini
-                    $daysOfWeek = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-                    $monthsOfYear = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-                    
-                    // Mendapatkan tanggal saat ini
-                    $currentDate = new DateTime();
-                    $dayOfWeek = $daysOfWeek[$currentDate->format('w')];
-                    $day = $currentDate->format('d');
-                    $month = $monthsOfYear[$currentDate->format('m') - 1];
-                    $year = $currentDate->format('Y');
-                    
-                    // Format tanggal
-                    echo $day . ' ' . $month . ' ' . $year;
-                    ?>
-                </span>
+                {{ \Carbon\Carbon::parse($semester->tanggal_biodata)->translatedFormat('d F Y') }}
             </p>
             <p><span>Kepala Sekolah</span></p><br><br><br><br>
             <p class="name underline">{{ $sekolah->first()->nama_kepsek }}</p>
             <p class="">{{ $sekolah->first()->nip_kepsek }}</p>
         </div>
     </div>
-
-    <script>
-        // Menunggu beberapa detik sebelum mencetak atau mendownload halaman
-        setTimeout(function() {
-
-            const monthsOfYear = [
-                "Januari", "Februari", "Maret", "April", "Mei", "Juni",
-                "Juli", "Agustus", "September", "Oktober", "November", "Desember"
-            ];
-
-            const day = currentDate.getDate();
-            const month = monthsOfYear[currentDate.getMonth()];
-            const year = currentDate.getFullYear();
-
-            const formattedDate = ` ${day} ${month} ${year}`;
-            document.getElementById('formatted-date').textContent = formattedDate;
-        }, 100); // Menunggu 100ms sebelum mengeksekusi
-    </script>
-
 </body>
 
 </html>

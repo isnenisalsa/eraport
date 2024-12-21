@@ -17,6 +17,8 @@
                                     <th>No</th>
                                     <th>Tahun Ajaran</th>
                                     <th>Semester</th>
+                                    <th>tanggal cover dan biodata</th>
+                                    <th>tanggal pembagian rapor</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -26,6 +28,8 @@
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $item->tahun_ajaran }}</td>
                                         <td>{{ $item->semester }}</td>
+                                        <td>{{ $item->tanggal_biodata }}</td>
+                                        <td>{{ $item->tanggal_pembagian_rapor }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

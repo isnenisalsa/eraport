@@ -61,14 +61,14 @@
                         <li class="nav-item">
                             <a href="{{ url('eskul/kelas') }}"
                                 class="nav-link {{ $activeMenu == 'Ekstrakurikuler' ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-calendar-check" style="color: rgb(3, 3, 3)"></i>
+                                <i class="nav-icon fas fa-award" style="color: rgb(3, 3, 3)"></i>
                                 <p style="color: rgb(10, 10, 10)"> Data Ekstrakurikuler</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('kelas/walas/nilai') }}"
                                 class="nav-link {{ $activeMenu == 'Data Nilai Akhir' ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-archive" style="color: rgb(3, 3, 3)"></i>
+                                <i class="nav-icon fas fa-file-invoice" style="color: rgb(3, 3, 3)"></i>
                                 <p style="color: rgb(10, 10, 10)">Data Nilai Akhir</p>
                             </a>
                         </li>
@@ -103,7 +103,7 @@
                             <li class="nav-item">
                                 <a href="{{ url('/pembelajaran/guru') }}"
                                     class="nav-link {{ $activeMenu == 'Data Pembelajaran' ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-user" style="color: rgb(3, 3, 3)"></i>
+                                    <i class="nav-icon fas fa-folder" style="color: rgb(3, 3, 3)"></i>
                                     <p style="color: rgb(10, 10, 10)">Data Pembelajaran</p>
                                 </a>
                             </li>
@@ -144,10 +144,10 @@
 
 
             <li
-                class="nav-item has-treeview bg-gray-900 {{ in_array($activeMenu, ['Data Sekolah', 'Tahun Ajaran', 'kelas', 'mapel', 'pembelajaran', 'Eskul']) ? 'menu-open' : '' }}">
+                class="nav-item has-treeview bg-gray-900 {{ in_array($activeMenu, ['Data Sekolah', 'Tahun Ajaran', 'kelas', 'mapel', 'pembelajaran', 'Ekstrakurikuler Admin']) ? 'menu-open' : '' }}">
                 @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
                     <a href="#"
-                        class="nav-link {{ in_array($activeMenu, ['Data Sekolah', 'Tahun Ajaran', 'kelas', 'mapel', 'pembelajaran', 'Eskul']) ? 'active' : '' }}">
+                        class="nav-link {{ in_array($activeMenu, ['Data Sekolah', 'Tahun Ajaran', 'kelas', 'mapel', 'pembelajaran', 'Ekstrakurikuler Admin']) ? 'active' : '' }}">
                         <i class="fas fa-solid fa-laptop" style="color: black"></i>
                         <p style="color: black">
                             &nbsp; ADMINISTRASI
@@ -192,7 +192,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('eskul') }}"
-                                class="nav-link {{ $activeMenu == 'Eskul' ? 'active' : '' }}">
+                                class="nav-link {{ $activeMenu == 'Ekstrakurikuler Admin' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
                                 <p style="color: black">Data Ekstrakulikuler</p>
                             </a>
@@ -200,33 +200,6 @@
                     </ul>
                 @endif
             </li>
-
-            <!-- Menu Ekstrakurikuler -->
-            @if (auth()->check() && auth()->user()->roles->contains('nama', 'pembina eskul'))
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-solid fa-laptop" style="color: black"></i>
-                        <p style="color: black">&nbsp; Data <i class="right fas fa-angle-left"
-                                style="color: black"></i></p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ url('eskul/daftar') }}"
-                                class="nav-link {{ $activeMenu == 'Data Siswa' ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon" style="color: black"></i>
-                                <p style="color: black">Siswa</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('eskul/nilai') }}"
-                                class="nav-link {{ $activeMenu == 'nilai' ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon" style="color: black"></i>
-                                <p style="color: black">Nilai</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            @endif
             @if (auth()->check() &&
                     auth()->user()->roles->pluck('nama')->intersect(['admin', 'guru', 'walas'])->isNotEmpty())
                 <li class="nav-item">

@@ -11,20 +11,9 @@
             <form action="{{ route('save-pembelajaran') }}" method="POST">
                 @csrf
                 <div class="modal-body">
-                    <!-- ID Pembelajaran -->
-                    <div class="form-group">
-                        <label for="id_pembelajaran">Kode Pembelajaran</label>
-                        <input type="text" name="id_pembelajaran" id="id_pembelajaran"
-                            class="form-control @error('id_pembelajaran', 'tambahBag') is-invalid @enderror"
-                            value="{{ old('id_pembelajaran') }}" placeholder="Inputkan Kode Pembelajaran">
-                        @error('id_pembelajaran', 'tambahBag')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-
                     <!-- Mata Pelajaran -->
                     <div class="form-group">
-                        <label for="mata_pelajaran">Mata Pelajaran</label>
+                        <label for="mata_pelajaran">Mata Pelajaran :</label>
                         <select name="mata_pelajaran"
                             class="form-control @error('mata_pelajaran', 'tambahBag') is-invalid @enderror"
                             id="mata_pelajaran">
@@ -43,7 +32,7 @@
 
                     <!-- Nama Kelas -->
                     <div class="form-group">
-                        <label for="nama_kelas">Nama Kelas</label>
+                        <label for="nama_kelas">Nama Kelas :</label>
                         <select name="nama_kelas"
                             class="form-control @error('nama_kelas', 'tambahBag') is-invalid @enderror" id="nama_kelas">
                             <option value="">Pilih Kelas</option>
@@ -76,8 +65,6 @@
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
-
-
                     <button type="submit" class="btn btn-success float-right">Simpan</button>
             </form>
             <br><br>
@@ -85,26 +72,6 @@
     </div>
 </div>
 </div>
-<script>
-    document.getElementById('modal-tambah-data-pembelajaran').addEventListener('hidden.bs.modal', function() {
-        // Reset input field values
-        this.querySelectorAll('input, select').forEach(element => {
-            if (element.tagName === 'SELECT') {
-                element.selectedIndex = 0; // Reset dropdown
-            } else {
-                element.value = ''; // Reset text input
-            }
-            element.classList.remove('is-invalid'); // Remove validation classes
-        });
-
-        // Reset error messages
-        this.querySelectorAll('.text-danger').forEach(error => error.textContent = '');
-
-        // Optionally, move focus back to the button that triggered the modal
-        const triggerButton = document.querySelector('[data-bs-target="#modal-tambah-data-pembelajaran"]');
-        if (triggerButton) triggerButton.focus();
-    });
-</script>
 @if ($errors->tambahBag->any())
     <script>
         $(document).ready(function() {

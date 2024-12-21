@@ -23,7 +23,7 @@
                     <form action="{{ route('save.nilai.eskul', $tahun_ajaran_id) }}" method="POST">
                         @csrf
                         <div class="form-group">
-                            <label for="siswa_id">Siswa</label>
+                            <label for="siswa_id_eskul">Siswa</label>
                             <select name="siswa_id" class="form-control select2"
                                 style="width: 100%; height: 50px; overflow-y: scroll" id="siswa_id_eskul" required>
                                 <option value="">- Pilih Siswa -</option>
@@ -36,8 +36,7 @@
                         </div>
                         <div class="form-group">
                             <label for="eskul_id">Ekstrakulikuler</label>
-                            <select name="eskul_id" class="form-control"
-                                style="width: 100%; height: 50px; overflow-y: scroll" id="eskul_id" required>
+                            <select name="eskul_id" class="form-control" id="eskul_id" required>
                                 <option value="">- Pilih ekstrakulikuler -</option>
                                 @foreach ($eskul as $item)
                                     <option value="{{ $item->id }}">{{ $item->nama_eskul }}

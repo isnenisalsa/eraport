@@ -14,7 +14,7 @@
 
                     <!-- Nama eskul -->
                     <div class="form-group">
-                        <label for="nama_eskul">Nama eskul</label>
+                        <label for="nama_eskul">Nama esktrakurikuler</label>
                         <input type="text" name="nama_eskul" id="nama_eskul"
                             class="form-control @error('nama_eskul', 'tambahBag') is-invalid @enderror"
                             value="{{ old('nama_eskul') }}">
@@ -25,8 +25,8 @@
 
                     <!-- Wali eskul -->
                     <div class="form-group">
-                        <label for="guru_nik">Wali eskul</label>
-                        <select name="guru_nik" id="guru_nik"
+                        <label for="guru_nik_eskul">Pembina esktrakurikuler</label>
+                        <select name="guru_nik" id="guru_nik_eskul"
                             class="form-control @error('guru_nik', 'tambahBag') is-invalid @enderror">
                             <option value="">Pilih Guru</option>
                             @foreach ($guru as $item)

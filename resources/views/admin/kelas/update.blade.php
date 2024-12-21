@@ -30,8 +30,8 @@
 
                         <!-- Nama Kelas -->
                         <div class="form-group">
-                            <label for="nama_kelas">Nama Kelas</label>
-                            <input type="text" name="nama_kelas" id="nama_kelas"
+                            <label for="kelas_nama">Nama Kelas</label>
+                            <input type="text" name="nama_kelas" id="kelas_nama"
                                 class="form-control @error('nama_kelas', 'editBag') is-invalid @enderror"
                                 value="{{ old('nama_kelas', $item->nama_kelas) }}">
                             @error('nama_kelas', 'editBag')

@@ -26,16 +26,12 @@ class AbsensiController extends Controller
             ->get();
 
         $tahunAjaran = TahunAjarModel::distinct('tahun_ajaran')->pluck('tahun_ajaran');
-
-        // Tentukan tahun ajaran terbaru
-        $tahunAjaranTerbaru = $tahunAjaran->first();
-
+        // Urutkan secara menurun dan ambil tahun ajaran terbaru
+        $tahunAjaranTerbaru = $tahunAjaran->sortDesc()->first();
         // Ambil daftar semester dari model TahunAjarModel, urutkan secara descending
-        $semester = TahunAjarModel::distinct('semester')->orderByDesc('semester')->pluck('semester');
-
+        $semester = TahunAjarModel::where('tahun_ajaran', $tahunAjaranTerbaru)->distinct('semester')->orderByDesc('semester')->pluck('semester');
         // Tentukan semester terbaru
-        $semesterTerbaru = $semester->first(); // Default semester terbaru
-
+        $semesterTerbaru = $semester->sortDesc()->first(); // Default semester terbaru
         return view('walas.absensi.index', compact(
             'breadcrumb',
             'kelas',

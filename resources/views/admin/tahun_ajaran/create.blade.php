@@ -37,6 +37,26 @@
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="tanggal_biodata" class="form-label">tanggal pengisian biodata</label>
+                            <input type="date"
+                                class="form-control @error('tanggal_biodata', 'tambahBag') is-invalid @enderror"
+                                id="tanggal_biodata" placeholder="Inputkan Tahun Ajaran Anda" name="tanggal_biodata"
+                                value="{{ old('tanggal_biodata') }}">
+                            @error('tanggal_biodata', 'tambahBag')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="tanggal_pembagian_rapor" class="form-label">tanggal pembagian rapor</label>
+                            <input type="date"
+                                class="form-control @error('tanggal_pembagian_rapor', 'tambahBag') is-invalid @enderror"
+                                id="tanggal_pembagian_rapor" placeholder="Inputkan Tahun Ajaran Anda"
+                                name="tanggal_pembagian_rapor" value="{{ old('tanggal_pembagian_rapor') }}">
+                            @error('tanggal_pembagian_rapor', 'tambahBag')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
 
 
                         <!-- Submit Button -->

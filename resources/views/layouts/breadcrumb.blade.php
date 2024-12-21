@@ -12,12 +12,21 @@
         </div>
     </div>
     @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show position-absolute"
+        <div id="success-alert" class="alert alert-success alert-dismissible fade show position-absolute"
             style="top: 90px; right: 10px; z-index: 9999; animation: fadeOut 3s forwards;" role="alert">
             <strong>{{ session('success') }}</strong>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
+        <script>
+            setTimeout(() => {
+                const alert = document.getElementById('success-alert');
+                if (alert) {
+                    alert.remove();
+                }
+            }, 3000); // 3000 ms = 3 detik
+        </script>
     @endif
+
 </section>

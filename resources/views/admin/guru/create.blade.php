@@ -21,7 +21,7 @@
                         <div class="mb-3">
                             <label for="nip" class="form-label">NIP</label>
                             <input type="text" class="form-control" id="nip" placeholder="Inputkan NIP Anda"
-                                name="nip" value="{{ old('nip') }}" maxlength="10">
+                                name="nip" value="{{ old('nip') }}" maxlength="18">
                             @if ($errors->has('nip'))
                                 <div class="text-danger">{{ $errors->first('nip') }}</div>
                             @endif
@@ -39,9 +39,11 @@
                             <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
                             <select class="form-control" name="jenis_kelamin" id="jenis_kelamin">
                                 <option value="">Pilih</option>
-                                <option value="Laki-Laki" {{ old('jenis_kelamin') == 'Laki-Laki' ? 'selected' : '' }}>Laki-Laki
+                                <option value="Laki-Laki" {{ old('jenis_kelamin') == 'Laki-Laki' ? 'selected' : '' }}>
+                                    Laki-Laki
                                 </option>
-                                <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan
+                                <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>
+                                    Perempuan
                                 </option>
                             </select>
                             @if ($errors->has('jenis_kelamin'))
@@ -69,8 +71,8 @@
                         <div class="mb-3">
                             <label for="telepon" class="form-label">No Telepon</label>
                             <input type="text" class="form-control" id="telepon"
-                                placeholder="Inputkan Nomor Telepon Anda" name="no_telp" value="{{ old('no_telp') }}"
-                                maxlength="13">
+                                placeholder="Inputkan Nomor Telepon Anda" name="no_telp" value="{{ old('no_telp', '08') }}"
+                                maxlength="13" oninput="validateTelepon(this)">
                             @if ($errors->has('no_telp'))
                                 <div class="text-danger">{{ $errors->first('no_telp') }}</div>
                             @endif
@@ -103,14 +105,7 @@
                         <div class="mb-3">
                             <label for="agama" class="form-label">Agama</label>
                             <select class="form-control" name="agama" id="agama">
-                                <option value="">Pilih</option>
                                 <option value="Islam" {{ old('agama') == 'Islam' ? 'selected' : '' }}>Islam</option>
-                                <option value="Kristen" {{ old('agama') == 'Kristen' ? 'selected' : '' }}>Kristen
-                                </option>
-                                <option value="Hindu" {{ old('agama') == 'Hindu' ? 'selected' : '' }}>Hindu
-                                </option>
-                                <option value="Budha" {{ old('agama') == 'Budha' ? 'selected' : '' }}>Budha
-                                </option>
                             </select>
                             @if ($errors->has('agama'))
                                 <div class="text-danger">{{ $errors->first('agama') }}</div>
@@ -170,4 +165,25 @@
             </form>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const teleponInput = document.getElementById('telepon');
+            // Set default value
+            teleponInput.value = '08';
+            teleponInput.removeAttribute('readonly');
+        });
+
+        function validateTelepon(input) {
+            // Always starts with '08'
+            if (!input.value.startsWith('08')) {
+                input.value = '08';
+            }
+
+            // Ensure only 10-11 characters after '08'
+            const maxLength = 13; // Includes '08' + 10/11 characters
+            if (input.value.length > maxLength) {
+                input.value = input.value.slice(0, maxLength);
+            }
+        }
+    </script>
 @endsection
