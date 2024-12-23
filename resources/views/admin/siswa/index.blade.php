@@ -18,7 +18,7 @@
                             Excel </button>
                     </div>
                     <div class="card-body">
-                        <table class="table table-bordered table-striped text-center" id="tabel_siswa">
+                        <table class="table table-bordered table-striped text-center table-responsive-xl" id="siswaTable">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -29,30 +29,11 @@
                                     <th>Tempat Lahir</th>
                                     <th>Tanggal Lahir</th>
                                     <th>Status</th>
-                                    <th>Aksi</th>
+                                    <th colspan="2">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @php $no = 1; @endphp
-                                @foreach ($siswa as $item)
-                                    <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>{{ $item->nis }}</td>
-                                        <td>{{ $item->nisn }}</td>
-                                        <td>{{ $item->nama }}</td>
-                                        <td>{{ $item->jenis_kelamin }}</td>
-                                        <td>{{ $item->tempat_lahir }}</td>
-                                        <td>{{ $item->tanggal_lahir }}</td>
-                                        <td>{{ $item->status }}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                data-target="#modalDetail{{ $item->nis }}">Detail </button>
-                                            <a href="{{ route('edit-siswa', $item->nis) }}"
-                                                class="btn btn-warning">edit</a>
-                                        </td>
 
-                                    </tr>
-                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -218,3 +199,101 @@
         </div>
     </div>
 @endsection
+@push('js')
+    <script>
+        $(document).ready(function() {
+            $('#siswaTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: '{{ route('siswa.list') }}', // Ganti dengan URL endpoint Anda
+                    type: 'POST',
+                },
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        orderable: true,
+                        searchable: false
+                    }, // Nomor urut
+                    {
+                        data: 'nis',
+                        name: 'nis',
+                        orderable: false,
+                    },
+                    {
+                        data: 'nisn',
+                        name: 'nisn',
+                        orderable: false,
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama',
+                        orderable: false,
+                    },
+                    {
+                        data: 'jenis_kelamin',
+                        name: 'jenis_kelamin',
+                        orderable: false,
+                    },
+                    {
+                        data: 'tempat_lahir',
+                        name: 'tempat_lahir',
+                        orderable: false,
+                    },
+                    {
+                        data: 'tanggal_lahir',
+                        name: 'tanggal_lahir',
+                        orderable: false,
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
+                        orderable: false,
+                    },
+                    {
+                        data: "nis",
+                        render: function(nis) {
+                            return `<a href="/siswa/edit/${nis}" class="btn btn-sm btn-primary">Edit</a>`;
+                        },
+                        orderable: false,
+                        searchable: false,
+                        className: "text-center"
+                    },
+                    {
+                        data: "nis",
+                        render: function(nis) {
+                            return `<button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
+                            data-target="#modalDetail${nis}">Detail</button>`;
+                        },
+                        orderable: false,
+                        searchable: false,
+                        className: "text-center"
+                    }
+                ],
+                info: false,
+                autoWidth: false, // Mencegah DataTables menghitung lebar kolom secara otomatis
+                lengthMenu: [
+                    [5, 10, 25, 50, -1],
+                    [5, 10, 25, 50, "Semua"]
+                ], // Opsi menu panjang tabel
+                pageLength: 5, // Jumlah baris per halaman
+                language: {
+                    sProcessing: "Memproses...",
+                    sLengthMenu: "Tampilkan _MENU_ entri",
+                    sZeroRecords: "Tidak ada data yang sesuai",
+                    sInfo: "Menampilkan _START_ hingga _END_ dari _TOTAL_ entri",
+                    sInfoEmpty: "Menampilkan 0 hingga 0 dari 0 entri",
+                    sInfoFiltered: "(disaring dari _MAX_ total entri)",
+                    sSearch: "Cari:",
+                    oPaginate: {
+                        sFirst: "<<",
+                        sPrevious: "<",
+                        sNext: ">",
+                        sLast: ">>"
+                    }
+
+                }
+            });
+        });
+    </script>
+@endpush

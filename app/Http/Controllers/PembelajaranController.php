@@ -12,6 +12,7 @@ use App\Models\TahunAjarModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Yajra\DataTables\Facades\DataTables;
 
 class PembelajaranController extends Controller
 {
@@ -39,6 +40,17 @@ class PembelajaranController extends Controller
             'guru' => $guru,    // Mengirim data guru ke view
             'activeMenu' => $activeMenu
         ]);
+    }
+    public function list()
+    {
+        $pembelajaran = PembelajaranModel::with('mapel', 'kelas', 'guru')->get();
+
+        return DataTables::of($pembelajaran)
+            ->addIndexColumn()  // Menambahkan nomor urut
+            ->addColumn('action', function ($row) {
+                return '<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit' . $row->id_pembelajaran . '">Edit</button>';
+            })
+            ->make(true);
     }
     public function indexGuru()
     {

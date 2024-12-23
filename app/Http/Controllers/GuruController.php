@@ -6,6 +6,7 @@ use App\Models\GuruModel;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Yajra\DataTables\Facades\DataTables;
 
 class GuruController extends Controller
 {
@@ -21,6 +22,13 @@ class GuruController extends Controller
         $guru = GuruModel::all();
 
         return view('admin\guru\index', ['breadcrumb' => $breadcrumb, 'guru' => $guru, 'activeMenu' => $activeMenu]);
+    }
+    public function list()
+    {
+        $guru = GuruModel::select('nik', 'nama', 'jabatan', 'pendidikan_terakhir', 'no_telp', 'status')->get();
+        return DataTables::of($guru)
+            ->addIndexColumn() // Tambahkan nomor urut
+            ->make(true);
     }
     public function create()
     {

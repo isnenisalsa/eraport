@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>E RAPOR</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <!-- Google Font: Source Sans Pro -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet"
@@ -23,7 +22,72 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}" />
     <script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <style>
+        /* Ensure html and body take full height */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
 
+        /* Make the wrapper take the full height */
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        /* Header: fixed at the top */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1020;
+            /* Make sure it stays above the content */
+            background-color: #FFFCF7;
+        }
+
+        body:not(.layout-fixed) .main-sidebar {
+            position: fixed;
+            overflow: hidden;
+        }
+
+
+        /* Content area: scrollable with margin for the fixed sidebar and header */
+        .content-wrapper {
+            margin-top: 70px;
+            /* Height of the header */
+            margin-left: 250px;
+            /* Width of the sidebar */
+            padding-bottom: 50px;
+            /* Space for footer */
+            height: calc(100vh - 120px);
+            /* Full height minus the header/footer space */
+            overflow-y: auto;
+        }
+
+        /* Footer: fixed at the bottom */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1040;
+            /* Above content, below sidebar */
+            background-color: #3c8dbc;
+            color: white;
+            text-align: center;
+        }
+
+        /* Ensure content inside the content area can scroll */
+        .content {
+            overflow-y: auto;
+            padding: 10px;
+            min-height: 100%;
+        }
+    </style>
     @stack('css')
 </head>
 
@@ -40,7 +104,7 @@
             @include('layouts.sidebar')
         </aside>
 
-        <div style="background-color: #FFFCF7" class="content-wrapper">
+        <div class="content-wrapper">
             @include('layouts.breadcrumb')
             <section class="content">
                 @yield('content')
@@ -62,8 +126,6 @@
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/pdfmake/vfs_fonts.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
@@ -75,689 +137,13 @@
     <script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('js/js.js') }}"></script>
     <script>
-        //DATATABLE
-        $(function() {
-            $("#example1").DataTable({
-                "ordering": false,
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-
-            $('#example2').DataTable({
-                "pageLength": 4,
-                "paging": true,
-                "lengthChange": false,
-                "searching": true,
-                "ordering": false,
-                "autoWidth": false,
-                "responsive": true,
-                "info": false,
-                "language": {
-                    "emptyTable": "Tidak ada data yang tersedia pada tabel ini",
-                    "info": "Menampilkan START sampai END dari TOTAL entri",
-                    "infoEmpty": "Menampilkan 0 sampai 0 dari 0 entri",
-                    "infoFiltered": "(disaring dari _MAX_entri total)",
-                    "lengthMenu": "Tampilkan MENU entri",
-                    "loadingRecords": "Memuat...",
-                    "processing": "Sedang memproses...",
-                    "search": "Cari:",
-                    "zeroRecords": "Tidak ditemukan data yang cocok",
-                    "paginate": {
-                        "first": "Pertama",
-                        "last": "Terakhir",
-                        "next": "Selanjutnya",
-                        "previous": "Sebelumnya"
-                    },
-                },
-            });
-        });
-        //select2
-        $(function() {
-            $(document).ready(function() {
-                $('#siswa_id').select2({
-                    placeholder: 'Pilih siswa...',
-                    allowClear: true,
-                    closeOnSelect: false,
-                    width: '100%',
-                    language: {
-                        noResults: function() {
-                            return "Tidak ada hasil ditemukan";
-                        }
-                    }
-                });
-            });
-            $(document).ready(function() {
-                $('#siswa_id_eskul').select2({
-                    placeholder: "Pilih Siswa",
-                    dropdownParent: $('#modal-tambah-data-eskul'),
-                    language: {
-                        noResults: function() {
-                            return "Tidak ada hasil ditemukan";
-                        }
-                    }
-                });
-            });
-            $(document).ready(function() {
-                $('#mata_pelajaran').select2({
-                    placeholder: "Pilih Mata Pelajaran",
-                    dropdownParent: $('#modal-tambah-data-pembelajaran'),
-                    width: '100%',
-                    language: {
-                        noResults: function() {
-                            return "Tidak ada hasil ditemukan";
-                        }
-                    }
-                });
-            });
-            $(document).ready(function() {
-                $('#nama_kelas').select2({
-                    placeholder: "Pilih Kelas",
-                    dropdownParent: $('#modal-tambah-data-pembelajaran'),
-                    width: '100%',
-                    language: {
-                        noResults: function() {
-                            return "Tidak ada hasil ditemukan";
-                        }
-                    }
-                });
-            });
-            $(document).ready(function() {
-                $('#nama_guru').select2({
-                    placeholder: "Pilih Guru Pengampu",
-                    dropdownParent: $('#modal-tambah-data-pembelajaran'),
-                    width: '100%',
-                    language: {
-                        noResults: function() {
-                            return "Tidak ada hasil ditemukan";
-                        }
-                    }
-                });
-            });
-            $(document).ready(function() {
-                $('#guru_nik_eskul').select2({
-                    placeholder: "Pilih Guru",
-                    dropdownParent: $('#modal-tambah-data-eskul'),
-                    width: '100%',
-                    language: {
-                        noResults: function() {
-                            return "Tidak ada hasil ditemukan";
-                        }
-                    }
-                });
-            });
-
-            $(document).ready(function() {
-                $('#guru_nik').select2({
-                    placeholder: "Pilih Guru",
-                    dropdownParent: $('#modal-tambah-data-kelas'),
-                    width: '100%',
-                    language: {
-                        noResults: function() {
-                            return "Tidak ada hasil ditemukan";
-                        }
-                    }
-                });
-            });
-            $(document).ready(function() {
-                // Inisialisasi Select2 pada elemen dengan ID guru_nik yang ada dalam modal
-                $('[id^="guru_nik"]').each(function() {
-                    var modalId = $(this).closest('.modal').attr(
-                        'id'); // Menemukan ID modal terkait
-                    $(this).select2({
-                        dropdownParent: $('#' +
-                            modalId), // Set dropdownParent sesuai dengan modal yang terkait
-                        placeholder: "Pilih Guru",
-                        width: '100%',
-                        language: {
-                            noResults: function() {
-                                return "Tidak ada hasil ditemukan";
-                            }
-                        }
-                    });
-                });
-            });
-            $(document).ready(function() {
-                // Inisialisasi Select2 pada elemen dengan ID guru_nik yang ada dalam modal
-                $('[id^="guru_nik"]').each(function() {
-                    var modalId = $(this).closest('.modal').attr(
-                        'id'); // Menemukan ID modal terkait
-
-                    $(this).select2({
-                        dropdownParent: $('#' +
-                            modalId), // Set dropdownParent sesuai dengan modal yang terkait
-                        placeholder: "Pilih Guru",
-                        width: '100%',
-                        language: {
-                            noResults: function() {
-                                return "Tidak ada hasil ditemukan";
-                            }
-                        }
-                    });
-                });
-            });
-
-
-            $(document).ready(function() {
-                $('#tahun_ajaran_id').select2({
-                    dropdownParent: $('#modal-tambah-data-kelas'),
-                    placeholder: "Pilih Tahun Ajaran",
-                    allowClear: true,
-                    width: '100%',
-                    language: {
-                        noResults: function() {
-                            return "Tidak ada hasil ditemukan";
-                        }
-                    }
-                });
-            });
-
-            $(document).ready(function() {
-                // Inisialisasi Select2 pada elemen dengan ID yang dimulai dengan "tahun_ajaran_id_edit"
-                $('[id^="tahun_ajaran_id_edit"]').each(function() {
-                    var modalId = $(this).closest('.modal').attr(
-                        'id'); // Menemukan ID modal terkait
-
-                    $(this).select2({
-                        dropdownParent: $('#' +
-                            modalId), // Set dropdownParent sesuai dengan modal yang terkait
-                        placeholder: "Pilih Tahun Ajaran",
-                        allowClear: true,
-                        width: '100%',
-                        language: {
-                            noResults: function() {
-                                return "Tidak ada hasil ditemukan";
-                            }
-                        }
-                    });
-                });
-            });
-
-        });
-
-        //tabel search
-        $(function() {
-            $(document).ready(function() {
-                var table = $('#tabel_absensi_walas').DataTable({
-                    "pageLength": 4,
-                    "paging": true,
-                    "lengthChange": false,
-                    "searching": true,
-                    "ordering": false,
-                    "autoWidth": false,
-                    "responsive": true,
-                    "info": false,
-                    "searchDelay": 500, // Menambahkan delay untuk pencarian
-                    "language": {
-                        "emptyTable": "Tidak ada data yang tersedia pada tabel ini",
-                        "info": "Menampilkan START sampai END dari TOTAL entri",
-                        "infoEmpty": "Menampilkan 0 sampai 0 dari 0 entri",
-                        "infoFiltered": "(disaring dari _MAX_entri total)",
-                        "lengthMenu": "Tampilkan MENU entri",
-                        "loadingRecords": "Memuat...",
-                        "processing": "Sedang memproses...",
-                        "search": "Cari:",
-                        "zeroRecords": "Tidak ditemukan data yang cocok",
-                        "paginate": {
-                            "first": "Pertama",
-                            "last": "Terakhir",
-                            "next": "Selanjutnya",
-                            "previous": "Sebelumnya"
-                        }
-                    }
-                });
-
-                var defaultYear = $('#filter-tahun-ajaran').val(); // Tahun ajaran terbaru
-                var defaultSemester = $('#filter-semester').val(); // Semester terbaru
-
-                // Terapkan filter awal berdasarkan nilai default
-                if (defaultYear || defaultSemester) {
-                    $('#tabel_absensi_walas').fadeOut(300, function() {
-                        if (defaultYear) {
-                            table.column(4) // Kolom ke-4 adalah "Tahun Ajaran"
-                                .search(defaultYear)
-                                .draw();
-                        }
-
-                        if (defaultSemester) {
-                            table.column(5) // Kolom ke-5 adalah "Semester"
-                                .search(defaultSemester)
-                                .draw();
-                        }
-
-                        // Setelah filter diterapkan, tampilkan tabel dengan animasi
-                        $('#tabel_absensi_walas').fadeIn(300);
-                    });
-                }
-
-                // Event listener untuk filter dropdown tahun ajaran
-                $('#filter-tahun-ajaran').on('change', function() {
-                    var selectedYear = $(this).val();
-                    $('#tabel_absensi_walas').fadeOut(300, function() {
-                        table.column(4) // Kolom ke-4 adalah "Tahun Ajaran"
-                            .search(selectedYear)
-                            .draw();
-                        $('#tabel_absensi_walas').fadeIn(300);
-                    });
-                });
-
-                // Event listener untuk filter dropdown semester
-                $('#filter-semester').on('change', function() {
-                    var selectedSemester = $(this).val();
-                    $('#tabel_absensi_walas').fadeOut(300, function() {
-                        table.column(5) // Kolom ke-5 adalah "Semester"
-                            .search(selectedSemester)
-                            .draw();
-                        $('#tabel_absensi_walas').fadeIn(300);
-                    });
-                });
-            });
-
-            $(document).ready(function() {
-                var table = $('#tabel_eskul_walas').DataTable({
-                    "pageLength": 4,
-                    "paging": true,
-                    "lengthChange": false,
-                    "searching": true,
-                    "ordering": false,
-                    "autoWidth": false,
-                    "responsive": true,
-                    "info": false,
-                    "searchDelay": 500, // Menambahkan delay untuk pencarian
-                    "language": {
-                        "emptyTable": "Tidak ada data yang tersedia pada tabel ini",
-                        "info": "Menampilkan START sampai END dari TOTAL entri",
-                        "infoEmpty": "Menampilkan 0 sampai 0 dari 0 entri",
-                        "infoFiltered": "(disaring dari _MAX_entri total)",
-                        "lengthMenu": "Tampilkan MENU entri",
-                        "loadingRecords": "Memuat...",
-                        "processing": "Sedang memproses...",
-                        "search": "Cari:",
-                        "zeroRecords": "Tidak ditemukan data yang cocok",
-                        "paginate": {
-                            "first": "Pertama",
-                            "last": "Terakhir",
-                            "next": "Selanjutnya",
-                            "previous": "Sebelumnya"
-                        }
-                    }
-                });
-
-                var defaultYear = $('#filter-tahun-ajaran').val(); // Tahun ajaran terbaru
-                var defaultSemester = $('#filter-semester').val(); // Semester terbaru
-
-                // Terapkan filter awal berdasarkan nilai default
-                if (defaultYear || defaultSemester) {
-                    $('#tabel_eskul_walas').fadeOut(300, function() {
-                        if (defaultYear) {
-                            table.column(4) // Kolom ke-4 adalah "Tahun Ajaran"
-                                .search(defaultYear)
-                                .draw();
-                        }
-
-                        if (defaultSemester) {
-                            table.column(5) // Kolom ke-5 adalah "Semester"
-                                .search(defaultSemester)
-                                .draw();
-                        }
-
-                        // Setelah filter diterapkan, tampilkan tabel dengan animasi
-                        $('#tabel_eskul_walas').fadeIn(300);
-                    });
-                }
-
-                // Event listener untuk filter dropdown tahun ajaran
-                $('#filter-tahun-ajaran').on('change', function() {
-                    var selectedYear = $(this).val();
-                    $('#tabel_eskul_walas').fadeOut(300, function() {
-                        table.column(4) // Kolom ke-4 adalah "Tahun Ajaran"
-                            .search(selectedYear)
-                            .draw();
-                        $('#tabel_eskul_walas').fadeIn(300);
-                    });
-                });
-
-                // Event listener untuk filter dropdown semester
-                $('#filter-semester').on('change', function() {
-                    var selectedSemester = $(this).val();
-                    $('#tabel_eskul_walas').fadeOut(300, function() {
-                        table.column(5) // Kolom ke-5 adalah "Semester"
-                            .search(selectedSemester)
-                            .draw();
-                        $('#tabel_eskul_walas').fadeIn(300);
-                    });
-                });
-            });
-            $(document).ready(function() {
-                var table = $('#tabel_nilaiakhir_walas').DataTable({
-                    "pageLength": 4,
-                    "paging": true,
-                    "lengthChange": false,
-                    "searching": true,
-                    "ordering": false,
-                    "autoWidth": false,
-                    "responsive": true,
-                    "info": false,
-                    "searchDelay": 500, // Menambahkan delay untuk pencarian
-                    "language": {
-                        "emptyTable": "Tidak ada data yang tersedia pada tabel ini",
-                        "info": "Menampilkan START sampai END dari TOTAL entri",
-                        "infoEmpty": "Menampilkan 0 sampai 0 dari 0 entri",
-                        "infoFiltered": "(disaring dari _MAX_entri total)",
-                        "lengthMenu": "Tampilkan MENU entri",
-                        "loadingRecords": "Memuat...",
-                        "processing": "Sedang memproses...",
-                        "search": "Cari:",
-                        "zeroRecords": "Tidak ditemukan data yang cocok",
-                        "paginate": {
-                            "first": "Pertama",
-                            "last": "Terakhir",
-                            "next": "Selanjutnya",
-                            "previous": "Sebelumnya"
-                        }
-                    }
-                });
-
-                var defaultYear = $('#filter-tahun-ajaran').val(); // Tahun ajaran terbaru
-                var defaultSemester = $('#filter-semester').val(); // Semester terbaru
-
-                // Terapkan filter awal berdasarkan nilai default
-                if (defaultYear || defaultSemester) {
-                    $('#tabel_nilaiakhir_walas').fadeOut(300, function() {
-                        if (defaultYear) {
-                            table.column(4) // Kolom ke-4 adalah "Tahun Ajaran"
-                                .search(defaultYear)
-                                .draw();
-                        }
-
-                        if (defaultSemester) {
-                            table.column(5) // Kolom ke-5 adalah "Semester"
-                                .search(defaultSemester)
-                                .draw();
-                        }
-
-                        // Setelah filter diterapkan, tampilkan tabel dengan animasi
-                        $('#tabel_nilaiakhir_walas').fadeIn(300);
-                    });
-                }
-
-                // Event listener untuk filter dropdown tahun ajaran
-                $('#filter-tahun-ajaran').on('change', function() {
-                    var selectedYear = $(this).val();
-                    $('#tabel_nilaiakhir_walas').fadeOut(300, function() {
-                        table.column(4) // Kolom ke-4 adalah "Tahun Ajaran"
-                            .search(selectedYear)
-                            .draw();
-                        $('#tabel_nilaiakhir_walas').fadeIn(300);
-                    });
-                });
-
-                // Event listener untuk filter dropdown semester
-                $('#filter-semester').on('change', function() {
-                    var selectedSemester = $(this).val();
-                    $('#tabel_nilaiakhir_walas').fadeOut(300, function() {
-                        table.column(5) // Kolom ke-5 adalah "Semester"
-                            .search(selectedSemester)
-                            .draw();
-                        $('#tabel_nilaiakhir_walas').fadeIn(300);
-                    });
-                });
-            });
-            $(document).ready(function() {
-                var table = $('#tabel_rapor_walas').DataTable({
-                    "pageLength": 4,
-                    "paging": true,
-                    "lengthChange": false,
-                    "searching": true,
-                    "ordering": false,
-                    "autoWidth": false,
-                    "responsive": true,
-                    "info": false,
-                    "searchDelay": 500, // Menambahkan delay untuk pencarian
-                    "language": {
-                        "emptyTable": "Tidak ada data yang tersedia pada tabel ini",
-                        "info": "Menampilkan START sampai END dari TOTAL entri",
-                        "infoEmpty": "Menampilkan 0 sampai 0 dari 0 entri",
-                        "infoFiltered": "(disaring dari _MAX_entri total)",
-                        "lengthMenu": "Tampilkan MENU entri",
-                        "loadingRecords": "Memuat...",
-                        "processing": "Sedang memproses...",
-                        "search": "Cari:",
-                        "zeroRecords": "Tidak ditemukan data yang cocok",
-                        "paginate": {
-                            "first": "Pertama",
-                            "last": "Terakhir",
-                            "next": "Selanjutnya",
-                            "previous": "Sebelumnya"
-                        }
-                    }
-                });
-
-                var defaultYear = $('#filter-tahun-ajaran').val(); // Tahun ajaran terbaru
-                var defaultSemester = $('#filter-semester').val(); // Semester terbaru
-
-                // Terapkan filter awal berdasarkan nilai default
-                if (defaultYear || defaultSemester) {
-                    $('#tabel_rapor_walas').fadeOut(300, function() {
-                        if (defaultYear) {
-                            table.column(4) // Kolom ke-4 adalah "Tahun Ajaran"
-                                .search(defaultYear)
-                                .draw();
-                        }
-
-                        if (defaultSemester) {
-                            table.column(5) // Kolom ke-5 adalah "Semester"
-                                .search(defaultSemester)
-                                .draw();
-                        }
-
-                        // Setelah filter diterapkan, tampilkan tabel dengan animasi
-                        $('#tabel_rapor_walas').fadeIn(300);
-                    });
-                }
-
-                // Event listener untuk filter dropdown tahun ajaran
-                $('#filter-tahun-ajaran').on('change', function() {
-                    var selectedYear = $(this).val();
-                    $('#tabel_rapor_walas').fadeOut(300, function() {
-                        table.column(4) // Kolom ke-4 adalah "Tahun Ajaran"
-                            .search(selectedYear)
-                            .draw();
-                        $('#tabel_rapor_walas').fadeIn(300);
-                    });
-                });
-
-                // Event listener untuk filter dropdown semester
-                $('#filter-semester').on('change', function() {
-                    var selectedSemester = $(this).val();
-                    $('#tabel_rapor_walas').fadeOut(300, function() {
-                        table.column(5) // Kolom ke-5 adalah "Semester"
-                            .search(selectedSemester)
-                            .draw();
-                        $('#tabel_rapor_walas').fadeIn(300);
-                    });
-                });
-            });
-            $(document).ready(function() {
-                var table = $('#tabel_pembelajaran_guru').DataTable({
-                    "pageLength": 4,
-                    "paging": true,
-                    "lengthChange": false,
-                    "searching": true,
-                    "ordering": false,
-                    "autoWidth": false,
-                    "responsive": true,
-                    "info": false,
-                    "language": {
-                        "emptyTable": "Tidak ada data yang tersedia pada tabel ini",
-                        "info": "Menampilkan START sampai END dari TOTAL entri",
-                        "infoEmpty": "Menampilkan 0 sampai 0 dari 0 entri",
-                        "infoFiltered": "(disaring dari _MAX_entri total)",
-                        "lengthMenu": "Tampilkan MENU entri",
-                        "loadingRecords": "Memuat...",
-                        "processing": "Sedang memproses...",
-                        "search": "Cari:",
-                        "zeroRecords": "Tidak ditemukan data yang cocok",
-                        "paginate": {
-                            "first": "Pertama",
-                            "last": "Terakhir",
-                            "next": "Selanjutnya",
-                            "previous": "Sebelumnya"
-                        },
-                    },
-                });
-
-                var defaultYear = $('#filter-tahun-ajaran').val(); // Tahun ajaran terbaru
-                var defaultSemester = $('#filter-semester').val(); // Semester terbaru
-
-                // Terapkan filter awal berdasarkan nilai default dengan efek fade
-                if (defaultYear || defaultSemester) {
-                    $('#tabel_pembelajaran_guru').fadeOut(300, function() {
-                        if (defaultYear) {
-                            table.column(3) // Kolom ke-4 adalah "Tahun Ajaran"
-                                .search(defaultYear)
-                                .draw();
-                        }
-
-                        if (defaultSemester) {
-                            table.column(4) // Kolom ke-5 adalah "Semester"
-                                .search(defaultSemester)
-                                .draw();
-                        }
-
-                        // Setelah filter diterapkan, tampilkan tabel dengan animasi
-                        $('#tabel_pembelajaran_guru').fadeIn(300);
-                    });
-                }
-
-                // Event listener untuk filter dropdown tahun ajaran
-                $('#filter-tahun-ajaran').on('change', function() {
-                    var selectedYear = $(this).val();
-                    $('#tabel_pembelajaran_guru').fadeOut(300, function() {
-                        table.column(3) // Kolom ke-4 adalah "Tahun Ajaran"
-                            .search(selectedYear)
-                            .draw();
-                        $('#tabel_pembelajaran_guru').fadeIn(300);
-                    });
-                });
-
-                // Event listener untuk filter dropdown semester
-                $('#filter-semester').on('change', function() {
-                    var selectedSemester = $(this).val();
-                    $('#tabel_pembelajaran_guru').fadeOut(300, function() {
-                        table.column(4) // Kolom ke-5 adalah "Semester"
-                            .search(selectedSemester)
-                            .draw();
-                        $('#tabel_pembelajaran_guru').fadeIn(300);
-                    });
-                });
-            });
-            $(document).ready(function() {
-                var table = $('#tabel_kelas_siswa').DataTable({
-                    "pageLength": 4,
-                    "paging": true,
-                    "lengthChange": false,
-                    "searching": true,
-                    "ordering": false,
-                    "autoWidth": false,
-                    "responsive": true,
-                    "info": false,
-                    "language": {
-                        "emptyTable": "Tidak ada data yang tersedia pada tabel ini",
-                        "info": "Menampilkan START sampai END dari TOTAL entri",
-                        "infoEmpty": "Menampilkan 0 sampai 0 dari 0 entri",
-                        "infoFiltered": "(disaring dari _MAX_entri total)",
-                        "lengthMenu": "Tampilkan MENU entri",
-                        "loadingRecords": "Memuat...",
-                        "processing": "Sedang memproses...",
-                        "search": "Cari:",
-                        "zeroRecords": "Tidak ditemukan data yang cocok",
-                        "paginate": {
-                            "first": "Pertama",
-                            "last": "Terakhir",
-                            "next": "Selanjutnya",
-                            "previous": "Sebelumnya"
-                        },
-                    },
-                });
-
-                var defaultYear = $('#filter-tahun-ajaran').val(); // Tahun ajaran terbaru
-                var defaultSemester = $('#filter-semester').val(); // Semester terbaru
-
-                // Terapkan filter awal berdasarkan nilai default dengan efek fade
-                if (defaultYear || defaultSemester) {
-                    $('#tabel_kelas_siswa').fadeOut(300, function() {
-                        if (defaultYear) {
-                            table.column(3) // Kolom ke-4 adalah "Tahun Ajaran"
-                                .search(defaultYear)
-                                .draw();
-                        }
-
-                        if (defaultSemester) {
-                            table.column(4) // Kolom ke-5 adalah "Semester"
-                                .search(defaultSemester)
-                                .draw();
-                        }
-
-                        // Setelah filter diterapkan, tampilkan tabel dengan animasi
-                        $('#tabel_kelas_siswa').fadeIn(300);
-                    });
-                }
-
-                // Event listener untuk filter dropdown tahun ajaran
-                $('#filter-tahun-ajaran').on('change', function() {
-                    var selectedYear = $(this).val();
-                    $('#tabel_kelas_siswa').fadeOut(300, function() {
-                        table.column(3) // Kolom ke-4 adalah "Tahun Ajaran"
-                            .search(selectedYear)
-                            .draw();
-                        $('#tabel_kelas_siswa').fadeIn(300);
-                    });
-                });
-
-                // Event listener untuk filter dropdown semester
-                $('#filter-semester').on('change', function() {
-                    var selectedSemester = $(this).val();
-                    $('#tabel_kelas_siswa').fadeOut(300, function() {
-                        table.column(4) // Kolom ke-5 adalah "Semester"
-                            .search(selectedSemester)
-                            .draw();
-                        $('#tabel_kelas_siswa').fadeIn(300);
-                    });
-                });
-            });
-            $(document).ready(function() {
-                var table = $('#tabel_siswa').DataTable({
-                    "pageLength": 4,
-                    "paging": true,
-                    "lengthChange": false,
-                    "searching": true,
-                    "ordering": false,
-                    "autoWidth": false,
-                    "responsive": true,
-                    "info": false,
-                    "language": {
-                        "emptyTable": "Tidak ada data yang tersedia pada tabel ini",
-                        "info": "Menampilkan START sampai END dari TOTAL entri",
-                        "infoEmpty": "Menampilkan 0 sampai 0 dari 0 entri",
-                        "infoFiltered": "(disaring dari _MAX_entri total)",
-                        "lengthMenu": "Tampilkan MENU entri",
-                        "loadingRecords": "Memuat...",
-                        "processing": "Sedang memproses...",
-                        "search": "Cari:",
-                        "zeroRecords": "Tidak ditemukan data yang cocok",
-                        "paginate": {
-                            "first": "Pertama",
-                            "last": "Terakhir",
-                            "next": "Selanjutnya",
-                            "previous": "Sebelumnya"
-                        },
-                    },
-                });
-            });
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
         });
     </script>
+    @stack('js')
 </body>
 
 </html>

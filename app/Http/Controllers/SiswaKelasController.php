@@ -50,6 +50,7 @@ class SiswaKelasController extends Controller
             'siswa_kelas' => $siswa_kelas,
             'siswa' => $siswa,
             'kelas' => $kelas,
+            'kode_kelas' => $kode_kelas,
             'kelas_id' => $kelas_id,
             'activeMenu' => $activeMenu
         ]);
@@ -72,5 +73,11 @@ class SiswaKelasController extends Controller
 
 
         return redirect()->route('siswa_kelas', $kelas)->with('success', 'Data siswa berhasil ditambahkan ke kelas.');
+    }
+    public function hapus($nis, $kode_kelas)
+    {
+        $siswa = SiswaKelasModel::where(['siswa_id' => $nis, 'kelas_id' => $kode_kelas]); // Cari data siswa berdasarkan ID
+        $siswa->delete(); // Hapus data
+        return redirect()->back()->with('success', 'Data siswa berhasil dihapus');
     }
 }

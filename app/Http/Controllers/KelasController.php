@@ -8,6 +8,7 @@ use App\Models\TahunAjarModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class KelasController extends Controller
 {
@@ -27,6 +28,21 @@ class KelasController extends Controller
 
         return view('admin.kelas.index', ['breadcrumb' => $breadcrumb, 'kelas' => $kelas, 'guru' => $guru, 'tahun' => $tahun, 'activeMenu' => $activeMenu]);
     }
+    public function list()
+    {
+        $kelas = KelasModel::with(['guru', 'tahunAjarans'])->get();
+
+        return DataTables::of($kelas)
+            ->addIndexColumn()
+            ->addColumn('nama_tahun', function ($row) {
+                // Mengambil tahun ajaran pertama jika ada
+                return $row->tahunAjarans->first() ? $row->tahunAjarans->first()->tahun_ajaran : '-';
+            })  // Menambahkan nomor urut
+            ->make(true);
+    }
+
+
+
     public function KelasWalas()
     {
         $breadcrumb = (object) [
@@ -129,13 +145,6 @@ class KelasController extends Controller
         return redirect()->route('kelas')->with('success', 'Data kelas berhasil disimpan.');
     }
 
-
-
-
-
-
-
-
     public function update(Request $request, $kode_kelas)
     {
         $request->validateWithBag(
@@ -164,7 +173,12 @@ class KelasController extends Controller
 
         // Update relasi dengan tahun ajaran
         $kelas->tahunAjarans()->sync($request->tahun_ajaran_id);
-
+        // Tambahkan role ke guru
+        $roleIdToAttach = 3;
+        $guruBaru = GuruModel::where('nik', $request->guru_nik)->first();
+        if ($guruBaru) {
+            $guruBaru->roles()->syncWithoutDetaching([$roleIdToAttach]);
+        }
         return redirect()->route('kelas')->with('success', 'Data kelas berhasil diperbarui');
     }
 }

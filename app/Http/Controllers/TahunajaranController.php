@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TahunAjarModel;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class TahunajaranController extends Controller
 {
@@ -23,7 +24,14 @@ class TahunajaranController extends Controller
             'activeMenu' => $activeMenu,
         ]);
     }
+    public function list()
+    {
+        $tahun_ajaran = TahunAjarModel::select(['id', 'tahun_ajaran', 'semester', 'tanggal_biodata', 'tanggal_pembagian_rapor'])->get();
 
+        return DataTables::of($tahun_ajaran)
+            ->addIndexColumn() // Tambahkan nomor urut
+            ->make(true);
+    }
     public function save(Request $request)
     {
         // Validasi input data

@@ -7,11 +7,11 @@
                     <div class="card-header">
                         <a href="{{ route('create-guru') }}" class="btn btn-success btn-sm float-left">+ Tambah Data Guru</a>
                         <button type="button" class="btn btn-success btn-sm float-right" data-toggle="modal"
-                            data-target="#modalImpor">Impor
-                            Excel </button>
+                            data-target="#modalImpor">Impor Excel</button>
                     </div>
                     <div class="card-body">
-                        <table class="table table-bordered table-striped text-center" id="example2">
+                        <table class="display nowrap table table-bordered table-striped text-center table-responsive-xl "
+                            id="guru-tabel">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -20,27 +20,10 @@
                                     <th>Pendidikan Terakhir</th>
                                     <th>No Telepon</th>
                                     <th>Status</th>
-                                    <th>Aksi</th>
+                                    <th colspan="2">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @php $no = 1; @endphp
-                                @foreach ($guru as $item)
-                                    <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>{{ $item->nama }}</td>
-                                        <td>{{ $item->jabatan }}</td>
-                                        <td>{{ $item->pendidikan_terakhir }}</td>
-                                        <td>{{ $item->no_telp }}</td>
-                                        <td>{{ $item->status }}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                data-target="#modalDetail{{ $item->nik }}">Detail </button>
-                                            <a href="{{ route('edit', $item->nik) }}" class="btn btn-warning">edit</a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
+                            <tbody></tbody>
                         </table>
                     </div>
                 </div>
@@ -48,13 +31,11 @@
         </div>
     </div>
 
-
-
-
     @foreach ($guru as $item)
+        <!-- Modal for each guru's details -->
         <div class="modal fade" id="modalDetail{{ $item->nik }}" tabindex="-1"
             aria-labelledby="modalDetailLabel{{ $item->nik }}" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" style="max-width: 800px;"> <!-- Perbesar ukuran modal -->
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 800px;">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalDetailLabel{{ $item->id }}">Detail Guru</h5>
@@ -133,25 +114,25 @@
             </div>
         </div>
     @endforeach
-    {{-- modal impor excel --}}
-    <div class="modal fade" id="modalImpor" tabindex="-1" aria-labelledby="modalDetaiImpor" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 800px;"> <!-- Perbesar ukuran modal -->
+
+    <!-- Modal for Excel Import -->
+    <div class="modal fade" id="modalImpor" tabindex="-1" aria-labelledby="modalImporLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 800px;">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalImporLabel">Impor</h5>
+                    <h5 class="modal-title" id="modalImporLabel">Impor Excel</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('import.guru') }}" method="POST" name="importform"
-                        enctype="multipart/form-data">
+                    <form action="{{ route('import.guru') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <label for="file">File:</label>
-                            <input id="file" type="file" name="file" class="form-control">
+                            <label for="file">File Excel:</label>
+                            <input id="file" type="file" name="file" class="form-control" required>
                         </div>
-                        <button class="btn btn-success btn-sm">Import File</button>
+                        <button class="btn btn-success btn-sm" type="submit">Import File</button>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -161,3 +142,88 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        $(document).ready(function() {
+            $('#guru-tabel').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('guru.list') }}",
+                    type: "POST"
+                },
+
+                columns: [{
+                        data: "DT_RowIndex",
+                        orderable: true,
+                        searchable: false,
+                        className: "text-center"
+                    },
+                    {
+                        data: "nama",
+                        orderable: false
+                    },
+                    {
+                        data: "jabatan",
+                        orderable: false
+                    },
+                    {
+                        data: "pendidikan_terakhir",
+                        orderable: false
+                    },
+                    {
+                        data: "no_telp",
+                        orderable: false
+                    },
+                    {
+                        data: "status",
+                        orderable: false
+                    },
+                    {
+                        data: "nik",
+                        render: function(nik) {
+                            return `<a href="/guru/edit/${nik}" class="btn btn-sm btn-primary">Edit</a>`;
+                        },
+                        orderable: false,
+                        searchable: false,
+                        className: "text-center"
+                    },
+                    {
+                        data: "nik",
+                        render: function(nik) {
+                            return `<button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
+                            data-target="#modalDetail${nik}">Detail</button>`;
+                        },
+                        orderable: false,
+                        searchable: false,
+                        className: "text-center"
+                    }
+                ],
+                info: false,
+                autoWidth: false, // Mencegah DataTables menghitung lebar kolom secara otomatis
+                lengthMenu: [
+                    [5, 10, 25, 50, -1],
+                    [5, 10, 25, 50, "Semua"]
+                ], // Opsi menu panjang tabel
+                pageLength: 5, // Jumlah baris per halaman
+                language: {
+                    sProcessing: "Memproses...",
+                    sLengthMenu: "Tampilkan _MENU_ entri",
+                    sZeroRecords: "Tidak ada data yang sesuai",
+                    sInfo: "Menampilkan _START_ hingga _END_ dari _TOTAL_ entri",
+                    sInfoEmpty: "Menampilkan 0 hingga 0 dari 0 entri",
+                    sInfoFiltered: "(disaring dari _MAX_ total entri)",
+                    sSearch: "Cari:",
+                    oPaginate: {
+                        sFirst: "<<",
+                        sPrevious: "<",
+                        sNext: ">",
+                        sLast: ">>"
+                    }
+
+                }
+            });
+        });
+    </script>
+@endpush

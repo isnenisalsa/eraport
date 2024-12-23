@@ -13,7 +13,7 @@
     </div>
     @if (session('success'))
         <div id="success-alert" class="alert alert-success alert-dismissible fade show position-absolute"
-            style="top: 90px; right: 10px; z-index: 9999; animation: fadeOut 3s forwards;" role="alert">
+            style="top: 90px; right: 20px; z-index: 9999; animation: fadeOut 3s forwards;" role="alert">
             <strong>{{ session('success') }}</strong>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -25,7 +25,7 @@
                 if (alert) {
                     alert.remove();
                 }
-            }, 3000); // 3000 ms = 3 detik
+            }, 3000);
         </script>
     @endif
 

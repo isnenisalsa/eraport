@@ -6,6 +6,7 @@ use App\Models\MapelModel;
 use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class MapelController extends Controller
 {
@@ -22,6 +23,15 @@ class MapelController extends Controller
 
         return view('admin.mapel.index', ['breadcrumb' => $breadcrumb, 'mapel' => $mapel,  'activeMenu' => $activeMenu]);
     }
+    public function list()
+    {
+        $mapels = MapelModel::select(['kode_mapel', 'mata_pelajaran'])->get();
+
+        return DataTables::of($mapels)
+            ->addIndexColumn() // Tambahkan nomor urut
+            ->make(true);
+    }
+
     public function save(Request $request)
     {
         $request->validateWithBag(

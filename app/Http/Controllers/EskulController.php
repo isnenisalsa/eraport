@@ -11,6 +11,7 @@ use App\Models\SiswaKelasModel;
 use App\Models\TahunAjarModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
 class EskulController extends Controller
 {
@@ -25,6 +26,18 @@ class EskulController extends Controller
         $eskul = EskulModel::all();
         $guru = GuruModel::all();
         return view('admin.eskul.index', ['breadcrumb' => $breadcrumb, 'eskul' => $eskul, 'guru' => $guru, 'activeMenu' => $activeMenu]);
+    }
+    public function list()
+    {
+        $eskuls = EskulModel::select(['id', 'nama_eskul', 'guru_nik', 'tempat'])->with('guru')->get();
+
+        return DataTables::of($eskuls)
+            ->addIndexColumn() // Tambahkan nomor urut
+            ->addColumn('guru_nama', function ($row) {
+                // Mengakses relasi guru dan menampilkan nama
+                return $row->guru ? $row->guru->nama : '-'; // Ganti "nama" dengan field pada model Guru
+            })
+            ->make(true);
     }
     public function save(Request $request)
     {

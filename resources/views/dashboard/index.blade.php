@@ -31,7 +31,7 @@
                     </div>
                 </div>
             @endif
-           
+
 
             <!-- Kartu Data Kelas -->
             @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
@@ -52,21 +52,21 @@
             <!-- Walas -->
             <!-- Kartu Data Kelas -->
             @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
-            <div class="col-md-3 mb-2">
-                <div class="card text-white bg-lightblue h-auto">
-                    <!-- Gunakan h-auto untuk tinggi otomatis -->
-                    <div class="card-body p-2"> <!-- Mengurangi padding dengan p-2 -->
-                        <p class="h5">{{  $pembelajaran_walas }}</p>
-                        <h5>Data Kelas</h5>
+                <div class="col-md-3 mb-2">
+                    <div class="card text-white bg-lightblue h-auto">
+                        <!-- Gunakan h-auto untuk tinggi otomatis -->
+                        <div class="card-body p-2"> <!-- Mengurangi padding dengan p-2 -->
+                            <p class="h5">{{ $pembelajaran_walas }}</p>
+                            <h5>Data Kelas</h5>
+                        </div>
+                        <a href="{{ route('kelas.walas') }}" class="card-footer bg-gradient-lightblue text-center p-2">
+                            Lihat detail <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
-                    <a href="{{ route('kelas.walas') }}" class="card-footer bg-gradient-lightblue text-center p-2">
-                        Lihat detail <i class="fas fa-arrow-right"></i>
-                    </a>
                 </div>
-            </div>
             @endif
 
-            
+
             <!-- Kartu Data Pembelajaran -->
             @if (auth()->check() && auth()->user()->roles->contains('nama', 'guru'))
                 <div class="col-md-3 mb-2">
@@ -76,8 +76,7 @@
                             <p class="h5">{{ $pembelajaran_guru }}</p>
                             <h5>Data Pembelajaran</h5>
                         </div>
-                        <a href="{{ route('pembelajaran.guru') }}"
-                            class="card-footer bg-gradient-success text-center p-2">
+                        <a href="{{ route('pembelajaran.guru') }}" class="card-footer bg-gradient-success text-center p-2">
                             Lihat detail <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>

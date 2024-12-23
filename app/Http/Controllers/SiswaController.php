@@ -6,29 +6,38 @@ use App\Models\SiswaModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Yajra\DataTables\Facades\DataTables;
 
 class SiswaController extends Controller
 {
     public function index()
     {
-        if (Auth::check()) {
-            $user = Auth::user();
-            $roleIds = $user->roles->pluck('id')->toArray();
+        $breadcrumb = (object) [
+            'title' => 'Daftar Siswa',
+        ];
+        $activeMenu = 'siswa';
+        $siswa = SiswaModel::all();
 
-            // Redirect berdasarkan role_id
-            if (in_array(1, $roleIds)) {
-                $breadcrumb = (object) [
-                    'title' => 'Daftar Siswa',
-                ];
-                $activeMenu = 'siswa';
-                $siswa = SiswaModel::all();
-
-                return view('admin.siswa.index', ['breadcrumb' => $breadcrumb, 'siswa' => $siswa, 'activeMenu' => $activeMenu]);
-            } else {
-                return redirect('login')->withErrors(['access_denied' => 'Akses ditolak. Role Anda tidak dikenali.']);
-            }
-        }
+        return view('admin.siswa.index', ['breadcrumb' => $breadcrumb, 'siswa' => $siswa, 'activeMenu' => $activeMenu]);
     }
+    public function list()
+    {
+        $siswa = SiswaModel::select([
+            'nis',
+            'nisn',
+            'nama',
+            'jenis_kelamin',
+            'tempat_lahir',
+            'tanggal_lahir',
+            'status'
+        ])->get();
+
+        return DataTables::of($siswa)
+            ->addIndexColumn() // Tambahkan nomor urut
+            ->rawColumns(['aksi']) // Pastikan kolom "aksi" tidak di-escape
+            ->make(true);
+    }
+
 
     public function create()
     {
@@ -57,10 +66,10 @@ class SiswaController extends Controller
             'email' => 'required',
             'alamat' => 'required',
             'jalan' => 'nullable',
-            'kelurahan'=> 'nullable',
+            'kelurahan' => 'nullable',
             'kecamatan' => 'nullable',
             'kota' => 'nullable',
-            'provinsi'=> 'nullable',
+            'provinsi' => 'nullable',
             'nama_ayah' => 'nullable',
             'pekerjaan_ayah' => 'nullable',
             'no_telp_ayah' => 'nullable',

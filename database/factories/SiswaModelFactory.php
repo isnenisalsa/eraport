@@ -32,6 +32,7 @@ class SiswaModelFactory extends Factory
             'jalan' => $this->faker->streetName(),
             'kelurahan' => $this->faker->citySuffix(),
             'kecamatan' => $this->faker->cityPrefix(),
+            'email' => $this->faker->email(),
             'kota' => $this->faker->city(),
             'provinsi' => $this->faker->state(),
             'nama_ayah' => $this->faker->name('male'),

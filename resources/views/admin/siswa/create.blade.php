@@ -38,9 +38,11 @@
                             <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
                             <select class="form-control" name="jenis_kelamin" id="jenis_kelamin">
                                 <option value="">Pilih</option>
-                                <option value="Laki-Laki" {{ old('jenis_kelamin') == 'Laki-Laki' ? 'selected' : '' }}>Laki-laki
+                                <option value="Laki-Laki" {{ old('jenis_kelamin') == 'Laki-Laki' ? 'selected' : '' }}>
+                                    Laki-laki
                                 </option>
-                                <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan
+                                <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>
+                                    Perempuan
                                 </option>
                             </select>
                             @if ($errors->has('jenis_kelamin'))
@@ -50,14 +52,7 @@
                         <div class="mb-3">
                             <label for="agama" class="form-label">Agama</label>
                             <select class="form-control" name="agama" id="agama">
-                                <option value="">Pilih</option>
                                 <option value="Islam" {{ old('agama') == 'Islam' ? 'selected' : '' }}>Islam</option>
-                                <option value="Kristen" {{ old('agama') == 'Kristen' ? 'selected' : '' }}>Kristen
-                                </option>
-                                <option value="Hindu" {{ old('agama') == 'Hindu' ? 'selected' : '' }}>Hindu
-                                </option>
-                                <option value="Budha" {{ old('agama') == 'Budha' ? 'selected' : '' }}>Budha
-                                </option>
                             </select>
                             @if ($errors->has('agama'))
                                 <div class="text-danger">{{ $errors->first('agama') }}</div>
@@ -65,17 +60,17 @@
                         </div>
                         <div class="mb-3">
                             <label for="pendidikan_terakhir" class="form-label">Pendidikan Sebelumnya</label>
-                            <input type="text" class="form-control" id="pendidikan_terakhir" placeholder="Inputkan Pendidikan Sebelumnya"
-                                name="pendidikan_terakhir" value="{{ old('pendidikan_terakhir') }}">
+                            <input type="text" class="form-control" id="pendidikan_terakhir"
+                                placeholder="Inputkan Pendidikan Sebelumnya" name="pendidikan_terakhir"
+                                value="{{ old('pendidikan_terakhir') }}">
                             @if ($errors->has('pendidikan_terakhir'))
                                 <div class="text-danger">{{ $errors->first('pendidikan_terakhir') }}</div>
                             @endif
                         </div>
                         <div class="mb-3">
                             <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
-                            <input type="text" class="form-control" id="tempat_lahir"
-                                placeholder="Inputkan Tempat Lahir" name="tempat_lahir"
-                                value="{{ old('tempat_lahir') }}">
+                            <input type="text" class="form-control" id="tempat_lahir" placeholder="Inputkan Tempat Lahir"
+                                name="tempat_lahir" value="{{ old('tempat_lahir') }}">
                             @if ($errors->has('tempat_lahir'))
                                 <div class="text-danger">{{ $errors->first('tempat_lahir') }}</div>
                             @endif
@@ -104,38 +99,42 @@
                                 <div class="text-danger">{{ $errors->first('nama_jalan') }}</div>
                             @endif
                             <label for="kelurahan" class="form-label"></label>
-                            <input type="text" class="form-control" placeholder="Inputkan Kelurahan/Desa" id="kelurahan" name="kelurahan" value="{{ old('kelurahan') }}">
+                            <input type="text" class="form-control" placeholder="Inputkan Kelurahan/Desa"
+                                id="kelurahan" name="kelurahan" value="{{ old('kelurahan') }}">
                             @if ($errors->has('kelurahan'))
                                 <div class="text-danger">{{ $errors->first('kelurahan') }}</div>
                             @endif
                             <label for="kecamatan" class="form-label"></label>
-                            <input type="text" class="form-control" placeholder="Inputkan Kecamatan" id="kecamatan" name="kecamatan" value="{{ old('kecamatan') }}">
+                            <input type="text" class="form-control" placeholder="Inputkan Kecamatan" id="kecamatan"
+                                name="kecamatan" value="{{ old('kecamatan') }}">
                             @if ($errors->has('kecamatan'))
                                 <div class="text-danger">{{ $errors->first('kecamatan') }}</div>
                             @endif
                             <label for="kota" class="form-label"></label>
-                            <input type="text" class="form-control" placeholder="Inputkan Kabupaten/Kota" id="kota" name="kota" value="{{ old('kota') }}">
+                            <input type="text" class="form-control" placeholder="Inputkan Kabupaten/Kota"
+                                id="kota" name="kota" value="{{ old('kota') }}">
                             @if ($errors->has('kota'))
                                 <div class="text-danger">{{ $errors->first('kota') }}</div>
                             @endif
                             <label for="provinsi" class="form-label"></label>
-                            <input type="text" class="form-control" placeholder="Inputkan Provinsi" id="provinsi" name="provinsi" value="{{ old('provinsi') }}">
+                            <input type="text" class="form-control" placeholder="Inputkan Provinsi" id="provinsi"
+                                name="provinsi" value="{{ old('provinsi') }}">
                             @if ($errors->has('provinsi'))
                                 <div class="text-danger">{{ $errors->first('provinsi') }}</div>
                             @endif
-                        </div> 
+                        </div>
                     </div>
 
                     <!-- Kolom Kanan -->
                     <div class="col-md-6">
                         <div class="mb-3">
-                        <label for="nama_ayah" class="form-label">Nama Ayah</label>
+                            <label for="nama_ayah" class="form-label">Nama Ayah</label>
                             <input type="text" class="form-control" id="nama_ayah" placeholder="Inputkan Nama Ayah"
                                 name="nama_ayah" value="{{ old('nama_ayah') }}">
                             @if ($errors->has('nama_ayah'))
                                 <div class="text-danger">{{ $errors->first('nama_ayah') }}</div>
                             @endif
-                            </div>
+                        </div>
                         <div class="mb-3">
                             <label for="pekerjaan_ayah" class="form-label">Pekerjaan Ayah</label>
                             <input type="text" class="form-control" id="pekerjaan_ayah"
@@ -209,17 +208,15 @@
                         <div class="mb-3">
                             <label for="alamat_wali" class="form-label">Alamat Wali</label>
                             <input type="text" class="form-control" id="alamat_wali"
-                                placeholder="Inputkan Alamat Wali" name="alamat_wali"
-                                value="{{ old('alamat_wali') }}">
+                                placeholder="Inputkan Alamat Wali" name="alamat_wali" value="{{ old('alamat_wali') }}">
                             @if ($errors->has('alamat_wali'))
                                 <div class="text-danger">{{ $errors->first('alamat_wali') }}</div>
                             @endif
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="text" class="form-control" id="email"
-                                placeholder="Inputkan Email" name="email"
-                                value="{{ old('email') }}">
+                            <input type="text" class="form-control" id="email" placeholder="Inputkan Email"
+                                name="email" value="{{ old('email') }}">
                             @if ($errors->has('email'))
                                 <div class="text-danger">{{ $errors->first('email') }}</div>
                             @endif

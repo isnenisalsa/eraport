@@ -144,15 +144,6 @@
 
 <body>
     <div class="container">
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show position-absolute"
-                style="top: 60px; right: 650px; z-index: 9999;" role="alert">
-                <strong>{{ session('success') }}</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
         <div class="row justify-content-center">
             <div class="col-7 col-md-4 text-center mb-4">
                 <img src="image/logo.png" alt="Logo" width="250px">
@@ -164,6 +155,14 @@
                         @error('akses')
                             <span class="text-danger text-center d-block">{{ $message }}</span>
                         @enderror
+                        @if (session('success'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{ session('success') }}</strong>
+                                <button type="button" class="close " data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
                         @if (session('login_failed'))
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <strong>{{ session('login_failed') }}</strong>
