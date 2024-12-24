@@ -72,10 +72,9 @@ class MapelController extends Controller
             'editBag',
             [
                 'mata_pelajaran' => 'required',
-                'terms' => 'required'
             ],
             [
-                'terms.required' => 'Wajib dicentang'
+                'mata_pelajaran.required' => 'Mata Pelajaran Tidak Boleh Kosong'
             ]
         );
         $mapel = MapelModel::findOrFail($kode_mapel);

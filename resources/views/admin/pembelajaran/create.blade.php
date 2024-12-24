@@ -79,3 +79,43 @@
         });
     </script>
 @endif
+@push('js')
+    <script>
+        $(document).ready(function() {
+            $('#mata_pelajaran').select2({
+                placeholder: "Pilih Mata Pelajaran",
+                dropdownParent: $('#modal-tambah-data-pembelajaran'),
+                width: '100%',
+                language: {
+                    noResults: function() {
+                        return "Tidak ada hasil ditemukan";
+                    }
+                }
+            });
+        });
+        $(document).ready(function() {
+            $('#nama_kelas').select2({
+                placeholder: "Pilih Kelas",
+                dropdownParent: $('#modal-tambah-data-pembelajaran'),
+                width: '100%',
+                language: {
+                    noResults: function() {
+                        return "Tidak ada hasil ditemukan";
+                    }
+                }
+            });
+        });
+        $(document).ready(function() {
+            $('#nama_guru').select2({
+                placeholder: "Pilih Guru Pengampu",
+                dropdownParent: $('#modal-tambah-data-pembelajaran'),
+                width: '100%',
+                language: {
+                    noResults: function() {
+                        return "Tidak ada hasil ditemukan";
+                    }
+                }
+            });
+        });
+    </script>
+@endpush

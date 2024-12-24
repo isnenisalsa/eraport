@@ -68,12 +68,96 @@ class PembelajaranController extends Controller
         // Urutkan secara menurun dan ambil tahun ajaran terbaru
         $tahunAjaranTerbaru = $tahunAjaran->sortDesc()->first();
         // Ambil daftar semester dari model TahunAjarModel, urutkan secara descending
-        $semester = TahunAjarModel::where('tahun_ajaran', $tahunAjaranTerbaru)->distinct('semester')->orderByDesc('semester')->pluck('semester');
-        // Tentukan semester terbaru
-        $semesterTerbaru = $semester->sortDesc()->first();
+        $semester = TahunAjarModel::where('tahun_ajaran', $tahunAjaranTerbaru)->pluck('semester');
+
+        // Pastikan semester Ganjil dan Genap ada
+        if (!$semester->contains('Ganjil')) {
+            $semester->push('Ganjil');
+        }
+        if (!$semester->contains('Genap')) {
+            $semester->push('Genap');
+        }
+
+        // Tentukan semester terbaru (default ke Ganjil jika tidak ada prioritas lain)
+        $semesterTerbaru = $semester->contains('Ganjil') ? 'Ganjil' : $semester->sortDesc()->first();
+
+
 
         return view('guru.pembelajaran.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'dataPembelajaran' => $dataPembelajaran, 'tahunAjaran' => $tahunAjaran, 'tahunAjaranTerbaru' => $tahunAjaranTerbaru, 'semester' => $semester, 'semesterTerbaru' => $semesterTerbaru,]);
     }
+
+    public function listGuru(Request $request)
+    {
+        $user = Auth::user();
+
+        // Query dasar untuk data pembelajaran
+        $query = PembelajaranModel::with(['mapel', 'kelas.tahunAjarans', 'guru'])
+            ->where('nama_guru', $user->nik);
+
+        // Filter berdasarkan Tahun Ajaran
+        if ($request->has('tahun_ajaran') && $request->tahun_ajaran) {
+            $query->whereHas('kelas.tahunAjarans', function ($q) use ($request) {
+                $q->where('tahun_ajaran', $request->tahun_ajaran);
+            });
+        }
+
+        // Filter berdasarkan Semester
+        if ($request->has('semester') && $request->semester) {
+            $query->whereHas('kelas.tahunAjarans', function ($q) use ($request) {
+                $q->where('semester', $request->semester);
+            });
+        }
+
+        // Ambil data dengan relasi dan transformasi untuk DataTables
+        $data = $query->get()->flatMap(function ($pembelajaran) use ($request) {
+            return $pembelajaran->kelas->tahunAjarans->map(function ($tahunAjaran) use ($pembelajaran, $request) {
+                // Filter berdasarkan Tahun Ajaran
+                if ($request->has('tahun_ajaran') && $request->tahun_ajaran) {
+                    if ($tahunAjaran->tahun_ajaran != $request->tahun_ajaran) {
+                        return null; // Mengabaikan data yang tidak sesuai tahun ajaran
+                    }
+                }
+
+                // Filter berdasarkan Semester
+                if ($request->has('semester') && $request->semester) {
+                    if ($tahunAjaran->semester != $request->semester) {
+                        return null; // Mengabaikan data yang tidak sesuai semester
+                    }
+                }
+
+                return [
+                    'mata_pelajaran' => $pembelajaran->mapel->mata_pelajaran,
+                    'nama_kelas' => $pembelajaran->kelas->nama_kelas,
+                    'guru_nama' => $pembelajaran->guru->nama,
+                    'tahun_ajaran' => $tahunAjaran->tahun_ajaran,
+                    'semester' => $tahunAjaran->semester,
+                    'capel_url' => route('capel.index', [
+                        'id_pembelajaran' => $pembelajaran->id_pembelajaran,
+                        'tahun_ajaran_id' => $tahunAjaran->id,
+                    ]),
+                    'nilai_url' => route('nilai.index', [
+                        'id_pembelajaran' => $pembelajaran->id_pembelajaran,
+                        'tahun_ajaran_id' => $tahunAjaran->id,
+                    ]),
+                ];
+            })->filter(); // Hapus elemen null jika filter tidak cocok
+        });
+
+        // Kembalikan data ke DataTables
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($row) {
+                return '
+                <a href="' . $row['capel_url'] . '" class="btn btn-success btn-sm mb-2">Tujuan Pembelajaran</a>
+                <a href="' . $row['nilai_url'] . '" class="btn btn-info btn-sm mb-2">Kelola Nilai</a>
+            ';
+            })
+            ->rawColumns(['aksi']) // Mengizinkan HTML di kolom aksi
+            ->make(true);
+    }
+
+
+
 
 
     public function save(Request $request)

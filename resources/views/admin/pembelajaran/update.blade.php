@@ -7,8 +7,8 @@
 @endif
 
 @foreach ($pembelajaran as $item)
-    <div class="modal fade @if (session('editModal') == $item->id_pembelajaran || old('id_pembelajaran') == $item->id_pembelajaran) show @endif"
-        id="modal-edit{{ $item->id_pembelajaran }}" tabindex="-1" aria-labelledby="modal-editLabel" aria-hidden="true"
+    <div class="modal fade @if (session('editModal') == $item->id_pembelajaran || old('id_pembelajaran') == $item->id_pembelajaran) show @endif" id="modal-edit{{ $item->id_pembelajaran }}"
+        tabindex="-1" aria-labelledby="modal-editLabel" aria-hidden="true"
         style="@if (session('editModal') == $item->id_pembelajaran || old('id_pembelajaran') == $item->id_pembelajaran) display: block; @endif">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -33,7 +33,8 @@
                         <div class="form-group">
                             <label for="mata_pelajaran">Mata Pelajaran</label>
                             <select name="mata_pelajaran"
-                                class="form-control @error('mata_pelajaran', 'editBag') is-invalid @enderror">
+                                class="form-control @error('mata_pelajaran', 'editBag') is-invalid @enderror"
+                                id="mata_pelajaran{{ $item->id_pembelajaran }}">
                                 <option value="">Pilih Mata Pelajaran</option>
                                 @foreach ($mapel as $mapelItem)
                                     <option value="{{ $mapelItem->kode_mapel }}"
@@ -51,7 +52,8 @@
                         <div class="form-group">
                             <label for="nama_kelas">Nama Kelas</label>
                             <select name="nama_kelas"
-                                class="form-control @error('nama_kelas', 'editBag') is-invalid @enderror" >
+                                class="form-control @error('nama_kelas', 'editBag') is-invalid @enderror"
+                                id="nama_kelas{{ $item->id_pembelajaran }}">
                                 <option value="">Pilih Nama Kelas</option>
                                 @foreach ($kelas as $kelasItem)
                                     <option value="{{ $kelasItem->kode_kelas }}"
@@ -69,7 +71,8 @@
                         <div class="form-group">
                             <label for="nama_guru">Guru Pengampu</label>
                             <select name="nama_guru"
-                                class="form-control @error('nama_guru', 'editBag') is-invalid @enderror" >
+                                class="form-control @error('nama_guru', 'editBag') is-invalid @enderror"
+                                id="nama_guru{{ $item->id_pembelajaran }}">
                                 <option value="">Pilih Guru Pengampu</option>
                                 @foreach ($guru as $guruItem)
                                     <option value="{{ $guruItem->nik }}"
@@ -87,7 +90,48 @@
                 </form>
                 <br><br>
             </div>
-            </div>
         </div>
     </div>
+    </div>
 @endforeach
+@push('js')
+    <script>
+        $(document).ready(function() {
+            // Inisialisasi Select2 untuk setiap modal edit
+            @foreach ($pembelajaran as $item)
+                $('#mata_pelajaran{{ $item->id_pembelajaran }}').select2({
+                    placeholder: "Pilih Mata Pelajaran",
+                    dropdownParent: $('#modal-edit{{ $item->id_pembelajaran }}'),
+                    width: '100%',
+                    language: {
+                        noResults: function() {
+                            return "Tidak ada hasil ditemukan";
+                        }
+                    }
+                });
+
+                $('#nama_kelas{{ $item->id_pembelajaran }}').select2({
+                    placeholder: "Pilih Kelas",
+                    dropdownParent: $('#modal-edit{{ $item->id_pembelajaran }}'),
+                    width: '100%',
+                    language: {
+                        noResults: function() {
+                            return "Tidak ada hasil ditemukan";
+                        }
+                    }
+                });
+
+                $('#nama_guru{{ $item->id_pembelajaran }}').select2({
+                    placeholder: "Pilih Guru Pengampu",
+                    dropdownParent: $('#modal-edit{{ $item->id_pembelajaran }}'),
+                    width: '100%',
+                    language: {
+                        noResults: function() {
+                            return "Tidak ada hasil ditemukan";
+                        }
+                    }
+                });
+            @endforeach
+        });
+    </script>
+@endpush

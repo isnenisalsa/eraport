@@ -20,7 +20,7 @@ class SiswaKelasController extends Controller
         ];
 
 
-        $activeMenu = 'Data Siswa';
+        $activeMenu = 'Data Kelas';
 
         // Ambil data kelas berdasarkan kode_kelas
         $kelas = KelasModel::where('kode_kelas', $kode_kelas)->firstOrFail();

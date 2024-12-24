@@ -94,9 +94,11 @@ Route::middleware(['auth',])->group(function () {
     //rute untuk kelas
     Route::prefix('kelas')->group(function () {
         Route::get('/', [KelasController::class, 'index'])->name('kelas')->middleware('cek_login:1');
+        Route::post('/walas/list', [KelasController::class, 'listKelasWalas'])->name('kelas.list.walas');
         Route::post('/list', [KelasController::class, 'list'])->name('kelas.list')->middleware('cek_login:1');
         Route::get('/walas', [KelasController::class, 'KelasWalas'])->name('kelas.walas')->middleware('cek_login:3');
         Route::get('/walas/nilai', [KelasController::class, 'KelasWalasNilai'])->name('kelas.walas.nilai')->middleware('cek_login:3');
+        Route::post('/listWalas', [KelasController::class, 'listWalas'])->name('nilaiakhir.list')->middleware('cek_login:3');
         Route::post('/save', [KelasController::class, 'save'])->name('save-kelas')->middleware('cek_login:1');
         Route::get('/edit/{kode_kelas}', [KelasController::class, 'edit'])->name('edit-kelas')->middleware('cek_login:1');
         Route::put('/update/{kode_kelas}', [KelasController::class, 'update'])->name('update-kelas')->middleware('cek_login:1');
@@ -113,6 +115,7 @@ Route::middleware(['auth',])->group(function () {
     Route::prefix('pembelajaran')->group(function () {
         Route::get('/', [PembelajaranController::class, 'index'])->name('pembelajaran')->middleware(['cek_login:1']);
         Route::post('/pembelajaran/list', [PembelajaranController::class, 'list'])->name('pembelajaran.list')->middleware(['cek_login:1']);
+        Route::post('/list/guru', [PembelajaranController::class, 'listGuru'])->name('pembelajaran.list.guru')->middleware(['cek_login:2']);
         Route::get('/guru', [PembelajaranController::class, 'indexGuru'])->name('pembelajaran.guru')->middleware(['cek_login:2']);
         Route::post('/save', [PembelajaranController::class, 'save'])->name('save-pembelajaran')->middleware('cek_login:1');
         Route::get('/edit/{kode_pembelajaran}', [PembelajaranController::class, 'edit'])->name('edit-pembelajaran')->middleware('cek_login:1');
@@ -123,6 +126,7 @@ Route::middleware(['auth',])->group(function () {
     Route::prefix('eskul')->group(function () {
         Route::get('/', [EskulController::class, 'index'])->name('eskul.index')->middleware('cek_login:1');
         Route::post('/list', [EskulController::class, 'list'])->name('eskul.list')->middleware('cek_login:1');
+        Route::post('/list/walas', [EskulController::class, 'listWalas'])->name('eskul.list.walas');
         Route::get('/kelas', [EskulController::class, 'KelasEskul'])->name('eskul.kelas')->middleware('cek_login:3');
         Route::get('/nilai/{kode_kelas}/{tahun_ajaran_id}', [EskulController::class, 'NilaiEskul'])->name('nilai.eskul')->middleware('cek_login:3');
         Route::post('/save', [EskulController::class, 'save'])->name('eskul.save')->middleware('cek_login:1');
@@ -145,6 +149,7 @@ Route::middleware(['auth',])->group(function () {
 
     //rute untuk absensi
     Route::prefix('absensi')->group(function () {
+        Route::get('/list', [AbsensiController::class, 'list'])->name('absensi.list');
         Route::get('/kelas', [AbsensiController::class, 'KelasAbsensi'])->name('absensi.kelas')->middleware('cek_login:3');
         Route::get('/index/{kode_kelas}/{tahun_ajaran_id}', [AbsensiController::class, 'index'])->name('absensi.index')->middleware('cek_login:3');
         Route::post('/update/{kode_kelas}/{tahun_ajaran_id}', [AbsensiController::class, 'update'])->name('update.absensi')->middleware('cek_login:3');
@@ -193,6 +198,8 @@ Route::post('/profile/{nis}/account/siswa', [ProfileController::class, 'updateAc
 
 //rute cetak rapor
 Route::prefix('cetak/rapor')->group(function () {
+    Route::post('/listWalas', [CetakRaporController::class, 'listWalas'])->name('cetak.list.walas');
+    Route::get('/listSiswa', [CetakRaporController::class, 'listSiswa'])->name('cetak.list.siswa');
     Route::get('/kelas', [CetakRaporController::class, 'KelasRapor'])->name('rapor.kelas');
     Route::get('/siswa', [CetakRaporController::class, 'KelasRaporSiswa'])->middleware('siswa');
     Route::get('/siswa/cetak/{kode_kelas}/{nis}/{tahun_ajaran_id}', [CetakRaporController::class, 'KelasRaporSiswaCetak'])->middleware('siswa')->name('cetak.index.siswa');

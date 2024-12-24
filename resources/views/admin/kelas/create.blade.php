@@ -74,3 +74,20 @@
         });
     </script>
 @endif
+@push('js')
+    <script>
+        $(document).ready(function() {
+            $('#guru_nik').select2({
+                placeholder: "Pilih Guru",
+                dropdownParent: $('#modal-tambah-data-kelas'),
+                width: '100%',
+                language: {
+                    noResults: function() {
+                        return "Tidak ada hasil ditemukan";
+                    }
+                }
+            });
+        });
+        
+    </script>
+@endpush

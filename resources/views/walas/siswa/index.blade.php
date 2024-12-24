@@ -40,7 +40,7 @@
                         </button>
                     </div>
                     <div class="card-body">
-                        <table class="table table-bordered table-striped text-center" id="example2">
+                        <table class="table table-bordered table-striped text-center table-responsive-xl">
                             <thead>
                                 <tr>
                                     <th>No</th>

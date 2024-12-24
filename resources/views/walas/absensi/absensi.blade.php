@@ -34,9 +34,9 @@
                             action="{{ route('update.absensi', ['kode_kelas' => $kelas->kode_kelas, 'tahun_ajaran_id' => $tahun_ajaran_id]) }}"
                             method="POST">
                             @csrf
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-bordered table-striped table-responsive-xl">
                                 <thead>
-                                    <tr>
+                                    <tr class="text-center">
                                         <th>No</th>
                                         <th>Nama Siswa</th>
                                         <th>Sakit</th>
@@ -56,17 +56,20 @@
                                                     value="{{ $item->id }}">
                                                 <input type="number" name="siswa[{{ $key }}][sakit]"
                                                     class="form-control" min="0"
-                                                    value="{{ old('siswa.' . $key . '.sakit', $item->absensi->sakit ?? 0) }}">
+                                                    value="{{ old('siswa.' . $key . '.sakit', $item->absensi->sakit ?? 0) }}"
+                                                    style="width: 80px">
                                             </td>
                                             <td>
                                                 <input type="number" name="siswa[{{ $key }}][izin]"
                                                     class="form-control" min="0"
-                                                    value="{{ old('siswa.' . $key . '.izin', $item->absensi->izin ?? 0) }}">
+                                                    value="{{ old('siswa.' . $key . '.izin', $item->absensi->izin ?? 0) }}"
+                                                    style="width: 80px">
                                             </td>
                                             <td>
                                                 <input type="number" name="siswa[{{ $key }}][alfa]"
-                                                    class="form-control" min="0"
-                                                    value="{{ old('siswa.' . $key . '.alfa', $item->absensi->alfa ?? 0) }}">
+                                                    class="form-control " min="0"
+                                                    value="{{ old('siswa.' . $key . '.alfa', $item->absensi->alfa ?? 0) }}"
+                                                    style="width: 80px">
                                             </td>
                                         </tr>
                                     @endforeach

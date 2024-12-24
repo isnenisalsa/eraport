@@ -22,63 +22,42 @@
                                     </select>
                                 </div>
                                 &nbsp;
+
                                 <!-- Filter Semester -->
                                 <div>
                                     <label for="filter-semester" class="form-label mb-0 small">Semester:</label>
                                     <select id="filter-semester" class="form-select form-select-sm">
                                         <option value="">Semua</option>
+
                                         @foreach ($semester as $smt)
                                             <option value="{{ $smt }}"
                                                 {{ $smt == $semesterTerbaru ? 'selected' : '' }}>
-                                                Semester {{ $smt }}
+                                                {{ $smt }}
                                             </option>
                                         @endforeach
                                     </select>
                                 </div>
+
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table table-bordered table-striped text-center" id="tabel_pembelajaran_guru">
+                        <table class="table table-bordered table-striped text-center table-responsive-xl"
+                            id="tabel_pembelajaran_guru">
                             <thead class="table-dark">
                                 <tr>
+                                    <th>No</th>
                                     <th>Mata Pelajaran</th>
                                     <th>Kelas</th>
                                     <th>Guru Pengampu</th>
                                     <th>Tahun Ajaran</th>
                                     <th>Semester</th>
-                                    <th>Aksi</th>
+                                    <th style="width: 280px">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach ($dataPembelajaran as $item)
-                                    @foreach ($item->kelas->tahunAjarans as $tahunAjaran)
-                                        <tr>
-                                            <td>{{ $item->mapel->mata_pelajaran }}</td>
-                                            <td>{{ $item->kelas->nama_kelas }}</td>
-                                            <td>{{ $item->guru->nama }}</td>
-                                            <td>
-                                                {{ $tahunAjaran->tahun_ajaran }}
-                                            </td>
-                                            <td>
-                                                {{ $tahunAjaran->semester }}
-                                            </td>
-                                            <td>
-
-                                                <a href="{{ route('capel.index', ['id_pembelajaran' => $item->id_pembelajaran, 'tahun_ajaran_id' => $tahunAjaran->id]) }}"
-                                                    class="btn btn-success btn-sm">
-                                                    Tujuan Pembelajaran
-                                                </a> &nbsp;
-                                                <a href="{{ route('nilai.index', ['id_pembelajaran' => $item->id_pembelajaran, 'tahun_ajaran_id' => $tahunAjaran->id]) }}"
-                                                    class="btn btn-info btn-sm">Kelola Nilai</a> &nbsp;
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endforeach
-
-
-                            </tbody>
+                            <tbody></tbody>
                         </table>
+
                     </div>
                 </div>
             </div>
@@ -86,3 +65,81 @@
 
     </div>
 @endsection
+@push('js')
+    <script>
+        $(document).ready(function() {
+            var table = $('#tabel_pembelajaran_guru').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: '{{ route('pembelajaran.list.guru') }}',
+                    type: 'POST',
+                    data: function(d) {
+                        d.tahun_ajaran = $('#filter-tahun-ajaran').val(); // Kirim filter tahun ajaran
+                        d.semester = $('#filter-semester').val(); // Kirim filter semester
+                    }
+                },
+                columns: [{
+                        data: "DT_RowIndex",
+                        orderable: true,
+                        searchable: false,
+                        className: "text-center"
+                    },
+                    {
+                        data: 'mata_pelajaran',
+                        name: 'mata_pelajaran',
+                        orderable: false,
+                    },
+                    {
+                        data: 'nama_kelas',
+                        name: 'nama_kelas',
+                        orderable: false,
+                    },
+                    {
+                        data: 'guru_nama',
+                        name: 'guru_nama',
+                        orderable: false,
+                    },
+                    {
+                        data: 'tahun_ajaran',
+                        name: 'tahun_ajaran',
+                        orderable: false,
+                    },
+                    {
+                        data: 'semester',
+                        name: 'semester',
+                        orderable: false,
+                    },
+                    {
+                        data: 'aksi',
+                        name: 'aksi',
+                        orderable: false,
+                        searchable: false,
+                    },
+                ],
+                language: {
+                    sProcessing: "Memproses...",
+                    sLengthMenu: "Tampilkan _MENU_ entri",
+                    sZeroRecords: "Tidak ada data yang sesuai",
+                    sInfo: "Menampilkan _START_ hingga _END_ dari _TOTAL_ entri",
+                    sInfoEmpty: "Menampilkan 0 hingga 0 dari 0 entri",
+                    sInfoFiltered: "(disaring dari _MAX_ total entri)",
+                    sSearch: "Cari:",
+                    oPaginate: {
+                        sFirst: "<<",
+                        sPrevious: "<",
+                        sNext: ">",
+                        sLast: ">>"
+                    }
+                },
+                info: false,
+                autoWidth: false,
+            });
+
+            // Event listener untuk filter dropdown
+            $('#filter-tahun-ajaran, #filter-semester').on('change', function() {
+                table.ajax.reload(); // Reload data dengan filter baru
+            });
+        });
+    </script>
+@endpush

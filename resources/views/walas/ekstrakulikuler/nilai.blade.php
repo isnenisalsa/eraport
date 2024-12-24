@@ -1,25 +1,26 @@
 @extends('layouts.template')
 @section('content')
-<div class="container">
-    <div class="card shadow">
-        <div class="card-body">
-            <table class="table table-sm">
-                <thead>
-                    <tr>
-                        <th scope="col">Kelas</th>
-                        <th scope="col">:</th>
-                        <th scope="col">{{ $kelas->nama_kelas}}</th> <!-- Langsung akses nama_kelas -->
-                    </tr>
-                    <tr>
-                        <th scope="col">Wali Kelas</th>
-                        <th scope="col">:</th>
-                        <th scope="col">{{ $kelas->guru->nama ?? 'Tidak Ditemukan' }}</th> <!-- Langsung akses nama guru -->
-                    </tr>
-                </thead>
-            </table>
+    <div class="container">
+        <div class="card shadow">
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Kelas</th>
+                            <th scope="col">:</th>
+                            <th scope="col">{{ $kelas->nama_kelas }}</th> <!-- Langsung akses nama_kelas -->
+                        </tr>
+                        <tr>
+                            <th scope="col">Wali Kelas</th>
+                            <th scope="col">:</th>
+                            <th scope="col">{{ $kelas->guru->nama ?? 'Tidak Ditemukan' }}</th>
+                            <!-- Langsung akses nama guru -->
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </div>
-</div>
     <div class="container">
         @if ($errors->any())
             <div class="alert alert-danger" role="alert">
@@ -38,7 +39,7 @@
                         </button>
                     </div>
                     <div class="card-body">
-                        <table class="table table-bordered table-striped text-center" id="example2">
+                        <table class="table table-bordered table-striped text-center table-responsive-xl">
                             <thead>
                                 <tr>
                                     <th>No</th>

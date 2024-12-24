@@ -109,7 +109,7 @@
             <td>Alamat</td>
             <td>: {{ $sekolah->alamat }}</td>
             <td>Tahun Pelajaran</td>
-            <td>: 2023/2024</td>
+            <td>: {{ $semester->tahun_ajaran }}</td>
         </tr>
     </table>
 </head>
@@ -183,43 +183,6 @@
     <div class="page-break"></div> <!-- Page Break Here -->
 
     <div class="rapor-container page-break-last">
-        <table class="header-info" style="border: none">
-            <tr>
-                <td>Nama Peserta Didik</td>
-                <td>: {{ $siswa->nama }}</td>
-                <td>Kelas</td>
-                <td>: {{ $kelas->first()->nama_kelas }}</td>
-            </tr>
-            <tr>
-                <td>NISN</td>
-                <td>: {{ $siswa->nisn }}</td>
-                <td>Fase</td>
-                <td>: D</td>
-            </tr>
-            <tr>
-                <td>Sekolah</td>
-                <td>: {{ $sekolah->nama }}</td>
-                <td>Semester</td>
-                <td>
-                    :
-                    @if ($semester->semester == 'Ganjil')
-                        1 (Ganjil)
-                    @elseif ($semester->semester == 'Genap')
-                        2 (Genap)
-                    @else
-                        {{ $semester->semester }}
-                        <!-- Display the semester value if it's neither 'ganjil' nor 'genap' -->
-                    @endif
-                </td>
-
-            </tr>
-            <tr>
-                <td>Alamat</td>
-                <td>: {{ $sekolah->alamat }}</td>
-                <td>Tahun Pelajaran</td>
-                <td>: {{ $semester->tahun_ajaran }}</td>
-            </tr>
-        </table>
         <table>
             <thead>
                 <tr>
@@ -263,13 +226,24 @@
                 @endif
             </tbody>
         </table>
-        @if ($semester == 'Genap')
-            <div style=" margin-top: 5px; font-size: 22px; font-family:'Times New Roman', Times, serif ">
-                <p>Naik ke kelas: .......</p>
-                <p>Tinggal di kelas: .......</p>
-            </div>
+
+        @if ($semester->semester == 'Genap')
+            <table class="table">
+                <thead>
+                    <th><b>Keputusan</b></th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <p>Berdasarkan pencapaian seluruh kompetensi, peserta didik dinyatakan:</p>
+                            <p><b>Naik/Tinggal kelas*) .......... (..........)</b></p>
+                            <p>*) Coret yang tidak perlu</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         @endif
-        <table style="width: 50%; margin-bottom: 20px; margin-top: 50px">
+        <table style="width: 50%; margin-bottom: 20px; margin-top: 30px">
             <thead>
                 <tr>
                     <th colspan="2" style="text-align: center">Ketidakhadiran</th>
@@ -296,32 +270,33 @@
         </table>
     </div>
 
-    <div style="margin-top: 40px; text-align: center;">
-        <table style="width: 100%; border-collapse: collapse; margin-bottom: 40px; border: none;">
+    <div style="margin-top: 30px; text-align: center;">
+        <table style="width: 100%; border-collapse: collapse; border: none;">
             <tr>
-                <td style="width: 50%; text-align: center; vertical-align: bottom; border: none;">
-                    <br>
-                    Orang Tua,
-                    <br><br><br><br><br><br>
-                    <span>____________________</span>
+                <td style="width: 50%;  text-align: center; vertical-align: bottom; border: none;">
+                    <div class="d-flex justify-content-center align-items-end">
+                        <p>Orang Tua,</p>
+                        <br><br><br><br>
+                        <span>____________________</span>
+                    </div>
                 </td>
                 <td style="width: 50%; text-align: center; vertical-align: bottom; border: none;">
-                    <span>{{ \Carbon\Carbon::parse($semester->tanggal_pembagian_rapor)->translatedFormat('d F Y') }}</span>
-
-                    <br>Wali Kelas
-                    <br><br><br><br><br>
-                    <span>{{ $kelas->first()->guru->nama }}</span>
-                    <br>
-                    NIP. <span>{{ $kelas->first()->guru->nip }}</span>
+                    <div class="d-flex justify-content-center align-items-end">
+                        <span>{{ \Carbon\Carbon::parse($semester->tanggal_pembagian_rapor)->translatedFormat('d F Y') }}</span>
+                        <p>Wali Kelas</p>
+                        <br><br><br><br>
+                        <span>{{ $kelas->first()->guru->nama }}</span><br>
+                        NIP. <span>{{ $kelas->first()->guru->nip }}</span>
+                    </div>
                 </td>
             </tr>
         </table>
     </div>
 
-    <div style="text-align: center; margin-top: 40px;" class="kepala-sekolah">
+    <div style="text-align: center; margin-top: 30px;" class="kepala-sekolah">
         <br>Mengetahui,
         <br>Kepala Sekolah
-        <br><br><br><br><br>
+        <br><br><br><br><br><br>
         <span>{{ $sekolah->nama_kepsek }}</span>
         <br>
         NIP. <span>{{ $sekolah->nip_kepsek }}</span>

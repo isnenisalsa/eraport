@@ -42,13 +42,14 @@
                         <!-- Wali Kelas -->
                         <div class="form-group">
                             <label for="guru_nik">Wali Kelas</label>
-                            <select name="guru_nik" id="guru_nik"
+                            <select name="guru_nik" id="guru_nik_{{ $item->kode_kelas }}"
                                 class="form-control @error('guru_nik', 'editBag') is-invalid @enderror">
                                 <option value="">Pilih Guru</option>
                                 @foreach ($guru as $guruItem)
                                     <option value="{{ $guruItem->nik }}"
                                         {{ old('guru_nik', $item->guru_nik) == $guruItem->nik ? 'selected' : '' }}>
-                                        {{ $guruItem->nama }}</option>
+                                        {{ $guruItem->nama }}
+                                    </option>
                                 @endforeach
                             </select>
                             @error('guru_nik', 'editBag')
@@ -78,3 +79,23 @@
         </div>
     </div>
 @endforeach
+@push('js')
+    <script>
+        $(document).ready(function() {
+            // Inisialisasi Select2 untuk elemen dengan ID tertentu
+            $('[id^="guru_nik"]').each(function() {
+                var modalId = $(this).closest('.modal').attr('id'); // Ambil ID modal
+                $(this).select2({
+                    dropdownParent: $('#' + modalId), // Set dropdownParent ke modal terkait
+                    placeholder: "Pilih Guru",
+                    width: '100%',
+                    language: {
+                        noResults: function() {
+                            return "Tidak ada hasil ditemukan";
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+@endpush

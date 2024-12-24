@@ -54,23 +54,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @php $no = 1; @endphp
-                                    @foreach ($kelas as $item)
-                                        @foreach ($item->tahunAjarans as $tahunAjaran)
-                                            <tr>
-                                                <td>{{ $no++ }}</td>
-                                                <td>{{ $item->nama_kelas }}</td>
-                                                <td>{{ $item->guru->nama }}</td>
-                                                <td>{{ $item->siswa_count }}</td>
-                                                <td>{{ $tahunAjaran->tahun_ajaran }}</td>
-                                                <td>{{ $tahunAjaran->semester }}</td>
-                                                <td>
-                                                    <a href="{{ route('nilai.eskul', ['kode_kelas' => $item->kode_kelas, 'tahun_ajaran_id' => $tahunAjaran->id]) }}"
-                                                        class="btn btn-info">Detail</a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -80,3 +63,99 @@
         </div>
     </div>
 @endsection
+@push('js')
+    <script>
+        $(document).ready(function() {
+            // Inisialisasi DataTables
+            var table = $('#tabel_eskul_walas').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: '{{ route('eskul.list.walas') }}',
+                    type: 'POST',
+                    data: function(d) {
+                        d.tahun_ajaran = $('#filter-tahun-ajaran').val();
+                        d.semester = $('#filter-semester').val();
+                    }
+                },
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'nama_kelas',
+                        name: 'nama_kelas'
+                    },
+                    {
+                        data: 'guru_nama',
+                        name: 'guru_nama'
+                    },
+                    {
+                        data: 'jumlah_siswa',
+                        name: 'jumlah_siswa'
+                    },
+                    {
+                        data: 'tahun_ajaran',
+                        name: 'tahun_ajaran',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'semester',
+                        name: 'semester',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'aksi',
+                        name: 'aksi',
+                        orderable: false,
+                        searchable: false
+                    }
+                ],
+                info: false,
+                autoWidth: false,
+                lengthMenu: [
+                    [5, 10, 25, 50, -1],
+                    [5, 10, 25, 50, "Semua"]
+                ],
+                pageLength: 5,
+                language: {
+                    sProcessing: "Memproses...",
+                    sLengthMenu: "Tampilkan _MENU_ entri",
+                    sZeroRecords: "Tidak ada data yang sesuai",
+                    sInfo: "Menampilkan _START_ hingga _END_ dari _TOTAL_ entri",
+                    sInfoEmpty: "Menampilkan 0 hingga 0 dari 0 entri",
+                    sInfoFiltered: "(disaring dari _MAX_ total entri)",
+                    sSearch: "Cari:",
+                    oPaginate: {
+                        sFirst: "<<",
+                        sPrevious: "<",
+                        sNext: ">",
+                        sLast: ">>"
+                    }
+                }
+            });
+
+            // Event listener untuk filter dropdown tahun ajaran
+            $('#filter-tahun-ajaran').on('change', function() {
+                table.ajax.reload(null, false); // Reload data tanpa reset pagination
+            });
+
+            // Event listener untuk filter dropdown semester
+            $('#filter-semester').on('change', function() {
+                table.ajax.reload(null, false); // Reload data tanpa reset pagination
+            });
+
+            // Terapkan filter awal jika ada nilai default
+            var defaultYear = $('#filter-tahun-ajaran').val();
+            var defaultSemester = $('#filter-semester').val();
+
+            if (defaultYear || defaultSemester) {
+                table.ajax.reload(null, false);
+            }
+        });
+    </script>
+@endpush

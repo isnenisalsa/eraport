@@ -26,7 +26,7 @@
         <div class="card shadow">
             <div class="card-body">
                 <h5 class="text-center">Nilai Rapor Siswa</h5>
-                <table class="table table-striped table-bordered mt-3">
+                <table class="table table-striped table-bordered mt-3 table-responsive-xl">
                     <thead>
                         <tr class="text-center">
                             <th>No</th>

@@ -28,3 +28,20 @@
         </div>
     </div>
 </div>
+@push('js')
+    <script>
+        $(document).ready(function() {
+            $('#siswa_id').select2({
+                placeholder: 'Pilih siswa...',
+                allowClear: true,
+                closeOnSelect: false,
+                width: '100%',
+                language: {
+                    noResults: function() {
+                        return "Tidak ada hasil ditemukan";
+                    }
+                }
+            });
+        });
+    </script>
+@endpush
