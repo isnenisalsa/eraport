@@ -38,7 +38,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="tanggal_biodata" class="form-label">tanggal pengisian biodata</label>
+                            <label for="tanggal_biodata" class="form-label">Tanggal Pengisian Biodata</label>
                             <input type="date"
                                 class="form-control @error('tanggal_biodata', 'tambahBag') is-invalid @enderror"
                                 id="tanggal_biodata" placeholder="Inputkan Tahun Ajaran Anda" name="tanggal_biodata"
@@ -48,7 +48,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="tanggal_pembagian_rapor" class="form-label">tanggal pembagian rapor</label>
+                            <label for="tanggal_pembagian_rapor" class="form-label">Tanggal Pembagian Rapor</label>
                             <input type="date"
                                 class="form-control @error('tanggal_pembagian_rapor', 'tambahBag') is-invalid @enderror"
                                 id="tanggal_pembagian_rapor" placeholder="Inputkan Tahun Ajaran Anda"

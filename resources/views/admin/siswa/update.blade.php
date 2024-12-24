@@ -262,6 +262,9 @@
                 <div class="form-check mt-3">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                     <label class="form-check-label" for="exampleCheck1">Saya Yakin Sudah Mengisi Dengan Benar</label>
+                    @if ($errors->has('terms'))
+                    <div class="text-danger">{{ $errors->first('terms') }}</div>
+                @endif
                 </div>
 
 

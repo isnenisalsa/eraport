@@ -14,7 +14,7 @@
 
                     <!-- Nama eskul -->
                     <div class="form-group">
-                        <label for="nama_eskul">Nama esktrakurikuler</label>
+                        <label for="nama_eskul">Nama Ekstrakurikuler</label>
                         <input type="text" name="nama_eskul" id="nama_eskul"
                             class="form-control @error('nama_eskul', 'tambahBag') is-invalid @enderror"
                             value="{{ old('nama_eskul') }}">
@@ -25,7 +25,7 @@
 
                     <!-- Wali eskul -->
                     <div class="form-group">
-                        <label for="guru_nik_eskul">Pembina esktrakurikuler</label>
+                        <label for="guru_nik_eskul">Pembina Ekstrakurikuler</label>
                         <select name="guru_nik" id="guru_nik_eskul"
                             class="form-control @error('guru_nik', 'tambahBag') is-invalid @enderror">
                             <option value="">Pilih Guru</option>

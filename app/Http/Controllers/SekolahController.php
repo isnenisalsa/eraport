@@ -33,13 +33,23 @@ class SekolahController extends Controller
             'nama' => 'required|string|max:255',
             'npsn' => 'nullable|string|max:20',
             'nss' => 'nullable|string|max:20',
-            'alamat' => 'nullable|string',
-            'desa' => 'nullable|string',
-            'kecamatan' => 'nullable|string',
-            'kabupaten' => 'nullable|string',
-            'provinsi' => 'nullable|string',
-            'nama_kepsek' => 'nullable|string',
-            'nip_kepsek' => 'nullable|string',
+            'alamat' => 'required|string',
+            'desa' => 'required|string',
+            'kecamatan' => 'required|string',
+            'kabupaten' => 'required|string',
+            'provinsi' => 'required|string',
+            'nama_kepsek' => 'required|string',
+            'nip_kepsek' => 'required|string',
+        ], [
+            'nama.required' => 'Nama tidak boleh kosong',
+            'alamat.required' => 'Alamat tidak boleh kosong',
+            'desa.required' => 'Desa tidak boleh kosong',
+            'kecamatan.required' => 'Kecamatan tidak boleh kosong',
+            'kabupaten.required' => 'Kabupaten tidak boleh kosong',
+            'provinsi.required' => 'Provinsi tidak boleh kosong',
+            'nama_kepsek.required' => 'Nama Kepala Sekolah tidak boleh kosong',
+            'nip_kepsek.required' => 'Nip tidak boleh kosong',
+
         ]);
 
         SekolahModel::updateOrCreate(

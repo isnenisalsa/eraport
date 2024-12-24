@@ -59,7 +59,7 @@
 
                         <!-- Tahun Ajaran -->
                         <div class="form-group">
-                            <label for="tahun_ajaran_id">tahun ajaran</label><br>
+                            <label for="tahun_ajaran_id">Tahun Ajaran</label><br>
                             <select name="tahun_ajaran_id[]" id="tahun_ajaran_id_edit{{ $item->kode_kelas }}"
                                 class="form-control select2 @error('tahun_ajaran_id', 'editBag') is-invalid @enderror"
                                 multiple>

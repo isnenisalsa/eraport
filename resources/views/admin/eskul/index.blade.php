@@ -15,8 +15,8 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Esktrakulikuler</th>
-                                    <th>Pembina Esktrakulikuler</th>
+                                    <th>Nama Esktrakurikuler</th>
+                                    <th>Pembina Esktrakurikuler</th>
                                     <th>Tempat</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -70,7 +70,7 @@
                         data: "id",
                         render: function(id) {
                             return `<button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
-                data-target="#modal-edit${id}">edit </button>`;
+                data-target="#modal-edit${id}">Edit </button>`;
                         },
                         orderable: false,
                         searchable: false,

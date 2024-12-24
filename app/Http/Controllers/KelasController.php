@@ -96,7 +96,7 @@ class KelasController extends Controller
         return DataTables::of($data)
             ->addIndexColumn() // Tambahkan nomor urut
             ->addColumn('aksi', function ($row) {
-                return '<a href="' . route('siswa_kelas', $row['kode_kelas']) . '" class="btn btn-primary">Detail</a>';
+                return '<a href="' . route('siswa_kelas', $row['kode_kelas']) . '" class="btn btn-info btn-sm">Detail</a>';
             })
             ->rawColumns(['aksi']) // Membolehkan HTML di kolom 'aksi'
             ->make(true);
@@ -197,29 +197,41 @@ class KelasController extends Controller
                 'string',
                 'max:255',
                 function ($attribute, $value, $fail) use ($request) {
+                    // Jika nilai null, lewati validasi
+                    if (is_null($value)) {
+                        return;
+                    }
+                
+                    // Jika $request->tahun_ajaran_id tidak terisi atau bukan array, berikan error
+                    if (!is_array($request->tahun_ajaran_id) || empty($request->tahun_ajaran_id)) {
+                        $fail('');
+                        return;
+                    }
+                
                     foreach ($request->tahun_ajaran_id as $tahunAjaranId) {
                         $existingClass = KelasModel::where('nama_kelas', $value)
                             ->whereHas('tahunAjarans', function ($query) use ($tahunAjaranId) {
                                 $query->where('tahun_ajaran.id', $tahunAjaranId);
                             })
                             ->first();
-
+                
                         if ($existingClass) {
                             $fail("Nama kelas '$value' sudah digunakan pada tahun ajaran yang dipilih.");
                             break;
                         }
                     }
-                },
+                }
+                
             ],
             'guru_nik' => 'required|exists:guru,nik',
             'tahun_ajaran_id' => 'required|array',
             'tahun_ajaran_id.*' => 'exists:tahun_ajaran,id',
         ], [
-            'nama_kelas.required' => 'Nama kelas wajib diisi.',
-            'guru_nik.required' => 'Wali kelas wajib dipilih.',
-            'guru_nik.exists' => 'Wali kelas tidak valid.',
-            'tahun_ajaran_id.required' => 'Tahun ajaran wajib dipilih.',
-            'tahun_ajaran_id.*.exists' => 'Tahun ajaran tidak valid.',
+            'nama_kelas.required' => 'Nama kelas wajib diisi',
+            'guru_nik.required' => 'Wali kelas wajib dipilih',
+            'guru_nik.exists' => 'Wali kelas tidak valid',
+            'tahun_ajaran_id.required' => 'Tahun ajaran wajib dipilih',
+            'tahun_ajaran_id.*.exists' => 'Tahun ajaran tidak valid',
         ]);
 
         // Generate kode_kelas otomatis
@@ -262,7 +274,7 @@ class KelasController extends Controller
         }
 
         // Redirect ke halaman kelas dengan pesan sukses
-        return redirect()->route('kelas')->with('success', 'Data kelas berhasil disimpan.');
+        return redirect()->route('kelas')->with('success', 'Data Kelas berhasil disimpan.');
     }
 
 
@@ -301,6 +313,6 @@ class KelasController extends Controller
         if ($guruBaru) {
             $guruBaru->roles()->syncWithoutDetaching([$roleIdToAttach]);
         }
-        return redirect()->route('kelas')->with('success', 'Data kelas berhasil diperbarui');
+        return redirect()->route('kelas')->with('success', 'Data Kelas berhasil diperbarui');
     }
 }

@@ -55,7 +55,7 @@ class SiswaController extends Controller
     {
         $request->validate([
             'nis' => 'required|numeric|digits:6|unique:siswa,nis',
-            'nisn' => 'required|numeric|digits:10',
+            'nisn' => 'required|numeric|digits:10|unique:siswa,nisn',
             'status' => 'nullable',
             'nama' => 'required',
             'pendidikan_terakhir' => 'required',
@@ -89,15 +89,16 @@ class SiswaController extends Controller
             'nisn.digits' => 'NISN harus berisi 10 angka',
             'nisn.required' => 'NISN tidak boleh kosong',
             'nisn.numeric' => 'NISN harus berupa angka',
+            'nisn.unique' => 'NISN tidak boleh sama',
             'nama.required' => 'Nama tidak boleh kosong',
             'pendidikan_terakhir.required' => 'Pendidikan sebelumnya tidak boleh kosong',
             'jenis_kelamin.required' => 'Jenis kelamin tidak boleh kosong',
             'agama.required' => 'Agama tidak boleh kosong',
-            'tempat_lahir.required' => 'Tempat Lahir tidak boleh kosong',
-            'tanggal_lahir.required' => 'Tanggal Lahir tidak boleh kosong',
+            'tempat_lahir.required' => 'Tempat lahir tidak boleh kosong',
+            'tanggal_lahir.required' => 'Tanggal lahir tidak boleh kosong',
             'email.required' => 'Email tidak boleh kosong',
             'alamat.required' => 'Alamat tidak boleh kosong',
-            'terms.required' => 'wajib di centang'
+            'terms.required' => 'Wajib di centang'
 
         ]);
         $username = strtolower(str_replace(' ', '_', $request->nama)); // Mengganti spasi dengan underscore
@@ -187,7 +188,7 @@ class SiswaController extends Controller
             'pekerjaan_wali' => 'nullable|string|max:255',
             'no_telp_wali' => 'nullable|string|max:15',
             'alamat_wali' => 'nullable|string|max:255',
-            'terms' => 'nullable|boolean',
+            'terms' => 'required',
         ], [
             'nis.required' => 'NIS tidak boleh kosong',
             'nis.numeric' => 'NIS harus berupa angka',
@@ -204,7 +205,7 @@ class SiswaController extends Controller
             'tanggal_lahir.required' => 'Tanggal Lahir tidak boleh kosong',
             'alamat.required' => 'Alamat tidak boleh kosong',
             'email.required' => 'Email tidak boleh kosong',
-            'terms.required' => 'wajib di centang'
+            'terms.required' => 'Wajib dicentang'
         ]);
         $siswa = SiswaModel::findOrFail($nis);
 

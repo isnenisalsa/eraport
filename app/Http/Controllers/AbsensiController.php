@@ -155,6 +155,6 @@ class AbsensiController extends Controller
             );
         }
 
-        return redirect()->back()->with('success', 'Status absensi berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Data Absensi berhasil disimpan.');
     }
 }

@@ -26,15 +26,14 @@ class CapelController extends Controller
 
     public function save(Request $request, $id_pembelajaran, $tahun_ajaran_id)
     {
-        $request->validate(
-            [
-                'nama_capel.*' => 'required|regex:/^[a-zA-Z\s]+$/',
-            ],
-            [
-                'nama_capel.required' => 'Tujuan Pembelajaran Tidak Boleh Kosong',
-                'nama_capel.regex' => 'Tujuan Pembelajaran Tidak Boleh berisi Angka',
-            ]
-        );
+        $request->validate([
+            'nama_capel' => 'required|max:200',
+        ], [
+            'nama_capel.required' => 'Nama capel tidak boleh kosong.',
+            'nama_capel.max' => 'Nama capel tidak boleh lebih dari 200 karakter.',
+        ]);
+        
+        
         CapaianModel::create([
             'pembelajaran_id' => $id_pembelajaran,
             'tahun_ajaran_id' => $tahun_ajaran_id,
@@ -54,11 +53,10 @@ class CapelController extends Controller
                 'id' => 'required|array',
                 'id.*' => 'exists:capel,id', // Memastikan setiap ID ada di database
                 'nama_capel' => 'required|array',
-                'nama_capel.*' => 'string|max:255|regex:/^[a-zA-Z0-9\s]+$/', // Memastikan setiap nama_capel valid
+                'nama_capel.*' => 'string|max:200', // Memastikan setiap nama_capel valid
             ],
             [
                 'nama_capel.required' => 'Tujuan Pembelajaran Tidak Boleh Kosong',
-                'nama_capel.*.regex' => 'Tujuan Pembelajaran hanya boleh berisi huruf dan spasi.',
             ]
         );
 

@@ -13,7 +13,7 @@
                     <label for="nama" class="col-md-3 col-form-label text-left">Nama Sekolah</label>
                     <div class="col-md-9">
                         <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror"
-                            name="nama" value="{{ old('nama', $sekolah->nama ?? '') }}" required autocomplete="nama"
+                            name="nama" value="{{ old('nama', $sekolah->nama ?? '') }}"  autocomplete="nama"
                             autofocus>
                         @error('nama')
                             <span class="invalid-feedback" role="alert">

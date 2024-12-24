@@ -40,7 +40,7 @@ class MapelController extends Controller
                 'mata_pelajaran' => 'required',
             ],
             [
-                'mata_pelajaran.required' => 'Mata Pelajaran tidak boleh kosong',
+                'mata_pelajaran.required' => 'Mata pelajaran tidak boleh kosong',
             ]
         );
 
@@ -63,7 +63,7 @@ class MapelController extends Controller
             'mata_pelajaran' => $request->mata_pelajaran,
         ]);
 
-        return redirect()->route('mapel')->with('success', 'Data mata pelajaran berhasil disimpan.');
+        return redirect()->route('mapel')->with('success', 'Data Mata Pelajaran berhasil disimpan.');
     }
 
     public function update(Request $request, $kode_mapel)
@@ -74,7 +74,7 @@ class MapelController extends Controller
                 'mata_pelajaran' => 'required',
             ],
             [
-                'mata_pelajaran.required' => 'Mata Pelajaran Tidak Boleh Kosong'
+                'mata_pelajaran.required' => 'Mata pelajaran tidak boleh kosong'
             ]
         );
         $mapel = MapelModel::findOrFail($kode_mapel);
@@ -84,6 +84,6 @@ class MapelController extends Controller
             'mata_pelajaran' => $request->mata_pelajaran,
         ]);
         // Redirect ke halaman yang sesuai setelah berhasil update
-        return redirect()->route('mapel')->with('success', 'Data guru berhasil diperbarui');
+        return redirect()->route('mapel')->with('success', 'Data Mata Pelajaran berhasil diperbarui');
     }
 }

@@ -38,15 +38,17 @@ class TahunajaranController extends Controller
         $request->validateWithBag(
             'tambahBag',
             [
-                'tahun_ajaran' => 'required',
+                'tahun_ajaran' => 'required|regex:/^[0-9\/]+$/',
                 'semester' => 'required',
                 'tanggal_biodata' => 'required',
                 'tanggal_pembagian_rapor' => 'required'
             ],
             [
-                'tahun_ajaran.required' => 'Tahun Ajaran tidak boleh kosong',
+                'tahun_ajaran.required' => 'Tahun ajaran tidak boleh kosong',
+                'tahun_ajaran.regex' => 'Tahun ajaran hanya boleh berisi angka dan karakter "/"',
                 'semester.required' => 'Semester tidak boleh kosong',
-                'tanggal_biodata.required' => 'Tanggal Cover Biodata tidak boleh kosong',
+                'tanggal_biodata.required' => 'Tanggal pengisian biodata tidak boleh kosong',
+                'tanggal_pembagian_rapor.required' => 'Tanggal pembagian rapor tidak boleh kosong',
             ]
         );
 

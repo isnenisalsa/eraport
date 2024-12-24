@@ -25,7 +25,7 @@
 
                         <!-- Nama Kelas -->
                         <div class="form-group">
-                            <label for="nama_eskul">Nama Esktrakulikuler</label>
+                            <label for="nama_eskul">Nama Ekstrakurikuler</label>
                             <input type="text" name="nama_eskul" id="nama_eskul"
                                 class="form-control @error('nama_eskul', 'editBag') is-invalid @enderror"
                                 value="{{ old('nama_eskul', $item->nama_eskul) }}">

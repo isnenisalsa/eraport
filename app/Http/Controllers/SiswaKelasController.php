@@ -72,12 +72,12 @@ class SiswaKelasController extends Controller
         }
 
 
-        return redirect()->route('siswa_kelas', $kelas)->with('success', 'Data siswa berhasil ditambahkan ke kelas.');
+        return redirect()->route('siswa_kelas', $kelas)->with('success', 'Data Siswa berhasil ditambahkan ke kelas.');
     }
     public function hapus($nis, $kode_kelas)
     {
         $siswa = SiswaKelasModel::where(['siswa_id' => $nis, 'kelas_id' => $kode_kelas]); // Cari data siswa berdasarkan ID
         $siswa->delete(); // Hapus data
-        return redirect()->back()->with('success', 'Data siswa berhasil dihapus');
+        return redirect()->back()->with('success', 'Data Siswa berhasil dihapus');
     }
 }

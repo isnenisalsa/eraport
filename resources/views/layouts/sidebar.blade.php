@@ -192,7 +192,7 @@
                             <a href="{{ url('eskul') }}"
                                 class="nav-link {{ $activeMenu == 'Ekstrakurikuler Admin' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color: black"></i>
-                                <p style="color: black">Data Ekstrakulikuler</p>
+                                <p style="color: black">Data Ekstrakurikuler</p>
                             </a>
                         </li>
                     </ul>

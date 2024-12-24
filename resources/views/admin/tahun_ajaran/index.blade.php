@@ -18,8 +18,8 @@
                                     <th>No</th>
                                     <th>Tahun Ajaran</th>
                                     <th>Semester</th>
-                                    <th>tanggal biodata</th>
-                                    <th>tanggal pembagian rapor</th>
+                                    <th>Tanggal Biodata</th>
+                                    <th>Tanggal Pembagian Rapor</th>
                                 </tr>
                             </thead>
                             <tbody>

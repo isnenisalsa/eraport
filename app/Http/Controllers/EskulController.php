@@ -45,13 +45,14 @@ class EskulController extends Controller
 
             'tambahBag',
             [
-                'nama_eskul' => 'required|string|max:255',
+                'nama_eskul' => 'required|string|max:255|unique:eskul,nama_eskul',
                 'guru_nik' => 'required|exists:guru,nik',
                 'tempat' => 'required',
 
             ],
             [
-                'nama_eskul.required' => 'Nama kelas wajib diisi',
+                'nama_eskul.required' => 'Nama ekstrakurikuler wajib diisi',
+                'nama_eskul.unique' => 'Nama ekstrakurikuler tidak boleh sama',
                 'guru_nik.required' => 'Wali kelas wajib dipilih',
                 'guru_nik.exists' => 'Wali kelas tidak valid',
                 'tempat.required' => 'Tahun ajaran wajib dipilih',
@@ -64,7 +65,7 @@ class EskulController extends Controller
             'guru_nik' => $request->guru_nik,
             'tempat' => $request->tempat,
         ]);
-        return redirect()->route('eskul.index')->with('success', 'data berhasil ditambah');
+        return redirect()->route('eskul.index')->with('success', 'Data Ekstrakurikuler berhasil ditambah');
     }
     public function update(Request $request, $id)
     {
@@ -94,7 +95,7 @@ class EskulController extends Controller
             'tempat' => $request->tempat,
         ]);
 
-        return redirect()->route('eskul.index')->with('success', 'Data Kelas berhasil diperbarui');
+        return redirect()->route('eskul.index')->with('success', 'Data Ekstrakurikuler berhasil diperbarui');
     }
 
 
@@ -218,6 +219,6 @@ class EskulController extends Controller
             'tahun_ajaran_id' => $tahun_ajaran_id
         ]);
 
-        return redirect()->back()->with('success', 'Nilai eskul berhasil disimpan.');
+        return redirect()->back()->with('success', 'Nilai Ekstrakurikuler berhasil disimpan.');
     }
 }

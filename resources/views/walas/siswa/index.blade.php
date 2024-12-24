@@ -8,13 +8,12 @@
                         <tr>
                             <th scope="col">Kelas</th>
                             <th scope="col">:</th>
-                            <th scope="col">{{ $kelas->nama_kelas }}</th> <!-- Langsung akses nama_kelas -->
+                            <th scope="col">{{ $kelas->nama_kelas }}</th>
                         </tr>
                         <tr>
                             <th scope="col">Wali Kelas</th>
                             <th scope="col">:</th>
                             <th scope="col">{{ $kelas->guru->nama ?? 'Tidak Ditemukan' }}</th>
-                            <!-- Langsung akses nama guru -->
                         </tr>
                     </thead>
                 </table>
@@ -65,8 +64,8 @@
                                         <td>{{ $item->siswa->tempat_lahir }}</td>
                                         <td>{{ $item->siswa->tanggal_lahir }}</td>
                                         <td>
-                                            <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                data-target="#modalHapus{{ $item->siswa->nis }}">Hapus </button>
+                                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                                data-target="#modalHapus{{ $item->siswa->nis }}">Hapus</button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -80,26 +79,27 @@
 
     @foreach ($siswa_kelas as $item)
         <!-- Modal Hapus -->
-        <div class="modal fade" id="modalHapus{{ $item->siswa->nis }}" tabindex="-1" aria-labelledby="modalHapusLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
+        <div class="modal fade" id="modalHapus{{ $item->siswa->nis }}" tabindex="-1" role="dialog"
+            aria-labelledby="modalHapusLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalHapusLabel">Konfirmasi Hapus</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="modal-body">
                         Apakah Anda yakin ingin menghapus data siswa <strong>{{ $item->siswa->nama }}</strong>?
                     </div>
                     <div class="modal-footer">
-                        <form
-                            action="{{ route('siswa_hapus', ['nis' => $item->siswa->nis, 'kode_kelas' => $kode_kelas]) }}"
+                        <form action="{{ route('siswa_hapus', ['nis' => $item->siswa->nis, 'kode_kelas' => $kode_kelas]) }}"
                             method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Hapus</button>
                         </form>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                     </div>
                 </div>
             </div>
