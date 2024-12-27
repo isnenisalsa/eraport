@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
     <style>
         body {
-            background: radial-gradient(circle, #37ffb6 50%, #2575fc 100%);
+            background: white;
 
             font-family: Arial, sans-serif;
             color: #fff;
@@ -181,8 +181,14 @@
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control form-control-lg" id="password"
-                                placeholder="Masukkan password" name="password" required>
+                            <div class="input-group">
+                                <input type="password" class="form-control form-control-lg" id="password"
+                                    placeholder="Masukkan password" name="password" required>
+                                <button type="button" class="btn btn-outline-secondary" id="togglePassword"
+                                    aria-label="Toggle Password Visibility">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block btn-lg">Masuk</button>
                     </div>
@@ -196,3 +202,18 @@
 </body>
 
 </html>
+<script>
+    document.getElementById('togglePassword').addEventListener('click', function() {
+        const passwordField = document.getElementById('password');
+        const icon = this.querySelector('i');
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            passwordField.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    });
+</script>

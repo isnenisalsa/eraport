@@ -55,18 +55,26 @@
                             <table class="table table-bordered table-hover table-striped table-responsive">
                                 <thead>
                                     <tr class="text-center">
-                                        <th>No</th>
-                                        <th>Nama Siswa</th>
-                                        @foreach ($capel as $item)
-                                            <th>{{ $item->nama_capel }}</th>
+                                        <th rowspan="2">No</th>
+                                        <th rowspan="2">Nama Siswa</th>
+                                        @foreach ($groupedCapel as $lingkup => $capels)
+                                            <th colspan="{{ count($capels) }}">{{ $lingkup }}</th>
                                         @endforeach
-                                        <th>Rata-rata Tujuan</th> <!-- Tambahkan kolom rata-rata capel -->
-                                        <th>UTS</th>
-                                        <th>UAS</th>
-                                        <th>Rata-rata UTS & UAS</th>
-                                        <th>Nilai Rapor</th> <!-- Tambahkan kolom untuk nilai rapor -->
+                                        <th rowspan="2">NA Sumatif</th> <!-- Tambahkan kolom rata-rata capel -->
+                                        <th rowspan="2">Non Tes</th>
+                                        <th rowspan="2">Tes</th>
+                                        <th rowspan="2">Na Sumatif Akhir Semester</th>
+                                        <th rowspan="2">Nilai Rapor</th> <!-- Tambahkan kolom untuk nilai rapor -->
+                                    </tr>
+                                    <tr class="text-center">
+                                        @foreach ($groupedCapel as $capels)
+                                            @foreach ($capels as $capelItem)
+                                                <th>{{ $capelItem->nama_capel }}</th>
+                                            @endforeach
+                                        @endforeach
                                     </tr>
                                 </thead>
+
                                 <tbody>
                                     @foreach ($siswa as $index => $item)
                                         <tr class="text-center">
@@ -95,10 +103,11 @@
                                                     @endphp
                                                     <input type="text"
                                                         name="siswa[{{ $index }}][capel][{{ $capelIndex }}][nilai]"
-                                                        class="form-control" value="{{ $nilaicapel }}" readonly>
+                                                        class="form-control" value="{{ $nilaicapel }}" readonly
+                                                        style="width: 80px">
                                                     <input type="hidden"
                                                         name="siswa[{{ $index }}][capel][{{ $capelIndex }}][id]"
-                                                        value="{{ $capelItem->id }}">
+                                                        value="{{ $capelItem->id }}" style="width: 80px">
 
                                                     @error("siswa.{$index}.capel.{$capelIndex}.nilai")
                                                         <div class="text-danger">{{ $message }}</div>

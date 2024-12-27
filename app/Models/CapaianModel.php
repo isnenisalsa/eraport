@@ -14,7 +14,8 @@ class CapaianModel extends Model
     protected $fillable = [
         'pembelajaran_id',
         'nama_capel',
-        'tahun_ajaran_id'
+        'tahun_ajaran_id',
+        'lingkup_id'
     ];
     public function pembelajaran()
     {
@@ -23,5 +24,9 @@ class CapaianModel extends Model
     public function tahunAjarans()
     {
         return $this->belongsToMany(TahunAjarModel::class, 'kelas_tahun_ajaran', 'tahun_ajaran_id');
+    }
+    public function lingkup()
+    {
+        return $this->belongsTo(LingkupMateriModel::class, 'lingkup_id', 'id');
     }
 }

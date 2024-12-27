@@ -11,19 +11,16 @@
                         <div class="mt-2">
                             <h4 class="card-text text-center fw-bold">{{ $user->nama }}</h4>
                         </div>
-                        <form action="{{ route('profile.update', $user->nis) }}" method="POST">
-                            @csrf
-                            <ul class="list-group text-start mt-3">
-                                <li class="list-group-item">
-                                    <label for="username" class="fw-bold">Username:</label>
-                                    <input type="text" name="username" id="username" class="form-control mt-2"
-                                        value="{{ $user->username }}" required>
-                                        <label for="email" class="fw-bold">Email:</label>
-                                    <input type="text" name="email" id="email" class="form-control mt-2"
-                                        value="{{ $user->email }}" required>
-                                </li>
-                            </ul>
-                        </form>
+                        <ul class="list-group text-start mt-3">
+                            <li class="list-group-item">
+                                <label for="username" class="fw-bold">Username:</label>
+                                <input type="text" name="username" id="username" class="form-control mt-2"
+                                    value="{{ $user->username }}" readonly>
+                                <label for="email" class="fw-bold">Email:</label>
+                                <input type="text" name="email" id="email" class="form-control mt-2"
+                                    value="{{ $user->email }}" readonly>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -34,25 +31,26 @@
                     <div class="card-header bg-light border-bottom">
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
-                                <a class="nav-link {{ $tab == 'profile' ? 'active' : '' }}" 
-                                   href="{{ route('profile.show.siswa', ['tab' => 'profile']) }}">
-                                   Edit Profil
+                                <a class="nav-link {{ $tab == 'profile' ? 'active' : '' }}"
+                                    href="{{ route('profile.show.siswa', ['tab' => 'profile']) }}">
+                                    Edit Profil
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ $tab == 'edit-akun' ? 'active' : '' }}" 
-                                   href="{{ route('profile.show.siswa', ['tab' => 'edit-akun']) }}">
-                                   Edit Akun
+                                <a class="nav-link {{ $tab == 'edit-akun' ? 'active' : '' }}"
+                                    href="{{ route('profile.show.siswa', ['tab' => 'edit-akun']) }}">
+                                    Edit Akun
                                 </a>
                             </li>
                         </ul>
-                        
-                          
+
+
                     </div>
                     <div class="card-body">
                         <div class="tab-content">
                             <!-- Tab Edit Profil -->
-                            <div class="tab-pane fade {{ request('tab') == null || request('tab') == 'profile' ? 'show active' : '' }}" id="profile">
+                            <div class="tab-pane fade {{ request('tab') == null || request('tab') == 'profile' ? 'show active' : '' }}"
+                                id="profile">
                                 <h5 class="text-center mb-4">Form Edit Profil</h5>
                                 <form action="{{ route('profile.update.siswa', $user->nis) }}" method="POST">
                                     @csrf
@@ -79,30 +77,34 @@
 
                             <!-- Tab Edit Akun -->
                             <div class="tab-content">
-                                <div class="tab-pane fade {{ request('tab') == null || request('tab') == 'edit-profil' ? 'show active' : '' }}" id="edit-profil">
+                                <div class="tab-pane fade {{ request('tab') == null || request('tab') == 'edit-profil' ? 'show active' : '' }}"
+                                    id="edit-profil">
                                     <!-- Form Edit Profil -->
                                 </div>
-                                <div class="tab-pane fade {{ request('tab') == 'edit-akun' ? 'show active' : '' }}" id="edit-akun">
+                                <div class="tab-pane fade {{ request('tab') == 'edit-akun' ? 'show active' : '' }}"
+                                    id="edit-akun">
                                     <h5 class="text-center mb-4">Form Edit Akun</h5>
                                     <form action="{{ route('profile.account.siswa', $user->nis) }}" method="POST">
                                         @csrf
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label for="username" class="form-label">Username</label>
-                                                <input type="text" id="username" name="username" class="form-control" value="{{ $user->username }}">
+                                                <input type="text" id="username" name="username" class="form-control"
+                                                    value="{{ $user->username }}">
                                                 @if ($errors->has('username'))
                                                     <div class="text-danger">{{ $errors->first('username') }}</div>
                                                 @endif
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="email" class="form-label">Email</label>
-                                                <input type="email" id="email" name="email" class="form-control" value="{{ $user->email }}">
+                                                <input type="email" id="email" name="email" class="form-control"
+                                                    value="{{ $user->email }}">
                                                 @if ($errors->has('email'))
                                                     <div class="text-danger">{{ $errors->first('email') }}</div>
                                                 @endif
                                             </div>
                                         </div>
-                                        
+
                                         <div class="row mt-3">
                                             <div class="col-md-6">
                                                 <label for="password" class="form-label">Password Baru</label>
@@ -112,24 +114,28 @@
                                                 @endif
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
-                                                <input type="password" id="password_confirmation" name="password_confirmation" class="form-control">
+                                                <label for="password_confirmation" class="form-label">Konfirmasi
+                                                    Password</label>
+                                                <input type="password" id="password_confirmation"
+                                                    name="password_confirmation" class="form-control">
                                                 @if ($errors->has('password_confirmation'))
-                                                    <div class="text-danger">{{ $errors->first('password_confirmation') }}</div>
+                                                    <div class="text-danger">{{ $errors->first('password_confirmation') }}
+                                                    </div>
                                                 @endif
                                             </div>
                                         </div>
                                         <script>
-                                            document.addEventListener('DOMContentLoaded', function () {
+                                            document.addEventListener('DOMContentLoaded', function() {
                                                 const passwordInput = document.getElementById('password');
                                                 const passwordConfirmationInput = document.getElementById('password_confirmation');
-                                        
-                                                passwordConfirmationInput.addEventListener('input', function () {
+
+                                                passwordConfirmationInput.addEventListener('input', function() {
                                                     const password = passwordInput.value;
                                                     const confirmation = passwordConfirmationInput.value;
-                                        
+
                                                     if (password !== confirmation) {
-                                                        passwordConfirmationInput.setCustomValidity('Password Baru dan Konfirmasi Password Tidak Cocok.');
+                                                        passwordConfirmationInput.setCustomValidity(
+                                                            'Password Baru dan Konfirmasi Password Tidak Cocok.');
                                                     } else {
                                                         passwordConfirmationInput.setCustomValidity('');
                                                     }
@@ -148,19 +154,18 @@
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-    const hash = window.location.hash || '#profile';
-    const tabLink = document.querySelector(`.nav-link[href="${hash}"]`);
-    if (tabLink) {
-        tabLink.click(); // Aktifkan tab berdasarkan hash
-    }
+            const hash = window.location.hash || '#profile';
+            const tabLink = document.querySelector(`.nav-link[href="${hash}"]`);
+            if (tabLink) {
+                tabLink.click(); // Aktifkan tab berdasarkan hash
+            }
 
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function() {
-            const newHash = this.getAttribute('href');
-            history.replaceState(null, '', newHash); // Update URL
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    const newHash = this.getAttribute('href');
+                    history.replaceState(null, '', newHash); // Update URL
+                });
+            });
         });
-    });
-});
-
     </script>
 @endsection

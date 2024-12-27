@@ -15,41 +15,40 @@ class ProfileController extends Controller
 {
     // Menampilkan profil pengguna
     public function show(Request $request)
-{
-   
+    {
 
-    $breadcrumb = (object) [
-        'title' => 'Profil Pengguna',
-    ];
-    $activeMenu = 'profile';
-    $user = Auth::user();
-    $tab = $request->get('tab', 'profile'); // Default tab ke 'profile'
 
-    // Menyesuaikan query profil berdasarkan tipe pengguna
-   
-    $profile = GuruModel::where('nik', $user->nik)->firstOrFail();
-  
+        $breadcrumb = (object) [
+            'title' => 'Profil Pengguna',
+        ];
+        $activeMenu = 'profile';
+        $user = Auth::user();
+        $tab = $request->get('tab', 'profile'); // Default tab ke 'profile'
 
-    return view('profil.index', compact('breadcrumb', 'activeMenu', 'user', 'profile', 'tab'));
-}
+        // Menyesuaikan query profil berdasarkan tipe pengguna
 
-public function showSiswa(Request $request)
-{
-    $breadcrumb = (object) [
-        'title' => 'Profil Pengguna',
-    ];
-    $activeMenu = 'profile';
-    $user = Auth::guard('siswa')->user();
-    $tab = $request->get('tab', 'profile'); // Default tab ke 'profile'
-    // Menyesuaikan query profil berdasarkan tipe pengguna
-    $profile = SiswaModel::where('nis', $user->nis)->firstOrFail();
-    return view('profil.siswa', compact('breadcrumb', 'activeMenu', 'user', 'profile', 'tab'));
-}
+        $profile = GuruModel::where('nik', $user->nik)->firstOrFail();
+
+
+        return view('profil.index', compact('breadcrumb', 'activeMenu', 'user', 'profile', 'tab'));
+    }
+
+    public function showSiswa(Request $request)
+    {
+        $breadcrumb = (object) [
+            'title' => 'Profil Pengguna',
+        ];
+        $activeMenu = 'profile';
+        $user = Auth::guard('siswa')->user();
+        $tab = $request->get('tab', 'profile'); // Default tab ke 'profile'
+        // Menyesuaikan query profil berdasarkan tipe pengguna
+        $profile = SiswaModel::where('nis', $user->nis)->firstOrFail();
+        return view('profil.siswa', compact('breadcrumb', 'activeMenu', 'user', 'profile', 'tab'));
+    }
 
     // Menyimpan pembaruan profil pengguna
-    public function updateProfile(Request $request, $nip)
+    public function updateProfile(Request $request, $nik)
     {
-        
         // Validasi input
         $request->validate([
             'no_telp' => 'required|numeric|digits_between:12,13',
@@ -57,15 +56,13 @@ public function showSiswa(Request $request)
             'alamat' => 'required|string|max:255',
         ], [
             'no_telp.numeric' => 'no telp harus berupa angka.',
-            'no_telp.min' => 'no telp harus  12 angka.',
-            'no_telp.max' => 'no telp harus  13 angka.',
+            'no_telp.digits_between' => 'no telepon harus  12 sampai 13 angka',
             'nama.required' => 'Nama tidak boleh kosong',
             'alamat.required' => 'Alamat tidak boleh kosong'
         ]);
-    
-        // Cari guru berdasarkan NIP
-        $profile = GuruModel::where('nik', $nip)->firstOrFail();
-    
+        // Cari guru berdasarkan nik
+        $profile = GuruModel::where('nik', $nik)->firstOrFail();
+
         // Perbarui data
         $profile->update([
             'no_telp' => $request->no_telp,
@@ -76,9 +73,9 @@ public function showSiswa(Request $request)
         return redirect()->route('profile.show')->with('success', 'Profil guru berhasil diperbarui.');
     }
 
-    public function updateAccount(Request $request, $nip)
+    public function updateAccount(Request $request, $nik)
     {
-        
+
         // Validasi input
         $request->validate([
             'username' => 'required',
@@ -91,14 +88,14 @@ public function showSiswa(Request $request)
             'email' => 'required|email',
         ], [
             'password.required' => 'Password tidak boleh kosong.',
-            'password.min' => 'Password minimal 8 karakter.', 
+            'password.min' => 'Password minimal 8 karakter.',
             'password.regex' => 'Password harus mengandung huruf besar dan huruf kecil.',
         ]);
-        
-    
-        // Cari guru berdasarkan NIP
-        $profile = GuruModel::where('nik', $nip)->firstOrFail();
-    
+
+
+        // Cari guru berdasarkan nik
+        $profile = GuruModel::where('nik', $nik)->firstOrFail();
+
         // Perbarui data
         $profile->update([
             'username' => $request->username,
@@ -110,33 +107,33 @@ public function showSiswa(Request $request)
     }
 
     public function updateProfileSiswa(Request $request, $nis)
-{
-
-    // Validasi input
-    $request->validate([
-        'nama' => 'required|string|max:255',
-        'alamat' => 'required|string|max:255',
-    ], [
-        'nama.required' => 'Nama tidak boleh kosong.',
-        'alamat.required' => 'Alamat tidak boleh kosong.',
-    ]);
-
-    // Cari siswa berdasarkan NIS
-    $profileSiswa = SiswaModel::where('nis', $nis)->firstOrFail();
-
-    // Perbarui data
-    $profileSiswa->update([
-        'nama' => $request->nama,
-        'alamat' => $request->alamat,
-    ]);
-
-    // Redirect dengan pesan sukses
-    return redirect()->route('profile.show.siswa')->with('success', 'Profil Siswa berhasil diperbarui.');
-}
-
-public function updateAccountSiswa(Request $request, $nis)
     {
-        
+
+        // Validasi input
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+        ], [
+            'nama.required' => 'Nama tidak boleh kosong.',
+            'alamat.required' => 'Alamat tidak boleh kosong.',
+        ]);
+
+        // Cari siswa berdasarkan NIS
+        $profileSiswa = SiswaModel::where('nis', $nis)->firstOrFail();
+
+        // Perbarui data
+        $profileSiswa->update([
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+        ]);
+
+        // Redirect dengan pesan sukses
+        return redirect()->route('profile.show.siswa')->with('success', 'Profil Siswa berhasil diperbarui.');
+    }
+
+    public function updateAccountSiswa(Request $request, $nis)
+    {
+
         // Validasi input
         $request->validate([
             'username' => 'required',
@@ -148,14 +145,14 @@ public function updateAccountSiswa(Request $request, $nis)
             ],
         ], [
             'password.required' => 'Password tidak boleh kosong.',
-            'password.min' => 'Password minimal 8 karakter.', 
+            'password.min' => 'Password minimal 8 karakter.',
             'password.regex' => 'Password harus mengandung huruf besar dan huruf kecil.',
         ]);
-        
-    
+
+
         // Cari guru berdasarkan nis
         $profile = SiswaModel::where('nis', $nis)->firstOrFail();
-    
+
         // Perbarui data
         $profile->update([
             'username' => $request->username,
@@ -164,5 +161,4 @@ public function updateAccountSiswa(Request $request, $nis)
         // Redirect dengan pesan sukses
         return redirect()->route('profile.show.siswa', ['tab' => 'edit-akun'])->with('success', 'Akun berhasil diperbarui.');
     }
-
 }

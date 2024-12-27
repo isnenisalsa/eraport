@@ -138,8 +138,8 @@
         <div class="sekolah" style="size: 100px">
             <h1>R A P O R</h1>
             <h2>PESERTA DIDIK</h2>
-            <h3>SEKOLAH MENENGAH PERTAMA</h3>
-            <h3>(IT SIRAJUL HUDA)</h3>
+            <h3>SMPS IT SIRAJUL HUDA</h3>
+            <h3>PELAIHARI</h3>
         </div>
 
         <!-- Informasi Peserta Didik -->

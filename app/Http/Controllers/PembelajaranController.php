@@ -79,7 +79,7 @@ class PembelajaranController extends Controller
         }
 
         // Tentukan semester terbaru (default ke Ganjil jika tidak ada prioritas lain)
-        $semesterTerbaru = $semester->contains('Ganjil') ? 'Ganjil' : $semester->sortDesc()->first();
+        $semesterTerbaru = $semester->contains('Genap') ? 'Genap' : ($semester->contains('Ganjil') ? 'Ganjil' : $semester->first());
 
 
 
@@ -131,6 +131,10 @@ class PembelajaranController extends Controller
                     'guru_nama' => $pembelajaran->guru->nama,
                     'tahun_ajaran' => $tahunAjaran->tahun_ajaran,
                     'semester' => $tahunAjaran->semester,
+                    'lingkup_url' => route('lingkup.index', [
+                        'id_pembelajaran' => $pembelajaran->id_pembelajaran,
+                        'tahun_ajaran_id' => $tahunAjaran->id,
+                    ]),
                     'capel_url' => route('capel.index', [
                         'id_pembelajaran' => $pembelajaran->id_pembelajaran,
                         'tahun_ajaran_id' => $tahunAjaran->id,
@@ -148,6 +152,7 @@ class PembelajaranController extends Controller
             ->addIndexColumn()
             ->addColumn('aksi', function ($row) {
                 return '
+                 <a href="' . $row['lingkup_url'] . '" class="btn btn-warning btn-sm mb-2">Kelola Lingkup Materi</a>
                 <a href="' . $row['capel_url'] . '" class="btn btn-success btn-sm mb-2">Tujuan Pembelajaran</a>
                 <a href="' . $row['nilai_url'] . '" class="btn btn-info btn-sm mb-2">Kelola Nilai</a>
             ';

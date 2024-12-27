@@ -30,7 +30,7 @@ class AbsensiController extends Controller
         // Urutkan secara menurun dan ambil tahun ajaran terbaru
         $tahunAjaranTerbaru = $tahunAjaran->sortDesc()->first();
         // Ambil daftar semester dari model TahunAjarModel, urutkan secara descending
-        $semester = TahunAjarModel::where('tahun_ajaran', $tahunAjaranTerbaru)->distinct('semester')->orderByDesc('semester')->pluck('semester');
+        $semester = TahunAjarModel::where('tahun_ajaran', $tahunAjaranTerbaru)->distinct('semester')->pluck('semester');
         // Tentukan semester terbaru
         // Pastikan semester Ganjil dan Genap ada
         if (!$semester->contains('Ganjil')) {
@@ -41,7 +41,8 @@ class AbsensiController extends Controller
         }
 
         // Tentukan semester terbaru (default ke Ganjil jika tidak ada prioritas lain)
-        $semesterTerbaru = $semester->contains('Ganjil') ? 'Ganjil' : $semester->sortDesc()->first();
+        $semesterTerbaru = $semester->contains('Genap') ? 'Genap' : ($semester->contains('Ganjil') ? 'Ganjil' : $semester->first());
+
         return view('walas.absensi.index', compact(
             'breadcrumb',
             'kelas',

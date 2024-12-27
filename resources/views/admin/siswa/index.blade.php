@@ -55,7 +55,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <table class="table table-bordered" style="font-size: 18px;">
+                        <table class="table table-bordered table-responsive-sm" style="font-size: 18px;">
 
                             <tr>
                                 <th>NIS</th>

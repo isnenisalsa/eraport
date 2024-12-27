@@ -32,13 +32,13 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
-                        <button class="btn btn-warning btn-sm ml-1" id="btn-edit-capel" type="button">Edit Tujuan</button>
+                        <button class="btn btn-warning btn-sm ml-1" id="btn-edit-lingkup" type="button">Edit Lingkup
+                            Materi</button>
                         <button type="button" class="btn btn-success btn-sm float-left" data-toggle="modal"
-                            data-target="#modal-tambah-data-capel">
+                            data-target="#modal-tambah-data-lingkup">
                             + Tambah Data
                         </button>
-                        <a href="{{ route('nilai.index', ['id_pembelajaran' => $id_pembelajaran, 'tahun_ajaran_id' => $tahun_ajaran_id]) }}"
-                            class="btn btn-info btn-sm float-right">Kelola Nilai</a>
+
                     </div>
                     <div id="edit-message" class="alert alert-info" style="display: none;">
                         Anda sudah bisa mengedit
@@ -47,47 +47,31 @@
                         Anda tidak bisa mengedit
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('update.capel') }}" method="POST">
+                        <form action="{{ route('update.lingkup') }}" method="POST">
                             @csrf
-                            <table class="table table-bordered table-striped text-center">
+                            <table class="table table-bordered table-striped text-center table-responsive-xl">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Tujuan Pembelajaran</th>
                                         <th>Lingkup Materi</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @php $no = 1; @endphp
-                                    @foreach ($Datacapel as $item)
+                                    @foreach ($DataLingkup as $item)
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>
                                                 <input type="hidden" name="id[]" value="{{ $item->id }}">
-                                                <textarea name="nama_capel[]" class="form-control capel-textarea" rows="3" required readonly>{{ $item->nama_capel ?? old('nama_capel.' . $loop->index) }}</textarea>
-                                                @error('nama_capel.' . $loop->index)
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </td>
-                                            <td>
-                                                <select name="lingkup_id[]" class="form-select capel-select" required
-                                                    disabled>
-                                                    <option value="" disabled>Pilih Lingkup Materi</option>
-                                                    @foreach ($DataLingkup as $lingkup)
-                                                        <option value="{{ $lingkup->id }}"
-                                                            {{ $lingkup->id == $item->lingkup_id ? 'selected' : '' }}>
-                                                            {{ $lingkup->nama_lingkup_materi }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                                @error('lingkup_id.' . $loop->index)
+                                                <textarea name="nama_lingkup_materi[]" class="form-control lingkup-textarea" rows="3" required readonly>{{ $item->nama_lingkup_materi ?? old('nama_lingkup_materi.' . $loop->index) }}</textarea>
+                                                @error('nama_lingkup_materi.' . $loop->index)
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                                    data-target="#modal-hapus-data-capel{{ $item->id }}">
+                                                    data-target="#modal-hapus-data-lingkup_materi{{ $item->id }}">
                                                     Hapus
                                                 </button>
                                             </td>
@@ -95,7 +79,6 @@
                                     @endforeach
                                 </tbody>
                             </table>
-
                             <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                         </form>
                     </div>
@@ -104,47 +87,35 @@
         </div>
     </div>
 
-    <!-- Modal Tambah Data capel -->
+    <!-- Modal Tambah Data lingkup_materi -->
     @if ($errors->any())
         <script>
             $(document).ready(function() {
-                $('#modal-tambah-data-capel').modal('show');
+                $('#modal-tambah-data-lingkup_materi').modal('show');
             });
         </script>
     @endif
-    <div class="modal fade" id="modal-tambah-data-capel" tabindex="-1" aria-labelledby="modal-tambah-data-capelLabel"
+    <div class="modal fade" id="modal-tambah-data-lingkup" tabindex="-1" aria-labelledby="modal-tambah-data-lingkupLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"><b>TAMBAH DATA TUJUAN PEMBELAJARAN</b></h5>
+                    <h5 class="modal-title"><b>TAMBAH DATA LINGKUP MATERI</b></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form
-                        action="{{ route('save.capel', ['id_pembelajaran' => $id_pembelajaran, 'tahun_ajaran_id' => $tahun_ajaran_id]) }}"
+                        action="{{ route('save.lingkup', ['id_pembelajaran' => $id_pembelajaran, 'tahun_ajaran_id' => $tahun_ajaran_id]) }}"
                         method="POST">
                         @csrf
                         <div class="form-group">
-                            <label for="lingkup_id">Lingkup Materi</label>
-                            <select name="lingkup_id" id="lingkup_id" class="form-select">
-                                <option value="" disabled selected>Pilih Lingkup Materi</option>
-                                @foreach ($DataLingkup as $lingkup)
-                                    <option value="{{ $lingkup->id }}">{{ $lingkup->nama_lingkup_materi }}</option>
-                                @endforeach
-                            </select>
-                            @if ($errors->has('lingkup_id'))
-                                <span class="text-danger">{{ $errors->first('lingkup_id') }}</span>
-                            @endif
-                        </div>
-                        <div class="form-group">
-                            <label for="nama_capel">Tujuan Pembelajaran</label>
-                            <textarea name="nama_capel" id="nama_capel" class="form-control" rows="3" required></textarea>
+                            <label for="nama_lingkup_materi">Lingkup Materi</label>
+                            <textarea name="nama_lingkup_materi" id="nama_lingkup_materi" class="form-control" rows="3" required></textarea>
 
-                            @if ($errors->has('nama_capel'))
-                                <span class="text-danger">{{ $errors->first('nama_capel') }}</span>
+                            @if ($errors->has('nama_lingkup_materi'))
+                                <span class="text-danger">{{ $errors->first('nama_lingkup_materi') }}</span>
                             @endif
                         </div>
                         <button type="submit" class="btn btn-success float-right">Simpan</button>
@@ -154,10 +125,10 @@
         </div>
     </div>
 
-    @foreach ($Datacapel as $item)
-        <!-- Modal Hapus Data capel -->
-        <div class="modal fade" id="modal-hapus-data-capel{{ $item->id }}" tabindex="-1"
-            aria-labelledby="modal-hapus-data-capelLabel" aria-hidden="true">
+    @foreach ($DataLingkup as $item)
+        <!-- Modal Hapus Data lingkup_materi -->
+        <div class="modal fade" id="modal-hapus-data-lingkup_materi{{ $item->id }}" tabindex="-1"
+            aria-labelledby="modal-hapus-data-lingkup_materiLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -167,10 +138,10 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Data Tujuan Pembelajaran:</p>
-                        <p style="color: rgb(18, 192, 255)">{{ $item->nama_capel }}</p>
+                        <p>Data Lingkup Materi:</p>
+                        <p style="color: rgb(18, 192, 255)">{{ $item->nama_lingkup_materi }}</p>
                         <b>
-                            <p>Seluruh data yang berkaitan dengan Tujuan Pembelajaran tersebut akan dihapus!</p>
+                            <p>Seluruh data yang berkaitan dengan Lingkup Materi tersebut akan dihapus!</p>
                         </b>
                         <b>
                             <p>Apakah anda yakin data tersebut akan dihapus?</p>
@@ -178,7 +149,7 @@
                     </div>
                     <div class="modal-footer d-flex justify-content-between">
                         <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Batal</button>
-                        <form action="{{ route('delete.capel', $item->id) }}" method="POST">
+                        <form action="{{ route('delete.lingkup', $item->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm">Hapus</button>

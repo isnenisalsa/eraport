@@ -12,7 +12,7 @@
                     </a>
                 </li>
             @endif
-
+            {{-- siswa --}}
             @if (Auth::guard('siswa')->check())
                 <li class="nav-item">
                     <a href="{{ url('/dashboard/siswa') }}"

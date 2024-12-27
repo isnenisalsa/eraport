@@ -30,7 +30,7 @@
                         <div class="mb-3">
                             <label for="nis" class="form-label">NIS</label>
                             <input type="text" class="form-control" id="nis" placeholder="Inputkan nis Anda"
-                                name="nis" value="{{ $siswa->nis }} " maxlength="6" readonly>
+                                name="nis" value="{{ old('nis', $siswa->nis) }} " maxlength="6" readonly>
                             @if ($errors->has('nis'))
                                 <div class="text-danger">{{ $errors->first('nis') }}</div>
                             @endif
@@ -38,7 +38,7 @@
                         <div class="mb-3">
                             <label for="nisn" class="form-label">NISN</label>
                             <input type="text" class="form-control" id="nisn" placeholder="Inputkan nisn Anda"
-                                name="nisn" value="{{ $siswa->nisn }} " maxlength="10" readonly>
+                                name="nisn" value="{{ old('nisn', $siswa->nisn) }} " maxlength="10">
                             @if ($errors->has('nisn'))
                                 <div class="text-danger">{{ $errors->first('nisn') }}</div>
                             @endif
@@ -113,13 +113,21 @@
                                 <div class="text-danger">{{ $errors->first('alamat') }}</div>
                             @endif
                         </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" class="form-control" value="{{ $siswa->email }} " id="email"
+                                placeholder="Inputkan Email" name="email">
+                            @if ($errors->has('email'))
+                                <div class="text-danger">{{ $errors->first('email') }}</div>
+                            @endif
+                        </div>
                         <div class="mb-2">
                             <label for="jalan" class="form-label">Alamat Orang Tua</label>
                         </div>
                         <div class="mb-3">
                             <label for="jalan" class="form-label">Jalan</label>
                             <input type="text" class="form-control" id="Jalan" placeholder="Inputkan Jalan"
-                                name="jalan" value="{{ $siswa->jalan }} ">
+                                name="jalan" value="{{ old('jalan', $siswa->jalan) }} ">
                             @if ($errors->has('jalan'))
                                 <div class="text-danger">{{ $errors->first('jalan') }}</div>
                             @endif
@@ -127,7 +135,7 @@
                         <div class="mb-3">
                             <label for="kelurahan" class="form-label">Kelurahan/Desa</label>
                             <input type="text" class="form-control" id="kelurahan" placeholder="Inputkan Kelurahan"
-                                name="kelurahan" value="{{ $siswa->kelurahan }} ">
+                                name="kelurahan" value="{{ old('kelurahan', $siswa->kelurahan) }} ">
                             @if ($errors->has('kelurahan'))
                                 <div class="text-danger">{{ $errors->first('kelurahan') }}</div>
                             @endif
@@ -136,7 +144,7 @@
                         <div class="mb-3">
                             <label for="kecamatan" class="form-label">Kecamatan</label>
                             <input type="text" class="form-control" id="kecamatan" placeholder="Inputkan kecamatan"
-                                name="kecamatan" value="{{ $siswa->kecamatan }} ">
+                                name="kecamatan" value="{{ old('kecamatan', $siswa->kecamatan) }} ">
                             @if ($errors->has('kecamatan'))
                                 <div class="text-danger">{{ $errors->first('kecamatan') }}</div>
                             @endif
@@ -146,7 +154,8 @@
                         <div class="mb-3">
                             <label for="kota" class="form-label">Kabupaten/Kota</label>
                             <input type="text" class="form-control" id="kota"
-                                placeholder="Inputkan Kabupaten/Kota" name="kota" value="{{ $siswa->kota }} ">
+                                placeholder="Inputkan Kabupaten/Kota" name="kota"
+                                value="{{ old('kota', $siswa->kota) }} ">
                             @if ($errors->has('kota'))
                                 <div class="text-danger">{{ $errors->first('kota') }}</div>
                             @endif
@@ -156,7 +165,7 @@
                         <div class="mb-3">
                             <label for="provinsi" class="form-label">Provinsi</label>
                             <input type="text" class="form-control" id="provinsi" placeholder="Inputkan Provinsi"
-                                name="provinsi" value="{{ $siswa->provinsi }} ">
+                                name="provinsi" value="{{ old('provinsi', $siswa->provinsi) }} ">
                             @if ($errors->has('provinsi'))
                                 <div class="text-danger">{{ $errors->first('provinsi') }}</div>
                             @endif
@@ -167,9 +176,36 @@
                     <!-- Kolom Kanan -->
                     <div class="col-md-6">
                         <div class="mb-3">
+                            <label for="nama_ibu" class="form-label">Nama Ibu</label>
+                            <input type="text" class="form-control" value="{{ old('nama_ibu', $siswa->nama_ibu) }} "
+                                id="nama_ibu" placeholder="Inputkan Nama Ibu" name="nama_ibu">
+                            @if ($errors->has('nama_ibu'))
+                                <div class="text-danger">{{ $errors->first('nama_ibu') }}</div>
+                            @endif
+                        </div>
+                        <div class="mb-3">
+                            <label for="pekerjaan_ibu" class="form-label">Pekerjaan Ibu</label>
+                            <input type="text" class="form-control"
+                                value="{{ old('pekerjaan_ibu', $siswa->pekerjaan_ibu) }} " id="pekerjaan_ibu"
+                                placeholder="Inputkan Pekerjaan Ibu" name="pekerjaan_ibu">
+                            @if ($errors->has('pekerjaan_ibu'))
+                                <div class="text-danger">{{ $errors->first('pekerjaan_ibu') }}</div>
+                            @endif
+                        </div>
+                        <div class="mb-3">
+                            <label for="no_telp_ibu" class="form-label">Nomor Telepon Ibu</label>
+                            <input type="text" class="form-control"
+                                value="{{ old('no_telp_ibu', $siswa->no_telp_ibu) }} " id="no_telp_ibu"
+                                placeholder="Inputkan Pekerjaan Ibu" name="no_telp_ibu" maxlength="13">
+                            @if ($errors->has('no_telp_ibu'))
+                                <div class="text-danger">{{ $errors->first('no_telp_ibu') }}</div>
+                            @endif
+                        </div>
+                        <div class="mb-3">
                             <label for="nama_ayah" class="form-label">Nama Ayah</label>
                             <input type="text" class="form-control" id="nama_ayah"
-                                placeholder="Inputkan nama_ayah Anda" name="nama_ayah" value="{{ $siswa->nama_ayah }} ">
+                                placeholder="Inputkan nama_ayah Anda" name="nama_ayah"
+                                value="{{ old('nama_ayah', $siswa->nama_ayah) }} ">
                             @if ($errors->has('nama_ayah'))
                                 <div class="text-danger">{{ $errors->first('nama_ayah') }}</div>
                             @endif
@@ -177,48 +213,26 @@
 
                         <div class="mb-3">
                             <label for="pekerjaan_ayah" class="form-label">Pekerjaan Ayah</label>
-                            <input type="text" class="form-control" value="{{ $siswa->pekerjaan_ayah }} "
-                                id="pekerjaan_ayah" placeholder="Inputkan Pekerjaan Ayah" name="pekerjaan_ayah">
+                            <input type="text" class="form-control"
+                                value="{{ old('pekerjaan_ayah', $siswa->pekerjaan_ayah) }} " id="pekerjaan_ayah"
+                                placeholder="Inputkan Pekerjaan Ayah" name="pekerjaan_ayah">
                             @if ($errors->has('pekerjaan_ayah'))
                                 <div class="text-danger">{{ $errors->first('pekerjaan_ayah') }}</div>
                             @endif
                         </div>
                         <div class="mb-3">
                             <label for="no_telp_ayah" class="form-label">Nomor Telepon Ayah</label>
-                            <input type="text" class="form-control" value="{{ $siswa->no_telp_ayah }} "
-                                id="no_telp_ayah" placeholder="Inputkan Nomor Telepon Ayah" name="no_telp_ayah"
-                                maxlength="13">
+                            <input type="text" class="form-control"
+                                value="{{ old('no_telp_ayah', $siswa->no_telp_ayah) }} " id="no_telp_ayah"
+                                placeholder="Inputkan Nomor Telepon Ayah" name="no_telp_ayah" maxlength="13">
                             @if ($errors->has('no_telp_ayah'))
                                 <div class="text-danger">{{ $errors->first('no_telp_ayah') }}</div>
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label for="nama_ibu" class="form-label">Nama Ibu</label>
-                            <input type="text" class="form-control" value="{{ $siswa->nama_ibu }} " id="nama_ibu"
-                                placeholder="Inputkan Nama Ibu" name="nama_ibu">
-                            @if ($errors->has('nama_ibu'))
-                                <div class="text-danger">{{ $errors->first('nama_ibu') }}</div>
-                            @endif
-                        </div>
-                        <div class="mb-3">
-                            <label for="pekerjaan_ibu" class="form-label">Pekerjaan Ibu</label>
-                            <input type="text" class="form-control" value="{{ $siswa->pekerjaan_ibu }} "
-                                id="pekerjaan_ibu" placeholder="Inputkan Pekerjaan Ibu" name="pekerjaan_ibu">
-                            @if ($errors->has('pekerjaan_ibu'))
-                                <div class="text-danger">{{ $errors->first('pekerjaan_ibu') }}</div>
-                            @endif
-                        </div>
-                        <div class="mb-3">
-                            <label for="no_telp_ibu" class="form-label">Nomor Telepon Ibu</label>
-                            <input type="text" class="form-control" value="{{ $siswa->no_telp_ibu }} "
-                                id="no_telp_ibu" placeholder="Inputkan Pekerjaan Ibu" name="no_telp_ibu" maxlength="13">
-                            @if ($errors->has('no_telp_ibu'))
-                                <div class="text-danger">{{ $errors->first('no_telp_ibu') }}</div>
-                            @endif
-                        </div>
-                        <div class="mb-3">
                             <label for="nama_wali" class="form-label">Nama Wali</label>
-                            <input type="text" class="form-control" value="{{ $siswa->nama_wali }} " id="nama_wali"
+                            <input type="text" class="form-control"
+                                value="{{ old('nama_wali', $siswa->nama_wali) }} " id="nama_wali"
                                 placeholder="Inputkan Nama Wali" name="nama_wali">
                             @if ($errors->has('nama_wali'))
                                 <div class="text-danger">{{ $errors->first('nama_wali') }}</div>
@@ -226,45 +240,39 @@
                         </div>
                         <div class="mb-3">
                             <label for="pekerjaan_wali" class="form-label">Pekerjaan Wali</label>
-                            <input type="text" class="form-control" value="{{ $siswa->pekerjaan_wali }} "
-                                id="pekerjaan_wali" placeholder="Inputkan Pekerjaan Wali" name="pekerjaan_wali">
+                            <input type="text" class="form-control"
+                                value="{{ old('pekerjaan_wali', $siswa->pekerjaan_wali) }} " id="pekerjaan_wali"
+                                placeholder="Inputkan Pekerjaan Wali" name="pekerjaan_wali">
                             @if ($errors->has('pekerjaan_wali'))
                                 <div class="text-danger">{{ $errors->first('pekerjaan_wali') }}</div>
                             @endif
                         </div>
                         <div class="mb-3">
                             <label for="no_telp_wali" class="form-label">Nomor Telepon Wali</label>
-                            <input type="text" class="form-control" value="{{ $siswa->no_telp_wali }} "
-                                id="no_telp_wali" placeholder="Inputkan Nomor Telepon Wali" name="no_telp_wali"
-                                maxlength="13">
+                            <input type="text" class="form-control"
+                                value="{{ old('no_telp_wali', $siswa->no_telp_wali) }} " id="no_telp_wali"
+                                placeholder="Inputkan Nomor Telepon Wali" name="no_telp_wali" maxlength="13">
                             @if ($errors->has('no_telp_wali'))
                                 <div class="text-danger">{{ $errors->first('no_telp_wali') }}</div>
                             @endif
                         </div>
                         <div class="mb-3">
                             <label for="alamat_wali" class="form-label">Alamat Wali</label>
-                            <input type="text" class="form-control" value="{{ $siswa->alamat_wali }} "
-                                id="alamat_wali" placeholder="Inputkan Nomor Telepon Wali" name="alamat_wali">
+                            <input type="text" class="form-control"
+                                value="{{ old('alamat_wali', $siswa->alamat_wali) }} " id="alamat_wali"
+                                placeholder="Inputkan Nomor Telepon Wali" name="alamat_wali">
                             @if ($errors->has('alamat_wali'))
                                 <div class="text-danger">{{ $errors->first('alamat_wali') }}</div>
-                            @endif
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="text" class="form-control" value="{{ $siswa->email }} " id="email"
-                                placeholder="Inputkan Email" name="email">
-                            @if ($errors->has('email'))
-                                <div class="text-danger">{{ $errors->first('email') }}</div>
                             @endif
                         </div>
                     </div>
                 </div>
                 <div class="form-check mt-3">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Saya Yakin Sudah Mengisi Dengan Benar</label>
+                    <input type="checkbox" class="form-check-input" id="terms" name="terms" value="1">
+                    <label class="form-check-label" for="terms">Saya Yakin Sudah Mengisi Dengan Benar</label>
                     @if ($errors->has('terms'))
-                    <div class="text-danger">{{ $errors->first('terms') }}</div>
-                @endif
+                        <div class="text-danger">{{ $errors->first('terms') }}</div>
+                    @endif
                 </div>
 
 

@@ -43,7 +43,7 @@ class CetakRaporController extends Controller
         }
 
         // Tentukan semester terbaru (default ke Ganjil jika tidak ada prioritas lain)
-        $semesterTerbaru = $semester->contains('Ganjil') ? 'Ganjil' : $semester->sortDesc()->first();
+        $semesterTerbaru = $semester->contains('Genap') ? 'Genap' : ($semester->contains('Ganjil') ? 'Ganjil' : $semester->first());
 
         return view('walas.cetak_rapor.index', compact('breadcrumb', 'kelas', 'activeMenu', 'tahunAjaran', 'tahunAjaranTerbaru', 'semester', 'semesterTerbaru'));
     }
@@ -123,7 +123,7 @@ class CetakRaporController extends Controller
         $pdf = Pdf::loadView('walas.cetak_rapor.cover', compact('siswa'));
 
         // Tampilkan PDF di browser
-        return $pdf->stream($nis . '_' . $siswa->nama . '_' . 'cover' . '.pdf');
+        return $pdf->download($nis . '_' . $siswa->nama . '_' . 'cover' . '.pdf');
 
         // Jika ingin langsung download:
         // return $pdf->download('cover_rapor_' . $nis . '.pdf');
@@ -264,7 +264,7 @@ class CetakRaporController extends Controller
         }
 
         // Tentukan semester terbaru (default ke Ganjil jika tidak ada prioritas lain)
-        $semesterTerbaru = $semester->contains('Ganjil') ? 'Ganjil' : $semester->sortDesc()->first();
+        $semesterTerbaru = $semester->contains('Genap') ? 'Genap' : ($semester->contains('Ganjil') ? 'Ganjil' : $semester->first());
         // Mengambil semua data pembelajaran dengan relasi mapel, kelas, dan guru
         return view('siswa.cetak_rapor.index', ['breadcrumb' => $breadcrumb,  'activeMenu' => $activeMenu, 'kelas' => $kelas, 'tahunAjaran' => $tahunAjaran, 'tahunAjaranTerbaru' => $tahunAjaranTerbaru, 'semester' => $semester, 'semesterTerbaru' => $semesterTerbaru,]);
     }

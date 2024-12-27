@@ -36,7 +36,7 @@
                         </div>
                         <div class="form-group">
                             <label for="eskul_id">Ekstrakulikuler</label>
-                            <select name="eskul_id" class="form-control" id="eskul_id" required>
+                            <select name="eskul_id" class="form-control" id="eskul_id" required style="width: 100%">
                                 <option value="">- Pilih ekstrakulikuler -</option>
                                 @foreach ($eskul as $item)
                                     <option value="{{ $item->id }}">{{ $item->nama_eskul }}
@@ -61,3 +61,29 @@
         </div>
     </div>
 </div>
+@push('js')
+    <script>
+        $(document).ready(function() {
+            $('#siswa_id_eskul').select2({
+                placeholder: "Pilih Siswa",
+                dropdownParent: $('#modal-tambah-data-eskul'),
+                language: {
+                    noResults: function() {
+                        return "Tidak ada hasil ditemukan";
+                    }
+                }
+            });
+        });
+        $(document).ready(function() {
+            $('#eskul_id').select2({
+                placeholder: "Pilih Siswa",
+                dropdownParent: $('#modal-tambah-data-eskul'),
+                language: {
+                    noResults: function() {
+                        return "Tidak ada hasil ditemukan";
+                    }
+                }
+            });
+        });
+    </script>
+@endpush

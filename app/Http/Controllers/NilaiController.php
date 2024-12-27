@@ -20,6 +20,12 @@ class NilaiController extends Controller
         $siswa = SiswaKelasModel::where('kelas_id', $pembelejaranId)->get();
         //capel
         $capel = CapaianModel::where('pembelajaran_id', $id)->where('tahun_ajaran_id', $tahun_ajaran_id)->get();
+        // Group Capel by Lingkup Materi
+        $groupedCapel = $capel->groupBy(function ($item) {
+            return $item->lingkup->nama_lingkup_materi; // Kelompokkan berdasarkan nama lingkup materi
+        });
+
+
         $nilai = NilaiModel::where('pembelajaran_id', $id)->get();
         $breadcrumb = (object)[
             'title' => 'KELOLA NILAI',
@@ -27,6 +33,7 @@ class NilaiController extends Controller
         $activeMenu =  'Data Pembelajaran';
 
         return view('guru.nilai.index', [
+            'groupedCapel' => $groupedCapel,
             'breadcrumb' => $breadcrumb,
             'activeMenu' => $activeMenu,
             'pembelajaran' => $pembelajaran,

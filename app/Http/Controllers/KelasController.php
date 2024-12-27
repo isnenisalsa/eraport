@@ -131,7 +131,7 @@ class KelasController extends Controller
         }
 
         // Tentukan semester terbaru (default ke Ganjil jika tidak ada prioritas lain)
-        $semesterTerbaru = $semester->contains('Ganjil') ? 'Ganjil' : $semester->sortDesc()->first();
+        $semesterTerbaru = $semester->contains('Genap') ? 'Genap' : ($semester->contains('Ganjil') ? 'Ganjil' : $semester->first());
         // For debugging purposes, to check the retrieved semester
         return view('walas.nilaiakhir.index', ['breadcrumb' => $breadcrumb, 'kelas' => $kelas,  'tahunAjaran' => $tahunAjaran, 'tahunAjaranTerbaru' => $tahunAjaranTerbaru, 'semester' => $semester, 'semesterTerbaru' => $semesterTerbaru, 'activeMenu' => $activeMenu]);
     }
@@ -201,27 +201,27 @@ class KelasController extends Controller
                     if (is_null($value)) {
                         return;
                     }
-                
+
                     // Jika $request->tahun_ajaran_id tidak terisi atau bukan array, berikan error
                     if (!is_array($request->tahun_ajaran_id) || empty($request->tahun_ajaran_id)) {
                         $fail('');
                         return;
                     }
-                
+
                     foreach ($request->tahun_ajaran_id as $tahunAjaranId) {
                         $existingClass = KelasModel::where('nama_kelas', $value)
                             ->whereHas('tahunAjarans', function ($query) use ($tahunAjaranId) {
                                 $query->where('tahun_ajaran.id', $tahunAjaranId);
                             })
                             ->first();
-                
+
                         if ($existingClass) {
                             $fail("Nama kelas '$value' sudah digunakan pada tahun ajaran yang dipilih.");
                             break;
                         }
                     }
                 }
-                
+
             ],
             'guru_nik' => 'required|exists:guru,nik',
             'tahun_ajaran_id' => 'required|array',

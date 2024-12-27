@@ -128,7 +128,7 @@ class EskulController extends Controller
         }
 
         // Tentukan semester terbaru (default ke Ganjil jika tidak ada prioritas lain)
-        $semesterTerbaru = $semester->contains('Ganjil') ? 'Ganjil' : $semester->sortDesc()->first();
+        $semesterTerbaru = $semester->contains('Genap') ? 'Genap' : ($semester->contains('Ganjil') ? 'Ganjil' : $semester->first());
 
 
         return view('walas.ekstrakulikuler.kelas', ['breadcrumb' => $breadcrumb, 'tahunAjaran' => $tahunAjaran, 'tahunAjaranTerbaru' => $tahunAjaranTerbaru, 'semester' => $semester, 'semesterTerbaru' => $semesterTerbaru, 'kelas' => $kelas, 'activeMenu' => $activeMenu]);

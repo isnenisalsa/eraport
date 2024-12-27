@@ -11,7 +11,9 @@
                     <!-- Kolom Kiri -->
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="status" class="form-label">Status</label>
+                            <label for="status" class="form-label">
+                                Status <span class="required" style="color: red">*</span>
+                            </label>
                             <select class="form-control" name="status" id="status">
                                 <option value="">Pilih</option>
                                 <option value="Aktif" {{ old('status', $guru->status) == 'Aktif' ? 'selected' : '' }}>Aktif
@@ -25,7 +27,9 @@
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label for="nik" class="form-label">NIK</label>
+                            <label for="nik" class="form-label">
+                                NIK <span class="required" style="color: red">*</span>
+                            </label>
                             <input type="text" class="form-control" id="nik" placeholder="Inputkan NIK Anda"
                                 name="nik" value="{{ $guru->nik }}" maxlength="16" readonly>
                             @if ($errors->has('nik'))
@@ -33,7 +37,9 @@
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label for="nip" class="form-label">NIP</label>
+                            <label for="nip" class="form-label">
+                                NIP <span class="required" style="color: red">*</span>
+                            </label>
                             <input type="text" class="form-control" id="nip" placeholder="Inputkan NIP Anda"
                                 name="nip" value="{{ $guru->nip }}" maxlength="18">
                             @if ($errors->has('nip'))
@@ -41,7 +47,9 @@
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label for="nama" class="form-label">Nama</label>
+                            <label for="nama" class="form-label">
+                                Nama <span class="required" style="color: red">*</span>
+                            </label>
                             <input type="text" class="form-control" id="nama" value="{{ $guru->nama }} "
                                 placeholder="Inputkan Nama Anda" name="nama">
                             @if ($errors->has('nama'))
@@ -49,7 +57,9 @@
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
+                            <label for="jenis_kelaminn" class="form-label">
+                                Jenis Kelamin <span class="required" style="color: red">*</span>
+                            </label>
                             <select class="form-control" name="jenis_kelamin" id="jenis_kelamin">
                                 <option value="">Pilih</option>
                                 <option value="Laki-Laki"
@@ -64,7 +74,9 @@
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label for="jabatan" class="form-label">Jabatan</label>
+                            <label for="jabatan" class="form-label">
+                                Jabatan <span class="required" style="color: red">*</span>
+                            </label>
                             <input type="text" class="form-control" id="jabatan" value="{{ $guru->jabatan }} "
                                 placeholder="Inputkan Jabatan Anda" name="jabatan">
                             @if ($errors->has('jabatan'))
@@ -72,7 +84,9 @@
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label for="pendidikan" class="form-label">Pendidikan Terakhir</label>
+                            <label for="pendidikan_terakhir" class="form-label">
+                                Pendidikan Terakhir <span class="required" style="color: red">*</span>
+                            </label>
                             <input type="text" class="form-control" id="pendidikan"
                                 value="{{ $guru->pendidikan_terakhir }} " placeholder="Inputkan Pendidikan Terakhir Anda"
                                 name="pendidikan_terakhir">
@@ -81,7 +95,9 @@
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label for="telepon" class="form-label">No Telepon</label>
+                            <label for="no_telp" class="form-label">
+                                Nomer Telepon <span class="required" style="color: red">*</span>
+                            </label>
                             <input type="text" class="form-control" value="{{ $guru->no_telp }} " id="telepon"
                                 placeholder="Inputkan Nomor Telepon Anda" name="no_telp" maxlength="13">
                             @if ($errors->has('no_telp'))
@@ -93,15 +109,19 @@
                     <!-- Kolom Kanan -->
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
-                            <input type="text" class="form-control" value="{{ $guru->tempat_lahir }} " id="tempat_lahir"
-                                placeholder="Inputkan Tempat Lahir Anda" name="tempat_lahir">
+                            <label for="tempat_lahir" class="form-label">
+                                Tempat Lahir <span class="required" style="color: red">*</span>
+                            </label>
+                            <input type="text" class="form-control" value="{{ $guru->tempat_lahir }} "
+                                id="tempat_lahir" placeholder="Inputkan Tempat Lahir Anda" name="tempat_lahir">
                             @if ($errors->has('tempat_lahir'))
                                 <div class="text-danger">{{ $errors->first('tempat_lahir') }}</div>
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
+                            <label for="tanggal_lahir" class="form-label">
+                                Tanggal Lahir <span class="required" style="color: red">*</span>
+                            </label>
                             <input type="date" class="form-control"
                                 value="{{ old('tanggal_lahir', $guru->tanggal_lahir) }}" id="tanggal_lahir"
                                 placeholder="Inputkan Tanggal Lahir Anda" name="tanggal_lahir">
@@ -110,16 +130,11 @@
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label for="agama" class="form-label">Agama</label>
+                            <label for="agama" class="form-label">
+                                Agama <span class="required" style="color: red">*</span>
+                            </label>
                             <select class="form-control" name="agama" id="agama">
-                                <option value="">Pilih</option>
                                 <option value="Islam" {{ old('agama', $guru->agama) == 'Islam' ? 'selected' : '' }}>Islam
-                                </option>
-                                <option value="Kristen" {{ old('agama', $guru->agama) == 'Kristen' ? 'selected' : '' }}>
-                                    Kristen</option>
-                                <option value="Hindu" {{ old('agama', $guru->agama) == 'Hindu' ? 'selected' : '' }}>Hindu
-                                </option>
-                                <option value="Budha" {{ old('agama', $guru->agama) == 'Budha' ? 'selected' : '' }}>Budha
                                 </option>
                             </select>
                             @if ($errors->has('agama'))
@@ -127,7 +142,9 @@
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label for="nama_ibu " class="form-label">Nama Ibu</label>
+                            <label for="nama_ibu" class="form-label">
+                                Nama Ibu <span class="required" style="color: red">*</span>
+                            </label>
                             <input type="text" class="form-control" value="{{ $guru->nama_ibu }} " id="nama_ibu"
                                 placeholder="Inputkan Nama Ibu Anda" name="nama_ibu">
                             @if ($errors->has('nama_ibu'))
@@ -135,7 +152,9 @@
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label for="status_perkawinan" class="form-label">Status Pernikahan</label>
+                            <label for="status_perkawinan" class="form-label">
+                                Status Pernikahan <span class="required" style="color: red">*</span>
+                            </label>
                             <select class="form-control" name="status_perkawinan" id="status_perkawinan">
                                 <option value="">Pilih</option>
                                 <option value="Menikah"
@@ -151,7 +170,9 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
+                            <label for="email" class="form-label">
+                                Email <span class="required" style="color: red">*</span>
+                            </label>
                             <input type="email" class="form-control" id="email" placeholder="Inputkan Email Anda"
                                 name="email" value="{{ $guru->email }}">
                             @if ($errors->has('email'))
@@ -159,7 +180,9 @@
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label for="alamat" class="form-label">Alamat</label>
+                            <label for="alamat" class="form-label">
+                                Alamat <span class="required" style="color: red">*</span>
+                            </label>
                             <input type="text" class="form-control" id="alamat" placeholder="Inputkan Alamat Anda"
                                 name="alamat" value="{{ $guru->alamat }}">
                             @if ($errors->has('alamat'))
@@ -170,11 +193,11 @@
                 </div>
 
                 <div class="form-check mt-3">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Saya Yakin Sudah Mengisi Dengan Benar</label>
+                    <input type="checkbox" class="form-check-input" id="terms" name="terms" value="1">
+                    <label class="form-check-label" for="terms">Saya Yakin Sudah Mengisi Dengan Benar</label>
                     @if ($errors->has('terms'))
-                                <div class="text-danger">{{ $errors->first('terms') }}</div>
-                            @endif
+                        <div class="text-danger">{{ $errors->first('terms') }}</div>
+                    @endif
                 </div>
 
                 <button type="submit" class="btn btn-primary mt-3">Submit</button>

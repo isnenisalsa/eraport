@@ -282,7 +282,8 @@
                 </td>
                 <td style="width: 50%; text-align: center; vertical-align: bottom; border: none;">
                     <div class="d-flex justify-content-center align-items-end">
-                        <span>{{ \Carbon\Carbon::parse($semester->tanggal_pembagian_rapor)->translatedFormat('d F Y') }}</span>
+                        <span>Pelaihari,
+                            {{ \Carbon\Carbon::parse($semester->tanggal_pembagian_rapor)->translatedFormat('d F Y') }}</span>
                         <p>Wali Kelas</p>
                         <br><br><br><br>
                         <span>{{ $kelas->first()->guru->nama }}</span><br>
@@ -295,7 +296,7 @@
 
     <div style="text-align: center; margin-top: 30px;" class="kepala-sekolah">
         <br>Mengetahui,
-        <br>Kepala Sekolah
+        <br>Kepala SMPS IT Sirajul Huda
         <br><br><br><br><br><br>
         <span>{{ $sekolah->nama_kepsek }}</span>
         <br>

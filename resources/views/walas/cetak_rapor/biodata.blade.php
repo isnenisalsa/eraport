@@ -216,7 +216,7 @@
             <p><span>Pelaihari, </span>
                 {{ \Carbon\Carbon::parse($semester->tanggal_biodata)->translatedFormat('d F Y') }}
             </p>
-            <p><span>Kepala Sekolah</span></p><br><br><br><br>
+            <p><span>Kepala SMPS IT Sirajul Huda</span></p><br><br><br><br>
             <p class="name underline">{{ $sekolah->first()->nama_kepsek }}</p>
             <p class="">{{ $sekolah->first()->nip_kepsek }}</p>
         </div>
