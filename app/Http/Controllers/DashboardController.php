@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\KelasModel;
 use App\Models\PembelajaranModel;
+use App\Models\SekolahModel;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\SiswaKelasModel;
@@ -42,7 +43,7 @@ class DashboardController extends Controller
             // $dataKelasWalasCount = DB::table('kelas')->count();
             // $dataPembelajaranGuruCount = DB::table('pembelajaran')->count();
             $kelas = KelasModel::all(); // Ambil semua kelas untuk ditampilkan
-
+            $sekolah = SekolahModel::first();
             return view('dashboard.index', [
                 'breadcrumb' => $breadcrumb,
                 'activeMenu' => $activeMenu,
@@ -57,6 +58,7 @@ class DashboardController extends Controller
                 //'dataKelasWalasCount' => $dataKelasWalasCount,
                 'pembelajaran_guru' => $pembelajaran_guru,
                 'pembelajaran_walas' => $pembelajaran_walas,
+                'sekolah' => $sekolah,
             ]);
         }
 
