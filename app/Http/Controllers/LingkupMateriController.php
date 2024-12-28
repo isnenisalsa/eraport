@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\LingkupMateriModel;
 use App\Models\PembelajaranModel;
+use App\Models\TahunAjarModel;
 use Illuminate\Http\Request;
 
 class LingkupMateriController extends Controller
@@ -15,6 +16,7 @@ class LingkupMateriController extends Controller
         ];
 
         $activeMenu = 'Data Pembelajaran';
+        $semester = TahunAjarModel::where('id', $tahun_ajaran_id)->pluck('semester')->first();
         $DataLingkup = LingkupMateriModel::where('pembelajaran_id', $id_pembelajaran)->where('tahun_ajaran_id', $tahun_ajaran_id)->get();
         $data = PembelajaranModel::with(['kelas', 'mapel', 'guru'])
             ->where('id_pembelajaran', $id_pembelajaran)
@@ -26,7 +28,8 @@ class LingkupMateriController extends Controller
             'id_pembelajaran' => $id_pembelajaran,
             'tahun_ajaran_id' => $tahun_ajaran_id,
             'breadcrumb' => $breadcrumb,
-            'activeMenu' => $activeMenu
+            'activeMenu' => $activeMenu,
+            'semester' => $semester
         ]);
     }
     public function save(Request $request, $id_pembelajaran, $tahun_ajaran_id)
@@ -56,7 +59,7 @@ class LingkupMateriController extends Controller
         $request->validate(
             [
                 'id' => 'required|array',
-                'id.*' => 'exists:capel,id', // Memastikan setiap ID ada di database
+                'id.*' => 'exists:lingkup_materi,id', // Memastikan setiap ID ada di database
                 'nama_lingkup_materi' => 'required|array',
                 'nama_lingkup_materi.*' => 'string|max:200', // Memastikan setiap nama_lingkup_materi valid
             ],

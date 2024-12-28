@@ -63,25 +63,28 @@ class PembelajaranController extends Controller
 
         // Mengambil semua data pembelajaran dengan relasi mapel, kelas, dan guru
         $dataPembelajaran = PembelajaranModel::where('nama_guru', $user->nik)->get();
-        // Contoh: Kirim data ke view
+        // Ambil daftar tahun ajaran yang unik
         $tahunAjaran = TahunAjarModel::distinct('tahun_ajaran')->pluck('tahun_ajaran');
+
         // Urutkan secara menurun dan ambil tahun ajaran terbaru
         $tahunAjaranTerbaru = $tahunAjaran->sortDesc()->first();
-        // Ambil daftar semester dari model TahunAjarModel, urutkan secara descending
-        $semester = TahunAjarModel::where('tahun_ajaran', $tahunAjaranTerbaru)->pluck('semester');
 
-        // Pastikan semester Ganjil dan Genap ada
-        if (!$semester->contains('Ganjil')) {
-            $semester->push('Ganjil');
+        // Ambil daftar semester dari model TahunAjarModel berdasarkan tahun ajaran terbaru
+        $semester = TahunAjarModel::where('tahun_ajaran', $tahunAjaranTerbaru)
+            ->distinct()
+            ->orderByDesc('semester')
+            ->pluck('semester');
+        // Tentukan semester (jika kosong, gunakan default)
+        if ($semester->isEmpty()) {
+            $semester = collect(['Ganjil', 'Genap']); // Default semester
+        } else {
+            if (!$semester->contains('Genap')) {
+                $semester->push('Genap');
+            }
         }
-        if (!$semester->contains('Genap')) {
-            $semester->push('Genap');
-        }
 
-        // Tentukan semester terbaru (default ke Ganjil jika tidak ada prioritas lain)
-        $semesterTerbaru = $semester->contains('Genap') ? 'Genap' : ($semester->contains('Ganjil') ? 'Ganjil' : $semester->first());
-
-
+        // Tetapkan semester terbaru berdasarkan data yang ada
+        $semesterTerbaru = $semester->first(); // Ambil semester pertama dari koleksi
 
         return view('guru.pembelajaran.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'dataPembelajaran' => $dataPembelajaran, 'tahunAjaran' => $tahunAjaran, 'tahunAjaranTerbaru' => $tahunAjaranTerbaru, 'semester' => $semester, 'semesterTerbaru' => $semesterTerbaru,]);
     }
@@ -152,7 +155,7 @@ class PembelajaranController extends Controller
             ->addIndexColumn()
             ->addColumn('aksi', function ($row) {
                 return '
-                 <a href="' . $row['lingkup_url'] . '" class="btn btn-warning btn-sm mb-2">Kelola Lingkup Materi</a>
+                 <a href="' . $row['lingkup_url'] . '" class="btn btn-warning btn-sm mb-2" style="color:white;"> Lingkup Materi</a>
                 <a href="' . $row['capel_url'] . '" class="btn btn-success btn-sm mb-2">Tujuan Pembelajaran</a>
                 <a href="' . $row['nilai_url'] . '" class="btn btn-info btn-sm mb-2">Kelola Nilai</a>
             ';

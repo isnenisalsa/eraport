@@ -3,7 +3,7 @@
     <nav>
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Dashboard Admin -->
-            @if (auth()->check() &&
+            @if (auth('web')->check() &&
                     auth()->user()->roles->pluck('nama')->intersect(['admin', 'guru', 'walas'])->isNotEmpty())
                 <li class="nav-item">
                     <a href="{{ url('/dashboard') }}" class="nav-link {{ $activeMenu == 'dashboard' ? 'active' : '' }}">
@@ -24,7 +24,7 @@
             @endif
             @if (Auth::guard('siswa')->check())
                 <li class="nav-item">
-                    <a href="{{ url('cetak/rapor/siswa') }}"
+                    <a href="{{ url('cetak/rapor/siswa/kelas') }}"
                         class="nav-link {{ $activeMenu == 'Kelas Siswa' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-satellite" style="color: rgb(3, 3, 3)"></i>
                         <p style="color: rgb(10, 10, 10)">Data Kelas</p>
@@ -32,7 +32,7 @@
                 </li>
             @endif
             <!-- Menu Wali Kelas -->
-            @if (auth()->check() && auth()->user()->roles->contains('nama', 'walas'))
+            @if (auth('web')->check() && auth()->user()->roles->contains('nama', 'walas'))
                 <li
                     class="nav-item has-treeview bg-gray-900 {{ in_array($activeMenu, ['Data Kelas', 'Data Absensi', 'Ekstrakurikuler', 'Data Nilai Akhir', 'Cetak Rapor']) ? 'menu-open' : '' }}">
                     <a href="#"
@@ -71,7 +71,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('cetak/rapor/kelas/') }}"
+                            <a href="{{ url('cetak/rapor/walas/kelas') }}"
                                 class="nav-link {{ $activeMenu == 'Cetak Rapor' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-print" style="color: rgb(3, 3, 3)"></i>
                                 <p style="color: rgb(10, 10, 10)">Cetak Rapor</p>
@@ -82,7 +82,7 @@
             @endif
 
             <!-- Menu Guru Mapel -->
-            @if (auth()->check() && auth()->user()->roles->contains('nama', 'guru'))
+            @if (auth('web')->check() && auth()->user()->roles->contains('nama', 'guru'))
                 @php
                     // Cek apakah guru tersebut mengampu kelas (misalnya dengan cek kelas yang dia ampu)
                     $guru = auth()->user();
@@ -111,7 +111,7 @@
             @endif
 
             <!-- Menu Admin -->
-            @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
+            @if (auth('web')->check() && auth()->user()->roles->contains('nama', 'admin'))
                 <li
                     class="nav-item has-treeview bg-gray-900 {{ in_array($activeMenu, ['guru', 'siswa']) ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ in_array($activeMenu, ['guru', 'siswa']) ? 'active' : '' }}">
@@ -143,7 +143,7 @@
 
             <li
                 class="nav-item has-treeview bg-gray-900 {{ in_array($activeMenu, ['Data Sekolah', 'Tahun Ajaran', 'kelas', 'mapel', 'pembelajaran', 'Ekstrakurikuler Admin']) ? 'menu-open' : '' }}">
-                @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
+                @if (auth('web')->check() && auth()->user()->roles->contains('nama', 'admin'))
                     <a href="#"
                         class="nav-link {{ in_array($activeMenu, ['Data Sekolah', 'Tahun Ajaran', 'kelas', 'mapel', 'pembelajaran', 'Ekstrakurikuler Admin']) ? 'active' : '' }}">
                         <i class="fas fa-solid fa-laptop" style="color: black"></i>
@@ -198,7 +198,7 @@
                     </ul>
                 @endif
             </li>
-            @if (auth()->check() &&
+            @if (auth('web')->check() &&
                     auth()->user()->roles->pluck('nama')->intersect(['admin', 'guru', 'walas'])->isNotEmpty())
                 <li class="nav-item">
                     <a href="{{ route('profile.show') }}"

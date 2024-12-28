@@ -73,9 +73,10 @@
                 serverSide: true,
                 ajax: {
                     url: '{{ route('cetak.list.siswa') }}',
+                    type: 'POST',
                     data: function(d) {
-                        d.tahun_ajaran = $('#filter-tahun-ajaran').val();
-                        d.semester = $('#filter-semester').val();
+                        d.tahun_ajaran = $('#filter-tahun-ajaran').val(); // Kirim filter tahun ajaran
+                        d.semester = $('#filter-semester').val(); // Kirim filter semester
                     }
                 },
                 columns: [{
@@ -135,23 +136,10 @@
                 }
             });
 
-            // Event listener untuk filter dropdown tahun ajaran
-            $('#filter-tahun-ajaran').on('change', function() {
-                table.ajax.reload(null, false); // Reload data tanpa reset pagination
+            // Event listener untuk filter dropdown
+            $('#filter-tahun-ajaran, #filter-semester').on('change', function() {
+                table.ajax.reload(); // Reload data dengan filter baru
             });
-
-            // Event listener untuk filter dropdown semester
-            $('#filter-semester').on('change', function() {
-                table.ajax.reload(null, false); // Reload data tanpa reset pagination
-            });
-
-            // Terapkan filter awal jika ada nilai default
-            var defaultYear = $('#filter-tahun-ajaran').val();
-            var defaultSemester = $('#filter-semester').val();
-
-            if (defaultYear || defaultSemester) {
-                table.ajax.reload(null, false);
-            }
         });
     </script>
 @endpush

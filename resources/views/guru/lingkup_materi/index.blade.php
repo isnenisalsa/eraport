@@ -21,6 +21,11 @@
                             <th scope="col">:</th>
                             <th scope="col">{{ $data->guru->nama }}</th>
                         </tr>
+                        <tr>
+                            <th scope="col">Semester</th>
+                            <th scope="col">:</th>
+                            <th scope="col">{{ $semester }}</th>
+                        </tr>
                     </thead>
                 </table>
             </div>
@@ -32,13 +37,12 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
-                        <button class="btn btn-warning btn-sm ml-1" id="btn-edit-lingkup" type="button">Edit Lingkup
-                            Materi</button>
                         <button type="button" class="btn btn-success btn-sm float-left" data-toggle="modal"
                             data-target="#modal-tambah-data-lingkup">
                             + Tambah Data
                         </button>
-
+                        <a href="{{ route('capel.index', ['id_pembelajaran' => $id_pembelajaran, 'tahun_ajaran_id' => $tahun_ajaran_id]) }}"
+                            class="btn btn-info btn-sm float-right">Tujuan Pembelajaran</a> &nbsp;
                     </div>
                     <div id="edit-message" class="alert alert-info" style="display: none;">
                         Anda sudah bisa mengedit
@@ -47,6 +51,8 @@
                         Anda tidak bisa mengedit
                     </div>
                     <div class="card-body">
+                        <button class="btn btn-warning btn-sm ml-1 mb-3" id="btn-edit-lingkup" type="button">Edit Lingkup
+                            Materi</button>
                         <form action="{{ route('update.lingkup') }}" method="POST">
                             @csrf
                             <table class="table table-bordered table-striped text-center table-responsive-xl">

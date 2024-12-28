@@ -25,7 +25,7 @@
                             <tr>
                                 <th scope="col">Semester</th>
                                 <th scope="col">:</th>
-                                <th scope="col">{{ $kelas->first()->kelas->tahunAjarans->first()->semester }}</th>
+                                <th scope="col">{{ $semester }}</th>
                             </tr>
                         </thead>
                     </table>
@@ -57,18 +57,18 @@
                                             <td>{{ $item->siswa->nama }}</td>
                                             <td>{{ $item->siswa->jenis_kelamin }}</td>
                                             <td>
-                                                <a href="{{ route('walas.cover', $item->siswa->nis) }}"
-                                                    class="btn btn-danger btn-md me-2" title="Download Cover"
+                                                <a href="{{ route('siswa.cover', $item->siswa->nis) }}"
+                                                    class="btn btn-danger btn-sm me-2" title="Download Cover"
                                                     style="margin-bottom: 5px">
                                                     <i class="fas fa-file-alt"> Cover</i>
                                                 </a>
-                                                <a href="{{ route('walas.biodata', ['nis' => $item->siswa->nis, 'tahun_ajaran_id' => $tahun_ajaran_id]) }}"
-                                                    class="btn btn-primary btn-md me-2" title="Download Biodata"
+                                                <a href="{{ route('siswa.biodata', ['nis' => $item->siswa->nis, 'tahun_ajaran_id' => $tahun_ajaran_id]) }}"
+                                                    class="btn btn-primary btn-sm me-2" title="Download Biodata"
                                                     style="margin-bottom: 5px">
                                                     <i class="fas fa-file-alt"> Biodata</i>
                                                 </a>
-                                                <a href="{{ route('walas.rapor', ['kode_kelas' => $kode_kelas, 'nis' => $nis, 'tahun_ajaran_id' => $tahun_ajaran_id]) }}"
-                                                    class="btn btn-success btn-md me-2" title="Download Rapor"
+                                                <a href="{{ route('siswa.rapor', ['kode_kelas' => $kode_kelas, 'nis' => $nis, 'tahun_ajaran_id' => $tahun_ajaran_id]) }}"
+                                                    class="btn btn-success btn-sm me-2" title="Download Rapor"
                                                     style="margin-bottom: 5px"><i class="fas fa-print"> Rapor</i>
                                                 </a>
                                             </td>

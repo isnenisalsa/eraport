@@ -20,6 +20,11 @@
                             <th scope="col">:</th>
                             <th scope="col">{{ $pembelajaran->first()->guru->nama }}</th>
                         </tr>
+                        <tr>
+                            <th scope="col">Semester</th>
+                            <th scope="col">:</th>
+                            <th scope="col">{{ $semester }}</th>
+                        </tr>
                     </thead>
                 </table>
             </div>
@@ -52,7 +57,7 @@
                             @csrf
                             <input type="hidden" name="pembelajaran_id" value="{{ $id }}">
                             <input type="hidden" name="tahun_ajaran_id" value="{{ $tahun_ajaran_id }}">
-                            <table class="table table-bordered table-hover table-striped table-responsive">
+                            <table class="table table-bordered table-hover table-striped table-responsive-xl">
                                 <thead>
                                     <tr class="text-center">
                                         <th rowspan="2">No</th>

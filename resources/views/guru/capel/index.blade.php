@@ -21,6 +21,11 @@
                             <th scope="col">:</th>
                             <th scope="col">{{ $data->guru->nama }}</th>
                         </tr>
+                        <tr>
+                            <th scope="col">Semester</th>
+                            <th scope="col">:</th>
+                            <th scope="col">{{ $semester }}</th>
+                        </tr>
                     </thead>
                 </table>
             </div>
@@ -32,7 +37,6 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
-                        <button class="btn btn-warning btn-sm ml-1" id="btn-edit-capel" type="button">Edit Tujuan</button>
                         <button type="button" class="btn btn-success btn-sm float-left" data-toggle="modal"
                             data-target="#modal-tambah-data-capel">
                             + Tambah Data
@@ -47,9 +51,11 @@
                         Anda tidak bisa mengedit
                     </div>
                     <div class="card-body">
+                        <button class="btn btn-warning btn-sm ml-1 mb-3" id="btn-edit-capel" type="button">Edit Tujuan
+                            Pembelajaran</button>
                         <form action="{{ route('update.capel') }}" method="POST">
                             @csrf
-                            <table class="table table-bordered table-striped text-center">
+                            <table class="table table-bordered table-striped text-center table-responsive-xl">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -61,7 +67,7 @@
                                 <tbody>
                                     @php $no = 1; @endphp
                                     @foreach ($Datacapel as $item)
-                                        <tr>
+                                        <tr class="text-center">
                                             <td>{{ $no++ }}</td>
                                             <td>
                                                 <input type="hidden" name="id[]" value="{{ $item->id }}">
@@ -189,3 +195,27 @@
         </div>
     @endforeach
 @endsection
+@push('js')
+    <script>
+        $(document).ready(function() {
+            // Menginisialisasi Select2 untuk elemen dengan kelas 'capel-select'
+            $('.capel-select').select2({
+                placeholder: 'Pilih Lingkup Materi', // Placeholder jika tidak ada yang dipilih
+                allowClear: true, // Menambahkan tombol clear untuk memilih ulang
+                width: '100%',
+                dropdownAutoWidth: true, // Membuat dropdown selebar elemen
+                dropdownPosition: 'below', // Default dropdown ke bawah
+            });
+        });
+        $(document).ready(function() {
+            // Menginisialisasi Select2 untuk elemen dengan kelas 'capel-select'
+            $('#lingkup_id').select2({
+                placeholder: 'Pilih Lingkup Materi', // Placeholder jika tidak ada yang dipilih
+                allowClear: true, // Menambahkan tombol clear untuk memilih ulang
+                width: '100%',
+                dropdownAutoWidth: true, // Membuat dropdown selebar elemen
+                dropdownPosition: 'below', // Default dropdown ke bawah
+            });
+        });
+    </script>
+@endpush

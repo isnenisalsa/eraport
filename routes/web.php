@@ -61,11 +61,16 @@ Route::get('/', function () {
 Route::get('login', [AuthController::class, "index"])->name('login');
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
 Route::get('logout', [AuthController::class, "logout"])->name('logout');
-Route::middleware(['auth',])->group(function () {
+Route::middleware(['auth:web',])->group(function () {
     // Rute Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->middleware('cek_login:1,2,3')
         ->name('dashboard');
+    //rute profile
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::post('/profile/{nik}/account', [ProfileController::class, 'updateAccount'])->name('profile.account');
+    Route::post('/profile/{nik}/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
+
     //rute untuk tahun ajaran
     Route::prefix('tahun/ajaran')->group(function () {
         Route::get('/', [TahunajaranController::class, 'index'])->name('tahun_ajaran')->middleware('cek_login:1');
@@ -127,11 +132,11 @@ Route::middleware(['auth',])->group(function () {
     Route::prefix('eskul')->group(function () {
         Route::get('/', [EskulController::class, 'index'])->name('eskul.index')->middleware('cek_login:1');
         Route::post('/list', [EskulController::class, 'list'])->name('eskul.list')->middleware('cek_login:1');
-        Route::post('/list/walas', [EskulController::class, 'listWalas'])->name('eskul.list.walas');
+        Route::post('/list/walas', [EskulController::class, 'listWalas'])->name('eskul.list.walas')->middleware('cek_login:3');
         Route::get('/kelas', [EskulController::class, 'KelasEskul'])->name('eskul.kelas')->middleware('cek_login:3');
         Route::get('/nilai/{kode_kelas}/{tahun_ajaran_id}', [EskulController::class, 'NilaiEskul'])->name('nilai.eskul')->middleware('cek_login:3');
         Route::post('/save', [EskulController::class, 'save'])->name('eskul.save')->middleware('cek_login:1');
-        Route::post('/save/{tahun_ajaran_id}', [EskulController::class, 'SaveNilai'])->name('save.nilai.eskul');
+        Route::post('/save/{tahun_ajaran_id}', [EskulController::class, 'SaveNilai'])->name('save.nilai.eskul')->middleware('cek_login:3');
         Route::put('/update{id}', [EskulController::class, 'update'])->name('eskul.update')->middleware('cek_login:1');
     });
 
@@ -172,10 +177,10 @@ Route::middleware(['auth',])->group(function () {
     });
     //rute untuk lingkup
     Route::prefix('lingkup')->group(function () {
-        Route::get('/materi/{id_pembelajaran}/{tahun_ajaran_id}', [LingkupMateriController::class, 'index'])->name('lingkup.index');
-        Route::post('/save/{id_pembelajaran}/{tahun_ajaran_id}', [LingkupMateriController::class, 'save'])->name('save.lingkup');
-        Route::post('/update', [LingkupMateriController::class, 'update'])->name('update.lingkup');
-        Route::delete('/delete/{id}', [LingkupMateriController::class, 'destroy'])->name('delete.lingkup');
+        Route::get('/materi/{id_pembelajaran}/{tahun_ajaran_id}', [LingkupMateriController::class, 'index'])->name('lingkup.index')->middleware('cek_login:2');
+        Route::post('/save/{id_pembelajaran}/{tahun_ajaran_id}', [LingkupMateriController::class, 'save'])->name('save.lingkup')->middleware('cek_login:2');
+        Route::post('/update', [LingkupMateriController::class, 'update'])->name('update.lingkup')->middleware('cek_login:2');
+        Route::delete('/delete/{id}', [LingkupMateriController::class, 'destroy'])->name('delete.lingkup')->middleware('cek_login:2');
     });
     //rute untuk nilai
     Route::prefix('nilai')->group(function () {
@@ -187,43 +192,37 @@ Route::middleware(['auth',])->group(function () {
     Route::prefix('walas/nilai/akhir')->group(function () {
         Route::get('/{kode_kelas}/{tahun_ajaran_id}', [NilaiAkhirController::class, 'index'])->name('nilai.akhir.index')->middleware('cek_login:3');
     });
-    Route::prefix('cetak/rapor')->group(function () {
-        Route::post('/listWalas', [CetakRaporController::class, 'listWalas'])->name('cetak.list.walas');
-        Route::get('/listSiswa', [CetakRaporController::class, 'listSiswa'])->name('cetak.list.siswa');
-        Route::get('/kelas', [CetakRaporController::class, 'KelasRapor'])->name('rapor.kelas');
-        Route::get('/siswa', [CetakRaporController::class, 'KelasRaporSiswa'])->middleware('siswa');
-        Route::get('/siswa/cetak/{kode_kelas}/{nis}/{tahun_ajaran_id}', [CetakRaporController::class, 'KelasRaporSiswaCetak'])->middleware('siswa')->name('cetak.index.siswa');
-        Route::get('/{kode_kelas}/{tahun_ajaran_id}', [CetakRaporController::class, 'index'])->name('cetak.rapor.index');
-        Route::get('/siswa/{nis}/cover', [CetakRaporController::class, 'cover'])->name('walas.cover');
-        Route::get('/siswa/{nis}/{tahun_ajaran_id}/biodata', [CetakRaporController::class, 'biodata'])->name('walas.biodata');
-        Route::get('/rapor/{kode_kelas}/{nis}/{tahun_ajaran_id}', [CetakRaporController::class, 'rapor'])->name('walas.rapor');
+    Route::prefix('cetak/rapor/walas')->middleware('auth:web')->group(function () {
+        Route::post('/list', [CetakRaporController::class, 'listWalas'])->name('cetak.list.walas')->middleware('cek_login:3');
+        Route::get('/kelas', [CetakRaporController::class, 'KelasRapor'])->name('rapor.kelas')->middleware('cek_login:3');
+        Route::get('/{kode_kelas}/{tahun_ajaran_id}', [CetakRaporController::class, 'index'])->name('cetak.rapor.index')->middleware('cek_login:3');
+        Route::get('/cover/{nis}', [CetakRaporController::class, 'cover'])->name('walas.cover')->middleware('cek_login:3');
+        Route::get('/biodata/{nis}/{tahun_ajaran_id}', [CetakRaporController::class, 'biodata'])->name('walas.biodata')->middleware('cek_login:3');
+        Route::get('/rapor/{kode_kelas}/{nis}/{tahun_ajaran_id}', [CetakRaporController::class, 'rapor'])->name('walas.rapor')->middleware('cek_login:3');
     });
 });
-Route::middleware(['siswa',])->group(function () {
-    Route::get('/dashboard/siswa', [DashboardController::class, 'siswa'])
-        ->middleware('siswa')
-        ->name('dashboard.siswa');
+
+
+
+
+
+//siswa
+Route::middleware(['auth:siswa',])->group(function () {
+    Route::middleware(['siswa',])->group(function () {
+        Route::get('/dashboard/siswa', [DashboardController::class, 'siswa'])
+            ->middleware('siswa')
+            ->name('dashboard.siswa');
+        Route::get('/profile/siswa', [ProfileController::class, 'showSiswa'])->name('profile.show.siswa')->middleware('siswa');
+        Route::post('/profile/{nis}/update/siswa', [ProfileController::class, 'updateProfileSiswa'])->name('profile.update.siswa')->middleware('siswa');
+        Route::post('/profile/{nis}/account/siswa', [ProfileController::class, 'updateAccountSiswa'])->name('profile.account.siswa')->middleware('siswa');
+        // Rute untuk auth:siswa
+        Route::prefix('cetak/rapor/siswa')->middleware('auth:siswa')->group(function () {
+            Route::get('/kelas', [CetakRaporController::class, 'KelasRaporSiswa'])->name('siswa.kelas')->middleware('siswa');
+            Route::post('/list', [CetakRaporController::class, 'listSiswa'])->name('cetak.list.siswa')->middleware('siswa');
+            Route::get('/cetak/{kode_kelas}/{nis}/{tahun_ajaran_id}', [CetakRaporController::class, 'KelasRaporSiswaCetak'])->name('cetak.index.siswa')->middleware('siswa');
+            Route::get('/cover/{nis}', [CetakRaporController::class, 'cover'])->name('siswa.cover')->middleware('siswa');
+            Route::get('/biodata/{nis}/{tahun_ajaran_id}', [CetakRaporController::class, 'biodata'])->name('siswa.biodata')->middleware('siswa');
+            Route::get('/rapor/{kode_kelas}/{nis}/{tahun_ajaran_id}', [CetakRaporController::class, 'rapor'])->name('siswa.rapor')->middleware('siswa');
+        });
+    });
 });
-
-Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
-});
-Route::get('/profile/siswa', [ProfileController::class, 'showSiswa'])->name('profile.show.siswa');
-Route::post('/profile/{nik}/account', [ProfileController::class, 'updateAccount'])->name('profile.account');
-Route::post('/profile/{nik}/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
-Route::post('/profile/{nis}/update/siswa', [ProfileController::class, 'updateProfileSiswa'])->name('profile.update.siswa');
-Route::post('/profile/{nis}/account/siswa', [ProfileController::class, 'updateAccountSiswa'])->name('profile.account.siswa');
-
-
-//rute cetak rapor
-// Route::prefix('cetak/rapor')->group(function () {
-//     Route::post('/listWalas', [CetakRaporController::class, 'listWalas'])->name('cetak.list.walas');
-//     Route::get('/listSiswa', [CetakRaporController::class, 'listSiswa'])->name('cetak.list.siswa');
-//     Route::get('/kelas', [CetakRaporController::class, 'KelasRapor'])->name('rapor.kelas');
-//     Route::get('/siswa', [CetakRaporController::class, 'KelasRaporSiswa'])->middleware('siswa');
-//     Route::get('/siswa/cetak/{kode_kelas}/{nis}/{tahun_ajaran_id}', [CetakRaporController::class, 'KelasRaporSiswaCetak'])->middleware('siswa')->name('cetak.index.siswa');
-//     Route::get('/{kode_kelas}/{tahun_ajaran_id}', [CetakRaporController::class, 'index'])->name('cetak.rapor.index');
-//     Route::get('/siswa/{nis}/cover', [CetakRaporController::class, 'cover'])->name('walas.cover');
-//     Route::get('/siswa/{nis}/{tahun_ajaran_id}/biodata', [CetakRaporController::class, 'biodata'])->name('walas.biodata');
-//     Route::get('/rapor/{kode_kelas}/{nis}/{tahun_ajaran_id}', [CetakRaporController::class, 'rapor'])->name('walas.rapor');
-// });

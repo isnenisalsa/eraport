@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CapaianModel;
 use App\Models\LingkupMateriModel;
 use App\Models\PembelajaranModel;
+use App\Models\TahunAjarModel;
 use Illuminate\Http\Request;
 
 class CapelController extends Controller
@@ -16,13 +17,14 @@ class CapelController extends Controller
         ];
 
         $activeMenu = 'Data Pembelajaran';
+        $semester = TahunAjarModel::where('id', $tahun_ajaran_id)->pluck('semester')->first();
         $Datacapel = CapaianModel::where('pembelajaran_id', $id_pembelajaran)->where('tahun_ajaran_id', $tahun_ajaran_id)->get();
         $DataLingkup = LingkupMateriModel::where('pembelajaran_id', $id_pembelajaran)->where('tahun_ajaran_id', $tahun_ajaran_id)->get();
         $data = PembelajaranModel::with(['kelas', 'mapel', 'guru'])
             ->where('id_pembelajaran', $id_pembelajaran)
             ->first();
 
-        return view('guru.capel.index', compact('Datacapel', 'data', 'tahun_ajaran_id', 'activeMenu', 'breadcrumb', 'id_pembelajaran', 'DataLingkup'));
+        return view('guru.capel.index', compact('Datacapel', 'data', 'tahun_ajaran_id', 'activeMenu', 'breadcrumb', 'id_pembelajaran', 'DataLingkup', 'semester'));
     }
 
     public function save(Request $request, $id_pembelajaran, $tahun_ajaran_id)

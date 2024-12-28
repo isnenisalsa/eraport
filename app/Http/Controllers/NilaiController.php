@@ -6,6 +6,7 @@ use App\Models\CapaianModel;
 use App\Models\NilaiModel;
 use App\Models\PembelajaranModel;
 use App\Models\SiswaKelasModel;
+use App\Models\TahunAjarModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -19,6 +20,7 @@ class NilaiController extends Controller
         $pembelejaranId = PembelajaranModel::where('id_pembelajaran', $id)->value('nama_kelas');
         $siswa = SiswaKelasModel::where('kelas_id', $pembelejaranId)->get();
         //capel
+        $semester = TahunAjarModel::where('id', $tahun_ajaran_id)->pluck('semester')->first();
         $capel = CapaianModel::where('pembelajaran_id', $id)->where('tahun_ajaran_id', $tahun_ajaran_id)->get();
         // Group Capel by Lingkup Materi
         $groupedCapel = $capel->groupBy(function ($item) {
@@ -41,7 +43,8 @@ class NilaiController extends Controller
             'tahun_ajaran_id' => $tahun_ajaran_id,
             'nilai' => $nilai,
             'siswa' => $siswa,
-            'capel' => $capel
+            'capel' => $capel,
+            'semester' => $semester
         ]);
     }
 
