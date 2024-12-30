@@ -40,8 +40,14 @@
                                 <option value="{{ $kelasitem->kode_kelas }}"
                                     {{ old('nama_kelas') == $kelasitem->kode_kelas ? 'selected' : '' }}>
                                     {{ $kelasitem->nama_kelas }}
+                                    @if ($kelasitem->tahunAjarans->isNotEmpty())
+                                        - {{ $kelasitem->tahunAjarans->first()->tahun_ajaran }}
+                                    @else
+                                        - Tidak ada tahun ajaran
+                                    @endif
                                 </option>
                             @endforeach
+
                         </select>
                         @error('nama_kelas', 'tambahBag')
                             <small class="text-danger">{{ $message }}</small>

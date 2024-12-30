@@ -42,7 +42,8 @@
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped text-center" id="tabel_rapor_walas">
+                            <table class="table table-bordered table-striped text-center table-responsive-xl"
+                                id="tabel_rapor_walas">
                                 <thead class="table-light">
                                     <tr>
                                         <th>No</th>

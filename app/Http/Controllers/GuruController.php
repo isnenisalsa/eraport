@@ -21,7 +21,7 @@ class GuruController extends Controller
         $activeMenu = 'guru';
         $guru = GuruModel::all();
 
-        return view('admin\guru\index', ['breadcrumb' => $breadcrumb, 'guru' => $guru, 'activeMenu' => $activeMenu]);
+        return view('admin.guru.index', ['breadcrumb' => $breadcrumb, 'guru' => $guru, 'activeMenu' => $activeMenu]);
     }
     public function list()
     {

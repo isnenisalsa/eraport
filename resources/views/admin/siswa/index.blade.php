@@ -158,7 +158,7 @@
                                 <td>{{ $item->alamat_wali }}</td>
                             </tr>
                             <tr>
-                                <th>Email</th>
+                                <th>Email Siswa</th>
                                 <td>{{ $item->email }}</td>
                             </tr>
                         </table>

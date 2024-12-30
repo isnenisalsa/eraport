@@ -76,7 +76,7 @@
         });
         $(document).ready(function() {
             $('#eskul_id').select2({
-                placeholder: "Pilih Siswa",
+                placeholder: "Pilih Ekstrakurikuler",
                 dropdownParent: $('#modal-tambah-data-eskul'),
                 language: {
                     noResults: function() {

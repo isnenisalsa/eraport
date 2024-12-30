@@ -16,6 +16,11 @@
                             <th scope="col">{{ $kelas->guru->nama ?? 'Tidak Ditemukan' }}</th>
                             <!-- Langsung akses nama guru -->
                         </tr>
+                        <tr>
+                            <th scope="col">Semester</th>
+                            <th scope="col">:</th>
+                            <th scope="col">{{ $semester }}</th>
+                        </tr>
                     </thead>
                 </table>
             </div>
@@ -46,7 +51,7 @@
                                         <td class="text-center">{{ $item->siswa->nis }}</td>
                                         <td>{{ $item->siswa->nama }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('walas.cover', $item->siswa->nis) }}"
+                                            <a href="{{ route('walas.cover', ['nis' => $item->siswa->nis]) }}"
                                                 class="btn btn-danger btn-sm me-2" title="Cover"
                                                 style="margin-bottom: 5px">
                                                 <i class="fas fa-file-alt"> Cover</i>

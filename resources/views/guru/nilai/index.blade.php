@@ -52,7 +52,7 @@
                     <div id="edit-error-message" class="alert alert-danger" style="display: none;">
                         Anda tidak bisa mengedit
                     </div>
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
                         <form action="{{ route('update.nilai') }}" method="POST">
                             @csrf
                             <input type="hidden" name="pembelajaran_id" value="{{ $id }}">
@@ -113,7 +113,6 @@
                                                     <input type="hidden"
                                                         name="siswa[{{ $index }}][capel][{{ $capelIndex }}][id]"
                                                         value="{{ $capelItem->id }}" style="width: 80px">
-
                                                     @error("siswa.{$index}.capel.{$capelIndex}.nilai")
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -192,3 +191,45 @@
         </div>
     </div>
 @endsection
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.querySelector("form");
+        const inputs = form.querySelectorAll("input[type='text']");
+
+        inputs.forEach(input => {
+            input.addEventListener("input", function() {
+                const row = this.closest("tr");
+                const capelInputs = row.querySelectorAll(
+                    "input[name*='[capel]'][name*='[nilai]']");
+                const utsInput = row.querySelector("input[name*='[uts]']");
+                const uasInput = row.querySelector("input[name*='[uas]']");
+                const rataRataCapelField = row.querySelector(
+                    "input[name*='[rata_rata_capel]']");
+                const rataRataUTSUASField = row.querySelector(
+                    "input[name*='[rata_rata_uts_uas]']");
+                const nilaiRaporField = row.querySelector("input[name*='[nilai_rapor]']");
+
+                // Menghitung rata-rata capel
+                let totalCapel = 0;
+                let countCapel = 0;
+                capelInputs.forEach(capelInput => {
+                    const nilai = parseFloat(capelInput.value) || 0;
+                    totalCapel += nilai;
+                    countCapel++;
+                });
+                const rataRataCapel = countCapel > 0 ? totalCapel / countCapel : 0;
+                rataRataCapelField.value = rataRataCapel.toFixed(2);
+
+                // Menghitung rata-rata UTS dan UAS
+                const utsNilai = parseFloat(utsInput.value) || 0;
+                const uasNilai = parseFloat(uasInput.value) || 0;
+                const rataRataUTSUAS = (utsNilai + uasNilai) / 2;
+                rataRataUTSUASField.value = rataRataUTSUAS.toFixed(2);
+
+                // Menghitung nilai rapor
+                const nilaiRapor = Math.round((rataRataCapel + rataRataUTSUAS) / 2);
+                nilaiRaporField.value = nilaiRapor;
+            });
+        });
+    });
+</script>

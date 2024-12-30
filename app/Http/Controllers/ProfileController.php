@@ -84,12 +84,15 @@ class ProfileController extends Controller
                 'min:8',
                 'regex:/[A-Z]/', // Harus ada setidaknya satu huruf besar
                 'regex:/[a-z]/', // Harus ada setidaknya satu huruf kecil
+                'confirmed',
             ],
+            'password_confirmation' => 'same:password',
             'email' => 'required|email',
         ], [
             'password.required' => 'Password tidak boleh kosong.',
             'password.min' => 'Password minimal 8 karakter.',
             'password.regex' => 'Password harus mengandung huruf besar dan huruf kecil.',
+            'password_confirmation.confirmed' => 'Password tidak cocok'
         ]);
 
 

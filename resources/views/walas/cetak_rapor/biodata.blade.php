@@ -201,6 +201,10 @@
                 <td>Nomor Telepon Wali</td>
                 <td>: {{ $siswa->no_telp_wali }}</td>
             </tr>
+            <tr>
+                <td>Nomor Telepon Wali</td>
+                <td>: {{ $siswa->alamat_wali }}</td>
+            </tr>
         </table>
     </div>
 

@@ -19,7 +19,19 @@
 
             <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{ route('profile.show') }}">Profile</a>
+                <!-- Dropdown untuk user yang terautentikasi -->
+                @auth
+                    <!-- Jika menggunakan guard 'web' -->
+                    @if (Auth::guard('web')->check())
+                        <a class="dropdown-item" href="{{ route('profile.show') }}">Profile</a>
+                    @endif
+
+                    <!-- Jika menggunakan guard 'siswa' -->
+                    @if (Auth::guard('siswa')->check())
+                        <a class="dropdown-item" href="{{ route('profile.show.siswa') }}">Profile</a>
+                    @endif
+                @endauth
+
                 <a class="dropdown-item" data-toggle="modal" data-target="#modal-logout">Logout</a>
             </div>
 

@@ -11,7 +11,8 @@
                         </button>
                     </div>
                     <div class="card-body">
-                        <table class="table table-bordered table-striped text-center" id="pembelajaranTable">
+                        <table class="table table-bordered table-striped text-center table-responsive-xl"
+                            id="pembelajaranTable">
                             <thead>
                                 <tr>
                                     <th>No</th>

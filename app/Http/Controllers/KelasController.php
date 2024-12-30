@@ -218,7 +218,7 @@ class KelasController extends Controller
                     }
 
                     foreach ($request->tahun_ajaran_id as $tahunAjaranId) {
-                        $existingClass = KelasModel::where('nama_kelas', $value)
+                        $existingClass = KelasModel::where('nama_kelas', strtoupper($value))
                             ->whereHas('tahunAjarans', function ($query) use ($tahunAjaranId) {
                                 $query->where('tahun_ajaran.id', $tahunAjaranId);
                             })
@@ -230,7 +230,6 @@ class KelasController extends Controller
                         }
                     }
                 }
-
             ],
             'guru_nik' => 'required|exists:guru,nik',
             'tahun_ajaran_id' => 'required|array',
@@ -259,7 +258,7 @@ class KelasController extends Controller
         // Buat entri baru di tabel kelas
         $kelas = KelasModel::create([
             'kode_kelas' => $kodeKelas,
-            'nama_kelas' => $request->nama_kelas,
+            'nama_kelas' => strtoupper($request->nama_kelas),
             'guru_nik' => $request->guru_nik,
         ]);
 
@@ -285,6 +284,7 @@ class KelasController extends Controller
         // Redirect ke halaman kelas dengan pesan sukses
         return redirect()->route('kelas')->with('success', 'Data Kelas berhasil disimpan.');
     }
+
 
 
 

@@ -17,6 +17,11 @@
                             <th scope="col">{{ $kelas->guru->nama ?? 'Tidak Ditemukan' }}</th>
                             <!-- Langsung akses nama guru -->
                         </tr>
+                        <tr>
+                            <th scope="col">Semester</th>
+                            <th scope="col">:</th>
+                            <th scope="col">{{ $semester }}</th>
+                        </tr>
                     </thead>
                 </table>
             </div>

@@ -90,37 +90,39 @@
                 </div>
             </div>
         </div>
+        @if (auth()->check() && auth()->user()->roles->contains('nama', 'admin'))
+            <!-- School Data and Looker Dashboard -->
+            <div class="row">
+                <!-- Left Column: School Data -->
+                <div class="col-md-6">
+                    <div class="card text-white bg-white h-auto">
+                        <div class="card-body p-2">
+                            <h5 class="text-center">{{ $sekolah->nama ?? '-' }}</h5>
+                            <p><strong>NPSN:</strong> {{ $sekolah->npsn ?? '-' }}</p>
+                            <p><strong>NSS:</strong> {{ $sekolah->nss ?? '-' }}</p>
+                            <p><strong>Alamat:</strong> {{ $sekolah->alamat ?? '-' }}</p>
+                            <p><strong>Desa:</strong> {{ $sekolah->desa ?? '-' }}</p>
+                            <p><strong>Kecamatan:</strong> {{ $sekolah->kecamatan ?? '-' }}</p>
+                            <p><strong>Kabupaten:</strong> {{ $sekolah->kabupaten ?? '-' }}</p>
+                            <p><strong>Provinsi:</strong> {{ $sekolah->provinsi ?? '-' }}</p>
+                            <p><strong>Nama Kepala Sekolah:</strong> {{ $sekolah->nama_kepsek ?? '-' }}</p>
+                            <p><strong>NIP Kepala Sekolah:</strong> {{ $sekolah->nip_kepsek ?? '-' }}</p>
+                        </div>
 
-        <!-- School Data and Looker Dashboard -->
-        <div class="row">
-            <!-- Left Column: School Data -->
-            <div class="col-md-6">
-                <div class="card text-white bg-gradient-green h-auto">
-                    <div class="card-body p-2">
-                        <h5>{{ $sekolah->nama ?? '-' }}</h5>
-                        <p><strong>NPSN:</strong> {{ $sekolah->npsn ?? '-' }}</p>
-                        <p><strong>NSS:</strong> {{ $sekolah->nss ?? '-' }}</p>
-                        <p><strong>Alamat:</strong> {{ $sekolah->alamat ?? '-' }}</p>
-                        <p><strong>Desa:</strong> {{ $sekolah->desa ?? '-' }}</p>
-                        <p><strong>Kecamatan:</strong> {{ $sekolah->kecamatan ?? '-' }}</p>
-                        <p><strong>Kabupaten:</strong> {{ $sekolah->kabupaten ?? '-' }}</p>
-                        <p><strong>Provinsi:</strong> {{ $sekolah->provinsi ?? '-' }}</p>
-                        <p><strong>Nama Kepala Sekolah:</strong> {{ $sekolah->nama_kepsek ?? '-' }}</p>
-                        <p><strong>NIP Kepala Sekolah:</strong> {{ $sekolah->nip_kepsek ?? '-' }}</p>
                     </div>
-
                 </div>
-            </div>
 
-            <!-- Right Column: Looker Dashboard -->
-            <div class="col-md-6">
-                <div class="looker">
-                    <iframe width="600" height="450"
-                        src="https://lookerstudio.google.com/embed/reporting/b622b982-aa91-4a8d-b0f2-657e1e7e09d3/page/pbMaE"
-                        frameborder="0" style="border:0" allowfullscreen
-                        sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+                <!-- Right Column: Looker Dashboard -->
+                <div class="col-md-6">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed embed-responsive-item"
+                            src="https://lookerstudio.google.com/embed/reporting/b622b982-aa91-4a8d-b0f2-657e1e7e09d3/page/pbMaE"
+                            frameborder="0" style="border:0" allowfullscreen
+                            sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+                    </div>
                 </div>
+
             </div>
-        </div>
+        @endif
     </div>
 @endsection

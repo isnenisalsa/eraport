@@ -28,7 +28,9 @@ class NilaiController extends Controller
         });
 
 
-        $nilai = NilaiModel::where('pembelajaran_id', $id)->get();
+        $nilai = NilaiModel::where('pembelajaran_id', $id)
+            ->where('tahun_ajaran_id', $tahun_ajaran_id)
+            ->get();
         $breadcrumb = (object)[
             'title' => 'KELOLA NILAI',
         ];

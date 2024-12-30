@@ -192,11 +192,11 @@ Route::middleware(['auth:web',])->group(function () {
     Route::prefix('walas/nilai/akhir')->group(function () {
         Route::get('/{kode_kelas}/{tahun_ajaran_id}', [NilaiAkhirController::class, 'index'])->name('nilai.akhir.index')->middleware('cek_login:3');
     });
-    Route::prefix('cetak/rapor/walas')->middleware('auth:web')->group(function () {
+    Route::prefix('cetak/rapor/walas')->group(function () {
         Route::post('/list', [CetakRaporController::class, 'listWalas'])->name('cetak.list.walas')->middleware('cek_login:3');
         Route::get('/kelas', [CetakRaporController::class, 'KelasRapor'])->name('rapor.kelas')->middleware('cek_login:3');
         Route::get('/{kode_kelas}/{tahun_ajaran_id}', [CetakRaporController::class, 'index'])->name('cetak.rapor.index')->middleware('cek_login:3');
-        Route::get('/cover/{nis}', [CetakRaporController::class, 'cover'])->name('walas.cover')->middleware('cek_login:3');
+        Route::get('/siswa/{nis}/cover', [CetakRaporController::class, 'cover'])->name('walas.cover')->middleware('cek_login:3');
         Route::get('/biodata/{nis}/{tahun_ajaran_id}', [CetakRaporController::class, 'biodata'])->name('walas.biodata')->middleware('cek_login:3');
         Route::get('/rapor/{kode_kelas}/{nis}/{tahun_ajaran_id}', [CetakRaporController::class, 'rapor'])->name('walas.rapor')->middleware('cek_login:3');
     });
@@ -216,7 +216,7 @@ Route::middleware(['auth:siswa',])->group(function () {
         Route::post('/profile/{nis}/update/siswa', [ProfileController::class, 'updateProfileSiswa'])->name('profile.update.siswa')->middleware('siswa');
         Route::post('/profile/{nis}/account/siswa', [ProfileController::class, 'updateAccountSiswa'])->name('profile.account.siswa')->middleware('siswa');
         // Rute untuk auth:siswa
-        Route::prefix('cetak/rapor/siswa')->middleware('auth:siswa')->group(function () {
+        Route::prefix('cetak/rapor/siswa')->group(function () {
             Route::get('/kelas', [CetakRaporController::class, 'KelasRaporSiswa'])->name('siswa.kelas')->middleware('siswa');
             Route::post('/list', [CetakRaporController::class, 'listSiswa'])->name('cetak.list.siswa')->middleware('siswa');
             Route::get('/cetak/{kode_kelas}/{nis}/{tahun_ajaran_id}', [CetakRaporController::class, 'KelasRaporSiswaCetak'])->name('cetak.index.siswa')->middleware('siswa');

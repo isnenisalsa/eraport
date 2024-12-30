@@ -40,6 +40,7 @@ class SiswaImport implements ToModel, WithValidation, WithHeadingRow, SkipsEmpty
             'pekerjaan_ibu' => $row['pekerjaan_ibu'],
             'no_telp_ibu' => $row['no_telp_ibu'],
             'nama_wali' => $row['nama_wali'],
+            'alamat_wali' => $row['alamat_wali'],
             'no_telp_wali' => $row['no_telp_wali'],
             'pekerjaan_wali' => $row['pekerjaan_wali'],
             'agama' => $row['agama'],

@@ -16,6 +16,11 @@
                             <th scope="col">:</th>
                             <th scope="col">{{ $kelas->first()->guru->nama }}</th>
                         </tr>
+                        <tr>
+                            <th scope="col">Semester</th>
+                            <th scope="col">:</th>
+                            <th scope="col">{{ $semester }}</th>
+                        </tr>
                     </thead>
                 </table>
             </div>

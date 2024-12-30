@@ -115,11 +115,12 @@ class CetakRaporController extends Controller
         $activeMenu = 'Cetak Rapor';
         // Ambil data kelas berdasarkan kode_kelas
         $kelas = KelasModel::with(['guru'])->where('kode_kelas', $kode_kelas)->firstOrFail();
+        $semester = TahunAjarModel::where('id', $tahun_ajaran_id)->pluck('semester')->first();
         // Ambil semua siswa yang terdaftar di kelas ini
         $siswa = SiswaKelasModel::with('siswa')
             ->where('kelas_id', $kode_kelas)
             ->get();
-        return view('walas.cetak_rapor.cetak', compact('breadcrumb', 'kelas', 'siswa', 'kode_kelas', 'activeMenu', 'tahun_ajaran_id'));
+        return view('walas.cetak_rapor.cetak', compact('breadcrumb', 'kelas', 'siswa', 'kode_kelas', 'activeMenu', 'tahun_ajaran_id', 'semester'));
     }
 
     public function cover($nis)

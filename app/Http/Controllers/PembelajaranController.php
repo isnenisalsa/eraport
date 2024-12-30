@@ -29,7 +29,7 @@ class PembelajaranController extends Controller
 
         // Mengambil data mapel, kelas, dan guru
         $mapel = MapelModel::all();
-        $kelas = KelasModel::all();
+        $kelas = KelasModel::with('tahunAjarans')->get();
         $guru = GuruModel::all();
 
         return view('admin.pembelajaran.index', [

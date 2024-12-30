@@ -113,14 +113,6 @@
                                 <div class="text-danger">{{ $errors->first('alamat') }}</div>
                             @endif
                         </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="text" class="form-control" value="{{ $siswa->email }} " id="email"
-                                placeholder="Inputkan Email" name="email">
-                            @if ($errors->has('email'))
-                                <div class="text-danger">{{ $errors->first('email') }}</div>
-                            @endif
-                        </div>
                         <div class="mb-2">
                             <label for="jalan" class="form-label">Alamat Orang Tua</label>
                         </div>
@@ -263,6 +255,14 @@
                                 placeholder="Inputkan Nomor Telepon Wali" name="alamat_wali">
                             @if ($errors->has('alamat_wali'))
                                 <div class="text-danger">{{ $errors->first('alamat_wali') }}</div>
+                            @endif
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Siswa</label>
+                            <input type="text" class="form-control" value="{{ $siswa->email }} " id="email"
+                                placeholder="Inputkan Email" name="email">
+                            @if ($errors->has('email'))
+                                <div class="text-danger">{{ $errors->first('email') }}</div>
                             @endif
                         </div>
                     </div>

@@ -17,6 +17,7 @@ class EskulController extends Controller
 {
     public function index()
     {
+
         $breadcrumb = (object) [
             'title' => 'Daftar Eskul',
         ];
@@ -202,6 +203,7 @@ class EskulController extends Controller
             'title' => 'Nilai Ekstrakurikuler',
         ];
         $activeMenu = 'Ekstrakurikuler';
+        $semester = TahunAjarModel::where('id', $tahun_ajaran_id)->first();
         $kelas = KelasModel::where('kode_kelas', $kode_kelas)->first();
         $siswa_kelas = SiswaKelasModel::with('siswa')->where('kelas_id', $kode_kelas)->get();
         $eskul = EskulModel::all();
@@ -209,7 +211,7 @@ class EskulController extends Controller
             $query->where('kelas_id', $kode_kelas);
         })
             ->get();;
-        return view('walas.ekstrakulikuler.nilai', ['breadcrumb' => $breadcrumb, 'kode_kelas' => $kode_kelas, 'kelas' => $kelas, 'eskul' => $eskul, 'eskuldata' => $eskuldata, 'siswa_kelas' => $siswa_kelas, 'activeMenu' => $activeMenu, 'tahun_ajaran_id' => $tahun_ajaran_id]);
+        return view('walas.ekstrakulikuler.nilai', ['breadcrumb' => $breadcrumb, 'kode_kelas' => $kode_kelas, 'kelas' => $kelas, 'eskul' => $eskul, 'eskuldata' => $eskuldata, 'siswa_kelas' => $siswa_kelas, 'activeMenu' => $activeMenu, 'tahun_ajaran_id' => $tahun_ajaran_id, 'semester' => $semester]);
     }
     public function SaveNilai(Request $request, $tahun_ajaran_id)
     {
@@ -224,7 +226,8 @@ class EskulController extends Controller
             'siswa_id' => $request->siswa_id,
             'eskul_id' => $request->eskul_id,
             'keterangan' => $request->keterangan,
-            'tahun_ajaran_id' => $tahun_ajaran_id
+            'tahun_ajaran_id' => $tahun_ajaran_id,
+
         ]);
 
         return redirect()->back()->with('success', 'Nilai Ekstrakurikuler berhasil disimpan.');

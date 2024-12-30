@@ -125,7 +125,7 @@ class AbsensiController extends Controller
 
         // Ambil data kelas berdasarkan kode_kelas
         $kelas = KelasModel::where('kode_kelas', $id)->firstOrFail();
-
+        $semester = TahunAjarModel::where('id', $tahun_ajaran_id)->pluck('semester')->first();
         // Ambil siswa yang memiliki data absensi pada tahun ajaran tertentu
         $siswa = SiswaKelasModel::with(['siswa', 'absensi' => function ($query) use ($tahun_ajaran_id) {
             $query->where('tahun_ajaran_id', $tahun_ajaran_id);
@@ -133,7 +133,7 @@ class AbsensiController extends Controller
             ->where('kelas_id', $id)
             ->get();
 
-        return view('walas.absensi.absensi', compact('breadcrumb', 'kelas', 'siswa', 'activeMenu', 'tahun_ajaran_id'));
+        return view('walas.absensi.absensi', compact('breadcrumb', 'kelas', 'siswa', 'activeMenu', 'tahun_ajaran_id', 'semester'));
     }
 
 

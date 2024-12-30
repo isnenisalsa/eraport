@@ -232,7 +232,7 @@
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
+                            <label for="email" class="form-label">Email Siswa</label>
                             <input type="text" class="form-control" id="email" placeholder="Inputkan Email"
                                 name="email" value="{{ old('email') }}">
                             @if ($errors->has('email'))

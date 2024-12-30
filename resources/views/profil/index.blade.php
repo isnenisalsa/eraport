@@ -104,7 +104,8 @@
                                 <div class="tab-pane fade {{ request('tab') == 'edit-akun' ? 'show active' : '' }}"
                                     id="edit-akun">
                                     <h5 class="text-center mb-4">Form Edit Akun</h5>
-                                    <form action="{{ route('profile.account', $user->nik) }}" method="POST">
+                                    <form id="passwordForm" action="{{ route('profile.account', $user->nik) }}"
+                                        method="POST">
                                         @csrf
                                         <div class="row">
                                             <div class="col-md-6">
@@ -144,33 +145,82 @@
                                                     Password</label>
                                                 <input type="password" id="password_confirmation"
                                                     name="password_confirmation" class="form-control">
-                                                @if ($errors->has('password_confirmation'))
-                                                    <div class="text-danger">{{ $errors->first('password_confirmation') }}
-                                                    </div>
-                                                @endif
+                                                <div id="password_confirmation_feedback" class="invalid-feedback">
+                                                    Password Baru dan Konfirmasi Password Tidak Cocok.
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <script>
-                                            document.addEventListener('DOMContentLoaded', function() {
-                                                const passwordInput = document.getElementById('password');
-                                                const passwordConfirmationInput = document.getElementById('password_confirmation');
-
-                                                passwordConfirmationInput.addEventListener('input', function() {
-                                                    const password = passwordInput.value;
-                                                    const confirmation = passwordConfirmationInput.value;
-
-                                                    if (password !== confirmation) {
-                                                        passwordConfirmationInput.setCustomValidity(
-                                                            'Password Baru dan Konfirmasi Password Tidak Cocok.');
-                                                    } else {
-                                                        passwordConfirmationInput.setCustomValidity('');
-                                                    }
-                                                });
-                                            });
-                                        </script>
                                         <button type="submit" class="btn btn-success w-100 mt-3">Simpan Akun</button>
                                     </form>
+
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', function() {
+                                            const passwordInput = document.getElementById('password');
+                                            const passwordConfirmationInput = document.getElementById('password_confirmation');
+                                            const feedbackElement = document.getElementById('password_confirmation_feedback');
+                                            const passwordForm = document.getElementById('passwordForm');
+
+                                            function validatePasswords() {
+                                                const password = passwordInput.value;
+                                                const confirmation = passwordConfirmationInput.value;
+
+                                                // Validasi case-sensitive
+                                                if (password !== confirmation) {
+                                                    // Tambahkan kelas `is-invalid` untuk menandai input bermasalah
+                                                    passwordConfirmationInput.classList.add('is-invalid');
+                                                    feedbackElement.style.display = 'block'; // Tampilkan pesan kesalahan
+                                                    return false;
+                                                } else {
+                                                    // Hapus kelas `is-invalid` jika cocok
+                                                    passwordConfirmationInput.classList.remove('is-invalid');
+                                                    feedbackElement.style.display = 'none'; // Sembunyikan pesan kesalahan
+                                                    return true;
+                                                }
+                                            }
+
+                                            // Tambahkan event listener untuk input perubahan
+                                            passwordConfirmationInput.addEventListener('input', validatePasswords);
+
+                                            // Validasi saat formulir dikirimkan
+                                            passwordForm.addEventListener('submit', function(e) {
+                                                let isValid = true;
+                                                if (!validatePasswords()) {
+                                                    isValid = false; // Menandai form sebagai tidak valid
+                                                }
+
+                                                // Menampilkan pesan error dari server
+                                                const inputs = passwordForm.querySelectorAll('input');
+                                                inputs.forEach(function(input) {
+                                                    if (input.classList.contains('is-invalid') || input.value === '') {
+                                                        const errorMessage = input.nextElementSibling;
+                                                        if (errorMessage && errorMessage.classList.contains('text-danger')) {
+                                                            errorMessage.style.display = 'block';
+                                                        }
+                                                    }
+                                                });
+
+                                                if (!isValid) {
+                                                    e.preventDefault(); // Batalkan pengiriman formulir jika tidak valid
+                                                }
+                                            });
+
+                                            // Toggle Visibility untuk Password
+                                            const togglePassword = document.getElementById('toggle-password');
+                                            if (togglePassword) {
+                                                const eyeIcon = togglePassword.querySelector('i');
+                                                togglePassword.addEventListener('click', function() {
+                                                    const isPasswordVisible = passwordInput.type === 'password';
+                                                    passwordInput.type = isPasswordVisible ? 'text' : 'password';
+
+                                                    // Update ikon
+                                                    eyeIcon.classList.toggle('fa-eye');
+                                                    eyeIcon.classList.toggle('fa-eye-slash');
+                                                });
+                                            }
+                                        });
+                                    </script>
+
                                 </div>
                             </div>
 
@@ -180,46 +230,4 @@
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            function activateTabFromHash() {
-                const hash = window.location.hash;
-                if (hash) {
-                    const tabLink = document.querySelector(`.nav-link[href="${hash}"]`);
-                    if (tabLink) {
-                        $(tabLink).tab('show'); // Gunakan Bootstrap 4.6 API
-                    }
-                }
-            }
-
-            // Tampilkan tab sesuai hash URL saat halaman dimuat
-            activateTabFromHash();
-
-            // Perbarui hash URL ketika tab diklik
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function() {
-                    const newHash = this.getAttribute('href');
-                    history.replaceState(null, '', newHash);
-                });
-            });
-
-            // Dengarkan perubahan hash URL
-            window.addEventListener('hashchange', activateTabFromHash);
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-            const passwordInput = document.getElementById('password');
-            const togglePassword = document.getElementById('toggle-password');
-            const eyeIcon = togglePassword.querySelector('i');
-
-            togglePassword.addEventListener('click', function() {
-                // Toggle password visibility
-                const isPasswordVisible = passwordInput.type === 'password';
-                passwordInput.type = isPasswordVisible ? 'text' : 'password';
-
-                // Update icon
-                eyeIcon.classList.toggle('fa-eye');
-                eyeIcon.classList.toggle('fa-eye-slash');
-            });
-        });
-    </script>
 @endsection

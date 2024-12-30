@@ -96,7 +96,7 @@
         @include('layouts.header')
         <aside class="main-sidebar sidebar-light-light elevation-4" style="background-color: #25D366;">
             <p class="brand-link" style="text-align: center; background-color: #FFFCF7;height: 68px;">
-                <img src="{{ asset('image/Logo.png') }}" alt="adminlte Logo" class="brand-image"
+                <img src="{{ asset('image/logo.png') }}" alt="adminlte Logo" class="brand-image"
                     style="margin-left: 4%">
                 <span class="brand-text font-weight-light" style="color: rgb(14, 13, 13); font: bold"> SMP IT SIRAJUL
                     HUDA </span>

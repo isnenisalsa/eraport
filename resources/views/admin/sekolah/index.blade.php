@@ -13,8 +13,7 @@
                     <label for="nama" class="col-md-3 col-form-label text-left">Nama Sekolah</label>
                     <div class="col-md-9">
                         <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror"
-                            name="nama" value="{{ old('nama', $sekolah->nama ?? '') }}"  autocomplete="nama"
-                            autofocus>
+                            name="nama" value="{{ old('nama', $sekolah->nama ?? '') }}" autocomplete="nama" autofocus>
                         @error('nama')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -145,7 +144,8 @@
                     <div class="col-md-9">
                         <input id="nip_kepsek" type="text"
                             class="form-control @error('nip_kepsek') is-invalid @enderror" name="nip_kepsek"
-                            value="{{ old('nip_kepsek', $sekolah->nip_kepsek ?? '') }}" autocomplete="nip_kepsek">
+                            value="{{ old('nip_kepsek', $sekolah->nip_kepsek ?? '') }}" autocomplete="nip_kepsek"
+                            maxlength="18">
                         @error('nip_kepsek')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
