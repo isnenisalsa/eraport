@@ -73,6 +73,23 @@
         .page-break-last {
             page-break-before: auto;
         }
+
+        .text-justify-custom {
+            text-align: justify;
+            /* Rata kanan-kiri */
+            text-align-last: center;
+            /* Baris terakhir rata tengah */
+            word-spacing: -0.5px;
+            /* Kurangi jarak antar kata */
+            letter-spacing: 0px;
+            /* Pertahankan jarak antar huruf */
+            line-height: 1.5;
+            /* Tinggi baris untuk keterbacaan */
+            max-width: 90%;
+            /* Batasi lebar konten */
+            margin: 0 auto;
+            /* Pusatkan konten */
+        }
     </style>
     <h1>LAPORAN HASIL BELAJAR</h1>
     <h2>(RAPOR)</h2>
@@ -91,7 +108,7 @@
         </tr>
         <tr>
             <td>Sekolah</td>
-            <td>: {{ $sekolah->nama }}</td>
+            <td>: {{ $sekolah->nama ?? '-' }}</td>
             <td>Semester</td>
             <td>
                 :
@@ -107,7 +124,7 @@
         </tr>
         <tr>
             <td>Alamat</td>
-            <td>: {{ $sekolah->alamat }}</td>
+            <td>: {{ $sekolah->alamat ?? '-' }}</td>
             <td>Tahun Pelajaran</td>
             <td>: {{ $semester->tahun_ajaran }}</td>
         </tr>
@@ -126,11 +143,11 @@
                 </tr>
             </thead>
             <tbody>
-                @php $no = 1 @endphp
+                @php $no = 1; @endphp
                 @foreach ($pembelajaran as $item)
                     <tr>
                         <td class="text-center">{{ $no++ }}</td>
-                        <td class="text-center">{{ $item->mapel->mata_pelajaran }}</td>
+                        <td>{{ $item->mapel->mata_pelajaran }}</td>
                         <td class="text-center">
                             @php
                                 $nilai_rapor = optional(
@@ -139,7 +156,7 @@
                             @endphp
                             {{ $nilai_rapor ?? 'Tidak Ada Nilai' }}
                         </td>
-                        <td class="text-center">
+                        <td class="text-center text-justify-custom">
                             @php
                                 $all_nilai = collect();
                                 foreach ($nilai as $n) {
@@ -170,14 +187,17 @@
                                 }
                             @endphp
 
-                            Menunjukkan pemahaman dalam {{ $nama_capaian_tertinggi }}
-                            <br>
-                            membutuhkan bimbingan dalam {{ $nama_capaian_terendah }}
+                            <p class="text-center text-justify-custom">Menunjukkan pemahaman dalam
+                                {{ $nama_capaian_tertinggi }}</p>
+                            <p class="text-center text-justify-custom">Membutuhkan bimbingan dalam
+                                {{ $nama_capaian_terendah }}</p>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
+
         </table>
+
     </div>
 
     <div class="page-break"></div> <!-- Page Break Here -->
@@ -298,9 +318,9 @@
         <br>Mengetahui,
         <br>Kepala SMPS IT Sirajul Huda
         <br><br><br><br><br><br>
-        <span>{{ $sekolah->nama_kepsek }}</span>
+        <span>{{ $sekolah->nama_kepsek ?? '-' }}</span>
         <br>
-        NIP. <span>{{ $sekolah->nip_kepsek }}</span>
+        NIP. <span>{{ $sekolah->nip_kepsek ?? '-' }}</span>
     </div>
 </body>
 

@@ -11,18 +11,20 @@ use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithSkipDuplicates;
-use Maatwebsite\Excel\Concerns\WithValidation;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class SiswaImport implements ToModel, WithValidation, WithHeadingRow, SkipsEmptyRows
+class SiswaImport implements ToModel, WithHeadingRow, SkipsEmptyRows
 {
     use Importable;
     public function model(array $row)
     {
-
         $username = strtolower(str_replace(' ', '_', $row['nama']));
         $password = Hash::make(strtolower(str_replace(' ', '_', $row['tempat_lahir'])));
-        return new SiswaModel([
 
+        // Cek apakah tanggal_lahir ada dan tidak kosong
+        $tanggalLahir = !empty($row['tanggal_lahir']) ? Date::excelToDateTimeObject($row['tanggal_lahir'])->format('Y-m-d') : null;
+
+        return new SiswaModel([
             'nis' => $row['nis'],
             'nisn' => $row['nisn'],
             'email' => $row['email'],
@@ -31,7 +33,7 @@ class SiswaImport implements ToModel, WithValidation, WithHeadingRow, SkipsEmpty
             'jenis_kelamin' => $row['jenis_kelamin'],
             'pendidikan_terakhir' => $row['pendidikan_terakhir'],
             'tempat_lahir' => $row['tempat_lahir'],
-            'tanggal_lahir' =>  $row['tanggal_lahir'],
+            'tanggal_lahir' => $tanggalLahir, // Menggunakan nilai yang sudah diproses
             'alamat' => $row['alamat'],
             'nama_ayah' => $row['nama_ayah'],
             'no_telp_ayah' => $row['no_telp_ayah'],
@@ -46,26 +48,11 @@ class SiswaImport implements ToModel, WithValidation, WithHeadingRow, SkipsEmpty
             'agama' => $row['agama'],
             'kota' => $row['kota'],
             'provinsi' => $row['provinsi'],
-            'pendidikan_terakhir' => $row['pendidikan_terakhir'],
-            'pekerjaan_wali' => $row['pekerjaan_wali'],
             'jalan' => $row['jalan'],
             'kelurahan' => $row['kelurahan'],
             'kecamatan' => $row['kecamatan'],
             'username' => $username,
             'password' => $password,
-
-
         ]);
-    }
-    public function rules(): array
-    {
-        return [
-            'nis' => 'required|unique:siswa|digits:6',
-            'nisn' => 'required|digits:10',
-            'nama_wali' => 'nullable',
-            'no_telp_wali' => 'nullable',
-            'pekerjaan_wali' => 'nullable'
-
-        ];
     }
 }

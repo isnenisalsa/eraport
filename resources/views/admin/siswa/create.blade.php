@@ -15,7 +15,7 @@
                                 NIS <span class="required" style="color: red">*</span>
                             </label>
                             <input type="text" class="form-control" id="nis" placeholder="Inputkan NIS"
-                                name="nis" value="{{ old('nis') }}" maxlength="6">
+                                name="nis" value="{{ old('nis') }}">
                             @if ($errors->has('nis'))
                                 <div class="text-danger">{{ $errors->first('nis') }}</div>
                             @endif
@@ -25,7 +25,7 @@
                                 NISN <span class="required" style="color: red">*</span>
                             </label>
                             <input type="text" class="form-control" id="nisn" placeholder="Inputkan NISN"
-                                name="nisn" value="{{ old('nisn') }}" maxlength="10">
+                                name="nisn" value="{{ old('nisn') }}">
                             @if ($errors->has('nisn'))
                                 <div class="text-danger">{{ $errors->first('nisn') }}</div>
                             @endif

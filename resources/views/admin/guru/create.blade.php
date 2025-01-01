@@ -22,10 +22,10 @@
 
                         <div class="mb-3">
                             <label for="nip" class="form-label">
-                                NIP <span class="required" style="color: red">*</span>
+                                NIP 
                             </label>
                             <input type="text" class="form-control" id="nip" placeholder="Inputkan NIP Anda"
-                                name="nip" value="{{ old('nip') }}" maxlength="18">
+                                name="nip" value="{{ old('nip') }}" >
                             @if ($errors->has('nip'))
                                 <div class="text-danger">{{ $errors->first('nip') }}</div>
                             @endif

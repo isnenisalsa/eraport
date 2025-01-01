@@ -11,15 +11,16 @@ use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class GuruImport implements ToModel, WithValidation, WithHeadingRow, SkipsEmptyRows
+class GuruImport implements ToModel, WithHeadingRow, SkipsEmptyRows
 {
     use Importable;
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @param array $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
     public function model(array $row)
     {
         $username = strtolower(str_replace(' ', '_', $row['nama']));
@@ -33,7 +34,7 @@ class GuruImport implements ToModel, WithValidation, WithHeadingRow, SkipsEmptyR
             'jenis_kelamin' => $row['jenis_kelamin'],
             'pendidikan_terakhir' => $row['pendidikan_terakhir'],
             'tempat_lahir' => $row['tempat_lahir'],
-            'tanggal_lahir' =>  $row['tanggal_lahir'],
+            'tanggal_lahir' => Date::excelToDateTimeObject($row['tanggal_lahir'])->format('Y-m-d'),
             'alamat' => $row['alamat'],
             'nama_ibu' => $row['nama_ibu'],
             'agama' => $row['agama'],
@@ -46,14 +47,5 @@ class GuruImport implements ToModel, WithValidation, WithHeadingRow, SkipsEmptyR
 
 
         ]);
-        
-    }
-    public function rules(): array
-    {
-        return [
-            'nik' => 'required|unique:guru|digits:16|numeric',
-            'nip' => 'required|digits:10|numeric'
-
-        ];
     }
 }

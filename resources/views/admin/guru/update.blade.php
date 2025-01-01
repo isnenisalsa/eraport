@@ -31,17 +31,17 @@
                                 NIK <span class="required" style="color: red">*</span>
                             </label>
                             <input type="text" class="form-control" id="nik" placeholder="Inputkan NIK Anda"
-                                name="nik" value="{{ $guru->nik }}" maxlength="16" readonly>
+                                name="nik" value="{{ $guru->nik }}" maxlength="16">
                             @if ($errors->has('nik'))
                                 <div class="text-danger">{{ $errors->first('nik') }}</div>
                             @endif
                         </div>
                         <div class="mb-3">
                             <label for="nip" class="form-label">
-                                NIP <span class="required" style="color: red">*</span>
+                                NIP 
                             </label>
                             <input type="text" class="form-control" id="nip" placeholder="Inputkan NIP Anda"
-                                name="nip" value="{{ $guru->nip }}" maxlength="18">
+                                name="nip" value="{{ $guru->nip }}">
                             @if ($errors->has('nip'))
                                 <div class="text-danger">{{ $errors->first('nip') }}</div>
                             @endif

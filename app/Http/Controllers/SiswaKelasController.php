@@ -66,7 +66,7 @@ class SiswaKelasController extends Controller
 
         foreach ($request->siswa_id as $siswa_id) {
             SiswaKelasModel::create([
-                'siswa_id' => (int) $siswa_id, // Konversi ke INT jika diperlukan
+                'siswa_id' => $siswa_id, // Konversi ke INT jika diperlukan
                 'kelas_id' => $kelas,
             ]);
         }

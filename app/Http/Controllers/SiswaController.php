@@ -54,7 +54,7 @@ class SiswaController extends Controller
     public function save(Request $request)
     {
         $request->validate([
-            'nis' => 'required|numeric|digits:6|unique:siswa,nis',
+            'nis' => 'required|numeric|unique:siswa,nis',
             'nisn' => 'required|regex:/^[0-9\-]+$/',
             'status' => 'nullable',
             'nama' => 'required',
@@ -84,7 +84,6 @@ class SiswaController extends Controller
         ], [
             'nis.required' => 'NIS tidak boleh kosong',
             'nis.numeric' => 'NIS harus berupa angka',
-            'nis.digits' => 'NIS harus berisi 6 angka',
             'nis.unique' => 'NIS tidak boleh sama',
             'nisn.required' => 'NISN tidak boleh kosong, jika siswa tidak memiliki NISN isi dengan (-)',
             'nisn.regex' => 'NISN harus berupa angka',
@@ -160,7 +159,7 @@ class SiswaController extends Controller
     {
         // Validasi input
         $request->validate([
-            'nis' => 'required|numeric|digits:6',
+            'nis' => 'required|numeric',
             'nisn' => 'required|regex:/^[0-9\-]+$/',
             'status' => 'required|string',
             'nama' => 'required|string|max:255',
@@ -190,7 +189,6 @@ class SiswaController extends Controller
         ], [
             'nis.required' => 'NIS tidak boleh kosong',
             'nis.numeric' => 'NIS harus berupa angka',
-            'nis.digits' => 'NIS harus berisi 6 angka',
             'nis.unique' => 'NIS tidak boleh sama',
             'nisn.required' => 'NISN tidak boleh kosong, jika siswa tidak memiliki NISN isi dengan (-)',
             'nisn.regex' => 'NISN harus berupa angka',

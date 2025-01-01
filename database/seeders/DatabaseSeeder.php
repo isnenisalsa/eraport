@@ -15,15 +15,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        RolesModel::create([
-            'nama' => 'admin',
-        ]);
-        RolesModel::create([
-            'nama' => 'guru',
-        ]);
-        RolesModel::create([
-            'nama' => 'walas',
-        ]);
+        // RolesModel::create([
+        //     'nama' => 'admin',
+        // ]);
+        // RolesModel::create([
+        //     'nama' => 'guru',
+        // ]);
+        // RolesModel::create([
+        //     'nama' => 'walas',
+        // ]);
         GuruModel::create([
             'nik' => '1234567890123457',
             'nip' => '12345671',
@@ -43,6 +43,5 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
 
         ]);
-
     }
 }

@@ -48,7 +48,7 @@ class GuruController extends Controller
         $request->validate([
             'nik' => 'required|numeric|digits:16|unique:guru,nik',
             'nama' => 'required',
-            'nip' => 'required|regex:/^[0-9\-]+$/',
+            'nip' => 'nullable|regex:/^[0-9\-]+$/',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
             'jenis_kelamin' => 'required',
@@ -67,7 +67,6 @@ class GuruController extends Controller
             'nik.numeric' => 'NIK harus berupa angka',
             'nik.digits' => 'NIK harus  16 angka',
             'nik.unique' => 'NIK tidak boleh sama',
-            'nip.required' => 'NIP tidak boleh kosong',
             'nip.regex' => 'NIP harus berupa angka',
             'alamat.required' => 'Alamat tidak boleh kosong',
             'no_telp.numeric' => 'Nomer telepon harus berupa angka',
@@ -135,7 +134,7 @@ class GuruController extends Controller
         // Validasi input
         $request->validate([
             'nik' => 'required|numeric|digits:16',
-            'nip' => 'required|regex:/^[0-9\-]+$/',
+            'nip' => 'nullable|regex:/^[0-9\-]+$/',
             'status_perkawinan' => 'required',
             'status' => 'required',
             'nama' => 'required|string|max:255',
@@ -154,7 +153,6 @@ class GuruController extends Controller
             'nik.required' => 'NIK tidak boleh kosong',
             'nik.numeric' => 'NIK harus berupa angka',
             'nik.digits' => 'NIK harus  16 angka',
-            'nip.required' => 'NIP tidak boleh kosong',
             'nip.digits' => 'NIP harus  18 angka',
             'nip.regex' => 'NIP harus berupa angka',
             'status_perkawinan.required' => 'Status perkawinan tidak boleh kosong',

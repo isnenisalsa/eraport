@@ -30,7 +30,7 @@
                         <div class="mb-3">
                             <label for="nis" class="form-label">NIS</label>
                             <input type="text" class="form-control" id="nis" placeholder="Inputkan nis Anda"
-                                name="nis" value="{{ old('nis', $siswa->nis) }} " maxlength="6" readonly>
+                                name="nis" value="{{ old('nis', $siswa->nis) }} " readonly>
                             @if ($errors->has('nis'))
                                 <div class="text-danger">{{ $errors->first('nis') }}</div>
                             @endif
@@ -38,7 +38,7 @@
                         <div class="mb-3">
                             <label for="nisn" class="form-label">NISN</label>
                             <input type="text" class="form-control" id="nisn" placeholder="Inputkan nisn Anda"
-                                name="nisn" value="{{ old('nisn', $siswa->nisn) }} " maxlength="10">
+                                name="nisn" value="{{ old('nisn', $siswa->nisn) }} ">
                             @if ($errors->has('nisn'))
                                 <div class="text-danger">{{ $errors->first('nisn') }}</div>
                             @endif
