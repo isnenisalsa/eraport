@@ -161,7 +161,7 @@ class CetakRaporController extends Controller
     public function rapor($kode_kelas, $nis, $tahun_ajaran_id)
     {
         $siswa = SiswaModel::where('nis', $nis)->first();
-        $kelas = KelasModel::with('guru')->get();
+        $kelas = KelasModel::with('guru')->get()->where('kode_kelas', $kode_kelas);
         $sekolah = SekolahModel::firstOrFail();
         $semester = TahunAjarModel::where('id', $tahun_ajaran_id)->first();
         // Ambil data absensi siswa, jika tidak ada tampilkan '-'
@@ -243,7 +243,7 @@ class CetakRaporController extends Controller
             'semester' => $semester
         ]);
         // // Unduh PDF
-        return $pdf->download($nis  . '_' . $siswa->nama . '_rapor' . '.pdf');
+        return $pdf->stream($nis  . '_' . $siswa->nama . '_rapor' . '.pdf');
     }
 
 
