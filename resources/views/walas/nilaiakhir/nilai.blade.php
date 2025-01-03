@@ -28,8 +28,8 @@
     </div>
 
     <div class="container">
-        <div class="card shadow">
-            <div class="card-body">
+        <div class="card shadow table-responsive-xl">
+            <div class="card-body table-responsive-xl">
                 <h5 class="text-center">Nilai Rapor Siswa</h5>
                 <table class="table table-striped table-bordered mt-3 table-responsive-xl">
                     <thead>

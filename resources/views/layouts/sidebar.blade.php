@@ -53,7 +53,7 @@
                             <a href="{{ url('absensi/kelas/') }}"
                                 class="nav-link {{ $activeMenu == 'Data Absensi' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-calendar-check" style="color: rgb(3, 3, 3)"></i>
-                                <p style="color: rgb(10, 10, 10)">Absensi Siswa</p>
+                                <p style="color: rgb(10, 10, 10)"> Rekap Absensi Siswa</p>
                             </a>
                         </li>
                         <li class="nav-item">

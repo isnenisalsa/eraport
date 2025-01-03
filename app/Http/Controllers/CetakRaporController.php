@@ -243,7 +243,7 @@ class CetakRaporController extends Controller
             'semester' => $semester
         ]);
         // // Unduh PDF
-        return $pdf->stream($nis  . '_' . $siswa->nama . '_rapor' . '.pdf');
+        return $pdf->download($nis  . '_' . $siswa->nama . '_rapor' . '.pdf');
     }
 
 

@@ -4,6 +4,20 @@
         <div class="row justify-content-center">
             <div class="col">
                 <div class="card">
+                    @if (session()->has('failures'))
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach (session('failures') as $failure)
+                                    <li>
+                                        Baris {{ $failure->row() }}:
+                                        @foreach ($failure->errors() as $error)
+                                            {{ $error }}
+                                        @endforeach
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <div class="card-header">
                         <a href="{{ route('create-guru') }}" class="btn btn-success btn-sm float-left">+ Tambah Data Guru</a>
                         <button type="button" class="btn btn-success btn-sm float-right" data-toggle="modal"

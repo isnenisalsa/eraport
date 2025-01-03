@@ -24,7 +24,16 @@ class ImportExportController extends Controller
     }
     public function importGuru(Request $request)
     {
-        Excel::import(new GuruImport, $request->file('file'));
-        return redirect()->back()->with('success', 'Data siswa berhasil diimport');
+        try {
+            $import = new GuruImport();
+            Excel::import($import, $request->file('file'));
+
+            // Jika berhasil
+            return back()->with('success', 'Data Guru berhasil diimpor!');
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+
+            return back()->with('failures', $failures);
+        }
     }
 }
